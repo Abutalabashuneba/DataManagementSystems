@@ -1,0 +1,62 @@
+/*---------------------------------------------------------------------
+clear all margin and padding by default
+---------------------------------------------------------------------*/
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*---------------------------------------------------------------------
+nav bar styling
+---------------------------------------------------------------------*/
+ul{
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    background: rgb(62, 179, 130);
+}
+
+li{
+    float: left;
+}
+
+li:hover{
+    background: burlywood;
+}
+
+li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: large;
+}
+
+li a:hover{
+    background: burlywood;
+    text-decoration: none;
+}
+
+li.logout_btn{
+    float: right;
+}
+
+/*---------------------------------------------------------------------
+Login page
+---------------------------------------------------------------------*/
+h3{
+    margin-top: 40px;
+}
+
+.login_container{
+    margin-top: 5%;
+}
+
+input{
+    margin-bottom: 22px;
+}
