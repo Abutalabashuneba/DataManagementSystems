@@ -11,42 +11,6 @@ body{
 }
 
 /*---------------------------------------------------------------------
-nav bar styling
----------------------------------------------------------------------
-ul{
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-    overflow: hidden;
-    background: rgb(62, 179, 130);
-}
-
-li{
-    float: left;
-}
-
-li:hover{
-    background: burlywood;
-}
-
-li a{
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: large;
-}
-
-li a:hover{
-    background: burlywood;
-    text-decoration: none;
-}
-
-li.logout_btn{
-    float: right;
-}*/
-
-/*---------------------------------------------------------------------
 Login page
 ---------------------------------------------------------------------*/
 h3{
