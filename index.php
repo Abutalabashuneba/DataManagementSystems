@@ -11,7 +11,7 @@
 </head> 
 
 <body ng-app="DMS" ng-controller="MainController">
-
+	<header>
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid nav_container">
 				<div class="navbar-header">
@@ -19,16 +19,17 @@
 				</div>
 
 				<ul class="nav navbar-nav my_nav">
-					<li class="active"><a href="index.html">Home</li></a></li>
-					<li><a href="sensors.html">Sensors</a></li>
-					<li><a href="dataVisualization.html">Data Visualization</a></li>
+					<li class="active"><a href="index.php">Home</li></a></li>
+					<li><a href="sensors.php">Sensors</a></li>
+					<li><a href="dataVisualization.php">Data Visualization</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right my_nav">
-					<li class="logout_btn"><a href="login.html">Logout</a></li>
+					<li class="logout_btn"><a href="login.php">Logout</a></li>
 				</ul>
 			</div>
 		</nav>
+	</header>
 
 	<div class="container">
 		<div class="table-responsive">
