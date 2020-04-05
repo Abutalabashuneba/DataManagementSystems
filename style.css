@@ -1,16 +1,72 @@
 /*---------------------------------------------------------------------
-clear all margin and padding by default
+Claering default margin & padding
 ---------------------------------------------------------------------*/
 *{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
-body{
+html, body{
+    height: 100%;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.body_container{
+    min-height: 100%;
+}
+
+.main{
+    overflow: auto;
+    padding-bottom: 100px;
+}
+
 /*---------------------------------------------------------------------
+Footer Styling
+---------------------------------------------------------------------*/
+.footer{
+    background-color: rgb(31,31,31);
+    position: relative;
+    height: 100px;
+    margin-top: -100px;
+    clear: both;
+    color: grey;
+    padding-top: 5px;
+}
+
+/*---------------------------------------------------------------------
+Company Brand
+---------------------------------------------------------------------*/
+.img_brand{
+    background-image: url("http://satoyamafarm.com.my/wp-content/uploads/2019/06/Satoyama-Website-Output_HeaderFooter-01.png");
+    display: block;
+    width: 100px;
+    height: 70px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/*---------------------------------------------------------------------
+Sensors Styling
+---------------------------------------------------------------------*/
+.my_sensors{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.my_sensors figure{
+    margin: auto;
+    width:200px;
+}
+
+.my_sensors figure img{
+    border: 1px solid black;
+    border-radius: 50%;
+    box-shadow: gray 0 0 10px;
+    width: 200px;
+ }
+
+ /*---------------------------------------------------------------------
 Login page
 ---------------------------------------------------------------------*/
 .form_container h2{
@@ -28,37 +84,4 @@ Login page
 
 .login_body{
     background-color: ivory;
-}
-
-/*---------------------------------------------------------------------
-Nav Bar styling
----------------------------------------------------------------------*/
-.nav_container{
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-.img_brand{
-    background-image: url("http://satoyamafarm.com.my/wp-content/uploads/2019/06/Satoyama-Website-Output_HeaderFooter-01.png");
-    display: block;
-    width: 140px;
-    height: 70px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    text-align: center;
-
-}
-
-.my_nav li a{
-    display: block;
-    height: 70px;
-    padding: 25px;
-}
-
-@media screen and (max-width: 768px){
-    .my_nav li a{
-        height: 1vh;
-        padding: 3vh;
-    }
 }

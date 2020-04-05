@@ -13,15 +13,15 @@
 <body>
 <header>
 		<nav class="navbar navbar-inverse">
-			<div class="container-fluid nav_container">
+			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand img_brand" href="http://satoyamafarm.com.my/" target="_blank"></a>
 				</div>
 
 				<ul class="nav navbar-nav my_nav">
-					<li class="active"><a href="index.php">Home</li></a></li>
+					<li><a href="index.php">Home</li></a></li>
 					<li><a href="sensors.php">Sensors</a></li>
-					<li><a href="dataVisualization.php">Data Visualization</a></li>
+					<li class="active"><a href="dataVisualization.php">Data Visualization</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right my_nav">
