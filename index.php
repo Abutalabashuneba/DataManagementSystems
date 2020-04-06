@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet" />  
-    <title>Document</title>
-</head>
+<?php
+    session_start();
+
+    if(!isset($_SESSION["username"])){
+        header("Location:login.php");
+    }
+?>
+
+<?php
+    require "header.php";
+?>
+
 <body>
     <div class="body_container">
         <div class="main">
@@ -17,13 +20,24 @@
                     </div>
     
                     <ul class="nav navbar-nav my_nav">
-                        <li class="active"><a href="index.html">Home</li></a></li>
-                        <li><a href="sensors.html">Sensors</a></li>
-                        <li><a href="dataVisualization.html">Data Visualization</a></li>
+                        <li class="active"><a href="index.php">Home</li></a></li>
+                        <li><a href="sensors.php">Sensors</a></li>
+                        <li><a href="dataVisualization.php">Data Visualization</a></li>
                     </ul>
     
                     <ul class="nav navbar-nav navbar-right my_nav">
-                        <li class="logout_btn"><a href="login.php">Logout</a></li>
+                        <li><a href="signup.php">SignUp</a></li>
+                        <li><a href="#myModal" data-toggle="modal">Logout</a></li>
+
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="model-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <p>Yes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </ul>
                 </div>
             </nav>
@@ -54,10 +68,9 @@
         </div>
     </div>
 
-<footer class="footer text-center">
-    <h2><em>Disclaimer</em></h2>
-    <h4 class="text-warning">This website is built for education purpose only</h4>
-</footer>
+<?php
+    require "footer.php";
+?>
 
     <script src="js/jquery.min.js"></script> 
     <script src="js/bootstrap.min.js"></script> 

@@ -11,8 +11,8 @@
             </div>    
 
             <div class="col-md-4 col-sm-6 col-xs-10">
-                <form action="include/loginprocess.php" class="form_container" method="POST">
-                    <h2 class="text-center">Login</h2>
+                <form action="include/signupprocess.php" class="form_container" method="POST">
+                    <h2 class="text-center">Sign Up</h2>
 
                     <div class="form-group">
                         <label for="uname">Username:</label><br/>
@@ -25,20 +25,12 @@
                     </div>
 
                     <div class="form-group">
-                       <span>I'm: </span>
-                        <label for="admin">
-                            <input type="radio" name="accountType" id="admin" required value="Admin">
-                            Admin
-                        </label>
-                
-                        <label for="user">
-                            <input type="radio" name="accountType" id="user" required value="User">
-                            User
-                        </label>
+                        <label for="accountType">AccountType</label><br/>
+                            <input type="text" name="accountType" id="accountType" class="form-control" required>
                     </div>
                     
-                    <button type="submit" name="login" class="btn btn-primary btn-block">
-                        Login
+                    <button type="submit" name="signup" class="btn btn-primary btn-block">
+                        Sign Up
                     </button>
                 </form>
             </div>
