@@ -27,18 +27,19 @@ if(isset($_POST["login"])){
             $typeCheck = $row['type'] == $accType;
 
             if($pwdCheck == false){
-                header("Location:../login.php?error=wrongpass");
+                header("Location:../login.php?error=wrongPass");
                 exit();
             }
             else if($pwdCheck == true && $typeCheck == true){
                 session_start();
                 $_SESSION["user"] = $row["username"];
+                $_SESSION["type"] = $row["type"];
 
                 header("Location:../index.php?login=success");
                 exit();
             }
             else{
-                header("Location:../login.php?error=wrongpass");
+                header("Location:../login.php?error=wrongType");
                 exit();
             }
         }

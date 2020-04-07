@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if(!isset($_SESSION["username"])){
+    if(!isset($_SESSION["user"])){
         header("Location:login.php");
     }
 ?>
@@ -26,8 +26,13 @@
                     </ul>
     
                     <ul class="nav navbar-nav navbar-right my_nav">
-                        <li><a href="signup.php">SignUp</a></li>
-                        <li><a href="#myModal" data-toggle="modal">Logout</a></li>
+                        <?php 
+                            if($_SESSION["type"] == "Admin"){
+                                echo "<li><a href='signup.php'>SignUp</a></li>";
+                            }
+                        ?>
+                        <li><a href="include/logoutprocess.php">Logout</a></li>
+                        <!--<li><a href="#myModal" data-toggle="modal">Logout</a></li>
 
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="model-dialog">
@@ -37,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </ul>
                 </div>
             </nav>

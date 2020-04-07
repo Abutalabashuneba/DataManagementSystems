@@ -10,7 +10,7 @@ if(isset($_POST[signup])){
     $stmt = mysqli_stmt_init($conn);
 
     if(!mysqli_stmt_prepare($stmt,$query)){
-        header("Location: ../signup.php?error=sqlerror1");
+        header("Location: ../signup.php?error=sqlerror");
         exit();
     }
 
@@ -30,7 +30,7 @@ if(isset($_POST[signup])){
             $stmt = mysqli_stmt_init($conn);
 
             if(!mysqli_stmt_prepare($stmt,$query)){
-                header("Location: ../signup.php?error=sqlerror2");
+                header("Location: ../signup.php?error=sqlerror");
                 exit();
             }
             else{

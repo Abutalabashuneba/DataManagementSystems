@@ -25,13 +25,49 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="accountType">AccountType</label><br/>
-                            <input type="text" name="accountType" id="accountType" class="form-control" required>
+                       <span>I'm: </span>
+                        <label for="admin">
+                            <input type="radio" name="accountType" id="admin" required value="Admin">
+                            Admin
+                        </label>
+                
+                        <label for="user">
+                            <input type="radio" name="accountType" id="user" required value="User">
+                            User
+                        </label>
                     </div>
                     
                     <button type="submit" name="signup" class="btn btn-primary btn-block">
                         Sign Up
                     </button>
+
+                    <div class="text-center text-danger">
+                        <?php 
+                            if(isset($_GET["error"])){
+                                 if($_GET["error"] == "userTaken"){
+                                     echo "<p>Username existed. Please choose other username!</p>";
+                                 }
+
+                                 else{
+                                     echo "<p>SQL error!</p>";
+                                 }
+                            }
+                        ?>
+                    </div>
+
+                    <div class="text-center text-success">
+                        <?php 
+                            if(isset($_GET["signup"])){
+                                 if($_GET["signup"] == "success"){
+                                     echo "<p>Account successfully created!</p>";
+                                 }
+                            }
+                        ?>
+                    </div>
+
+                    <div class="text-primary text-center">
+                            <p style="position:relative;top:60px;"><a href="login.php">Back to login</a></p>
+                    </div>
                 </form>
             </div>
         </div>

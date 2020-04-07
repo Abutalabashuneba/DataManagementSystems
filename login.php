@@ -40,6 +40,22 @@
                     <button type="submit" name="login" class="btn btn-primary btn-block">
                         Login
                     </button>
+
+                    <div class="text-center text-danger">
+                        <?php 
+                            if(isset($_GET["error"])){
+                                 if($_GET["error"] == "noUserFound"){
+                                     echo "<p>No user found!</p>";
+                                 }
+                                 else if($_GET["error"] == "wrongType"){
+                                    echo "<p>Wrong account type!</p>";
+                                 }
+                                 else{
+                                     echo "<p>Wrong password!</p>";
+                                 }
+                            }
+                        ?>
+                    </div>
                 </form>
             </div>
         </div>
