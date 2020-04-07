@@ -4,6 +4,7 @@
 if(isset($_POST[signup])){
     $username = $_POST["uname"];
     $password = $_POST["pwd"];
+    $pwdConfirm = $_POST["pwdCon"];
     $accType = $_POST["accountType"];
 
     $query = "SELECT username FROM test WHERE username=?;";
@@ -25,6 +26,11 @@ if(isset($_POST[signup])){
             exit();
         }
 
+        else if($pwdConfirm != $password){
+            header("Location: ../signup.php?error=passNotMatch");
+            exit();
+        }
+
         else{
             $query = "INSERT INTO test (username, password, type) VALUES (?,?,?)";
             $stmt = mysqli_stmt_init($conn);
@@ -38,7 +44,7 @@ if(isset($_POST[signup])){
 
                 mysqli_stmt_bind_param($stmt, "sss", $username, $hashpw, $accType);
                 mysqli_stmt_execute($stmt);
-                header("Location: ../signup.php?signup=success");
+                header("Location: ../index.php?signup=success");
                 exit();
             }
         }

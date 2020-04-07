@@ -78,10 +78,16 @@ Login page
     border: 1px solid #000;
     padding: 100px 80px;
     margin-top: 10vh;
-    box-shadow: 5px 10px 8px 5px #e7dfdf;
+    box-shadow: 3px 5px 8px 2px #414443;
     border-radius: 5px;
 }
 
 .login_body{
-    background-color: ivory;
+    background-image: url("https://herdsy.com/wp-content/uploads/2019/05/5-largest-farms-in-the-world.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login_form{
+    background-color: rgba(255, 255, 255, 0.5);
 }

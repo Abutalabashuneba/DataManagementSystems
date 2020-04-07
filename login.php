@@ -4,15 +4,13 @@
 
 <body class="login_body">
     <div class="container-fluid">
-        <h1 class="text-center">Data Management System</h1>
-
         <div class="row">
             <div class="col-md-4 col-sm-3 col-xs-1">
             </div>    
 
             <div class="col-md-4 col-sm-6 col-xs-10">
-                <form action="include/loginprocess.php" class="form_container" method="POST">
-                    <h2 class="text-center">Login</h2>
+                <form action="include/loginprocess.php" class="form_container login_form" method="POST">
+                    <h2 class="text-center">Account Login</h2>
 
                     <div class="form-group">
                         <label for="uname">Username:</label><br/>
@@ -45,13 +43,13 @@
                         <?php 
                             if(isset($_GET["error"])){
                                  if($_GET["error"] == "noUserFound"){
-                                     echo "<p>No user found!</p>";
+                                     echo "<p><strong>No user found!</strong></p>";
                                  }
                                  else if($_GET["error"] == "wrongType"){
-                                    echo "<p>Wrong account type!</p>";
+                                    echo "<p><strong>Wrong account type!</strong></p>";
                                  }
                                  else{
-                                     echo "<p>Wrong password!</p>";
+                                     echo "<p><strong>Wrong password!</strong></p>";
                                  }
                             }
                         ?>

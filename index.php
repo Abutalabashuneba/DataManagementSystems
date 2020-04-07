@@ -13,7 +13,7 @@
 <body>
     <div class="body_container">
         <div class="main">
-            <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse">
                 <div class="container-fluid nav_container">
                     <div class="navbar-header">
                         <a class="navbar-brand img_brand" href="http://satoyamafarm.com.my/" target="_blank"></a>
@@ -73,9 +73,7 @@
         </div>
     </div>
 
-<?php
-    require "footer.php";
-?>
+
 
     <script src="js/jquery.min.js"></script> 
     <script src="js/bootstrap.min.js"></script> 
