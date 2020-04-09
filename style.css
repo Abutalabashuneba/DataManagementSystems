@@ -9,6 +9,7 @@ Claering default margin & padding
 html, body{
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 .body_container{
@@ -86,8 +87,61 @@ Login page
     background-image: url("https://herdsy.com/wp-content/uploads/2019/05/5-largest-farms-in-the-world.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .login_form{
     background-color: rgba(255, 255, 255, 0.5);
 }
+
+/*---------------------------------------------------------------------
+Side Nav Styling
+---------------------------------------------------------------------*/
+.sideNav{
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .9));
+}
+  
+.bottom-border {
+    border-bottom: 1px groove #eee;
+}
+
+.sideNavLink:hover {
+    background-color: #444;
+    border-radius: 5px;
+}
+  
+.current {
+    background-color: #f44336;
+    border-radius: 7px;
+    box-shadow: 2px 5px 10px #111;
+}
+
+@media (max-width: 768px) {
+  .sideNav {
+    position: static;
+    height: auto;
+  }
+
+  .topNav {
+    position: static;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
