@@ -4,7 +4,7 @@
     require "header.php";
 ?>
 
-<body>
+<body class="myBody">
     <nav class="navbar navbar-expand-md navbar-light">  
         <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNav">
             <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,7 @@
                         <a href="index.php" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border">DMS</a>
 
                         <div class="bottom-border pb-3">
-                            <img src="dht11.jpg" alt="" width="50" class="rounded-circle mr-3">
+                            <img src="satoyama.jpg" alt="" width="50" class="rounded-circle mr-3">
                             <span class="text-white"><?php echo $_SESSION["user"] ?></span>
                         </div>
 
@@ -36,7 +36,7 @@
                     <div class="col-lg-10 col-md-9 ml-auto bg-dark fixed-top py-2 topNav">
                         <div class="row align-items-center">
                             <div class="col-md-4">
-                                <h4 class="text-light text-uppercase mb-0">Dashboard</h4>
+                                <h4 class="text-light text-uppercase mb-0">Visualization</h4>
                             </div>
 
                             <div class="col-md-5">
