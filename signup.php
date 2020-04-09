@@ -1,4 +1,10 @@
 <?php
+    session_start();
+
+    if(!isset($_SESSION["user"])){
+        header("Location:login.php?redirect=1");
+    }
+
     require "header.php";
 ?>
 
