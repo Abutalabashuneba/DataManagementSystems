@@ -32,10 +32,10 @@
                         </div>
 
                         <ul class="navbar-nav flex-column mt-4">
-                            <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 text-white"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 current text-white"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                             <li class="nav-item"><a href="data.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-table"></i> Data</a></li>
                             <li class="nav-item"><a href="sensors.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-toggle-on"></i> Sensor</a></li>
-                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 current sideNavLink text-white"><i class="fas fa-chart-bar"></i> Visualization</a></li>
+                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 sideNavLink text-white"><i class="fas fa-chart-bar"></i> Visualization</a></li>
                             <!--Allow user to register if user type is Admin-->
                             <?php
                                 if($_SESSION["type"] == "Admin"){
@@ -50,7 +50,7 @@
                     <div class="col-lg-10 col-md-9 ml-auto bg-dark fixed-top py-2 topNav">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="text-light text-uppercase mb-0">Data Visualization</h4>
+                                <h4 class="text-light text-uppercase mb-0">Dashboard</h4>
                             </div>
 
                             <!--Seach field-->
@@ -104,25 +104,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10 col-md-9 ml-auto">
-                    <div class="row pt-5 mt-3 mb-5">
+                    <div class="row mt-5 pl-3">
+                        <h1>BSF</h1>
+                    </div>
+                    <div class="row pt-3 mb-5">
                         <div class="col-sm-6 p-2">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Chicken Production</h4>
+                                    <h4>Temperature</h4>
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="myChart" ></canvas>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 p-2">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Chicken Production</h4>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="myChart2" ></canvas>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -133,12 +125,52 @@
                                     <h4>Humidity</h4>
                                 </div>
                                 <div class="card-body">
-                                    <canvas id="myChart3" ></canvas>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 p-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Moisture</h4>
+                                </div>
+                                <div class="card-body">
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 p-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>pH Value</h4>
+                                </div>
+                                <div class="card-body">
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 col-md-9 ml-auto">
+                    <div class="row pt-5 mt-3 mb-5">
+                        <div class="col-sm-12 p-2">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item"><a class="page-link" href="index.php">Chicken</a></li>
+                                    <li class="page-item active"><a class="page-link" href="index2.php">BSF</a></li>
+                                </ul>
+                            </nav>
+                        
+                        </div>
+                    </div>
+                     
+                </div>
+            
             </div>
         </div>
     </section>
@@ -152,149 +184,11 @@
     <!--Source from :https://github.com/chartjs/Chart.js/releases/tag/v2.9.3-->
     <script src="js/Chart.js"></script> 
 
-    <script type="text/javascript">
-         jQuery(function ($) {
-        var data1 = [32, 31, 30, 29, 30, 33, 35, 40, 42, 42, 42];
-            
-        $("#chart1").shieldChart({
-            exportOptions: {
-                image: false,
-                print: false
-            },
-            axisY: {
-                title: {
-                    text: "Break-Down for selected quarter"
-                }
-            },
-            dataSeries: [{
-                seriesType: "line",
-                data: data1
-            }]
-        });
-
-        
-    });
-    </script>
-
-
-    <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            datasets: [{
-                label: '# of Votes',
-                data: [2, 4, 5, 5, 10, 3, 11],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    </script>
-
-    <script>
-    var ctx2 = document.getElementById('myChart2').getContext('2d');
-    var myChart = new Chart(ctx2, {
-        type: 'line',
-        data: {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            datasets: [{
-                label: '# of Votes',
-                data: [2, 4, 5, 5, 10, 3, 11],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    </script>
-
-<script>
-    var ctx3 = document.getElementById('myChart3').getContext('2d');
-    var myChart = new Chart(ctx3, {
-        type: 'line',
-        data: {
-            labels: ['11A.M.', '12P.M.', '1P.M.', '2P.M.', '3P.M', '4P.M', '5P.M'],
-            datasets: [{
-                label: 'Humidity (%)',
-                data: [60, 61, 66, 63, 62, 63, 63],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    </script>
 </body>
 </html>
+
+
+
+
+
+

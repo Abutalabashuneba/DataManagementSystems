@@ -32,9 +32,10 @@
                         </div>
 
                         <ul class="navbar-nav flex-column mt-4">
-                            <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 sideNavLink text-white">Dashboard</a></li>
-                            <li class="nav-item"><a href="sensors.php" class="nav-link p-3 mb-2 text-white current">Sensor</a></li>
-                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 sideNavLink text-white">Visualization</a></li>
+                            <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 text-white"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li class="nav-item"><a href="data.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-table"></i> Data</a></li>
+                            <li class="nav-item"><a href="sensors.php" class="nav-link p-3 mb-2 current text-white sideNavLink"><i class="fas fa-toggle-on"></i> Sensor</a></li>
+                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 sideNavLink text-white"><i class="fas fa-chart-bar"></i> Visualization</a></li>
                             <!--Allow user to register if user type is Admin-->
                             <?php
                                 if($_SESSION["type"] == "Admin"){
@@ -49,7 +50,7 @@
                     <div class="col-lg-10 col-md-9 ml-auto bg-dark fixed-top py-2 topNav">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="text-light text-uppercase mb-0">Dashboard</h4>
+                                <h4 class="text-light text-uppercase mb-0">Sensors</h4>
                             </div>
 
                             <!--Seach field-->
@@ -84,6 +85,9 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Confirm Logout?</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body text-left">
+                    Are you sure you want to logout?
                 </div>
                 <div class="modal-footer">
                     <form action="include/logoutprocess.php">

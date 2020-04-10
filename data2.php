@@ -33,8 +33,8 @@
                         </div>
 
                         <ul class="navbar-nav flex-column mt-4">
-                            <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 current text-white"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                            <li class="nav-item"><a href="data.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-table"></i> Data</a></li>
+                            <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 text-white"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                            <li class="nav-item"><a href="data.php" class="nav-link p-3 mb-2 text-white current sideNavLink"><i class="fas fa-table"></i> Data</a></li>
                             <li class="nav-item"><a href="sensors.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-toggle-on"></i> Sensor</a></li>
                             <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 sideNavLink text-white"><i class="fas fa-chart-bar"></i> Visualization</a></li>
                             <!--Allow user to register if user type is Admin-->
@@ -51,7 +51,7 @@
                     <div class="col-lg-10 col-md-9 ml-auto bg-dark fixed-top py-2 topNav">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="text-light text-uppercase mb-0">Dashboard</h4>
+                                <h4 class="text-light text-uppercase mb-0">Data</h4>
                             </div>
 
                             <!--Seach field-->
@@ -105,51 +105,31 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-10 col-md-9 ml-auto">
-                    <div class="row mt-5 pl-3">
-                        <h1>Chicken</h1>
-                    </div>
-                    <div class="row pt-3 mb-5">
-                        <div class="col-sm-6 p-2">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4><i class="fas fa-temperature-low"></i> Temperature</h4>
-                                </div>
-                                <div class="card-body">               
-                                    <div class="circle"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 p-2">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Humidity</h4>
-                                </div>
-                                <div class="card-body">
+                    <div class="row pt-5 mt-3 mb-5">
+                        <div class="table-responsive"> 
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Temperature</th>
+                                            <th>Humidity</th>
+                                            <th>Moisture</th>
+                                            <th>pH value</th>
+                                        </tr>
+                                    </thead>
                                     
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 p-2">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Moisture</h4>
-                                </div>
-                                <div class="card-body">
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 p-2">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>pH Value</h4>
-                                </div>
-                                <div class="card-body">
-                                    
-                                </div>
+                                    <tbody>
+                                        <tr>
+                                            <td>02/04/2020</td>
+                                            <td>9:00a.m.</td>
+                                            <td>34°C</td>
+                                            <td>72%</td>
+                                            <td>Dry</td>
+                                            <td>6.5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -162,8 +142,8 @@
                         <div class="col-sm-12 p-2">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
-                                    <li class="page-item active"><a class="page-link" href="index.php">Chicken</a></li>
-                                    <li class="page-item"><a class="page-link" href="index2.php">BSF</a></li>
+                                    <li class="page-item"><a class="page-link" href="data.php">Chicken</a></li>
+                                    <li class="page-item active"><a class="page-link" href="data2.php">BSF</a></li>
                                 </ul>
                             </nav>
                         
