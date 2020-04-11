@@ -5,10 +5,10 @@
 <body class="login_body">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 col-sm-3 col-xs-1">
+            <div class="col-xl-4 col-lg-3 col-md-2">
             </div>    
 
-            <div class="col-md-4 col-sm-6 col-xs-10">
+            <div class="col-xl-4 col-lg-6 col-md-8">
                 <form action="include/loginprocess.php" class="form_container login_form" method="POST">
                     <h2 class="text-center">Account Login</h2>
 
