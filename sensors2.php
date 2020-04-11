@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row pt-md-5 mt-md-3 mb-2">  
-                        <h3 class="mx-auto text-center text-muted">Chicken</h3>
+                        <h3 class="mx-auto text-center text-muted">BSF  </h3>
                     </div>
                     <div class="row">
                         <div class="col-xl-4">
@@ -170,8 +170,8 @@
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <nav>
                         <ul class="pagination justify-content-center">
-                            <li class="page-item active"><a href="sensors.php" class="page-link"><span class="badge">Chicken</span></a></li>
-                            <li class="page-item"><a href="sensors2.php" class="page-link"><span class="badge">BSF</span></a></li>
+                            <li class="page-item"><a href="sensors.php" class="page-link"><span class="badge">Chicken</span></a></li>
+                            <li class="page-item active"><a href="sensors.php" class="page-link"><span class="badge">BSF</span></a></li>
                         </ul>
                     </nav>
                 </div>
