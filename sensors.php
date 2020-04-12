@@ -34,7 +34,7 @@
                             <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-tachometer-alt fa-lg mr-3"></i>Dashboard</a></li>
                             <li class="nav-item"><a href="data.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-table fa-lg mr-3"></i>&nbsp;Data</a></li>
                             <li class="nav-item"><a href="sensors.php" class="nav-link p-3 mb-2 text-white current"><i class="fas fa-toggle-on fa-lg mr-3"></i>Sensor</a></li>
-                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-chart-bar fa-lg mr-3"></i>&nbspVisualization</a></li>
+                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-chart-bar fa-lg mr-3"></i>&nbsp;Visualization</a></li>
                             <!--Allow user to register if user type is Admin-->
                             <?php
                                 if($_SESSION["type"] == "Admin"){
