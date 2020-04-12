@@ -34,7 +34,7 @@
                             <li class="nav-item"><a href="index.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-tachometer-alt fa-lg mr-3"></i>Dashboard</a></li>
                             <li class="nav-item"><a href="data.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-table fa-lg mr-3"></i>&nbsp;Data</a></li>
                             <li class="nav-item"><a href="sensors.php" class="nav-link p-3 mb-2 text-white current"><i class="fas fa-toggle-on fa-lg mr-3"></i>Sensor</a></li>
-                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-chart-bar fa-lg mr-3"></i>&nbsp;Visualization</a></li>
+                            <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-chart-bar fa-lg mr-3"></i>&nbspVisualization</a></li>
                             <!--Allow user to register if user type is Admin-->
                             <?php
                                 if($_SESSION["type"] == "Admin"){
@@ -103,7 +103,7 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row pt-md-5 mt-md-3 mb-2">  
-                        <h3 class="mx-auto text-center text-muted">Chicken</h3>
+                        <h3 class="mx-auto text-center text-muted">BSF  </h3>
                     </div>
                     <div class="row">
                         <div class="col-xl-4">
@@ -170,8 +170,8 @@
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <nav>
                         <ul class="pagination justify-content-center">
-                            <li class="page-item active"><a href="sensors.php" class="page-link"><span class="badge">Chicken</span></a></li>
-                            <li class="page-item"><a href="sensors2.php" class="page-link"><span class="badge">BSF</span></a></li>
+                            <li class="page-item"><a href="sensors.php" class="page-link"><span class="badge">Chicken</span></a></li>
+                            <li class="page-item active"><a href="sensors.php" class="page-link"><span class="badge">BSF</span></a></li>
                         </ul>
                     </nav>
                 </div>
