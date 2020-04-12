@@ -103,13 +103,14 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row pt-md-5 mt-md-3 mb-2">
-                        <h3 class="mx-auto text-center text-muted">Chicken</h3>
+                        <h3 class="mx-auto text-center text-muted" id="dashboardTitle">Chicken</h3>
                     </div>
-                    <div class="row">
+                    <!--Start of chicken Dashboard-->
+                    <div class="row" id="chickenRow">
                         <div class="col-xl-6">
                             <div class="card mb-5">
                                 <div class="card-header align-items-center">
-                                    <h4><i class="fas fa-temperature-low"></i> Temperature</h4>
+                                    <h4><i class="fas fa-temperature-low"></i> Chicken - Temperature</h4>
                                 </div>
 
                                 <div class="card-body">
@@ -121,7 +122,7 @@
                         <div class="col-xl-6">
                             <div class="card mb-5">
                                 <div class="card-header align-items-center">
-                                    <h4><i class="fas fa-temperature-low"></i> Humidity</h4>
+                                    <h4><i class="fas fa-temperature-low"></i> Chicken - Humidity</h4>
                                 </div>
 
                                 <div class="card-body">
@@ -133,7 +134,7 @@
                         <div class="col-xl-6">
                             <div class="card mb-5">
                                 <div class="card-header align-items-center">
-                                    <h4><i class="fas fa-temperature-low"></i> Moisture</h4>
+                                    <h4><i class="fas fa-temperature-low"></i> Chicken - Moisture</h4>
                                 </div>
 
                                 <div class="card-body">
@@ -145,7 +146,7 @@
                         <div class="col-xl-6">
                             <div class="card mb-5">
                                 <div class="card-header align-items-center">
-                                    <h4><i class="fas fa-temperature-low"></i> ph Value</h4>
+                                    <h4><i class="fas fa-temperature-low"></i> Chicken - ph Value</h4>
                                 </div>
 
                                 <div class="card-body">
@@ -154,15 +155,68 @@
                             </div>
                         </div>
                     </div>
+                    <!--End of chicken dashboard-->
+                            
+                    <!--Start of bsf dashboard-->
+                    <div class="row" id="bsfRow" style="display:none;">
+                        <div class="col-xl-6">
+                            <div class="card mb-5">
+                                <div class="card-header align-items-center">
+                                    <h4><i class="fas fa-temperature-low"></i> BSF - Temperature</h4>
+                                </div>
+
+                                <div class="card-body">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="card mb-5">
+                                <div class="card-header align-items-center">
+                                    <h4><i class="fas fa-temperature-low"></i> BSF - Humidity</h4>
+                                </div>
+
+                                <div class="card-body">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="card mb-5">
+                                <div class="card-header align-items-center">
+                                    <h4><i class="fas fa-temperature-low"></i> BSF - Moisture</h4>
+                                </div>
+
+                                <div class="card-body">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <div class="card mb-5">
+                                <div class="card-header align-items-center">
+                                    <h4><i class="fas fa-temperature-low"></i> BSF - ph Value</h4>
+                                </div>
+
+                                <div class="card-body">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End of bsf dashboard-->
                 </div>
             </div>
             
             <div class="row">
-                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto mb-5">
                     <nav>
                         <ul class="pagination justify-content-center">
-                            <li class="page-item active"><a href="index.php" class="page-link"><span class="badge">Chicken</span></a></li>
-                            <li class="page-item"><a href="index2.php" class="page-link"><span class="badge">BSF</span></a></li>
+                            <li class="page-item active"><a href="#" class="page-link" id="chickenDash"><span class="badge">Chicken</span></a></li>
+                            <li class="page-item"><a href="#" class="page-link" id="bsfDash"><span class="badge">BSF</span></a></li>
                         </ul>
                     </nav>
                 </div>
@@ -171,11 +225,8 @@
     </section>
     <!--End card section-->
 
-    <!--Javascript plugins-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-
-    <script src="script.js"></script>
+    <?php
+        require "footer.php";
+    ?>    
 </body>
 </html>

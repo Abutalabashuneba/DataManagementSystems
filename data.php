@@ -224,26 +224,27 @@
                                 </tbody>
                                 <!--End of table body-->
                             </table>
-
-
-                            <nav>
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item active"><a href="#" class="page-link" id="btnChicken"><span class="badge">Chicken</span></a></li>
-                                    <li class="page-item"><a href="#" class="page-link" id="btnBsf"><span class="badge">BSF</span></a></li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto mb-5">
+                    <nav>
+                        <ul class="pagination justify-content-center" id="dataPage">
+                            <li class="page-item active"><a href="#" class="page-link" id="btnChicken"><span class="badge">Chicken</span></a></li>
+                            <li><a href="#" class="page-link" id="btnBsf"><span class="badge">BSF</span></a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </section>
     <!--End table section-->
 
-    <!--Javascript plugins-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <?php
+        require "footer.php";
+    ?>
 </body>
 </html>

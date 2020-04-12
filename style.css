@@ -6,9 +6,9 @@ Claering default margin & padding
     padding: 0;
 }
 
-.myBody{
-    overflow: auto !important;
-    background-color: grey;
+html{
+    position: relative;
+    min-height: 100%;
 }
 
  /*---------------------------------------------------------------------
@@ -101,6 +101,20 @@ body{
     }
 }
 
+/*---------------------------------------------------------------------
+Footer
+---------------------------------------------------------------------*/
+@media (max-width:1200px){
+    footer{
+        margin-left: 150px;
+    }
+}
+
+@media (max-width:768px){
+    footer{
+        margin-left: 0;
+    }
+}
 
 
 /*---------------------------------------------------------------------
