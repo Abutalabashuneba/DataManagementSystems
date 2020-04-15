@@ -9,12 +9,12 @@
             </div>    
 
             <div class="col-xl-4 col-lg-6 col-md-8">
-                <form action="include/loginprocess.php" class="form_container login_form" method="POST">
+                <form id="loginForm" class="form_container login_form" method="POST">
                     <h2 class="text-center">Account Login</h2>
 
                     <div class="form-group">
-                        <label for="uname">Username:</label><br/>
-                        <input type="text" name="uname" id="uname" class="form-control" required/>
+                        <label for="email">Email:</label><br/>
+                        <input type="text" name="email" id="email" class="form-control" required/>
                     </div>
 
                     <div class="form-group">
@@ -34,10 +34,8 @@
                             User
                         </label>
                     </div>
-                    
-                    <button type="submit" name="login" class="btn btn-primary btn-block">
-                        Login
-                    </button>
+
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
 
                     <div class="text-center text-danger">
                         <?php 
@@ -58,5 +56,12 @@
             </div>
         </div>
     </div>
+
+<?php
+    require "footer.php";
+?>
+
+    <script src="login.js"></script>
+
 </body> 
 </html>

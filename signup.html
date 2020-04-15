@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap cdn-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <!--Font awesome cdn-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <!--css styling-->
+    <link rel="stylesheet" href="style.css">
+
+    <title>Document</title>
+</head>
+
+<body class="login_body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-3 col-xs-1">
+            </div>    
+
+            <div class="col-md-4 col-sm-6 col-xs-10">
+                <form id="signUpForm" class="form_container login_form" method="POST">
+                    <h2 class="text-center">Sign Up</h2>
+
+                    <div class="form-group">
+                        <label for="uname">Username:</label><br/>
+                        <input type="text" name="uname" id="uname" class="form-control" placeholder="Enter username" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullname">Fullname:</label><br/>
+                        <input type="text" name="fullname" id="fullname" class="form-control" placeholder="Enter fullname" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label><br/>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile No.</label><br/>
+                        <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Enter mobile no" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pwd">Password:</label><br/>
+                        <input type="password" name="pwd" id="pwd" class="form-control" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pwdCon">Confirm Password:</label><br/>
+                        <input type="password" name="pwdCon" id="pwdCon" class="form-control" required/>
+                    </div>
+
+                    <div class="form-group">
+                       <span>I'm: </span>
+                        <label for="admin">
+                            <input type="radio" name="accountType" id="admin" required value="Admin">
+                            Admin
+                        </label>
+                
+                        <label for="user">
+                            <input type="radio" name="accountType" id="user" required value="User">
+                            User
+                        </label>
+                    </div>
+                    
+                    <button type="submit" name="signup" class="btn btn-primary btn-block">
+                        Sign Up
+                    </button>
+
+                    <div class="text-center text-danger">
+                        TODO
+                    </div>
+
+                    <div class="text-center text-success">
+                        TODO
+                    </div>
+
+                    <div class="text-primary text-center">
+                            <p style="position:relative;top:60px;"><a href="index.php" style="text-decoration:none;"><span style="font-size:20px;">&laquo;</span>Back to Homepage</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-database.js"></script>
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyA_qDaC5SznlJzN78ec0Bd70BtsRzbj1FM",
+        authDomain: "test-9ff56.firebaseapp.com",
+        databaseURL: "https://test-9ff56.firebaseio.com",
+        projectId: "test-9ff56",
+        storageBucket: "test-9ff56.appspot.com",
+        messagingSenderId: "746329546915",
+        appId: "1:746329546915:web:1831479a0ace9f401c1f16",
+        measurementId: "G-509V2LMR8M"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+    <script src="script.js"></script>
+    
+    <script src="signup.js"></script>
+	
+</body> 
+</html>

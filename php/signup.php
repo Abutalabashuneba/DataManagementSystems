@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    if(!isset($_SESSION["user"])){
-        header("Location:login.php?redirect=1");
-    }
+    //if(!isset($_SESSION["user"])){
+    //    header("Location:login.php?redirect=1");
+    //}
 
     require "header.php";
 ?>
@@ -15,12 +15,27 @@
             </div>    
 
             <div class="col-md-4 col-sm-6 col-xs-10">
-                <form action="include/signupprocess.php" class="form_container login_form" method="POST">
+                <form id="signUpForm" class="form_container login_form" method="POST">
                     <h2 class="text-center">Sign Up</h2>
 
                     <div class="form-group">
                         <label for="uname">Username:</label><br/>
-                        <input type="text" name="uname" id="uname" class="form-control" required/>
+                        <input type="text" name="uname" id="uname" class="form-control" placeholder="Enter username" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullname">Fullname:</label><br/>
+                        <input type="text" name="fullname" id="fullname" class="form-control" placeholder="Enter fullname" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label><br/>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile No.</label><br/>
+                        <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Enter mobile no" required/>
                     </div>
 
                     <div class="form-group">
@@ -76,6 +91,7 @@
                                  }
                             }
                         ?>
+                        <div class="alert alert-success success-message" style="display:none;">Form submitted successfully.</div>
                     </div>
 
                     <div class="text-primary text-center">
@@ -86,8 +102,11 @@
         </div>
     </div>
 
-    <script src="js/jquery.min.js"></script> 
-	<script src="js/bootstrap.min.js"></script> 
+    <?php
+        require "footer.php";
+    ?>
+    
+    <script src="signup.js"></script>
 	
 </body> 
 </html>
