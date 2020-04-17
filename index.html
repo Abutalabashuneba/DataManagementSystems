@@ -103,7 +103,7 @@
                 <div class="modal-body">
                     <button class="close" type="button" data-dismiss="modal">&times;</button>
                     <h4 class="text-center font-weight-bold mt-3 mb-4">Create Account</h4>
-                    <form action="#">
+                    <form id="signUpForm">
                         <div class="form-group px-5">
                             <input type="text" name="uname" id="uname" class="form-control registerInput" placeholder="Enter username" required/>
                         </div>
@@ -140,13 +140,17 @@
                                 User
                             </label>
                         </div>
+
+                        <button type="submit" name="signup" class="btn  btn-block signupBtn text-white">
+                            Sign Up
+                        </button>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" name="signup" class="btn  btn-block signupBtn text-white registerInput">
-                        Sign Up
-                    </button>
+                    <div class="mx-auto text-center text-danger font-weight-bold" id="signUpMsg">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -314,5 +318,6 @@
 
     <script src="script.js"></script>  
     <script src="index.js"></script>
+    <script src="signup.js"></script>
 </body>
 </html>

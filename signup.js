@@ -7,7 +7,7 @@ if(sessionStorage.getItem("username") == null){
 
 $("#signUpForm").submit(function(e){
     e.preventDefault();
-
+    
     var username = document.getElementById("uname").value;
     var pass = document.getElementById("pwd").value;
     var pwdCon = document.getElementById("pwdCon").value;
