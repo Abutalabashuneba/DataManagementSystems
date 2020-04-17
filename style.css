@@ -201,6 +201,7 @@ Registration form
 
 .registerInput{
     transition: all .4s;
+    border-width: 2px;
 }
 
 .registerInput:focus{
