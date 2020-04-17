@@ -192,7 +192,23 @@ Sensor Card
     border-radius: 50%;
   }
 
+/*---------------------------------------------------------------------
+Registration form
+---------------------------------------------------------------------*/
+.signupBtn{
+    background-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
+}
 
+.registerInput{
+    transition: all .4s;
+}
+
+.registerInput:focus{
+    box-shadow: none;
+    border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
+    border-image-slice: 1;
+    transform: translateY(-1px);
+}
 
 
 

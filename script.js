@@ -13,7 +13,7 @@ $(document).ready(function(){
         $("#tableTitle").html("BSF");
     });
 
-    $("#dataPage li").on( 'click', function() {
+    $(".paginationBtn li").on( 'click', function() {
         $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
         $( this ).addClass( 'page-item active' );
     });
