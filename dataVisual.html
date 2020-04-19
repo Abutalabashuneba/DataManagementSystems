@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <!--Font awesome cdn-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <!--css styling-->
     <link rel="stylesheet" href="style.css">
 
@@ -34,8 +35,8 @@
                         <ul class="navbar-nav flex-column mt-4">
                             <li class="nav-item"><a href="index.html" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-tachometer-alt fa-lg mr-3"></i>Dashboard</a></li>
                             <li class="nav-item"><a href="data.html" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-table fa-lg mr-3"></i>&nbsp;Data</a></li>
-                            <li class="nav-item"><a href="sensors.html" class="nav-link p-3 mb-2 text-white current"><i class="fas fa-toggle-on fa-lg mr-3"></i>Sensor</a></li>
-                            <li class="nav-item"><a href="dataVisualization.html" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-chart-bar fa-lg mr-3"></i>&nbsp;Visualization</a></li>
+                            <li class="nav-item"><a href="sensors.html" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-toggle-on fa-lg mr-3"></i>Sensor</a></li>
+                            <li class="nav-item"><a href="dataVisualization.html" class="nav-link p-3 mb-2 text-white current"><i class="fas fa-chart-bar fa-lg mr-3"></i>&nbsp;Visualization</a></li>
                             <!--Allow user to register if user type is Admin-->
                             <li class="nav-item" style="display:none;" id="register"><a href="#" class="nav-link p-3 mb-2 text-white sideNavLink" data-toggle="modal" data-target="#registerForm"><i class="fas fa-user fa-lg mr-3"></i>&nbsp;Register</a></li>
                         </ul>
@@ -45,11 +46,11 @@
                     <!--Start of top nav-->
                     <div class="col-xl-10 col-lg-9 col-md-8 ml-auto fixed-top bg-dark py-2 topNav">
                         <div class="row align-items-center">
-                            <div class="col-xl-4 col-lg-4 col-md-4">
-                                <h4 class="text-white text-uppercase mb-0">Sensor</h4>
+                            <div class="col-xl-4 col-lg-4 col-md-5">
+                                <h4 class="text-white text-uppercase mb-0">Visualization</h4>
                             </div>
 
-                            <div class="col-xl-5 col-lg-5 col-md-6">
+                            <div class="col-xl-5 col-lg-5 col-md-5">
                                 <form action="">
                                     <div class="input-group">
                                         <input type="text" name="search" placeholder="Search..." class="form-control">
@@ -157,89 +158,77 @@
     </div>
     <!--End of register modal-->
 
-    <!--Start card section-->
     <section>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row pt-md-5 mt-md-3 mb-2">  
-                        <h3 class="mx-auto text-center text-muted">Chicken</h3>
+                    <div class="row pt-md-5 mt-md-3 mb-2">
                     </div>
                     <div class="row">
-                        <div class="col-xl-4 col-lg-6">
+                        <div class="col-12">
                             <div class="card mb-5">
-                                <div class="card-header align-items-center">
-                                    <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
-                                </div>
-                                <div class="card-body">
+                                <div class="card-header">
                                     <div class="row">
-                                        <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11)</b></div>
-                                        <div class="col-md-3">
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
+                                        <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
+                                            <h4>Temperature</h4>
+                                        </div>
+
+                                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
+                                            <select id="chartType" class="form-control" onchange="chart()">
+                                                <option value="line" selected="selected">Line</option>
+                                                <option value="bar">Bar</option>
+                                            </select>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <!---->
+                                    <canvas id="myChart1" height="100"></canvas>
+                                    <canvas id="myChart2" height="100" style="display:none;"></canvas>
+                                    <canvas id="myChart3" height="100" style="display: none;"></canvas>
+                                </div>
+
+                                <div class="card-footer">
+                                    <ul class="pagination justify-content-center mb-0 tempPage">
+                                        <li class="page-item active"><a class="page-link" href="#" id="tempToday"><span class="badge">Today</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#" id="tempWeekly"><span class="badge">Weekly</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#" id="tempMonthly"><span class="badge">Monthly</span></a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xl-4 col-lg-6">
+                        <div class="col-xl-6">
                             <div class="card mb-5">
-                                <div class="card-header align-items-center">
-                                    <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
+                                <div class="card-header">
+                                    <h4>Chicken Production</h4>
                                 </div>
+                                    
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28)</b></div>
-                                        <div class="col-md-3">
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <!---->
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xl-4 col-lg-6">
+                        <div class="col-xl-6">
                             <div class="card mb-5">
-                                <div class="card-header align-items-center">
-                                    <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/pH.jfif" alt="FC-28" > 
+                                <div class="card-header">
+                                    <h4>Humidity</h4>
                                 </div>
+
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-9"><b class="sensor-name">Analog pH Sensor/Meter Kit V2</b></div>
-                                        <div class="col-md-3">
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <!---->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!--<div class="row">
-                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto mb-5">
-                    <nav>
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item active"><a href="#" class="page-link" id="chickenDash"><span class="badge">Chicken</span></a></li>
-                            <li class="page-item"><a href="#" class="page-link" id="bsfDash"><span class="badge">BSF</span></a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>-->
         </div>
     </section>
     <!--End card section-->
-
+    
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
 
@@ -274,5 +263,11 @@
     <script src="script.js"></script>
     <script src="index.js"></script>
     <script src="signup.js"></script>
+
+    <!--Javascript plugin for chart-->
+    <!--Source from :https://github.com/chartjs/Chart.js/releases/tag/v2.9.3-->
+    <script src="js/Chart.js"></script> 
+    <script src="myChart.js"></script>
+    
 </body>
 </html>

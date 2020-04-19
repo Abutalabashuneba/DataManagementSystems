@@ -33,4 +33,29 @@ $(document).ready(function(){
         $("#bsfRow").show();
     });
     //End of index page
+
+//------------------------------------------------------------------------------------------------
+    $("#tempToday").click(function(){
+        $("#myChart1").show();
+        $("#myChart2").hide();
+        $("#myChart3").hide();
+    });
+
+    $("#tempWeekly").click(function(){
+        $("#myChart1").hide();
+        $("#myChart2").show();
+        $("#myChart3").hide();
+    });
+
+    $("#tempMonthly").click(function(){
+        $("#myChart1").hide();
+        $("#myChart2").hide();
+        $("#myChart3").show();
+    });
+
+    $(".tempPage li").on( 'click', function() {
+        $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
+        $( this ).addClass( 'page-item active' );
+    });
 });
+
