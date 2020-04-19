@@ -74,6 +74,30 @@ dataref.on("value", snap =>{
   var valueMois = document.getElementById("mois");
   document.getElementById("chickenMois").innerHTML = dataMois;
   valueMois.setAttribute("data-value",100);
+  
+
+  if(dataMois == "Too Wet")
+  {
+    $(document).ready(function(){
+      $(".border-mois").addClass("border-warning");
+    })
+    
+  }
+  else if(dataMois == "Too Dry")
+  {
+    $(document).ready(function(){
+      $(".border-mois").addClass("border-danger");
+    })
+    
+  }
+  else
+  {
+    $(document).ready(function(){
+      $(".border-mois").addClass("border-primary");
+    })
+    
+  }
+  
 
   $(function() {
     $(".progress").each(function() {
