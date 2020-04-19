@@ -21,12 +21,17 @@ function newDateString(days){
 function chart(){
     chartType = document.getElementById("chartType").value;
     console.log(chartType);
-    tempChart(xlabel1,points1);
+    //tempChart(xlabel1,points1);
 }
 
 ref.on("value", snap => {
     var dataObj = snap.val();
     var keys = Object.keys(dataObj);
+
+    while(xlabel1.length > 0){
+        xlabel1.pop();
+        points1.pop();
+    }
 
     var fullDate = new Date();
     var todayDate = fullDate.toLocaleDateString();
@@ -71,27 +76,21 @@ ref.on("value", snap => {
 
     tempChart(xlabel1,points1);
 
-    var data1 = {
-        label: 's1',
-        fill: false,
-        data: [
-                { x: '2017-01-06 18:39:30', y: points1[0] },
-                { x: '2017-01-15 18:39:28', y: points1[1] },
-                { x: '2017-03-07 18:39:28', y: points1[2] },
-                { x: '2017-09-30 11:22:22', y: points1[3] },
-            ]
-    };
-
     var ctx2 = $("#myChart2");
     var chart = new Chart(ctx2, {
         type: 'line',
         data: {
-            datasets:[data1],
-        },
+            labels: [newDate(0), newDate(1), newDate(2), newDate(3), newDate(4), newDate(5), newDate(6)],
+            datasets: [{
+              label: "My First dataset",
+              data: [1, 3, 4, 2, 1, 4, 2],
+            }]
+          },
         options: {
             scales: {
                 xAxes: [{
                     type: 'time',
+                    distribution: "series",
                     time: {
                         displayFormats: {
                             quarter: 'MMM YYYY'
@@ -174,6 +173,16 @@ function tempChart(xlabel,points){
                     //borderColor: 'rgba(0, 0, 0, 0.9)',
                 }
             ]
+        },
+        options:{
+            scales:{
+                yAxes:[{
+                    ticks:{
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
     });
 }
+
