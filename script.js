@@ -57,5 +57,13 @@ $(document).ready(function(){
         $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
         $( this ).addClass( 'page-item active' );
     });
+
+//------------------------------------------------------------------------------------------------
+    $("#searchInput").on("keyup",function(){
+        var value = $(this).val().toLowerCase();
+        $("#chickenTable tbody tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
 });
 
