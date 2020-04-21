@@ -165,7 +165,9 @@
                     <div class="row pt-md-5 mt-md-3 mb-2">  
                         <h3 class="mx-auto text-center text-muted">Chicken</h3>
                     </div>
+                    
                     <div class="row">
+                        <!--Start of DHT11 sensor-->
                         <div class="col-xl-4 col-lg-6">
                             <div class="card mb-5">
                                 <div class="card-header align-items-center">
@@ -175,8 +177,8 @@
                                     <div class="row">
                                         <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11)</b></div>
                                         <div class="col-md-3">
-                                            <label class="switch">
-                                                <input type="checkbox">
+                                            <label class="switch" for="switchTemp">
+                                                <input class="switchTemp" type="checkbox" id="switchTemp" name="switchTemp" value="DHT11">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -184,7 +186,9 @@
                                 </div>
                             </div>
                         </div>
+                        <!--End of DHT11 sensor-->
 
+                        <!--Start of FC-28 sensor-->
                         <div class="col-xl-4 col-lg-6">
                             <div class="card mb-5">
                                 <div class="card-header align-items-center">
@@ -194,8 +198,8 @@
                                     <div class="row">
                                         <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28)</b></div>
                                         <div class="col-md-3">
-                                            <label class="switch">
-                                                <input type="checkbox">
+                                            <label class="switch" for="switchMois">
+                                                <input class="switchMois" type="checkbox" id="switchMois" name="switchMois" value="FC-28">
                                                 <span class="slider round"></span>
                                             </label>
                                         </div>
@@ -203,25 +207,9 @@
                                 </div>
                             </div>
                         </div>
+                        <!--End of FC-28 sensor-->
 
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="card mb-5">
-                                <div class="card-header align-items-center">
-                                    <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/pH.jfif" alt="FC-28" > 
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-9"><b class="sensor-name">Analog pH Sensor/Meter Kit V2</b></div>
-                                        <div class="col-md-3">
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -267,6 +255,7 @@
     firebase.analytics();
     </script>
 
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -274,5 +263,6 @@
     <script src="script.js"></script>
     <script src="index.js"></script>
     <script src="signup.js"></script>
+    <script src="sensors.js"></script>
 </body>
 </html>

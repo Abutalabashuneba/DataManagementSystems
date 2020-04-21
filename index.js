@@ -50,7 +50,7 @@ $("#logoutForm").submit(function(e){
     window.location.replace("login.html");
 });
 
-/*--------------- Progess bar-------------------------- */
+/*--------------------------  Progess bar-------------------------- */
 dataref.on("value", snap =>{
   var dataObj = snap.val();
   var keys = Object.keys(dataObj);
