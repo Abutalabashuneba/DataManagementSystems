@@ -52,8 +52,7 @@
                             <div class="col-xl-5 col-lg-5 col-md-6">
                                 <form action="">
                                     <div class="input-group">
-                                        <input type="text" name="search" placeholder="Search..." class="form-control" id="searchInput">
-                                        <button type="button" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                        <input type="text" name="search" placeholder="Search..." class="form-control text-white" id="searchInput">
                                     </div>
                                 </form>
                             </div>
@@ -157,6 +156,79 @@
     </div>
     <!--End of register modal-->
 
+    <!--Start of add modal-->
+    <div class="modal fade" id="addData">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
+                    <form id="addDataForm">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="Temperature" placeholder="Enter temperature" class="form-control addInput" id="addTemp" required>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" max="100" name="Humidity" placeholder="Enter humidity(0-100%)" class="form-control addInput" id="addHum" required>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" max="14" name="pH" placeholder="Enter pH (0-14)" class="form-control addInput" id="addpH" required>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" max="100" name="Moisture" placeholder="Enter moisture (0-100)" class="form-control addInput" id="addMoisture" required>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Add
+                        </button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="mx-auto text-center text-danger font-weight-bold" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of add modal-->
+
+    <!--Start of edit modal-->
+    <div class="modal fade" id="editData">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
+                    <form id="updateDataForm">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="Temperature" placeholder="Enter temperature" class="form-control updateInput" id="updateTemp" required>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" max="100" name="Humidity" placeholder="Enter humidity(0-100%)" class="form-control updateInput" id="updateHum" required>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" max="14" name="pH" placeholder="Enter pH (0-14)" class="form-control updateInput" id="updatepH" required>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" max="100" name="Moisture" placeholder="Enter moisture (0-100)" class="form-control updateInput" id="updateMoisture" required>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of edit modal-->
+
     <!--Table Section-->
     <section>
         <div class="container-fluid">
@@ -164,6 +236,7 @@
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row pt-md-5 mt-md-3 mb-2 ">
                         <h3 class="mx-auto text-center text-muted" id="tableTitle">Chicken</h3>
+                        <button class="btn mb-3 mr-3" id="addBtn" data-toggle="modal" data-target="#addData"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
                         <div class="col-xl-12 table-responsive">
                             <table class="table table-striped table-hover table-md bg-light text-center" id="chickenTable">
                             <!--Start of table head-->
@@ -175,6 +248,7 @@
                                         <th>Humidity (%)</th>
                                         <th>pH value</th>
                                         <th>Moisture</th>
+                                        <th>Option</th>
                                     </tr>
                                 </thead>
                                 <!--End of table head-->

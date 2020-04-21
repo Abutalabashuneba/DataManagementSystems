@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <!--Font awesome cdn-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <!--css styling-->
     <link rel="stylesheet" href="style.css">
 
@@ -165,36 +164,14 @@
                     <div class="row pt-md-5 mt-md-3 mb-2">
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-xl-6">
                             <div class="card mb-5">
                                 <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                            <h4>Temperature</h4>
-                                        </div>
-
-                                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                            <select id="chartType" class="form-control" onchange="chart()">
-                                                <option value="line" selected="selected">Line</option>
-                                                <option value="bar">Bar</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <h4>Chicken Production</h4>
                                 </div>
 
                                 <div class="card-body">
-                                    <!---->
-                                    <canvas id="myChart1" height="100"></canvas>
-                                    <canvas id="myChart2" height="100" style="display:none;"></canvas>
-                                    <canvas id="myChart3" height="100" style="display: none;"></canvas>
-                                </div>
-
-                                <div class="card-footer">
-                                    <ul class="pagination justify-content-center mb-0 tempPage">
-                                        <li class="page-item active"><a class="page-link" href="#" id="tempToday"><span class="badge">Today</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#" id="tempWeekly"><span class="badge">Weekly</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#" id="tempMonthly"><span class="badge">Monthly</span></a></li>
-                                    </ul>
+                                    <canvas id="myChart" ></canvas>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +183,7 @@
                                 </div>
                                     
                                 <div class="card-body">
-                                    <!---->
+                                    <canvas id="myChart2" ></canvas>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +195,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <!---->
+                                    <canvas id="myChart3" ></canvas>
                                 </div>
                             </div>
                         </div>
@@ -263,11 +240,154 @@
     <script src="script.js"></script>
     <script src="index.js"></script>
     <script src="signup.js"></script>
-
+    
     <!--Javascript plugin for chart-->
     <!--Source from :https://github.com/chartjs/Chart.js/releases/tag/v2.9.3-->
     <script src="js/Chart.js"></script> 
-    <script src="myChart.js"></script>
-    
+
+    <script type="text/javascript">
+         jQuery(function ($) {
+        var data1 = [32, 31, 30, 29, 30, 33, 35, 40, 42, 42, 42];
+            
+        $("#chart1").shieldChart({
+            exportOptions: {
+                image: false,
+                print: false
+            },
+            axisY: {
+                title: {
+                    text: "Break-Down for selected quarter"
+                }
+            },
+            dataSeries: [{
+                seriesType: "line",
+                data: data1
+            }]
+        });
+
+        
+    });
+    </script>
+
+
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: '# of Votes',
+                data: [2, 4, 5, 5, 10, 3, 11],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+
+    <script>
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+    var myChart = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: '# of Votes',
+                data: [2, 4, 5, 5, 10, 3, 11],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+
+<script>
+    var ctx3 = document.getElementById('myChart3').getContext('2d');
+    var myChart = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: ['11A.M.', '12P.M.', '1P.M.', '2P.M.', '3P.M', '4P.M', '5P.M'],
+            datasets: [{
+                label: 'Humidity (%)',
+                data: [60, 61, 66, 63, 62, 63, 63],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
 </body>
 </html>
