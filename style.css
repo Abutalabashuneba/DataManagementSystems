@@ -195,16 +195,16 @@ Sensor Card
 /*---------------------------------------------------------------------
 Registration form
 ---------------------------------------------------------------------*/
-.signupBtn{
+.signupBtn, .addDataBtn, .updateDataBtn{
     background-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
 }
 
-.registerInput{
+.registerInput, .addInput, .updateInput{
     transition: all .4s;
     border-width: 2px;
 }
 
-.registerInput:focus{
+.registerInput:focus, .addInput:focus, .updateInput:focus{
     box-shadow: none;
     border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
     border-image-slice: 1;
@@ -283,3 +283,56 @@ Index page Progress bar
     left: 0;
   }
   
+/*---------------------------------------------------------------------
+SearchBar Styling
+---------------------------------------------------------------------*/
+#searchInput{
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #eee;
+  transition: ease-in .3s;
+}
+
+#searchInput:focus{
+  background: transparent;
+  box-shadow: none;
+  border-bottom: 2px solid #f44336;
+}
+
+#searchInput::placeholder{
+  color:white !important;
+}
+
+/*---------------------------------------------------------------------
+Add Buttong Styling
+---------------------------------------------------------------------*/
+#addBtn{
+  background: transparent;
+}
+
+#addBtn:hover{
+  animation-name: rotate;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+#addBtn:focus{
+  box-shadow: none;
+}
+
+@keyframes rotate{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    color:rgb(82, 202, 82);
+    transform: rotate(90deg) scale(1.3);
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
