@@ -1,5 +1,5 @@
 var database = firebase.database();
-var ref = database.ref("account");
+var refAcc = database.ref("account");
 
 if(sessionStorage.getItem("username") == null){
     window.location.replace("login.html");
@@ -25,7 +25,7 @@ $("#signUpForm").submit(function(e){
         type = "User";
     }
 
-    ref.once("value", snap => {
+    refAcc.once("value", snap => {
         if(snap.val() == null){
             var len = 0;
 
@@ -40,7 +40,7 @@ $("#signUpForm").submit(function(e){
                     phone : phone
                 }
     
-                ref.push(data);
+                refAcc.push(data);
                 $("#signUpForm")[0].reset();
                 errorMessage = "";
             }else{
@@ -72,7 +72,7 @@ $("#signUpForm").submit(function(e){
                         phone : phone
                     }
         
-                    ref.push(data);
+                    refAcc.push(data);
                     $("#signUpForm")[0].reset();
                     errorMessage = "";
                 }else{
