@@ -6708,7 +6708,7 @@ function getRelativePosition(e, chart) {
  * @param {Chart} chart - the chart
  * @param {function} handler - the callback to execute for each visible item
  */
-function parseVisibleItems(chart, handler) {
+/*function parseVisibleItems(chart, handler) {
 	var metasets = chart._getSortedVisibleDatasetMetas();
 	var metadata, i, j, ilen, jlen, element;
 
@@ -6716,6 +6716,27 @@ function parseVisibleItems(chart, handler) {
 		metadata = metasets[i].data;
 		for (j = 0, jlen = metadata.length; j < jlen; ++j) {
 			element = metadata[j];
+			if (!element._view.skip) {
+				handler(element);
+			}
+		}
+	}
+}*/
+function parseVisibleItems(chart, handler) {
+	var datasets = chart.data.datasets;
+	var meta, i, j, ilen, jlen;
+
+	for (i = 0, ilen = datasets.length; i < ilen; ++i) {
+		if (!chart.isDatasetVisible(i)) {
+			continue;
+		}
+
+		meta = chart.getDatasetMeta(i);
+		for (j = 0, jlen = meta.data.length; j < jlen; ++j) {
+			var element = meta.data[j];
+			if (!element.hasOwnProperty('_view')) {
+				continue;
+			}
 			if (!element._view.skip) {
 				handler(element);
 			}

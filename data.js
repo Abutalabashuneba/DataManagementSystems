@@ -213,7 +213,7 @@ $("#updateDataForm").submit(function(e){
         moisture: moist,
         temperature: temp,
         //ph : ph,
-        timestamp: d
+        //timestamp: d
     }
 
     var updateIndex;

@@ -39,18 +39,28 @@ $(document).ready(function(){
         $("#myChart1").show();
         $("#myChart2").hide();
         $("#myChart3").hide();
+        $("#myChart4").hide();
     });
 
     $("#tempWeekly").click(function(){
         $("#myChart1").hide();
         $("#myChart2").show();
         $("#myChart3").hide();
+        $("#myChart4").hide();
     });
 
     $("#tempMonthly").click(function(){
         $("#myChart1").hide();
         $("#myChart2").hide();
         $("#myChart3").show();
+        $("#myChart4").hide();
+    });
+
+    $("#tempAll").click(function(){
+        $("#myChart1").hide();
+        $("#myChart2").hide();
+        $("#myChart3").hide();
+        $("#myChart4").show();
     });
 
     $(".tempPage li").on( 'click', function() {

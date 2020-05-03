@@ -165,7 +165,7 @@
                                         </div>
 
                                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                            <select id="chartType" class="form-control" onchange="chart()">
+                                            <select id="chartType" class="form-control">
                                                 <option value="line" selected="selected">Line</option>
                                                 <option value="bar">Bar</option>
                                             </select>
@@ -175,9 +175,10 @@
 
                                 <div class="card-body">
                                     <!---->
-                                    <canvas id="myChart1" height="100"></canvas>
+                                    <canvas id="myChart1" height="100" ></canvas>
                                     <canvas id="myChart2" height="100" style="display: none;"></canvas>
                                     <canvas id="myChart3" height="100" style="display: none;"></canvas>
+                                    <canvas id="myChart4" height="100" style="display: none;"></canvas>
                                 </div>
 
                                 <div class="card-footer">
@@ -185,6 +186,7 @@
                                         <li class="page-item active"><a class="page-link" href="#" id="tempToday"><span class="badge">Today</span></a></li>
                                         <li class="page-item"><a class="page-link" href="#" id="tempWeekly"><span class="badge">Weekly</span></a></li>
                                         <li class="page-item"><a class="page-link" href="#" id="tempMonthly"><span class="badge">Monthly</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#" id="tempAll"><span class="badge">Lifetime</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -259,7 +261,7 @@
     <!--Source from :https://github.com/chartjs/Chart.js/releases/tag/v2.9.3-->
     <script src="js/Chart.js"></script> 
     <script src="myChart.js"></script>
-	<script src="myChart2.js"></script>
-    
+    <script src="myChart2.js"></script>
+
 </body>
 </html>
