@@ -8,13 +8,6 @@ var timeFormat = "MM/DD/YYYY HH:mm";
 var chartType = "line";
 
 //console.log(newDate()); //Mon Apr 20 2020 11:42:00 GMT+0800 (Malaysia Time)
-/*console.log(newDate(0));
-console.log(newDate(-1));
-console.log(newDate(-2));
-console.log(newDate(-3));
-console.log(newDate(-4));
-console.log(newDate(-5));
-console.log(newDate(-6));*/
 function newDate(days){
     return moment().add(days,"d").toDate();
 }
@@ -104,8 +97,6 @@ ref.on("value", snap=>{
             points4.push(dataObj[k].temperature);
         }
     }
-    //console.log(xlabel1,xlabel4);
-    
     
     plot1();
     plot2();
@@ -122,7 +113,7 @@ function plot1(){
         data:{
             labels: xlabel1,
             datasets:[{
-                label: "Temperature",
+                label: "Today's temperature",
                 data: points1,
                 type: "line",
                 pointRadius: 1,
@@ -134,6 +125,10 @@ function plot1(){
             }],
         },
         options:{
+            tooltips:{
+                intersect: false,
+                mode: "index"
+            },
             scales:{
                 xAxes:[{
                     type: "time",
@@ -173,7 +168,7 @@ function plot2(){
         data:{
             labels: xlabel2,
             datasets:[{
-                label: "Temperature",
+                label: "Weekly's temperature",
                 data: points2,
                 type: "line",
                 pointRadius: 1,
@@ -185,6 +180,10 @@ function plot2(){
             }],
         },
         options:{
+            tooltips:{
+                intersect: false,
+                mode: "index"
+            },
             scales:{
                 xAxes:[{
                     type: "time",
@@ -224,7 +223,7 @@ function plot3(){
         data:{
             labels: xlabel3,
             datasets:[{
-                label: "Temperature",
+                label: "Monthly's temperature",
                 data: points3,
                 type: "line",
                 pointRadius: 1,
@@ -236,6 +235,10 @@ function plot3(){
             }],
         },
         options:{
+            tooltips:{
+                intersect: false,
+                mode: "index"
+            },
             scales:{
                 xAxes:[{
                     type: "time",
@@ -262,7 +265,7 @@ function plot3(){
                     }
                 }]
             }
-        }
+        },
     });
     chart.update();
 }
@@ -288,6 +291,10 @@ function plot4(){
             }]
         },
         options:{
+            tooltips:{
+                intersect : false,
+                mode: "index"
+            },
             scales:{
                 xAxes: [{
                     type: "time",
