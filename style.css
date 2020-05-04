@@ -305,7 +305,7 @@ SearchBar Styling
 }
 
 /*---------------------------------------------------------------------
-Add Buttong Styling
+Add Button Styling
 ---------------------------------------------------------------------*/
 #addBtn{
   background: transparent;
@@ -331,6 +331,9 @@ Add Buttong Styling
   }
 }
 
+/*---------------------------------------------------------------------
+Latest addition Styling
+---------------------------------------------------------------------*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

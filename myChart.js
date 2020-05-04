@@ -47,6 +47,16 @@ ref.on("value", snap=>{
         points1.splice(0,points4.length);
     }
 
+    if(xlabel2.length > 0){
+        xlabel2.splice(0,xlabel2.length);
+        points2.splice(0,points2.length);
+    }
+
+    if(xlabel3.length > 0){
+        xlabel3.splice(0,xlabel3.length);
+        points3.splice(0,points3.length);
+    }
+
     if(xlabel4.length > 0){
         xlabel4.splice(0,xlabel4.length);
         points4.splice(0,points4.length);
