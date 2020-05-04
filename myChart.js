@@ -8,6 +8,13 @@ var timeFormat = "MM/DD/YYYY HH:mm";
 var chartType = "line";
 
 //console.log(newDate()); //Mon Apr 20 2020 11:42:00 GMT+0800 (Malaysia Time)
+/*console.log(newDate(0));
+console.log(newDate(-1));
+console.log(newDate(-2));
+console.log(newDate(-3));
+console.log(newDate(-4));
+console.log(newDate(-5));
+console.log(newDate(-6));*/
 function newDate(days){
     return moment().add(days,"d").toDate();
 }
@@ -19,6 +26,7 @@ function newDateString(days){
 
 var fullDate = new Date();
 var todayDate = fullDate.toLocaleDateString();
+var todayMonth = fullDate.getMonth();
 
 //console.log(todayDate); 5/2/2020 toLocaleDateString();
 //console.log(todayDate); 5/2/2020, 5:40:56 PM toLocaleString
@@ -27,6 +35,12 @@ var todayDate = fullDate.toLocaleDateString();
 
 var xlabel1 = [];
 var points1 = [];
+
+var xlabel2 = [];
+var points2 = [];
+
+var xlabel3 = [];
+var points3 = [];
 
 var xlabel4 = [];
 var points4 = [];
@@ -50,19 +64,41 @@ ref.on("value", snap=>{
 
         var d = new Date(dataObj[k].timestamp);
         var date = d.toLocaleDateString();
+
+        var month = d.getMonth();
         
         if(date == todayDate){
             xlabel1.push(dataObj[k].timestamp);
             
-            if(dataObj[k].temperature == undefined){
+            if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
                 points1.push(0);
             }else{
                 points1.push(dataObj[k].temperature);
             }
         }
-        
+
+        if(d >= newDate(-6) && d <= newDate(0)){
+            xlabel2.push(dataObj[k].timestamp);
+
+            if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
+                points2.push(0);
+            }else{
+                points2.push(dataObj[k].temperature);
+            }
+        }
+
+        if(month == todayMonth){
+            xlabel3.push(dataObj[k].timestamp);
+
+            if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
+                points3.push(0);
+            }else{
+                points3.push(dataObj[k].temperature);
+            }
+        }
+
         xlabel4.push(dataObj[k].timestamp);
-        if(dataObj[k].temperature == undefined){
+        if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
             points4.push(0);
         }else{
             points4.push(dataObj[k].temperature);
@@ -72,14 +108,17 @@ ref.on("value", snap=>{
     
     
     plot1();
+    plot2();
+    plot3();
     plot4();
 })
 
-var chart1;
+//var chart1;
 function plot1(){
     var ctx = document.getElementById("myChart1").getContext("2d");
     //if(chart1 != undefined) chart1.destroy();
-    chart1 = new Chart(ctx,{
+    
+    var chart = new Chart(ctx,{
         data:{
             labels: xlabel1,
             datasets:[{
@@ -98,8 +137,12 @@ function plot1(){
             scales:{
                 xAxes:[{
                     type: "time",
-                    distribution: "linear",
+                    distribution: "series",
                     offset : false,
+                    ticks:{
+                        autoSkip: true,
+						autoSkipPadding: 75,
+                    },
                     time:{
                         unit : "hour",
                         unitStepSize : 3,
@@ -119,14 +162,116 @@ function plot1(){
             }
         }
     });
-    chart1.update();
+    chart.update();
 }
 
-var chart4;
+function plot2(){
+    var ctx = document.getElementById("myChart2").getContext("2d");
+    //if(chart1 != undefined) chart1.destroy();
+    
+    var chart = new Chart(ctx,{
+        data:{
+            labels: xlabel2,
+            datasets:[{
+                label: "Temperature",
+                data: points2,
+                type: "line",
+                pointRadius: 1,
+				fill: false,
+				lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(201,134,212,0.7)",
+                pointHoverBorderColor : "rgba(142,77,185,0.9)",
+            }],
+        },
+        options:{
+            scales:{
+                xAxes:[{
+                    type: "time",
+                    distribution: "series",
+                    offset : false,
+                    ticks:{
+                        autoSkip: true,
+						autoSkipPadding: 75,
+                    },
+                    time:{
+                        unit : "day",
+                        unitStepSize : 1,
+                    },
+                }],
+                yAxes:[{
+                    ticks:{
+                        beginAtZero: true,
+                        max : 100,
+                        stepValue: 10
+                    },
+                    scaleLabel : {
+                        display : true,
+                        labelString : "Temperature"
+                    }
+                }]
+            }
+        }
+    });
+    chart.update();
+}
+
+function plot3(){
+    var ctx = document.getElementById("myChart3").getContext("2d");
+    //if(chart1 != undefined) chart1.destroy();
+    
+    var chart = new Chart(ctx,{
+        data:{
+            labels: xlabel3,
+            datasets:[{
+                label: "Temperature",
+                data: points3,
+                type: "line",
+                pointRadius: 1,
+				fill: false,
+				lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(201,134,212,0.7)",
+                pointHoverBorderColor : "rgba(142,77,185,0.9)",
+            }],
+        },
+        options:{
+            scales:{
+                xAxes:[{
+                    type: "time",
+                    distribution: "series",
+                    offset : false,
+                    ticks:{
+                        autoSkip: true,
+						autoSkipPadding: 75,
+                    },
+                    time:{
+                        unit : "day",
+                        unitStepSize : 1,
+                    },
+                }],
+                yAxes:[{
+                    ticks:{
+                        beginAtZero: true,
+                        max : 100,
+                        stepValue: 10
+                    },
+                    scaleLabel : {
+                        display : true,
+                        labelString : "Temperature"
+                    }
+                }]
+            }
+        }
+    });
+    chart.update();
+}
+
+//var chart4;
 function plot4(){
     var ctx = document.getElementById("myChart4").getContext("2d");
 
-    chart4 = new Chart(ctx, {
+    var chart = new Chart(ctx, {
         type: "line",
         data:{
             labels: xlabel4,
@@ -138,6 +283,7 @@ function plot4(){
                 pointHoverBorderColor : "rgba(142,77,185,0.9)",
                 lineTension: 0.5,
                 pointRadius: 1,
+                //pointHitRadius: 4,
                 borderWidth: 2,
             }]
         },
@@ -145,7 +291,11 @@ function plot4(){
             scales:{
                 xAxes: [{
                     type: "time",
-                    distribution : "linear",
+                    distribution : "series",
+                    ticks:{
+                        autoSkip : true,
+                        autoSkipPadding : 75, 
+                    },
                     time:{
                         unit : "day",
                         unitStepSize : 5,
@@ -169,7 +319,7 @@ function plot4(){
         }
     })
 
-    chart4.update();
+    chart.update();
 
     //console.log(json.labels);
     //console.log(json.data.rate);
