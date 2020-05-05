@@ -37,10 +37,13 @@ var points3 = [];
 
 var xlabel4 = [];
 var points4 = [];
+var chart4;
 
 ref.on("value", snap=>{
     var dataObj = snap.val();
     var keys = Object.keys(dataObj);
+
+    console.log(dataObj);
 
     if(xlabel1.length > 0){
         xlabel1.splice(0,xlabel4.length);
@@ -149,7 +152,7 @@ function plot1(){
 						autoSkipPadding: 75,
                     },
                     time:{
-                        unit : "hour",
+                        unit : "minute",
                         unitStepSize : 3,
                     },
                 }],
@@ -280,48 +283,45 @@ function plot3(){
     chart.update();
 }
 
-//var chart4;
 function plot4(){
+    
     var ctx = document.getElementById("myChart4").getContext("2d");
-
-    var chart = new Chart(ctx, {
-        type: "line",
+     
+    var chart = new Chart(ctx,{
         data:{
             labels: xlabel4,
-            datasets: [{
-                label : "Lifetime temperature",
+            datasets:[{
+                label: "Lifetime's temperature",
                 data: points4,
-                fill : false,
+                type: "line",
+                pointRadius: 1,
+				fill: false,
+				lineTension: 0.5,
+                borderWidth: 2,
                 borderColor: "rgba(201,134,212,0.7)",
                 pointHoverBorderColor : "rgba(142,77,185,0.9)",
-                lineTension: 0.5,
-                pointRadius: 1,
-                //pointHitRadius: 4,
-                borderWidth: 2,
-            }]
+            }],
         },
         options:{
             tooltips:{
-                intersect : false,
+                intersect: false,
                 mode: "index"
             },
             scales:{
-                xAxes: [{
+                xAxes:[{
                     type: "time",
-                    distribution : "series",
+                    distribution: "series",
+                    offset : false,
                     ticks:{
-                        autoSkip : true,
-                        autoSkipPadding : 75, 
+                        autoSkip: true,
+						autoSkipPadding: 75,
                     },
                     time:{
-                        unit : "day",
-                        unitStepSize : 5,
-                        displayFormats:{
-                            hour : "H:mm"
-                        }
+                        unit : "month",
+                        unitStepSize : 1,
                     },
                 }],
-                yAxes: [{
+                yAxes:[{
                     ticks:{
                         beginAtZero: true,
                         max : 100,
@@ -333,11 +333,9 @@ function plot4(){
                     }
                 }]
             }
-        }
-    })
-
+        },
+    });
+    var datasets = chart.config.data.datasets[0];
+    console.log(datasets);
     chart.update();
-
-    //console.log(json.labels);
-    //console.log(json.data.rate);
 }
