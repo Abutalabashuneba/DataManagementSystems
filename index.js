@@ -50,6 +50,8 @@ $("#logoutForm").submit(function(e){
     window.location.replace("login.html");
 });
 
+
+
 /*--------------------------  Progess bar-------------------------- */
 dataref.on("value", snap =>{
   var dataObj = snap.val();
@@ -74,6 +76,21 @@ dataref.on("value", snap =>{
   var valueMois = document.getElementById("mois");
   document.getElementById("chickenMois").innerHTML = dataMois;
   valueMois.setAttribute("data-value",100);
+
+  //Push warning notification
+  if(dataTemp > 35)
+  {
+    console.log(dataTemp);
+    Push.create("Temperature Warning",{
+      body: "Current Chicken Temperauture is " + dataTemp,
+      icon: 'images/warning.png',
+      timeout: 100000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
   
 
   if(dataMois == "Too Wet")
@@ -124,3 +141,10 @@ dataref.on("value", snap =>{
   });
   
 })
+
+
+
+
+
+    
+
