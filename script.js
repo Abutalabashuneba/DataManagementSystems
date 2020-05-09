@@ -75,5 +75,67 @@ $(document).ready(function(){
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
+
+//------------------------------------------------------------------------------------------------
+    //Start of sensor page
+    $("#sensorChicken").click(function() {
+        $("#chickenSensor").show();
+        $("#bsfSensor").hide();
+        $("#dropdownChicken").show();
+        $("#dropdownBSF").hide();
+ 
+    });
+
+    $("#carea-1").click(function() {
+        $("#chickenArea-1").show();
+        $("#chickenArea-2").hide();
+        $("#bsfSensor").hide();
+        $("#sensorDropdownChicken").html("Area-1");
+ 
+    });
+
+    $("#carea-2").click(function() {
+        $("#chickenArea-1").hide();
+        $("#chickenArea-2").show();
+        $("#bsfSensor").hide();
+        $("#sensorDropdownChicken").html("Area-2");
+    });
+
+    $("#sensorBSF").click(function() {
+        $("#chickenSensor").hide();
+        $("#bsfSensor").show();
+        $("#dropdownChicken").hide();
+        $("#dropdownBSF").show();
+    });
+
+    $("#bsfarea-1").click(function() {
+        $("#bsfArea-2").hide();
+        $("#chickenSensor").hide();
+        $("#bsfArea-1").show();
+        $("#sensorDropdownBSF").html("BSF Area-1");
+ 
+    });
+
+    $("#bsfarea-2").click(function() {
+        $("#bsfArea-1").hide();
+        $("#chickenSensor").hide();
+        $("#bsfArea-2").show();
+        $("#sensorDropdownBSF").html("BSF Area-2");
+    });
+
+   
+    $(".paginationBtn li").on( 'click', function() {
+        $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
+        $( this ).addClass( 'page-item active' );
+    });
+
+    
+    
+    //End of sensor page
+
+
+
 });
+
+
 
