@@ -20,19 +20,100 @@ $(document).ready(function(){
     //End of data page
     
 //------------------------------------------------------------------------------------------------
-    //Start of index page
-    $("#chickenDash").click(function(){
-        $("#dashTitle").html("Chicken");
-        $("#chickenRow").show();
-        $("#bsfRow").hide();
+    //----------------------------Start of index page------------------------------//
+
+    //Chicken
+    $("#dashChickenBtn").click(function(){
+        $("#dashChicken").show();
+        $("#dashBSF").hide();
+        $("#dashBSFL").hide();
+        $("#dashboardTitle").html("Chicken");
+        $("#dropdownBSFRow").hide();
+        $("#dropdownBSFLRow").hide();
+        $("#dropdownChickenRow").show();    
     });
 
-    $("#bsfDash").click(function() {
-        $("#dashTitle").html("BSF");
-        $("#chickenRow").hide();
-        $("#bsfRow").show();
+    //BSF
+    $("#dashBSFBtn").click(function(){
+        $("#dashChicken").hide();
+        $("#dashBSFL").hide();
+        $("#dashBSF").show(); 
+        $("#dashboardTitle").html("BSF");
+        $("#dropdownChickenRow").hide();
+        $("#dropdownBSFLRow").hide();
+        $("#dropdownBSFRow").show();
     });
-    //End of index page
+
+    //BSFL
+    $("#dashBSFLBtn").click(function(){
+        $("#dashChicken").hide();
+        $("#dashBSF").hide();
+        $("#dashBSFL").show(); 
+        $("#dashboardTitle").html("BSFL");
+        $("#dropdownChickenRow").hide();
+        $("#dropdownBSFRow").hide();
+        $("#dropdownBSFLRow").show();
+        
+    });
+
+    //Chicken Area-1
+    $("#dashCarea-1").click(function(){
+        $("#chickenDashArea-2").hide();
+        $("#chickenDashArea-1").show(); 
+        $("#dashboardTitle").html("Chicken Area-1");
+        $("#dashDropdownChicken").html("Area-1");
+        
+    });
+
+    //Chicken Area-2
+    $("#dashCarea-2").click(function(){
+        $("#chickenDashArea-1").hide();
+        $("#chickenDashArea-2").show(); 
+        $("#dashboardTitle").html("Chicken Area-2");
+        $("#dashDropdownChicken").html("Area-2");
+        
+    });
+
+    //BSF Area-1
+    $("#dashBSFarea-1").click(function(){
+        $("#bsfDashArea-2").hide();
+        $("#bsfDashArea-1").show(); 
+        $("#dashboardTitle").html("BSF Area-1");
+        $("#dashDropdownBSF").html("Area-1");
+        
+    });
+
+    //BSF Area-2
+    $("#dashBSFarea-2").click(function(){
+        $("#bsfDashArea-1").hide();
+        $("#bsfDashArea-2").show(); 
+        $("#dashboardTitle").html("BSF Area-2");
+        $("#dashDropdownBSF").html("Area-2");
+        
+    });
+
+    //BSFL Area-1
+    $("#dashBSFLarea-1").click(function(){
+        $("#bsflDashArea-2").hide();
+        $("#bsflDashArea-1").show(); 
+        $("#dashboardTitle").html("BSFL Area-1");
+        $("#dashDropdownBSFL").html("Area-1");
+        
+    });
+
+    //BSFL Area-2
+    $("#dashBSFLarea-2").click(function(){
+        $("#bsflDashArea-1").hide();
+        $("#bsflDashArea-2").show(); 
+        $("#dashboardTitle").html("BSFL Area-2");
+        $("#dashDropdownBSFL").html("Area-2");
+        
+    });
+
+
+
+   
+    //----------------------------Start of index page------------------------------//
 
 //------------------------------------------------------------------------------------------------
     $("#tempToday").click(function(){
@@ -77,7 +158,8 @@ $(document).ready(function(){
     });
 
 //------------------------------------------------------------------------------------------------
-    //Start of sensor page
+    //-----------------Start of sensor page------------------------------//
+
     //Chicken-----------------------------------------------
     $("#sensorChicken").click(function() {
         $("#chickenSensor").show();
@@ -166,7 +248,7 @@ $(document).ready(function(){
 
     
     
-    //End of sensor page
+    //-------------------End of sensor page----------------------//
 
 
 

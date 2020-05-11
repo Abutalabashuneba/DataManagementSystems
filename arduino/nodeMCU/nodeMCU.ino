@@ -76,30 +76,17 @@ void loop() {
   int data3=root["mois"];
   Serial.println(data3);
   Serial.println(); 
-
-  //Moisture ------------------------------------------------------
-  String moisture;
-  if (data3 < soilWet) {
-    Serial.println("Status: Soil is too wet");
-    moisture = "Too Wet";
-  } else if (data3 >= soilWet && data3 < soilDry) {
-    Serial.println("Status: Soil moisture is perfect");
-    moisture = "Perfect";
-  } else {
-    Serial.println("Status: Soil is too dry - time to water!");
-    moisture = "Too Dry";
-  }
-
+  
   // Push json Object to Firebase
   DynamicJsonBuffer jsonBuffer2;
   JsonObject& dataObject = jsonBuffer2.createObject();
   JsonObject& tempTime = dataObject.createNestedObject("timestamp");
   dataObject["temperature"] = data1;
   dataObject["humidity"] = data2;
-  dataObject["moisture"] = moisture;
+  dataObject["moisture"] = data3;
   tempTime[".sv"] = "timestamp";
 
-  Firebase.push("Data", dataObject);
+  Firebase.push("Data/Chicken/Area1", dataObject);
   
   // handle error  
   if (Firebase.failed()) {  

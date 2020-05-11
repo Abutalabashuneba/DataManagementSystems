@@ -1,6 +1,6 @@
 var database = firebase.database();
 var ref = database.ref("account");
-var dataref = database.ref("Data");
+var dataref = database.ref("Data/Chicken/Area1");
 
 if(sessionStorage.getItem("username") == null){
   window.location.replace("login.html");
@@ -75,14 +75,14 @@ dataref.on("value", snap =>{
   var dataMois = dataObj[keys[keys.length-1]].moisture;
   var valueMois = document.getElementById("mois");
   document.getElementById("chickenMois").innerHTML = dataMois;
-  valueMois.setAttribute("data-value",100);
+  valueMois.setAttribute("data-value", dataMois);
 
-  //Push warning notification
-  if(dataTemp > 35)
+  //Push Chicken warning notification
+  if(dataTemp < 20 || dataTemp > 30)
   {
     console.log(dataTemp);
     Push.create("Temperature Warning",{
-      body: "Current Chicken Temperauture is " + dataTemp,
+      body: "Current Chicken Temperauture is " + dataTemp + "°C",
       icon: 'images/warning.png',
       timeout: 10000,
       onClick: function () {
@@ -91,6 +91,33 @@ dataref.on("value", snap =>{
       }
     });
   }
+  if(dataHumid < 60 || dataHumid > 80)
+  {
+    Push.create("Humidity Warning",{
+      body: "Current Chicken Humidity is " + dataHumid + "%",
+      icon: 'images/warning.png',
+      timeout: 100000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  if(dataMois > 10)
+  {
+    Push.create("Soil Moisture Warning",{
+      body: "Current Chicken Soil Moisture is " + dataMois + "%",
+      icon: 'images/warning.png',
+      timeout: 100000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  //End of Push Chicken warning notification
+
+  
   
 
   if(dataMois == "Too Wet")

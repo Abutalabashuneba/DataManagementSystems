@@ -10,7 +10,8 @@ SoftwareSerial s =  SoftwareSerial(rxPin, txPin);
 dht DHT;
 
 //Moisture
-#define moisturePin A1
+int moisture_pin = A1;
+int output_value ;
 
 void setup() {
   // put your setup code here, to run once:
@@ -32,7 +33,9 @@ void loop() {
   int h = DHT.humidity;
 
   //Moisture
-  int m = analogRead(moisturePin);
+  output_value = analogRead(moisture_pin);
+  output_value = map(output_value, 1023, 165, 0, 100);
+  int m = output_value;
   
 
   if (isnan(h) || isnan(t) || isnan(m)) {
