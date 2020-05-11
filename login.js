@@ -1,6 +1,5 @@
 $("#loginForm").submit(function(e){
     e.preventDefault();
-
     var pass = document.getElementById("pwd").value;
     var admin = document.getElementById("admin").checked;
     var email = document.getElementById("email").value;
@@ -10,7 +9,7 @@ $("#loginForm").submit(function(e){
 
     if(admin) type = "Admin";
     else type = "User";
-  
+
     for(var x = 0; x < userKeys.length; ++x){
       var k = userKeys[x];
 
@@ -37,7 +36,6 @@ $("#loginForm").submit(function(e){
         window.location.href = "index.html";
         errorMessage = "";
     }
-    console.log(userKeys.length);
     document.getElementById("loginError").innerHTML = errorMessage;
 });
 

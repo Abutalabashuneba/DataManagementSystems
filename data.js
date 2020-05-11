@@ -5,94 +5,66 @@ var ref = database.ref("Data");
 
 //select the table
 var datalist = document.querySelector(".bodyData");
-var key = [];
+
 //fetch the data from database
 ref.on("value", snap=>{
-    var dataObj = snap.val();
-    var keys = Object.keys(dataObj);
+    //var dataObj = snap.val();
+    //var keys = Object.keys(dataObj);
     
-    while(key.length > 0){
-        key.pop();
-    }
-
     //populate the table with data
-    populateTable(dataObj,keys);
+    populateTable();
 
 })
 
-function populateTable(dataObj,keys){
-    //console.log("function");
-    let html = "";
-
+function populateTable(){
+    var html = "";
+    
     //loop through the data
-    for(var x = 0; x < keys.length; ++x){
-        key.push(keys[x]);
-        var k = keys[x];
+    for(var x = 0; x < dataKeys.length; ++x){
+        var k = dataKeys[x];
         var d = new Date(dataObj[k].timestamp); //change the format of timestamp to be readable
         var datetime = d.toLocaleString(); //format the time 
         //var time = d.toLocaleTimeString(); //format the time 
 
-        //add the html element
-        if(dataObj[k].moisture == "Too Dry"){
-            const tr = `
+        let tr = `
             <tr>
                 <td class="id">${x + 1}</td>
                 <td class="hehe">${datetime}</td>
                 <td class="hehe">${dataObj[k].temperature}</td>
                 <td class="hehe">${dataObj[k].humidity}</td>
                 <td class="hehe"></td>
+        `;
+        html += tr;
+
+        if(dataObj[k].moisture == "Too Dry"){
+            tr = `
                 <td class="hehe"><span class="badge badge-danger w-75 py-2">${dataObj[k].moisture}</span></td>
+            `;
+        }else if(dataObj[k].moisture == "Too Wet"){
+            tr = `
+                <td class="hehe"><span class="badge badge-warning w-75 py-2">${dataObj[k].moisture}</span></td>
+            `;
+        }else if(dataObj[k].moisture == "Null"){
+            tr = `
+                <td class="hehe"><span class="badge badge-info w-75 py-2">${dataObj[k].moisture}</span></td>
+            `;
+        }else{
+            tr = `
+                <td class="hehe"><span class="badge badge-success w-75 py-2">${dataObj[k].moisture}</span></td>
+            `;
+        }
+
+        html += tr;
+
+        tr = `
                 <td>
                 <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
                 <span class="table-edit" data-toggle="modal" data-target="#editData"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
                 </td>
             </tr>
         `;
+
         html += tr;
-        }else if(dataObj[k].moisture == "Too Wet"){
-            const tr = `
-            <tr>
-                <td class="id">${x + 1}</td>
-                <td class="hehe">${datetime}</td>
-                <td class="hehe">${dataObj[k].temperature}</td>
-                <td class="hehe">${dataObj[k].humidity}</td>
-                <td class="hehe"></td>
-                <td class="hehe"><span class="badge badge-warning w-75 py-2">${dataObj[k].moisture}</span></td>
-                <td><span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                <span class="table-edit" data-toggle="modal" data-target="#editData"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span></td>
-            </tr>
-        `;
-        html += tr;
-        }else if(dataObj[k].moisture == "Null"){
-            const tr = `
-            <tr>
-                <td class="id">${x + 1}</td>
-                <td class="hehe">${datetime}</td>
-                <td class="hehe">${dataObj[k].temperature}</td>
-                <td class="hehe">${dataObj[k].humidity}</td>
-                <td class="hehe"></td>
-                <td class="hehe"><span class="badge badge-info w-75 py-2">${dataObj[k].moisture}</span></td>
-                <td><span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                <span class="table-edit" data-toggle="modal" data-target="#editData"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span></td>
-            </tr>
-        `;
-        html += tr;
-        }else{
-            const tr = `
-            <tr>
-                <td class="id">${x + 1}</td>
-                <td class="hehe">${datetime}</td>
-                <td class="hehe">${dataObj[k].temperature}</td>
-                <td class="hehe">${dataObj[k].humidity}</td>
-                <td class="hehe"></td>
-                <td class="hehe"><span class="badge badge-success w-75 py-2">${dataObj[k].moisture}</span></td>
-                <td><span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                <span class="table-edit" data-toggle="modal" data-target="#editData"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span></td>
-            </tr>
-        `;
-        html += tr;
-        }
-        
     }
     //append the table with fetched data
     datalist.innerHTML = html;
@@ -102,11 +74,6 @@ function populateTable(dataObj,keys){
     //});
     $('[data-toggle="tooltip"]').tooltip();
 }
-
-//function dataSearch(){
-//    var input = document.getElementById("searchInput").value;
- //   console.log(input);
-//}
 
 $("#addDataForm").submit(function(e){
     e.preventDefault();
@@ -148,9 +115,9 @@ var remove = function(e){
     var index = $(this).parents("tr").find("td.id").text();
     var deleteIndex;
     
-    for(var x = 0; x < key.length; ++x){
+    for(var x = 0; x < dataKeys.length; ++x){
         if(index-1 == x){
-            deleteIndex = key[x];
+            deleteIndex = dataKeys[x];
         }
     }
 
@@ -220,9 +187,9 @@ $("#updateDataForm").submit(function(e){
 
     var updateIndex;
 
-    for(var x = 0; x < key.length; ++x){
+    for(var x = 0; x < dataKeys.length; ++x){
         if(tableID-1 == x){
-            updateIndex = key[x];
+            updateIndex = dataKeys[x];
         }
     }
 
