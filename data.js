@@ -137,6 +137,7 @@ $("#addDataForm").submit(function(e){
     $("#addDataForm")[0].reset();
 });
 
+//remove data on hiding modal
 $("#addData").on("hidden.bs.modal",function(){
     $(this).find("form")[0].reset();
 })
@@ -187,6 +188,7 @@ var update = function(e){
         ref.child(updateIndex).update(updateData);
     }*/
     tableID = index;
+    console.log(tableID);
 }
 
 $(document).on('click', '.table-edit', update);

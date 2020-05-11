@@ -348,3 +348,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.page-link:focus{
+  box-shadow: none;
+}
