@@ -74,6 +74,8 @@ $("#signUpForm").submit(function(e){
         
                     refAcc.push(data);
                     $("#signUpForm")[0].reset();
+                    //$('.toast').toast({delay: 5000});
+                    $('.toast').toast('show');
                     errorMessage = "";
                 }else{
                     errorMessage = "Password did not match";

@@ -84,7 +84,7 @@ dataref.on("value", snap =>{
     Push.create("Temperature Warning",{
       body: "Current Chicken Temperauture is " + dataTemp,
       icon: 'images/warning.png',
-      timeout: 100000,
+      timeout: 10000,
       onClick: function () {
           window.focus();
           this.close();
@@ -118,7 +118,6 @@ dataref.on("value", snap =>{
 
   $(function() {
     $(".progress").each(function() {
-    console.log("Run");
     var value = $(this).attr('data-value');
     var left = $(this).find('.progress-left .progress-bar');
     var right = $(this).find('.progress-right .progress-bar');

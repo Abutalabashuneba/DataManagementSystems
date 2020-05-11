@@ -76,17 +76,17 @@ ref.on("value", snap=>{
         if(date == todayDate){
             xlabel1.push(dataObj[k].timestamp);
             
-            if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
+            if(dataObj[k].temperature == undefined || dataObj[k].temperature == "Null"){
                 points1.push(0);
             }else{
                 points1.push(dataObj[k].temperature);
             }
         }
 
-        if(d >= newDate(-6) && d <= newDate(0)){
+        if(d >= newDate(-7) && d <= newDate(0)){
             xlabel2.push(dataObj[k].timestamp);
 
-            if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
+            if(dataObj[k].temperature == undefined || dataObj[k].temperature == "Null"){
                 points2.push(0);
             }else{
                 points2.push(dataObj[k].temperature);
@@ -96,7 +96,7 @@ ref.on("value", snap=>{
         if(month == todayMonth){
             xlabel3.push(dataObj[k].timestamp);
 
-            if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
+            if(dataObj[k].temperature == undefined || dataObj[k].temperature == "Null"){
                 points3.push(0);
             }else{
                 points3.push(dataObj[k].temperature);
@@ -104,7 +104,7 @@ ref.on("value", snap=>{
         }
 
         xlabel4.push(dataObj[k].timestamp);
-        if(dataObj[k].temperature == undefined || dataObj[k].temperature == null){
+        if(dataObj[k].temperature == undefined || dataObj[k].temperature == "Null"){
             points4.push(0);
         }else{
             points4.push(dataObj[k].temperature);
@@ -129,7 +129,7 @@ function plot1(){
                 label: "Today's temperature",
                 data: points1,
                 type: "line",
-                pointRadius: 1,
+                pointRadius: 0,
 				fill: false,
 				lineTension: 0.5,
                 borderWidth: 2,
@@ -184,7 +184,7 @@ function plot2(){
                 label: "Weekly's temperature",
                 data: points2,
                 type: "line",
-                pointRadius: 1,
+                pointRadius: 0,
 				fill: false,
 				lineTension: 0.5,
                 borderWidth: 2,
@@ -239,7 +239,7 @@ function plot3(){
                 label: "Monthly's temperature",
                 data: points3,
                 type: "line",
-                pointRadius: 1,
+                pointRadius: 0,
 				fill: false,
 				lineTension: 0.5,
                 borderWidth: 2,
@@ -294,7 +294,7 @@ function plot4(){
                 label: "Lifetime's temperature",
                 data: points4,
                 type: "line",
-                pointRadius: 1,
+                pointRadius: 0,
 				fill: false,
 				lineTension: 0.5,
                 borderWidth: 2,
@@ -335,7 +335,7 @@ function plot4(){
             }
         },
     });
-    var datasets = chart.config.data.datasets[0];
-    console.log(datasets);
+    //var datasets = chart.config.data.datasets[0];
+    //console.log(datasets);
     chart.update();
 }
