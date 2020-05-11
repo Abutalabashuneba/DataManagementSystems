@@ -153,68 +153,211 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row pt-md-5 mt-md-3 mb-2">  
-                        <h3 class="mx-auto text-center text-muted">Chicken</h3>
+                    <div class="row pt-md-5 mt-md-3">
+                        <!--Start Pagination-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 pagination-col">
+                            <nav>
+                                <ul class="pagination paginationBtn">
+                                    <li class="page-item active"><a href="#" class="page-link" id="sensorChicken"><span class="badge">Chicken</span></a></li>
+                                    <li><a href="#" class="page-link" id="sensorBSF"><span class="badge">BSF</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--End Pagination-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 ">
+                        </div>
+                        <!--Start Dropdown button-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownChicken">
+                            <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="sensorDropdownChicken">
+                                Area-1
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" id="carea-1">Area-1</a>
+                                <a class="dropdown-item" href="#" id="carea-2">Area-2</a>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownBSF" style="display:none;">
+                            <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="sensorDropdownBSF">
+                                BSF Area-1
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" id="bsfarea-1">BSF Area-1</a>
+                                <a class="dropdown-item" href="#" id="bsfarea-2">BSF Area-2</a>
+                            </div>
+                        </div>
+                        <!--End Dropdown button-->
                     </div>
-                    
-                    <div class="row">
-                        <!--Start of DHT11 sensor-->
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="card mb-5">
-                                <div class="card-header align-items-center">
-                                    <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11)</b></div>
-                                        <div class="col-md-3">
-                                            <label class="switch" for="switchTemp">
-                                                <input class="switchTemp" type="checkbox" id="switchTemp" name="switchTemp" value="DHT11">
-                                                <span class="slider round"></span>
-                                            </label>
+
+                    <!--Start of Chicken sensor-->
+                    <div class="row" id="chickenSensor">
+                        <div class="row" id="chickenArea-1">
+                            <!--Start of DHT11 sensor Area-1 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11) chicken-1 </b></div>
+                                            <div class="col-md-3">
+                                                <label class="switch" for="switchTemp">
+                                                    <input class="switchTemp" type="checkbox" id="switchTemp" name="switchTemp" value="DHT11">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--End of DHT11 sensor-->
+                            <!--End of DHT11 sensor Area-1 -->
 
-                        <!--Start of FC-28 sensor-->
-                        <div class="col-xl-4 col-lg-6">
-                            <div class="card mb-5">
-                                <div class="card-header align-items-center">
-                                    <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28)</b></div>
-                                        <div class="col-md-3">
-                                            <label class="switch" for="switchMois">
-                                                <input class="switchMois" type="checkbox" id="switchMois" name="switchMois" value="FC-28">
-                                                <span class="slider round"></span>
-                                            </label>
+                            <!--Start of FC-28 sensor Area-1 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28) chicken-1 </b></div>
+                                            <div class="col-md-3">
+                                                <label class="switch" for="switchMois">
+                                                    <input class="switchMois" type="checkbox" id="switchMois" name="switchMois" value="FC-28">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--End of FC-28 sensor Area-1 -->                
                         </div>
-                        <!--End of FC-28 sensor-->
 
-                        
+                        <div class="row" id="chickenArea-2" style="display:none;">
+                            <!--Start of DHT11 sensor Area-2 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11) chicken-2 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of DHT11 sensor Area-2 -->
+
+                            <!--Start of FC-28 sensor Area-2 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28) chicken-2 </b></div>
+                                            <div class="col-md-3">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of FC-28 sensor Area-2 -->                
+                        </div>
                     </div>
+                    <!--End of Chicken sensor-->
+
+                    <!--Start of BSF sensor-->
+                    <div class="row" id="bsfSensor" style="display:none;">
+                        <div class="row" id="bsfArea-1">
+                            <!--Start of DHT11 sensor Area-1 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11) BSF-1 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of DHT11 sensor Area-1 -->
+
+                            <!--Start of FC-28 sensor Area-1 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28) BSF-1 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of FC-28 sensor Area-1 -->                
+                        </div>
+
+                        <div class="row" id="bsfArea-2" style="display:none;">
+                            <!--Start of DHT11 sensor Area-2 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11) BSF-2 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of DHT11 sensor Area-2 -->
+
+                            <!--Start of FC-28 sensor Area-2 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28) BSF-2 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of FC-28 sensor Area-1 -->                
+                        </div>
+                    </div>
+                    <!--End of BSF sensor-->
                 </div>
             </div>
 
-            <!--<div class="row">
-                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto mb-5">
-                    <nav>
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item active"><a href="#" class="page-link" id="chickenDash"><span class="badge">Chicken</span></a></li>
-                            <li class="page-item"><a href="#" class="page-link" id="bsfDash"><span class="badge">BSF</span></a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>-->
+          
         </div>
     </section>
     <!--End card section-->

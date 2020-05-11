@@ -191,6 +191,16 @@ Sensor Card
     border-radius: 50%;
   }
 
+  /*Pagination*/
+  .pagination-col .pagination>li>a,
+  .pagination-col .pagination>li>span {
+  border: 1px solid #f66436;
+  }
+
+  .paginationBtn .page-item.active>a {
+    background-color: #f44336;
+    color: #fff;
+  }
 /*---------------------------------------------------------------------
 Registration form
 ---------------------------------------------------------------------*/
