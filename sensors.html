@@ -159,7 +159,8 @@
                             <nav>
                                 <ul class="pagination paginationBtn">
                                     <li class="page-item active"><a href="#" class="page-link" id="sensorChicken"><span class="badge">Chicken</span></a></li>
-                                    <li><a href="#" class="page-link" id="sensorBSF"><span class="badge">BSF</span></a></li>
+                                    <li><a href="#" class="page-link" id="sensorBSFAdult"><span class="badge">BSF Adult</span></a></li>
+                                    <li><a href="#" class="page-link" id="sensorBSFLarvae"><span class="badge">BSF Larvae</span></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -167,6 +168,7 @@
                         <div class="col-xl-4 col-lg-4 col-md-4 ">
                         </div>
                         <!--Start Dropdown button-->
+                        <!--Chicken-->
                         <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownChicken">
                             <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="sensorDropdownChicken">
                                 Area-1
@@ -176,7 +178,9 @@
                                 <a class="dropdown-item" href="#" id="carea-2">Area-2</a>
                             </div>
                         </div>
+                        <!--End of Chicken-->
 
+                        <!--BSF Adult-->
                         <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownBSF" style="display:none;">
                             <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="sensorDropdownBSF">
                                 BSF Area-1
@@ -186,6 +190,21 @@
                                 <a class="dropdown-item" href="#" id="bsfarea-2">BSF Area-2</a>
                             </div>
                         </div>
+                        <!--End of BSF Adult-->
+
+                        <!--BSF Larvae-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownBSFLarvae" style="display:none;">
+                            <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="sensorDropdownBSFL">
+                                BSF.L Area-1
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" id="bsfLarea-1">BSF.L Area-1</a>
+                                <a class="dropdown-item" href="#" id="bsfLarea-2">BSF.L Area-2</a>
+                            </div>
+                        </div>
+                        <!--End of BSF Larvae-->
+
+
                         <!--End Dropdown button-->
                     </div>
 
@@ -275,7 +294,7 @@
                     </div>
                     <!--End of Chicken sensor-->
 
-                    <!--Start of BSF sensor-->
+                    <!--Start of BSF Adult sensor-->
                     <div class="row" id="bsfSensor" style="display:none;">
                         <div class="row" id="bsfArea-1">
                             <!--Start of DHT11 sensor Area-1 -->
@@ -312,7 +331,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--End of FC-28 sensor Area-1 -->                
+                            <!--End of FC-28 sensor Area-1 -->  
+                            
+                            <!--Start of Light sensor Area-1 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/light-sensor.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Log-scale Analog Light Sensor BSF-1</b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of Light sensor Area-1 -->  
                         </div>
 
                         <div class="row" id="bsfArea-2" style="display:none;">
@@ -350,10 +387,108 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--End of FC-28 sensor Area-1 -->                
+                            <!--End of FC-28 sensor Area-2 -->   
+                            
+                            <!--Start of Light sensor Area-2 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/light-sensor.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Log-scale Analog Light Sensor BSF-2</b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of Light sensor Area-2 -->  
                         </div>
                     </div>
-                    <!--End of BSF sensor-->
+                    <!--End of BSF Adult sensor-->
+
+                    <!--Start of BSF Larvae sensor-->
+                    <div class="row" id="bsfLarvaeSensor" style="display:none;">
+                        <div class="row" id="bsfLarvaeArea-1">
+                            <!--Start of DHT11 sensor Area-1 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11) BSFL-1 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of DHT11 sensor Area-1 -->
+
+                            <!--Start of FC-28 sensor Area-1 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28) BSFL-1 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of FC-28 sensor Area-1 -->                
+                        </div>
+
+                        <div class="row" id="bsfLarvaeArea-2" style="display:none;">
+                            <!--Start of DHT11 sensor Area-2 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/dht11.jpg" alt="DHT11" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Temp & Humidity Sensor (DHT11) BSFL-2 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of DHT11 sensor Area-2 -->
+
+                            <!--Start of FC-28 sensor Area-2 -->
+                            <div class="col-xl-4 col-lg-6">
+                                <div class="card mb-5">
+                                    <div class="card-header align-items-center">
+                                        <img class="card-img-top mx-auto d-block img-fluid" width="250" height="250" src="images/fc-28.jpg" alt="FC-28" > 
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9"><b class="sensor-name">Soil Moisture Sensor (FC-28) BSFL-2 </b></div>
+                                            <div class="col-md-3">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End of FC-28 sensor Area-2 -->                
+                        </div>
+                    </div>
+                    <!--End of BSF Larvae sensor-->
                 </div>
             </div>
 

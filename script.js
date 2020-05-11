@@ -78,10 +78,13 @@ $(document).ready(function(){
 
 //------------------------------------------------------------------------------------------------
     //Start of sensor page
+    //Chicken-----------------------------------------------
     $("#sensorChicken").click(function() {
         $("#chickenSensor").show();
         $("#bsfSensor").hide();
+        $("#bsfLarvaeSensor").hide();
         $("#dropdownChicken").show();
+        $("#dropdownBSFLarvae").hide();
         $("#dropdownBSF").hide();
  
     });
@@ -101,10 +104,14 @@ $(document).ready(function(){
         $("#sensorDropdownChicken").html("Area-2");
     });
 
-    $("#sensorBSF").click(function() {
+    //-----------------------------------------------------
+    //BSF Adult
+    $("#sensorBSFAdult").click(function() {
         $("#chickenSensor").hide();
         $("#bsfSensor").show();
+        $("#bsfLarvaeSensor").hide()
         $("#dropdownChicken").hide();
+        $("#dropdownBSFLarvae").hide();
         $("#dropdownBSF").show();
     });
 
@@ -123,7 +130,35 @@ $(document).ready(function(){
         $("#sensorDropdownBSF").html("BSF Area-2");
     });
 
-   
+    //------------------------------------------------------
+    //BSF Larvae
+    $("#sensorBSFLarvae").click(function() {
+        $("#chickenSensor").hide();
+        $("#bsfSensor").hide();
+        $("#dropdownChicken").hide();
+        $("#dropdownBSF").hide();
+        $("#bsfLarvaeSensor").show();
+        $("#dropdownBSFLarvae").show();
+    });
+
+    $("#bsfLarea-1").click(function() {
+        $("#bsfLarvaeArea-2").hide();
+        $("#chickenSensor").hide();
+        $("#bsfSensor").hide();
+        $("#bsfLarvaeArea-1").show();
+        $("#sensorDropdownBSFL").html("BSF.L Area-1");
+    });
+
+    $("#bsfLarea-2").click(function() {
+        $("#bsfLarvaeArea-1").hide();
+        $("#chickenSensor").hide();
+        $("#bsfSensor").hide();
+        $("#bsfLarvaeArea-2").show();
+        $("#sensorDropdownBSFL").html("BSF.L Area-2");
+    });
+
+   //--------------------------------------------------------
+   //Pagination active
     $(".paginationBtn li").on( 'click', function() {
         $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
         $( this ).addClass( 'page-item active' );
