@@ -1,15 +1,3 @@
-var database = firebase.database();
-var ref = database.ref("account");
-
-/*firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      //window.location.href = "index.html";
-    } else {
-      // No user is signed in.
-    }
-  });*/
-
 $("#loginForm").submit(function(e){
     e.preventDefault();
 
@@ -18,53 +6,39 @@ $("#loginForm").submit(function(e){
     var email = document.getElementById("email").value;
     var type = undefined;
     var validate = false;
+    var errorMessage = "";
 
-    if(admin){
-        type = "Admin";
-    }else{
-        type = "User";
-    }
-    
-    /*firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        document.getElementById("loginError").innerHTML = errorMessage;
-      });*/
+    if(admin) type = "Admin";
+    else type = "User";
+  
+    for(var x = 0; x < userKeys.length; ++x){
+      var k = userKeys[x];
 
-    ref.on("value", snap =>{
-      var accObj = snap.val();
-      var keys = Object.keys(accObj);
-      var errorMessage = "";
-
-      for(var x = 0; x < keys.length; ++x){
-        var k = keys[x];
-        if(email == accObj[k].email || email == accObj[k].username){
-          if(type == accObj[k].type){
-            if(pass == accObj[k].password){
-              //console.log("success");
-              validate = true;
-              sessionStorage.setItem("username",accObj[k].username);
-              sessionStorage.setItem("type",accObj[k].type);
-            }else{
-              errorMessage = "Wrong password";
-            }
+      if(email == userObj[k].email || email == userObj[k].username){
+        if(type == userObj[k].type){
+          if(pass == userObj[k].password){
+            validate = true;
+            sessionStorage.setItem("username",userObj[k].username);
+            sessionStorage.setItem("type",userObj[k].type);
+            break;
           }else{
-            errorMessage = "Wrong account type";
+            errorMessage = "Wrong password";
+            break;
           }
         }else{
-          errorMessage = "No user found";
+          errorMessage = "Wrong account type";
+          break;
         }
+      }else{
+        errorMessage = "No user found";
       }
-      
-      if(validate){
-          window.location.href = "index.html";
-          errorMessage = "";
-      }
-
-      document.getElementById("loginError").innerHTML = errorMessage;
-    })
+    }
+    if(validate){
+        window.location.href = "index.html";
+        errorMessage = "";
+    }
+    console.log(userKeys.length);
+    document.getElementById("loginError").innerHTML = errorMessage;
 });
 
 
