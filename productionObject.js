@@ -2,7 +2,7 @@ var database = firebase.database();
 var dataRef = database.ref("Data");
 var sensorRef = database.ref("Sensors");
 var userRef = database.ref("account");
-var productionRef = database.ref("Data/Productivity");
+
 
 //read database for child account
 //create empty global variables
@@ -23,15 +23,5 @@ dataRef.on("value", snap=>{
     dataObj = snap.val();
     dataKeys = Object.keys(dataObj);
 })
-
-var productionObj;
-var productionKeys;
-productionRef.on("value", snap=>{
-    //store data into the variable
-    productionObj = snap.val();
-    productionKeys = Object.keys(productionObj);
-})
-
-
 
 

@@ -316,17 +316,17 @@ SearchBar Styling
 /*---------------------------------------------------------------------
 Add Button Styling
 ---------------------------------------------------------------------*/
-#addBtn{
+#addBtn, #addBtnCP{
   background: transparent;
 }
 
-#addBtn:hover{
+#addBtn:hover, #addBtnCP{
   animation-name: rotate;
   animation-duration: .5s;
   animation-fill-mode: forwards;
 }
 
-#addBtn:focus{
+#addBtn:focus, #addBtnCP{
   box-shadow: none;
 }
 
