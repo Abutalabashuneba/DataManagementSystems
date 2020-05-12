@@ -72,7 +72,13 @@ function populateTable(){
     //$('table tr td.hehe').click(function(){
     //    console.log($(this).text());
     //});
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+		trigger : 'hover'
+	});
+	
+	$('[data-toggle="tooltip"]').on('click', function () {
+		$(this).tooltip('hide')
+	});
 }
 
 $("#addDataForm").submit(function(e){
