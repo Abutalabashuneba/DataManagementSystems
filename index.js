@@ -1,6 +1,8 @@
 var database = firebase.database();
 var ref = database.ref("account");
 var dataref = database.ref("Data/Chicken/Area1");
+var bsfDataref = database.ref("Data/BSF/Area1");
+var bsflDataref = database.ref("Data/BSFL/Area1");
 
 if(sessionStorage.getItem("username") == null){
   window.location.replace("login.html");
@@ -52,7 +54,7 @@ $("#logoutForm").submit(function(e){
 
 
 
-/*--------------------------  Progess bar-------------------------- */
+/*--------------------------  Progess bar for Chicken /*-------------------------- */
 dataref.on("value", snap =>{
   var dataObj = snap.val();
   var keys = Object.keys(dataObj);
@@ -142,6 +144,183 @@ dataref.on("value", snap =>{
     
   }
   
+
+  $(function() {
+    $(".progress").each(function() {
+    var value = $(this).attr('data-value');
+    var left = $(this).find('.progress-left .progress-bar');
+    var right = $(this).find('.progress-right .progress-bar');
+  
+  if (value > 0) {
+    if (value <= 50) {
+    right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+    } else {
+    right.css('transform', 'rotate(180deg)')
+    left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+    }
+  }
+  
+  })
+  
+  function percentageToDegrees(percentage) {
+    return percentage / 100 * 360
+  }
+  
+  });
+  
+})
+
+
+/*--------------------------  Progess bar for BSF /*-------------------------- */
+bsfDataref.on("value", snap =>{
+  var dataObjBSF = snap.val();
+  var keysBSF = Object.keys(dataObjBSF);
+
+  //Temeprature
+  var dataTempBSF = dataObjBSF[keysBSF[keysBSF.length-1]].temperature;
+  var valueTempBSF = document.getElementById("tempBSF");
+  document.getElementById("bsfTemp").innerHTML = dataTempBSF;
+  valueTempBSF.setAttribute("data-value",dataTempBSF);
+  console.log(dataTempBSF);
+
+  //Humidity
+  var dataHumidBSF = dataObjBSF[keysBSF[keysBSF.length-1]].humidity;
+  var valueHumidBSF = document.getElementById("humidBSF");
+  document.getElementById("bsfHumid").innerHTML = dataHumidBSF;
+  valueHumidBSF.setAttribute("data-value",dataHumidBSF);
+
+  //Light
+  var dataLightBSF = dataObjBSF[keysBSF[keysBSF.length-1]].light;
+  var valueLightBSF = document.getElementById("lightBSF");
+  document.getElementById("bsfLight").innerHTML = dataLightBSF;
+  valueLightBSF.setAttribute("data-value", dataLightBSF);
+
+  //Push BSF warning notification
+  if(dataTempBSF < 25 || dataTempBSF > 35)
+  {
+    Push.create("Temperature Warning",{
+      body: "Current Black Soldier Fly Temperauture is " + dataTempBSF + "°C",
+      icon: 'images/warning.png',
+      timeout: 10000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  if(dataHumidBSF < 60)
+  {
+    Push.create("Humidity Warning",{
+      body: "Current Black Soldier Fly Humidity is " + dataHumidBSF + "%",
+      icon: 'images/warning.png',
+      timeout: 10000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  if(dataLightBSF < 1000)
+  {
+    Push.create("Light Intensity Warning",{
+      body: "Current Black Soldier Fly intensity of light is " + dataLightBSF  + "LUX",
+      icon: 'images/warning.png',
+      timeout: 10000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  //End of Push BSF warning notification
+
+  $(function() {
+    $(".progress").each(function() {
+    var value = $(this).attr('data-value');
+    var left = $(this).find('.progress-left .progress-bar');
+    var right = $(this).find('.progress-right .progress-bar');
+  
+  if (value > 0) {
+    if (value <= 50) {
+    right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+    } else {
+    right.css('transform', 'rotate(180deg)')
+    left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+    }
+  }
+  
+  })
+  
+  function percentageToDegrees(percentage) {
+    return percentage / 100 * 360
+  }
+  
+  });
+  
+})
+
+/*--------------------------  Progess bar for BSFL /*-------------------------- */
+bsflDataref.on("value", snap =>{
+  var dataObjBSF = snap.val();
+  var keysBSF = Object.keys(dataObjBSF);
+
+  //Temeprature
+  var dataTempBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].temperature;
+  var valueTempBSFL = document.getElementById("tempBSFL");
+  document.getElementById("bsflTemp").innerHTML = dataTempBSFL;
+  valueTempBSFL.setAttribute("data-value",dataTempBSFL);
+
+  //pH
+  var dataPhBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].pH;
+  var valuePhBSFL = document.getElementById("phBSFL");
+  document.getElementById("bsflPH").innerHTML = dataPhBSFL;
+  valuePhBSFL.setAttribute("data-value",dataPhBSFL);
+
+  //Soil Moisture
+  var dataMoistureBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].moisture;
+  var valueMoistureBSFL = document.getElementById("moistureBSFL");
+  document.getElementById("bsflMoisture").innerHTML = dataMoistureBSFL;
+  valueMoistureBSFL.setAttribute("data-value", dataMoistureBSFL);
+
+  //Push BSF warning notification
+  if(dataTempBSFL < 30 || dataTempBSFL > 36)
+  {
+    Push.create("Temperature Warning",{
+      body: "Current Black Soldier Fly Larvae Temperauture is " + dataTempBSFL + "°C",
+      icon: 'images/warning.png',
+      timeout: 10000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  if(dataPhBSFL < 6 || dataPhBSFL > 10)
+  {
+    Push.create("pH Value Warning",{
+      body: "Current Black Soldier Fly Larvae pH value is " + dataPhBSFL + "pH",
+      icon: 'images/warning.png',
+      timeout: 10000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  if(dataMoistureBSFL < 60 || dataMoistureBSFL > 80)
+  {
+    Push.create("Soil Moisture Warning",{
+      body: "Current Black Soldier Fly Larvae Soil Moisture is " + dataMoistureBSFL + "%",
+      icon: 'images/warning.png',
+      timeout: 10000,
+      onClick: function () {
+          window.focus();
+          this.close();
+      }
+    });
+  }
+  
+  //End of Push BSF warning notification
 
   $(function() {
     $(".progress").each(function() {
