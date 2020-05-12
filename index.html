@@ -399,7 +399,7 @@
                                         <h4><i class="fas fa-temperature-low"></i> BSF - Temperature</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="progress mx-auto" id="temp">
+                                        <div class="progress mx-auto" id="tempBSF">
                                             <span class="progress-left">
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
@@ -407,7 +407,7 @@
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenTemp"></span><sup class="small">°C</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="bsfTemp"></span><sup class="small">°C</sup></div>
                                             </div>
                                         </div>
                                     </div>
@@ -423,7 +423,7 @@
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="progress mx-auto" id="humid" >
+                                        <div class="progress mx-auto" id="humidBSF" >
                                             <span class="progress-left">
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
@@ -431,7 +431,7 @@
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenHumid"></span><sup class="small">%</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="bsfHumid"></span><sup class="small">%</sup></div>
                                             </div>
                                         </div>
                                     </div>
@@ -439,6 +439,7 @@
                             </div>
                             <!--End of BSF Humidity-->
 
+                            <!--Start of BSF Light-->
                             <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
@@ -446,10 +447,21 @@
                                     </div>
 
                                     <div class="card-body">
-                                        
+                                        <div class="progress mx-auto" id="lightBSF" >
+                                            <span class="progress-left">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <span class="progress-right">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                            <div class="h2 font-weight-bold"><span id="bsfLight"></span><sup class="small">LUX</sup></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--End of BSF Light-->
                         </div>
                         <!--End of BSF Dashboard Area-1 -->
 
@@ -522,14 +534,14 @@
                     <div id="dashBSFL" style="display:none;">
                         <!--Start of BSF Dashboard Area-1 -->
                         <div class="row" id="bsflDashArea-1">
-                            <!--Start of BSF Temperature-->
+                            <!--Start of BSFL Temperature-->
                             <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSFL - Temperature</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="progress mx-auto" id="temp">
+                                        <div class="progress mx-auto" id="tempBSFL">
                                             <span class="progress-left">
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
@@ -537,23 +549,23 @@
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenTemp"></span><sup class="small">°C</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="bsflTemp"></span><sup class="small">°C</sup></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--End of BSF Temperature-->
+                            <!--End of BSFL Temperature-->
 
-                            <!--Start of BSF Humidity-->
+                            <!--Start of BSFL pH value-->
                             <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
-                                        <h4><i class="fas fa-temperature-low"></i> BSFL - Humidity</h4>
+                                        <h4><i class="fas fa-temperature-low"></i> BSFL - pH Value</h4>
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="progress mx-auto" id="humid" >
+                                        <div class="progress mx-auto" id="phBSFL" >
                                             <span class="progress-left">
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
@@ -561,25 +573,37 @@
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenHumid"></span><sup class="small">%</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="bsflPH"></span><sup class="small">pH</sup></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--End of BSF Humidity-->
+                            <!--End of BSFL pH value-->
 
+                            <!--Start of BSFL Soil Moisture-->
                             <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
-                                        <h4><i class="fas fa-temperature-low"></i> BSFL - pH</h4>
+                                        <h4><i class="fas fa-temperature-low"></i> BSFL - Soil Moisture</h4>
                                     </div>
 
                                     <div class="card-body">
-                                        
+                                        <div class="progress mx-auto" id="moistureBSFL" >
+                                            <span class="progress-left">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <span class="progress-right">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                            <div class="h2 font-weight-bold"><span id="bsflMoisture"></span><sup class="small">%</sup></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--End of BSFL Soil Moisture-->
                         </div>
                         <!--End of BSF Dashboard Area-1 -->
 
