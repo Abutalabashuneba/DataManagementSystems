@@ -144,6 +144,65 @@ $(document).ready(function(){
         $("#myChart4").show();
     });
 
+    //
+    $("#tempBarToday").click(function(){
+        $("#myBarChart1").show();
+        $("#myBarChart2").hide();
+        $("#myBarChart3").hide();
+        $("#myBarChart4").hide();
+    });
+
+    $("#tempBarWeekly").click(function(){
+        $("#myBarChart1").hide();
+        $("#myBarChart2").show();
+        $("#myBarChart3").hide();
+        $("#myBarChart4").hide();
+    });
+
+    $("#tempBarMonthly").click(function(){
+        $("#myBarChart1").hide();
+        $("#myBarChart2").hide();
+        $("#myBarChart3").show();
+        $("#myBarChart4").hide();
+    });
+
+    $("#tempBarAll").click(function(){
+        $("#myBarChart1").hide();
+        $("#myBarChart2").hide();
+        $("#myBarChart3").hide();
+        $("#myBarChart4").show();
+    });
+
+    //
+    $("#tempDouToday").click(function(){
+        $("#myDouChart1").show();
+        $("#myDouChart2").hide();
+        $("#myDouChart3").hide();
+        $("#myDouChart4").hide();
+    });
+
+    $("#tempDouWeekly").click(function(){
+        $("#myDouChart1").hide();
+        $("#myDouChart2").show();
+        $("#myDouChart3").hide();
+        $("#myDouChart4").hide();
+    });
+
+    $("#tempDouMonthly").click(function(){
+        $("#myDouChart1").hide();
+        $("#myDouChart2").hide();
+        $("#myDouChart3").show();
+        $("#myDouChart4").hide();
+    });
+
+    $("#tempDouAll").click(function(){
+        $("#myDouChart1").hide();
+        $("#myDouChart2").hide();
+        $("#myDouChart3").hide();
+        $("#myDouChart4").show();
+    });
+
+
     $(".tempPage li").on( 'click', function() {
         $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
         $( this ).addClass( 'page-item active' );
