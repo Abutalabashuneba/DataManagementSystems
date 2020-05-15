@@ -154,7 +154,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row pt-md-5 mt-md-3 mb-2">
+                    <div class="row pt-md-5 mt-md-3 mb-2 pl-3">
+                        <nav>
+                            <ul class="pagination paginationBtn">
+                                <li class="page-item active"><a href="#" class="page-link"><span class="badge">Temperature</span></a></li>
+                                <li class="page-item"><a href="#" class="page-link"><span class="badge">Humidity</span></a></li>
+                                <li class="page-item"><a href="#" class="page-link"><span class="badge">Moisture</span></a></li>
+                                <li class="page-item"><a href="#" class="page-link"><span class="badge">Chicken Production</span></a></li>
+                            </ul>
+                        </nav>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -162,14 +170,14 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                            <h4>Temperature</h4>
+                                            <h4>Temperature - Line</h4>
                                         </div>
 
                                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                            <select id="chartType" class="form-control">
+                                            <!--<select id="chartType" class="form-control">
                                                 <option value="line" selected="selected">Line</option>
                                                 <option value="bar">Bar</option>
-                                            </select>
+                                            </select>-->
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +191,7 @@
                                 </div>
 
                                 <div class="card-footer">
-                                    <ul class="pagination justify-content-center mb-0 tempPage">
+                                    <ul class="pagination justify-content-center mb-0 tempPage" id="bar">
                                         <li class="page-item active"><a class="page-link" href="#" id="tempToday"><span class="badge">Today</span></a></li>
                                         <li class="page-item"><a class="page-link" href="#" id="tempWeekly"><span class="badge">Weekly</span></a></li>
                                         <li class="page-item"><a class="page-link" href="#" id="tempMonthly"><span class="badge">Monthly</span></a></li>
@@ -193,26 +201,52 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-6">
-                            <div class="card mb-5">
+                        <div class="col-12" >
+                            <div class="card mb-5" >
                                 <div class="card-header">
-                                    <h4>Chicken Production</h4>
+                                    <h4>Temperature - Bar</h4>
                                 </div>
                                     
                                 <div class="card-body">
                                     <!---->
+                                    <canvas id="myBarChart1" height="100" ></canvas>
+                                    <canvas id="myBarChart2" height="100" style="display: none;"></canvas>
+                                    <canvas id="myBarChart3" height="100" style="display: none;"></canvas>
+                                    <canvas id="myBarChart4" height="100" style="display: none;"></canvas>
+                                </div>
+
+                                <div class="card-footer">
+                                    <ul class="pagination justify-content-center mb-0 tempPage" id="Dou">
+                                        <li class="page-item active"><a class="page-link" href="#bar" id="tempBarToday"><span class="badge">Today</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#bar" id="tempBarWeekly"><span class="badge">Weekly</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#bar" id="tempBarMonthly"><span class="badge">Monthly</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#bar" id="tempBarAll"><span class="badge">Lifetime</span></a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xl-6">
-                            <div class="card mb-5">
+                        <div class="col-12" >
+                            <div class="card mb-5" >
                                 <div class="card-header">
-                                    <h4>Humidity</h4>
+                                    <h4>Temperature - Doughnut</h4>
                                 </div>
-
+                                    
                                 <div class="card-body">
                                     <!---->
+                                    <canvas id="myDouChart1" height="100" ></canvas>
+                                    <canvas id="myDouChart2" height="100" style="display: none;"></canvas>
+                                    <canvas id="myDouChart3" height="100" style="display: none;"></canvas>
+                                    <canvas id="myDouChart4" height="100" style="display: none;"></canvas>
+                                </div>
+
+                                <div class="card-footer">
+                                    <ul class="pagination justify-content-center mb-0 tempPage">
+                                        <li class="page-item active"><a class="page-link" href="#Dou" id="tempDouToday"><span class="badge">Today</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#Dou" id="tempDouWeekly"><span class="badge">Weekly</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#Dou" id="tempDouMonthly"><span class="badge">Monthly</span></a></li>
+                                        <li class="page-item"><a class="page-link" href="#Dou" id="tempDouAll"><span class="badge">Lifetime</span></a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +261,6 @@
         <div class="toast-header bg-success">
       
           <strong class="mr-auto text-white">Sign Up</strong>
-          <!--<small>11 mins ago</small>-->
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

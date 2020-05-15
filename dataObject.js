@@ -4,6 +4,10 @@ var sensorRef = database.ref("Sensors");
 var userRef = database.ref("account");
 var productionRef = database.ref("Data/Productivity");
 
+var test = {
+    background : "red"
+}
+
 //read database for child account
 //create empty global variables
 var userObj;
@@ -24,14 +28,26 @@ dataRef.on("value", snap=>{
     dataKeys = Object.keys(dataObj);
 })
 
-var productionObj;
-var productionKeys;
-productionRef.on("value", snap=>{
-    //store data into the variable
-    productionObj = snap.val();
-    productionKeys = Object.keys(productionObj);
+
+//var hello = async function() { return "Hello" };
+//hello().then(console.log);
+
+//async function hello() {
+ //   return greeting = await Promise.resolve("Hello");
+ // };
+  
+function test(snapshot){
+    var hehe = snapshot.val();
+    var keys = Object.keys(hehe);
+
+}
+
+function getData(){
+    return userRef.once("value").then(test);
+}
+
+getData().then(function(snapshot){
+    console.log(snapshot);
 })
-
-
 
 
