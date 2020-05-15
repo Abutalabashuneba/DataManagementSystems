@@ -1,23 +1,93 @@
 $(document).ready(function(){
 //------------------------------------------------------------------------------------------------
-    //Start of data page
-    $("#btnChicken").click(function() {
+    //----------------------------Start of data page------------------------------//
+    //Chicken
+    $("#dataChickenBtn").click(function() {
         $("#chickenTable").show();
         $("#bsfTable").hide();
-        $("#tableTitle").html("Chicken");
+        $("#bsflTable").hide();
+        $("#dropdownBSFRow-data").hide();
+        $("#dropdownBSFLRow-data").hide();
+        $("#dropdownChickenRow-data").show();
+        $("#dataTitle").html("Chicken");
     });
 
-    $("#btnBsf").click(function() {
+    //BSF
+    $("#dataBSFBtn").click(function() {
+        $("#bsfTable").show();
         $("#chickenTable").hide();
-        $("#bsfTable").show()
-        $("#tableTitle").html("BSF");
+        $("#bsflTable").hide();
+        $("#dropdownChickenRow-data").hide();
+        $("#dropdownBSFLRow-data").hide();
+        $("#dropdownBSFRow-data").show();
+        $("#dataTitle").html("BSF");
     });
+    
+    //BSFL
+    $("#dataBSFLBtn").click(function() {
+        $("#chickenTable").hide();
+        $("#bsfTable").hide();
+        $("#bsflTable").show();
+        $("#dropdownChickenRow-data").hide();
+        $("#dropdownBSFRow-data").hide();
+        $("#dropdownBSFLRow-data").show();
+        $("#dataTitle").html("BSFL");
+    });
+
+    //Chicken Area-1
+    $("#dataCarea-1").click(function(){
+        $("#chickenTable-Area2").hide();
+        $("#chickenTable-Area1").show(); 
+        $("#dataDropdownChicken").html("Area-1");
+        
+    });
+
+    //Chicken Area-2
+    $("#dataCarea-2").click(function(){
+        $("#chickenDashArea-1").hide();
+        $("#chickenDashArea-2").show(); 
+        $("#dataDropdownChicken").html("Area-2");
+        
+    });
+
+    //BSF Area-1
+    $("#dataBSFarea-1").click(function(){
+        $("#bsfTable-Area2").hide();
+        $("#bsfTable-Area1").show(); 
+        $("#dataDropdownBSF").html("Area-1");
+        
+    });
+
+    //BSF Area-2
+    $("#dataBSFarea-2").click(function(){
+        $("#bsfTable-Area1").hide();
+        $("#bsfTable-Area2").show(); 
+        $("#dataDropdownBSF").html("Area-2");
+        
+    });
+
+    //BSFL Area-1
+    $("#dataBSFLarea-1").click(function(){
+        $("#bsflTable-Area2").hide();
+        $("#bsflTable-Area1").show(); 
+        $("#dataDropdownBSFL").html("Area-1");
+        
+    });
+
+    //BSFL Area-2
+    $("#dataBSFLarea-2").click(function(){
+        $("#bsflTable-Area1").hide();
+        $("#bsflTable-Area2").show(); 
+        $("#dataDropdownBSFL").html("Area-2");
+        
+    });
+
 
     $(".paginationBtn li").on( 'click', function() {
         $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
         $( this ).addClass( 'page-item active' );
     });
-    //End of data page
+    //----------------------------End of data page------------------------------//
     
 //------------------------------------------------------------------------------------------------
     //----------------------------Start of index page------------------------------//
@@ -60,7 +130,6 @@ $(document).ready(function(){
     $("#dashCarea-1").click(function(){
         $("#chickenDashArea-2").hide();
         $("#chickenDashArea-1").show(); 
-        $("#dashboardTitle").html("Chicken Area-1");
         $("#dashDropdownChicken").html("Area-1");
         
     });
@@ -69,7 +138,6 @@ $(document).ready(function(){
     $("#dashCarea-2").click(function(){
         $("#chickenDashArea-1").hide();
         $("#chickenDashArea-2").show(); 
-        $("#dashboardTitle").html("Chicken Area-2");
         $("#dashDropdownChicken").html("Area-2");
         
     });
@@ -78,7 +146,6 @@ $(document).ready(function(){
     $("#dashBSFarea-1").click(function(){
         $("#bsfDashArea-2").hide();
         $("#bsfDashArea-1").show(); 
-        $("#dashboardTitle").html("BSF Area-1");
         $("#dashDropdownBSF").html("Area-1");
         
     });
@@ -87,7 +154,6 @@ $(document).ready(function(){
     $("#dashBSFarea-2").click(function(){
         $("#bsfDashArea-1").hide();
         $("#bsfDashArea-2").show(); 
-        $("#dashboardTitle").html("BSF Area-2");
         $("#dashDropdownBSF").html("Area-2");
         
     });
@@ -96,7 +162,6 @@ $(document).ready(function(){
     $("#dashBSFLarea-1").click(function(){
         $("#bsflDashArea-2").hide();
         $("#bsflDashArea-1").show(); 
-        $("#dashboardTitle").html("BSFL Area-1");
         $("#dashDropdownBSFL").html("Area-1");
         
     });
@@ -105,7 +170,6 @@ $(document).ready(function(){
     $("#dashBSFLarea-2").click(function(){
         $("#bsflDashArea-1").hide();
         $("#bsflDashArea-2").show(); 
-        $("#dashboardTitle").html("BSFL Area-2");
         $("#dashDropdownBSFL").html("Area-2");
         
     });
