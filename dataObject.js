@@ -1,5 +1,5 @@
 var database = firebase.database();
-var dataRef = database.ref("Data");
+var dataRef = database.ref("Data/Chicken/Area1");
 var sensorRef = database.ref("Sensors");
 var userRef = database.ref("account");
 var productionRef = database.ref("Data/Productivity");

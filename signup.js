@@ -43,6 +43,7 @@ $("#signUpForm").submit(function(e){
                 refAcc.push(data);
                 $("#signUpForm")[0].reset();
                 errorMessage = "";
+                
             }else{
                 errorMessage = "Password did not match";
             }
@@ -74,6 +75,7 @@ $("#signUpForm").submit(function(e){
         
                     refAcc.push(data);
                     $("#signUpForm")[0].reset();
+                    $('#registerForm').modal('hide');
                     //$('.toast').toast({delay: 5000});
                     $('.toast').toast('show');
                     errorMessage = "";
@@ -84,5 +86,6 @@ $("#signUpForm").submit(function(e){
         }
         document.getElementById("signUpMsg").innerHTML = errorMessage;
     });
+
     
 });

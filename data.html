@@ -362,47 +362,14 @@
                                             <th>Temperature (°C)</th>
                                             <th>Humidity (%)</th>
                                             <th>Light (LUX)</th>
+                                            <th>Option</th>
                                         </tr>
                                     </thead>
                                     <!--End of table head-->
     
                                     <!--Start of table body-->
-                                    <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <th>4/17/2020, 9:00:16 PM</th>
-                                            <th>33</th>
-                                            <th>62</th>
-                                            <th>1000</th>
-                                        </tr>
-                                        <tr>
-                                            <th>2</th>
-                                            <th>4/17/2020, 9:05:16 PM</th>
-                                            <th>33</th>
-                                            <th>62</th>
-                                            <th>1000</th>
-                                        </tr>
-                                        <tr>
-                                            <th>3</th>
-                                            <th>4/17/2020, 9:10:16 PM</th>
-                                            <th>33</th>
-                                            <th>62</th>
-                                            <th>1000</th>
-                                        </tr>
-                                        <tr>
-                                            <th>4</th>
-                                            <th>4/17/2020, 9:15:16 PM</th>
-                                            <th>33</th>
-                                            <th>62</th>
-                                            <th>1000</th>
-                                        </tr>
-                                        <tr>
-                                            <th>5</th>
-                                            <th>4/17/2020, 9:20:16 PM</th>
-                                            <th>33</th>
-                                            <th>62</th>
-                                            <th>1000</th>
-                                        </tr>
+                                    <tbody class="bodyDataBSF">
+                                            
                                     </tbody>
                                     <!--End of table body-->
                                 </table>
@@ -593,6 +560,22 @@
         </div>
     </section>
     <!--End table section-->
+
+    <div class="toast" style="position: absolute; top: 5rem; right: 4rem;" data-autohide="true">
+        <div class="toast-header bg-success">
+      
+            <strong class="mr-auto text-white">Sign Up</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+          Account Creation success!
+       </div>
+    </div>
+
+    
+    
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
