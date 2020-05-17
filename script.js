@@ -81,12 +81,6 @@ $(document).ready(function(){
         $("#dataDropdownBSFL").html("Area-2");
         
     });
-
-
-    $(".paginationBtn li").on( 'click', function() {
-        $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
-        $( this ).addClass( 'page-item active' );
-    });
     //----------------------------End of data page------------------------------//
     
 //------------------------------------------------------------------------------------------------

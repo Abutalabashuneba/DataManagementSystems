@@ -24,7 +24,6 @@ bsfref.on("value", snap=>{
     bsfObj1 = snap.val();
     bsfKey1 = Object.keys(bsfObj1);
 
-    
     //populate the table with data
     populateTableBSF();
 

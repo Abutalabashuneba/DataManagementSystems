@@ -1,8 +1,3 @@
-//connect to firebase database 
-//get reference to the related child (Data)
-var database = firebase.database();
-var ref = database.ref("Data/Production");
-
 //select the table
 var datalist = document.querySelector(".productionBodyData");
 
@@ -10,7 +5,7 @@ var productionObj;
 var productionKeys;
 
 //fetch the data from database
-ref.on("value", snap=>{
+productionRef.on("value", snap=>{
     //var dataObj = snap.val();
     //var keys = Object.keys(dataObj);
     productionObj = snap.val();
@@ -73,28 +68,30 @@ function populateTableCP(){
 $("#addDataFormCP").submit(function(e){
     e.preventDefault();
 
-    var a = parseFloat(document.getElementById("addAmountC").value);
-    var b = parseFloat(document.getElementById("addAvgC").value);
-    var c = parseFloat(document.getElementById("addSickC").value);
-    var d = parseFloat(document.getElementById("addRuntC").value);
-	var e = parseFloat(document.getElementById("addMortC").value);
-    var f = parseFloat(document.getElementById("addfeedGiven").value);
-    var g = parseFloat(document.getElementById("addfeedLeft").value);
-    var h = new Date().getTime();
+    var amountOfChicken = parseFloat(document.getElementById("addAmountC").value);
+    var averageWeight = parseFloat(document.getElementById("addAvgC").value);
+    var sick = parseFloat(document.getElementById("addSickC").value);
+    var runt = parseFloat(document.getElementById("addRuntC").value);
+	var mortality = parseFloat(document.getElementById("addMortC").value);
+    var feedGiven = parseFloat(document.getElementById("addfeedGiven").value);
+    var feedLeft = parseFloat(document.getElementById("addfeedLeft").value);
+    var timestamp = new Date().getTime();
 
     var data = {
-        amount: a,
-		average: b,
-		sick: c,
-		runt: d,
-		mortality: e,
-		give: f,
-		left: g,
-		timestamp: h
+        amount: amountOfChicken,
+		average: averageWeight,
+		sick: sick,
+		runt: runt,
+		mortality: mortality,
+		give: feedGiven,
+		left: feedLeft,
+		timestamp: timestamp
     }
 
-    ref.push(data);
+    productionRef.push(data);
     $("#addDataFormCP")[0].reset();
+    $('#addDataCP').modal('hide');
+    
 });
 
 //remove data on hiding modal
@@ -115,7 +112,7 @@ var remove = function(e){
     }
 
     if(confirm("Are you sure?")){
-        ref.child(deleteIndex).remove();
+        productionRef.child(deleteIndex).remove();
 		if (index-1 == 0)
 		{
 			window.location.reload(true);
@@ -132,27 +129,20 @@ var update = function(e){
     e.preventDefault();
 
     var index = $(this).parents("tr").find("td.id").text();
-    /*var updateIndex;
+   
+    tableID = index;
     
-    var updateData = {
-        humidity: 1,
-        moisture: 1,
-        temperature: 1,
-        //ph : ph,
-        //timestamp: d
-    }
-
-    for(var x = 0; x < key.length; ++x){
-        if(index-1 == x){
-            updateIndex = key[x];
+    for(var x = 0; x < productionKeys.length; ++x){
+        if(tableID-1 == x){
+            document.getElementById("updateAmountC").value = productionObj[productionKeys[x]].amount;
+            document.getElementById("updateAvgC").value = productionObj[productionKeys[x]].average;
+            document.getElementById("updateSickC").value = productionObj[productionKeys[x]].sick;
+            document.getElementById("updateRuntC").value = productionObj[productionKeys[x]].runt;
+            document.getElementById("updateMortC").value = productionObj[productionKeys[x]].mortality;
+            document.getElementById("updatefeedGiven").value = productionObj[productionKeys[x]].give;
+            document.getElementById("updatefeedLeft").value = productionObj[productionKeys[x]].left;
         }
     }
-
-    if(confirm("Are you sure?")){
-        ref.child(updateIndex).update(updateData);
-    }*/
-    tableID = index;
-    console.log(tableID);
 }
 
 $(document).on('click', '.table-edit', update);
@@ -160,24 +150,22 @@ $(document).on('click', '.table-edit', update);
 $("#updateDataFormCP").submit(function(e){
     e.preventDefault();
 
-    var aa = parseFloat(document.getElementById("updateAmountC").value);
-    var bb = parseFloat(document.getElementById("updateAvgC").value);
-    var cc = parseFloat(document.getElementById("updateSickC").value);
-    var dd = parseFloat(document.getElementById("updateRuntC").value);
-	var ee = parseFloat(document.getElementById("updateMortC").value);
-    var ff = parseFloat(document.getElementById("updatefeedGiven").value);
-    var gg = parseFloat(document.getElementById("updatefeedLeft").value);
-    var hh = new Date().getTime();
+    var amountOfChicken = parseFloat(document.getElementById("updateAmountC").value);
+    var averageWeight = parseFloat(document.getElementById("updateAvgC").value);
+    var sick = parseFloat(document.getElementById("updateSickC").value);
+    var runt = parseFloat(document.getElementById("updateRuntC").value);
+	var mortality = parseFloat(document.getElementById("updateMortC").value);
+    var feedGiven = parseFloat(document.getElementById("updatefeedGiven").value);
+    var feedLeft = parseFloat(document.getElementById("updatefeedLeft").value);
 
     var updateDataCP = {
-        amount: aa,
-		average: bb,
-		sick: cc,
-		runt: dd,
-		mortality: ee,
-		give: ff,
-		left: gg,
-		timestamp: hh
+        amount: amountOfChicken,
+		average: averageWeight,
+		sick: sick,
+		runt: runt,
+		mortality: mortality,
+		give: feedGiven,
+		left: feedLeft,
     }
 
     var updateIndexCP;
@@ -189,8 +177,9 @@ $("#updateDataFormCP").submit(function(e){
     }
 
     if(confirm("Are you sure?")){
-        ref.child(updateIndexCP).update(updateDataCP);
+        productionRef.child(updateIndexCP).update(updateDataCP);
     }
    
     $("#updateDataFormCP")[0].reset();
+    $('#editDataCP').modal('hide');
 });

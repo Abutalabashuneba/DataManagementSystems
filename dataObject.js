@@ -2,7 +2,7 @@ var database = firebase.database();
 var dataRef = database.ref("Data/Chicken/Area1");
 var sensorRef = database.ref("Sensors");
 var userRef = database.ref("account");
-var productionRef = database.ref("Data/Productivity");
+var productionRef = database.ref("Data/Production");
 var chicken1ref = database.ref("Data/Chicken/Area1");
 var bsfref = database.ref("Data/BSF/Area1");
 
