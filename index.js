@@ -14,31 +14,6 @@ if(sessionStorage.getItem("type") == "Admin"){
   document.getElementById("register").style.display = "block";
 }
 
-
-/*firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      ref.on("value", snap =>{
-        var user = firebase.auth().currentUser;
-        var accObj = snap.val();
-        var keys = Object.keys(accObj);
-    
-        for(var x = 0; x < keys.length; ++x){
-          var k = keys[x];
-          if(user.email == accObj[k].email){
-            document.getElementById("userName").innerHTML = "Welcome," + accObj[k].username;
-            if(accObj[k].type == "Admin"){
-              document.getElementById("register").style.display = "block";
-            }
-          }
-        }
-    });
-    } else {
-      // No user is signed in.
-      //window.location.replace("login.html");
-    }
-  });*/
-
 $("#logoutForm").submit(function(e){
     e.preventDefault();
    
@@ -64,20 +39,23 @@ dataref.on("value", snap =>{
   //Temeprature
   var dataTemp = dataObj[keys[keys.length-1]].temperature;
   var valueTemp = document.getElementById("temp");
-  document.getElementById("chickenTemp").innerHTML = dataTemp;
-  valueTemp.setAttribute("data-value",dataTemp);
+  var chkTemp = document.getElementById("chickenTemp");
+  if(chkTemp) chkTemp.innerHTML = dataTemp;
+  if(valueTemp) valueTemp.setAttribute("data-value",dataTemp);
 
   //Humidity
   var dataHumid = dataObj[keys[keys.length-1]].humidity;
   var valueHumid = document.getElementById("humid");
-  document.getElementById("chickenHumid").innerHTML = dataHumid;
-  valueHumid.setAttribute("data-value",dataHumid);
+  var chkHumid = document.getElementById("chickenHumid");
+  if(chkHumid) chkHumid.innerHTML = dataHumid;
+  if(valueHumid) valueHumid.setAttribute("data-value",dataHumid);
 
   //Moisture
   var dataMois = dataObj[keys[keys.length-1]].moisture;
   var valueMois = document.getElementById("mois");
-  document.getElementById("chickenMois").innerHTML = dataMois;
-  valueMois.setAttribute("data-value", dataMois);
+  var chkMois = document.getElementById("chickenMois");
+  if(chkMois) chkMois.innerHTML = dataMois;
+  if(valueMois) valueMois.setAttribute("data-value", dataMois);
 
   //Push Chicken warning notification
   if(dataTemp < 20 || dataTemp > 30)
@@ -179,21 +157,24 @@ bsfDataref.on("value", snap =>{
   //Temeprature
   var dataTempBSF = dataObjBSF[keysBSF[keysBSF.length-1]].temperature;
   var valueTempBSF = document.getElementById("tempBSF");
-  document.getElementById("bsfTemp").innerHTML = dataTempBSF;
-  valueTempBSF.setAttribute("data-value",dataTempBSF);
-  console.log(dataTempBSF);
+  var bsfTemperature = document.getElementById("bsfTemp");
+  if(bsfTemperature) bsfTemperature.innerHTML = dataTempBSF;
+  if(valueTempBSF) valueTempBSF.setAttribute("data-value",dataTempBSF);
+
 
   //Humidity
   var dataHumidBSF = dataObjBSF[keysBSF[keysBSF.length-1]].humidity;
   var valueHumidBSF = document.getElementById("humidBSF");
-  document.getElementById("bsfHumid").innerHTML = dataHumidBSF;
-  valueHumidBSF.setAttribute("data-value",dataHumidBSF);
+  var bsfHumidity = document.getElementById("bsfHumid");
+  if(bsfHumidity) bsfHumidity.innerHTML = dataHumidBSF;
+  if(valueHumidBSF) valueHumidBSF.setAttribute("data-value",dataHumidBSF);
 
   //Light
   var dataLightBSF = dataObjBSF[keysBSF[keysBSF.length-1]].light;
   var valueLightBSF = document.getElementById("lightBSF");
-  document.getElementById("bsfLight").innerHTML = dataLightBSF;
-  valueLightBSF.setAttribute("data-value", dataLightBSF);
+  var bsfLig = document.getElementById("bsfLight");
+  if(bsfLig) bsfLig.innerHTML = dataLightBSF;
+  if(valueLightBSF) valueLightBSF.setAttribute("data-value", dataLightBSF);
 
   //Push BSF warning notification
   if(dataTempBSF < 25 || dataTempBSF > 35)
@@ -267,20 +248,23 @@ bsflDataref.on("value", snap =>{
   //Temeprature
   var dataTempBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].temperature;
   var valueTempBSFL = document.getElementById("tempBSFL");
-  document.getElementById("bsflTemp").innerHTML = dataTempBSFL;
-  valueTempBSFL.setAttribute("data-value",dataTempBSFL);
+  var bsflTemperature = document.getElementById("bsflTemp");
+  if(bsflTemperature) bsflTemperature.innerHTML = dataTempBSFL;
+  if(valueTempBSFL) valueTempBSFL.setAttribute("data-value",dataTempBSFL);
 
   //pH
   var dataPhBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].pH;
   var valuePhBSFL = document.getElementById("phBSFL");
-  document.getElementById("bsflPH").innerHTML = dataPhBSFL;
-  valuePhBSFL.setAttribute("data-value",dataPhBSFL);
+  var bsflpH = document.getElementById("bsflPH");
+  if(bsflpH) bsflpH.innerHTML = dataPhBSFL;
+  if(valuePhBSFL) valuePhBSFL.setAttribute("data-value",dataPhBSFL);
 
   //Soil Moisture
   var dataMoistureBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].moisture;
   var valueMoistureBSFL = document.getElementById("moistureBSFL");
-  document.getElementById("bsflMoisture").innerHTML = dataMoistureBSFL;
-  valueMoistureBSFL.setAttribute("data-value", dataMoistureBSFL);
+  var bsflMoisture = document.getElementById("bsflMoisture");
+  if(bsflMoisture) bsflMoisture.innerHTML = dataMoistureBSFL;
+  if(valueMoistureBSFL) valueMoistureBSFL.setAttribute("data-value", dataMoistureBSFL);
 
   //Push BSF warning notification
   if(dataTempBSFL < 30 || dataTempBSFL > 36)

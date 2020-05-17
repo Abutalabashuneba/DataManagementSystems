@@ -1,16 +1,21 @@
 //connect to firebase database 
 //get reference to the related child (Data)
 var database = firebase.database();
-var ref = database.ref("Data/Productivity");
+var ref = database.ref("Data/Production");
 
 //select the table
 var datalist = document.querySelector(".productionBodyData");
+
+var productionObj;
+var productionKeys;
 
 //fetch the data from database
 ref.on("value", snap=>{
     //var dataObj = snap.val();
     //var keys = Object.keys(dataObj);
-    
+    productionObj = snap.val();
+    productionKeys = Object.keys(productionObj);
+
     //populate the table with data
     populateTableCP();
 

@@ -1,43 +1,43 @@
-//connect to firebase database 
-//get reference to the related child (Data)
-var database = firebase.database();
-var ref = database.ref("Data/Chicken/Area1");
-var bsfref = database.ref("Data/BSF/Area1");
-
 //select the table for chicken
 var datalist = document.querySelector(".bodyData");
 
 //select the table for BSF
 var datalistBSF = document.querySelector(".bodyDataBSF");
 
+var chickenData1;
+var chickenKey1;
+
 //fetch the data from database
-ref.on("value", snap=>{
-    var dataObj = snap.val();
-    var keys = Object.keys(dataObj);
+chicken1ref.on("value", snap=>{
+    chickenData1 = snap.val();
+    chickenKey1 = Object.keys(chickenData1);
     
     //populate the table with data
-    populateTable(dataObj,keys);
+    populateTable();
 
 })
 
+var bsfObj1;
+var bsfKey1;
+
 bsfref.on("value", snap=>{
-    var bsfObj = snap.val();
-    var key = Object.keys(bsfObj);
+    bsfObj1 = snap.val();
+    bsfKey1 = Object.keys(bsfObj1);
 
     
     //populate the table with data
-    populateTableBSF(bsfObj,key);
+    populateTableBSF();
 
 })
 
 //---------------------------------------Chicken Table---------------------------------//
-function populateTable(obj,key){
+function populateTable(){
     var html = "";
     
     //loop through the data
-    for(var x = 0; x < key.length; ++x){
-        var k = key[x];
-        var d = new Date(obj[k].timestamp); //change the format of timestamp to be readable
+    for(var x = 0; x < chickenKey1.length; ++x){
+        var k = chickenKey1[x];
+        var d = new Date(chickenData1[k].timestamp); //change the format of timestamp to be readable
         var datetime = d.toLocaleString(); //format the time 
         //var time = d.toLocaleTimeString(); //format the time 
 
@@ -45,10 +45,10 @@ function populateTable(obj,key){
             <tr>
                 <td class="id">${x + 1}</td>
                 <td class="hehe">${datetime}</td>
-                <td class="hehe">${obj[k].temperature}</td>
-                <td class="hehe">${obj[k].humidity}</td>
+                <td class="hehe">${chickenData1[k].temperature}</td>
+                <td class="hehe">${chickenData1[k].humidity}</td>
                 <td class="hehe"></td>
-                <td class="hehe">${obj[k].moisture}</td>
+                <td class="hehe">${chickenData1[k].moisture}</td>
         `;
         html += tr;
 
@@ -155,7 +155,7 @@ var update = function(e){
     }*/
 
     
-    ref.on("value", snap=>{
+    chicken1ref.on("value", snap=>{
         var dataObj = snap.val();
         var keys = Object.keys(dataObj);
 
@@ -163,23 +163,13 @@ var update = function(e){
         var updateHum;
         //var updatepH;
         var updateMois;
-        for(var x = 0; x < keys.length; ++x){
+        for(var x = 0; x < chickenKey1.length; ++x){
             if(tableID-1 == x){
-                updateTemp = dataObj[keys[x]].temperature; 
+                updateTemp = chickenData1[chickenKey1[x]].temperature; 
+                updateHum = chickenData1[chickenKey1[x]].humidity;
+                updateMois = chickenData1[chickenKey1[x]].moisture;
             }
         }
-        for(var x = 0; x < keys.length; ++x){
-            if(tableID-1 == x){
-                updateHum = dataObj[keys[x]].humidity;   
-            }
-        }
-        
-        for(var x = 0; x < keys.length; ++x){
-            if(tableID-1 == x){
-                updateMois = dataObj[keys[x]].moisture;   
-            }
-        }
-        
        
         var temp = document.getElementById("updateTemp");
         var humid = document.getElementById("updateHum");
@@ -238,26 +228,24 @@ $("#updateDataForm").submit(function(e){
 });
 
 //-------------------------------BSF Table------------------------------------------//
-function populateTableBSF(obj,key){
+function populateTableBSF(){
     var html = "";
     
     //loop through the data
-    for(var x = 0; x < key.length; ++x){
-        var k = key[x];
-        var d = new Date(obj[k].timestamp); //change the format of timestamp to be readable
+    for(var x = 0; x < bsfKey1.length; ++x){
+        var k = bsfKey1[x];
+        var d = new Date(bsfObj1[k].timestamp); //change the format of timestamp to be readable
         var datetime = d.toLocaleString(); //format the time 
 
         let tr = `
             <tr>
                 <td class="id">${x + 1}</td>
                 <td class="bsf">${datetime}</td>
-                <td class="bsf">${obj[k].temperature}</td>
-                <td class="bsf">${obj[k].humidity}</td>
-                <td class="bsf">${obj[k].light}</td>
+                <td class="bsf">${bsfObj1[k].temperature}</td>
+                <td class="bsf">${bsfObj1[k].humidity}</td>
+                <td class="bsf">${bsfObj1[k].light}</td>
         `;
         html += tr;
-        console.log(obj[k].temperature);
-
         
         tr = `
                 <td>
