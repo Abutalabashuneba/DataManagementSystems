@@ -175,7 +175,7 @@ $("#updateDataForm").submit(function(e){
     }
 
     if(confirm("Are you sure?")){
-        ref.child(updateIndex).update(updateData);
+        chicken1ref.child(updateIndex).update(updateData);
     }
    
     $("#updateDataForm")[0].reset();
