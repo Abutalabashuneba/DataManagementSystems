@@ -134,62 +134,17 @@ var update = function(e){
     e.preventDefault();
 
     var index = $(this).parents("tr").find("td.id").text();
-    /*var updateIndex;
-    
-    var updateData = {
-        humidity: 1,
-        moisture: 1,
-        temperature: 1,
-        //ph : ph,
-        //timestamp: d
-    }
-
-    for(var x = 0; x < key.length; ++x){
-        if(index-1 == x){
-            updateIndex = key[x];
-        }
-    }
-
-    if(confirm("Are you sure?")){
-        ref.child(updateIndex).update(updateData);
-    }*/
-
-    
-    chicken1ref.on("value", snap=>{
-        var dataObj = snap.val();
-        var keys = Object.keys(dataObj);
-
-        var updateTemp;
-        var updateHum;
-        //var updatepH;
-        var updateMois;
-        for(var x = 0; x < chickenKey1.length; ++x){
-            if(tableID-1 == x){
-                updateTemp = chickenData1[chickenKey1[x]].temperature; 
-                updateHum = chickenData1[chickenKey1[x]].humidity;
-                updateMois = chickenData1[chickenKey1[x]].moisture;
-            }
-        }
-       
-        var temp = document.getElementById("updateTemp");
-        var humid = document.getElementById("updateHum");
-        //var pH = document.getElementById("updatepH");
-        var mois = document.getElementById("updateMoisture");
-
-        temp.value = updateTemp;
-        humid.value = updateHum;
-        //pH.value = updatepH;
-        mois.value = updateMois;
-        
-    })
-
-  
 
     tableID = index;
-    console.log(tableID);
-    
-    //var test = document.getElementById("updateTemp");
-    //test.value = "100";
+   
+    for(var x = 0; x < chickenKey1.length; ++x){
+        if(tableID-1 == x){
+            document.getElementById("updateTemp").value = chickenData1[chickenKey1[x]].temperature;
+            document.getElementById("updateHum").value = chickenData1[chickenKey1[x]].humidity;
+            // document.getElementById("updatepH").value = chickenData1[chickenKey1[x]].ph;
+            document.getElementById("updateMoisture").value = chickenData1[chickenKey1[x]].moisture;
+        }
+    }
 }
 
 $(document).on('click', '.table-edit', update);
@@ -213,9 +168,9 @@ $("#updateDataForm").submit(function(e){
 
     var updateIndex;
 
-    for(var x = 0; x < dataKeys.length; ++x){
+    for(var x = 0; x < chickenKey1.length; ++x){
         if(tableID-1 == x){
-            updateIndex = dataKeys[x];
+            updateIndex = chickenKey1[x];
         }
     }
 
