@@ -356,7 +356,7 @@ input::-webkit-inner-spin-button {
 /*---------------------------------------------------------------------
 AddForm Styling
 ---------------------------------------------------------------------*/
-.addCProduction,.updateCProduction{
+.addCProduction,.updateCProduction,.addChickenData,.updateChickenData{
   position: relative;
   font-size: 20px;
   border: none;
@@ -365,7 +365,7 @@ AddForm Styling
   transition: all .5s;
 }
 
-.addCProduction:focus,.updateCProduction:focus{
+.addCProduction:focus,.updateCProduction:focus,.addChickenData:focus,.updateChickenData:focus{
   box-shadow: none;
   border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
   border-image-slice: 1;
@@ -381,19 +381,19 @@ AddForm Styling
   line-height: 15px;
 }
 
-#productionLabel{
+#productionLabel,#tempLabel{
   top: 100px;
 }
 
-#weightLabel{
+#weightLabel,#humidLabel{
   top: 160px;
 }
 
-#sickLabel{
+#sickLabel,#phLabel{
   top: 220px;
 }
 
-#runtLabel{
+#runtLabel,#moistureLabel{
   top: 280px;
 }
 
@@ -409,8 +409,12 @@ AddForm Styling
   top:460px;
 }
 
+
+
 .addCProduction:focus + .CLabel,.addCProduction:valid + .CLabel,
-.updateCProduction:focus:focus + .CLabel, .updateCProduction:valid + .CLabel
+.updateCProduction:focus:focus + .CLabel, .updateCProduction:valid + .CLabel,
+.addChickenData:focus + .CLabel, .addChickenData:valid +.CLabel,
+.updateChickenData:focus + .CLabel, .updateChickenData:valid +.CLabel
 {
   padding-left: 270px;
   font-size: 14px;;

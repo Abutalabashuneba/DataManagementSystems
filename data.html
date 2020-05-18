@@ -166,19 +166,23 @@
                     <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
                     <form id="addDataForm">
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" name="Temperature" placeholder="Enter temperature" class="form-control addInput" id="addTemp" required>
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="cTemp" required>
+                            <label for="cTemp" class="CLabel" id="tempLabel">(Temperature)</label>
                         </div>
 
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" max="100" name="Humidity" placeholder="Enter humidity(0-100%)" class="form-control addInput" id="addHum" required>
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Humidity" id="cHum" required>
+                            <label for="cHum" class="CLabel" id="humidLabel">(Humidity)</label>
                         </div>
 
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" max="14" name="pH" placeholder="Enter pH (0-14)" class="form-control addInput" id="addpH" required>
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="pH" id="cPh" required>
+                            <label for="cPh" class="CLabel" id="phLabel">(ph value)</label>
                         </div>
 
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" max="100" name="Moisture" placeholder="Enter moisture (0-100)" class="form-control addInput" id="addMoisture" required>
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Moisture" id="cMoisture" required>
+                            <label for="cMoisture" class="CLabel" id="moistureLabel">(Moisture)</label>
                         </div>
 
                         <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
@@ -205,19 +209,23 @@
                     <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
                     <form id="updateDataForm">
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" name="Temperature" placeholder="Enter temperature" class="form-control updateInput" id="updateTemp" >
+                            <input type="number" step="any" min="0" name="Temperature" class="form-control updateChickenData" id="updateTemp" required>
+                            <label for="updateTemp" class="CLabel" id="tempLabel">(Temperature)</label>
                         </div>
 
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" max="100" name="Humidity" placeholder="Enter humidity(0-100%)" class="form-control updateInput" id="updateHum" >
+                            <input type="number" step="any" min="0" name="Humidity" class="form-control updateChickenData" id="updateHum" required>
+                            <label for="updateHum" class="CLabel" id="humidLabel">(Humidity)</label>
                         </div>
 
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" max="14" name="pH" placeholder="Enter pH (0-14)" class="form-control updateInput" id="updatepH" >
+                            <input type="number" step="any" min="0" name="pH" class="form-control updateChickenData" id="updatepH" required>
+                            <label for="updatepH" class="CLabel" id="phLabel">(ph value)</label>
                         </div>
 
                         <div class="form-group px-5">
-                            <input type="number" step="any" min="0" max="100" name="Moisture" placeholder="Enter moisture (0-100)" class="form-control updateInput" id="updateMoisture">
+                            <input type="number" step="any" min="0" name="Moisture" class="form-control updateChickenData" id="updateMoisture" required>
+                            <label for="updateMoisture" class="CLabel" id="moistureLabel">(Moisture)</label>
                         </div>
 
                         <button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">
