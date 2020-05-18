@@ -352,3 +352,66 @@ input::-webkit-inner-spin-button {
 .page-link:focus{
   box-shadow: none;
 }
+
+/*---------------------------------------------------------------------
+AddForm Styling
+---------------------------------------------------------------------*/
+.addCProduction,.updateCProduction{
+  position: relative;
+  font-size: 20px;
+  border: none;
+  border-bottom: 1px solid #777;
+  border-radius: 0;
+  transition: all .5s;
+}
+
+.addCProduction:focus,.updateCProduction:focus{
+  box-shadow: none;
+  border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
+  border-image-slice: 1;
+  transform: translateY(-1px);
+}
+
+.CLabel{
+  position: absolute;
+  font-size: 16px;
+  padding-left: 10px;
+  transition: all .5s;
+  color: #777;
+  line-height: 15px;
+}
+
+#productionLabel{
+  top: 100px;
+}
+
+#weightLabel{
+  top: 160px;
+}
+
+#sickLabel{
+  top: 220px;
+}
+
+#runtLabel{
+  top: 280px;
+}
+
+#mortalityLabel{
+  top: 340px;
+}
+
+#givenLabel{
+  top: 400px;
+}
+
+#leftLabel{
+  top:460px;
+}
+
+.addCProduction:focus + .CLabel,.addCProduction:valid + .CLabel,
+.updateCProduction:focus:focus + .CLabel, .updateCProduction:valid + .CLabel
+{
+  padding-left: 270px;
+  font-size: 14px;;
+}

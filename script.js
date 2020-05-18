@@ -171,7 +171,7 @@ $(document).ready(function(){
 
 
    
-    //----------------------------Start of index page------------------------------//
+    //----------------------------End of index page------------------------------//
 
 //------------------------------------------------------------------------------------------------
     $("#tempToday").click(function(){
@@ -368,7 +368,28 @@ $(document).ready(function(){
     //-------------------End of sensor page----------------------//
 
 
+    //-------------------Start of production page----------------------//
+    $("#btnChicken").click(function(){
+        $("#tableTitle").html("Chicken");
+        $("#chickenTable").show();
+        $("#bsfTable").hide();
+        $("#bsflTable").hide();
+    })
 
+    $("#btnBsf").click(function(){
+        $("#tableTitle").html("BSF");
+        $("#chickenTable").hide();
+        $("#bsfTable").show();
+        $("#bsflTable").hide();
+    })
+
+    $("#btnBsfl").click(function(){
+        $("#tableTitle").html("BSF Larvae");
+        $("#chickenTable").hide();
+        $("#bsfTable").hide();
+        $("#bsflTable").show();
+    })
+    //-------------------End of Production page----------------------//
 });
 
 
