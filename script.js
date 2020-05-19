@@ -267,12 +267,16 @@ $(document).ready(function(){
     });
 
 //------------------------------------------------------------------------------------------------
+    // $("#searchInput").on("keyup",function(){
+    //     var value = $(this).val().toLowerCase();
+    //     $("table tbody tr td:nth-child(2)").filter(function(){
+    //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    //     });
+    // });
     $("#searchInput").on("keyup",function(){
-        var value = $(this).val().toLowerCase();
-        $("#chickenTable tbody tr").filter(function(){
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
+        $("table tbody tr .searchVar:contains('" + $(this).val() + "')").parent().show();
+        $("table tbody tr .searchVar:not(:contains('" + $(this).val() + "'))").parent().hide();
+    })
 
 //------------------------------------------------------------------------------------------------
     //-----------------Start of sensor page------------------------------//

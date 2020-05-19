@@ -1,8 +1,3 @@
-//connect to firebase database 
-//get reference to the related child (Data)
-var database = firebase.database();
-var ref = database.ref("Data");
-
 var timeFormat = "MM/DD/YYYY HH:mm";
 
 var chartType = "line";
@@ -25,7 +20,19 @@ var todayMonth = fullDate.getMonth();
 //console.log(todayDate); 5/2/2020, 5:40:56 PM toLocaleString
 //console.log(todayDate); 5:41:19 PM toLocaleTimeString
 
+////////////////////////////////////////////////////
+var myChart;
 
+var cfgLine;
+
+var cfgBar;
+
+var cfgDou;
+
+var context = document.getElementById("myChart1").getContext("2d");
+////////////////////////////////////////////////////
+
+var lineChart1;
 var xlabel1 = [];
 var points1 = [];
 
@@ -54,11 +61,14 @@ var optimalTemp = 0;
 var warningTemp = 0;
 var dangerTemp = 0;
 
-ref.on("value", snap=>{
-    var dataObj = snap.val();
-    var keys = Object.keys(dataObj);
+var dataObj;
+var keys;
 
-    console.log(dataObj);
+chicken1ref.once("value", snap=>{
+    dataObj = snap.val();
+    keys = Object.keys(dataObj);
+
+    // console.log(dataObj);
 
     if(xlabel1.length > 0){
         xlabel1.splice(0,xlabel4.length);
@@ -141,27 +151,7 @@ ref.on("value", snap=>{
         }
     }
     
-    plot1();
-    plot2();
-    plot3();
-    plot4();
-
-    plotBar1();
-    plotBar2();
-    plotBar3();
-    plotBar4();
-
-    plotDou1();
-    plotDou2();
-    plotDou3();
-    plotDou4();
-})
-
-//var chart1;
-function plot1(){
-    var ctx = document.getElementById("myChart1").getContext("2d");
-    
-    var cfg = {
+    cfgLine = {
         data:{
             labels: xlabel1,
             datasets:[{
@@ -210,7 +200,165 @@ function plot1(){
         }
     }
 
-   var chart = new Chart(ctx,cfg);
+    cfgBar = {
+        data:{
+            labels: xlabel1,
+            datasets:[{
+                label: "Today's temperature",
+                data: points1,
+                type: "bar",
+                borderWidth: 2,
+                borderColor: "rgba(201,134,212,0.7)",
+                backgroundColor: "rgba(201,134,212,0.7)",
+                HoverBorderColor : "rgba(142,77,185,0.9)",
+                HoverBackgroundColor : "rgba(142,77,185,0.9)"
+            }],
+        },
+        options:{
+            tooltips:{
+                intersect: false,
+                mode: "index"
+            },
+            scales:{
+                xAxes:[{
+                    type: "time",
+                    distribution: "series",
+                    offset : false,
+                    ticks:{
+                        autoSkip: true,
+                        autoSkipPadding: 75,
+                    },
+                    time:{
+                        unit : "minute",
+                        unitStepSize : 3,
+                    },
+                }],
+                yAxes:[{
+                    ticks:{
+                        beginAtZero: true,
+                        max : 100,
+                        stepValue: 10
+                    },
+                    scaleLabel : {
+                        display : true,
+                        labelString : "Temperature"
+                    }
+                }]
+            }
+        }
+    }
+    
+    cfgDou = {
+        type : "doughnut",
+        data:{
+            datasets:[{
+                data : [
+                    warningTemp,
+                    optimalTemp,
+                    dangerTemp
+                ],
+                backgroundColor: [
+                    "rgba(189, 88, 5, 1.0)",
+                    "rgba(0,255,0, 1.0)",
+                    "rgba(255,0,0, 1.0)"
+                ],
+                hoverBackgroundColor: [
+                    "rgba(189, 88, 5, 0.9)",
+                    "rgba(0,255,0, 0.9)",
+                    "rgba(255,0,0, 0.9)"
+                ],
+                hoverBorderWidth: 2,
+                label: "Temperature",
+            }],
+            labels: [
+                "Below Optimal",
+                "Optimal",
+                "Above Optimal"
+            ]
+        },
+        options :{
+            responsive : true
+        }
+    }
+
+    //plot1();
+    drawChart(context,cfgLine);
+    plot2();
+    plot3();
+    plot4();
+
+    plotBar1();
+    plotBar2();
+    plotBar3();
+    plotBar4();
+
+    plotDou1();
+    plotDou2();
+    plotDou3();
+    plotDou4();
+})
+
+//var chart1;
+function plot1(){
+    //var ctx = document.getElementById("myChart1").getContext("2d");
+    var cfg = {
+        data:{
+            labels: xlabel1,
+            datasets:[{
+                label: "Today's temperature",
+                data: points1,
+                type: "line",
+                pointRadius: 0,
+				fill: false,
+				lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(201,134,212,0.7)",
+                pointHoverBorderColor : "rgba(142,77,185,0.9)",
+            }],
+        },
+        options:{
+            tooltips:{
+                intersect: false,
+                mode: "index"
+            },
+            scales:{
+                xAxes:[{
+                    type: "time",
+                    distribution: "series",
+                    offset : false,
+                    ticks:{
+                        autoSkip: true,
+						autoSkipPadding: 75,
+                    },
+                    time:{
+                        unit : "minute",
+                        unitStepSize : 3,
+                    },
+                }],
+                yAxes:[{
+                    ticks:{
+                        beginAtZero: true,
+                        max : 100,
+                        stepValue: 10
+                    },
+                    scaleLabel : {
+                        display : true,
+                        labelString : "Temperature"
+                    }
+                }]
+            }
+        }
+    }
+    console.log(cfg == cfgLine);
+    lineChart1 = new Chart(context,cfg);
+
+    // document.getElementById('update').addEventListener('click', function() {
+    //     const type = document.getElementById('type').value;
+    //     const dataset = chart.config.data.datasets[0];
+    //     dataset.type = type;
+    //     dataset.data = generateData();
+    //     chart.update();
+    // });
 }
 
 function plot2(){
@@ -747,4 +895,29 @@ function plotDou4(){
     }
 
     var chart = new Chart(ctx,cfg);
+}
+
+
+
+function drawChart(context,config){
+    myChart = new Chart(context,config);
+}
+
+function onTypeChange(){
+    // document.getElementById('update').addEventListener('click', function() {
+    //     const type = document.getElementById('type').value;
+    //     const dataset = chart.config.data.datasets[0];
+    //     dataset.type = type;
+    //     dataset.data = generateData();
+    //     chart.update();
+    // });
+    // console.log(cfgBar);
+    // chartType = document.getElementById("chartType").value;
+    // lineChart1.destroy();
+    // plot1();
+    chartType = document.getElementById("chartType").value;
+    myChart.destroy();
+    if(chartType === "line") drawChart(context,cfgLine);
+    else if(chartType === "bar") drawChart(context,cfgBar);
+    else if(chartType === "doughnut") drawChart(context,cfgDou);
 }

@@ -43,11 +43,11 @@ function populateTable(){
         let tr = `
             <tr>
                 <td class="id">${x + 1}</td>
-                <td class="hehe">${datetime}</td>
-                <td class="hehe">${chickenData1[k].temperature}</td>
-                <td class="hehe">${chickenData1[k].humidity}</td>
-                <td class="hehe"></td>
-                <td class="hehe">${chickenData1[k].moisture}</td>
+                <td class="searchVar">${datetime}</td>
+                <td>${chickenData1[k].temperature}</td>
+                <td>${chickenData1[k].humidity}</td>
+                <td></td>
+                <td>${chickenData1[k].moisture}</td>
         `;
         html += tr;
 
