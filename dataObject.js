@@ -5,6 +5,7 @@ var userRef = database.ref("account");
 var productionRef = database.ref("Data/Production");
 var chicken1ref = database.ref("Data/Chicken/Area1");
 var bsfref = database.ref("Data/BSF/Area1");
+var bsflref = database.ref("Data/BSFL/Area1");
 
 //read database for child account
 //create empty global variables

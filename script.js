@@ -10,6 +10,9 @@ $(document).ready(function(){
         $("#dropdownBSFLRow-data").hide();
         $("#dropdownChickenRow-data").show();
         $("#dataTitle").html("Chicken");
+        $("#chickenAddBtn").show();
+        $("#bsfAddBtn").hide();
+        $("#bsflAddBtn").hide();
     });
 
     //BSF
@@ -21,6 +24,9 @@ $(document).ready(function(){
         $("#dropdownBSFLRow-data").hide();
         $("#dropdownBSFRow-data").show();
         $("#dataTitle").html("BSF");
+        $("#chickenAddBtn").hide();
+        $("#bsfAddBtn").show();
+        $("#bsflAddBtn").hide();
     });
     
     //BSFL
@@ -32,6 +38,9 @@ $(document).ready(function(){
         $("#dropdownBSFRow-data").hide();
         $("#dropdownBSFLRow-data").show();
         $("#dataTitle").html("BSFL");
+        $("#chickenAddBtn").hide();
+        $("#bsfAddBtn").hide();
+        $("#bsflAddBtn").show();
     });
 
     //Chicken Area-1
@@ -267,10 +276,28 @@ $(document).ready(function(){
     });
 
 //------------------------------------------------------------------------------------------------
+    //-----------------Start of filter function------------------------------//
+    //Chicken
     $("#searchInput").on("keyup",function(){
-        var value = $(this).val().toLowerCase();
+        var valueC = $(this).val().toLowerCase();
         $("#chickenTable tbody tr").filter(function(){
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            $(this).toggle($(this).text().toLowerCase().indexOf(valueC) > -1)
+        });
+    });
+
+    //BSF filter
+    $("#searchInput").on("keyup",function(){
+        var valueBSF = $(this).val().toLowerCase();
+        $("#bsfTable tbody tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(valueBSF) > -1)
+        });
+    });
+
+    //BSFL filter
+    $("#searchInput").on("keyup",function(){
+        var valueBSF = $(this).val().toLowerCase();
+        $("#bsflTable tbody tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(valueBSF) > -1)
         });
     });
 

@@ -157,32 +157,32 @@
     </div>
     <!--End of register modal-->
 
-    <!--Start of add modal-->
-    <div class="modal fade" id="addData">
+    <!--Start of Chicken add modal-->
+    <div class="modal fade" id="addDataChicken">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
                     <button class="close" type="button" data-dismiss="modal">&times;</button>
                     <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
-                    <form id="addDataForm">
+                    <form id="addDataFormC">
                         <div class="form-group px-5">
                             <input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="cTemp" required>
-                            <label for="cTemp" class="CLabel" id="tempLabel">(Temperature)</label>
+                            <label for="cTemp" class="CLabel" id="tempLabelAdd">(Temperature)</label>
                         </div>
 
                         <div class="form-group px-5">
                             <input type="number" step="any" min="0" class="form-control addChickenData" name="Humidity" id="cHum" required>
-                            <label for="cHum" class="CLabel" id="humidLabel">(Humidity)</label>
+                            <label for="cHum" class="CLabel" id="humidLabelAdd">(Humidity)</label>
                         </div>
 
                         <div class="form-group px-5">
                             <input type="number" step="any" min="0" class="form-control addChickenData" name="pH" id="cPh" required>
-                            <label for="cPh" class="CLabel" id="phLabel">(ph value)</label>
+                            <label for="cPh" class="CLabel" id="phLabelAdd">(ph value)</label>
                         </div>
 
                         <div class="form-group px-5">
                             <input type="number" step="any" min="0" class="form-control addChickenData" name="Moisture" id="cMoisture" required>
-                            <label for="cMoisture" class="CLabel" id="moistureLabel">(Moisture)</label>
+                            <label for="cMoisture" class="CLabel" id="moistureLabelAdd">(Moisture)</label>
                         </div>
 
                         <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
@@ -198,9 +198,87 @@
             </div>
         </div>
     </div>
-    <!--End of add modal-->
+    <!--End of Chicken add modal-->
 
-    <!--Start of edit modal-->
+    <!--Start of BSF add modal-->
+    <div class="modal fade" id="addDataBSF">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
+                    <form id="addDataFormBSF">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="bsfTemp" required>
+                            <label for="bsfTemp" class="CLabel" id="tempLabelAdd">(Temperature)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Humidity" id="bsfHum" required>
+                            <label for="bsfHum" class="CLabel" id="humidLabelAdd">(Humidity)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="LUX" id="bsfLux" required>
+                            <label for="bsfPh" class="CLabel" id="phLabelAdd">(LUX value)</label>
+                        </div>
+
+                       
+
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Add
+                        </button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="mx-auto text-center text-danger font-weight-bold" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of BSF add modal-->
+
+    <!--Start of BSFL add modal-->
+    <div class="modal fade" id="addDataBSFL">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
+                    <form id="addDataFormBSFL">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="bsflTemp" required>
+                            <label for="bsflTemp" class="CLabel" id="tempLabelBSFLAdd">(Temperature)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Moisture" id="bsflPh" required>
+                            <label for="bsflPh" class="CLabel" id="PhLabelBSFLAdd">(pH value)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="LUX" id="bsflMois" required>
+                            <label for="bsflMois" class="CLabel" id="moistureLabelBSFLAdd">(Moisture)</label>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Add
+                        </button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="mx-auto text-center text-danger font-weight-bold" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of BSFL add modal-->
+
+    <!--Start of chicken edit modal-->
     <div class="modal fade" id="editData">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -208,6 +286,10 @@
                     <button class="close" type="button" data-dismiss="modal">&times;</button>
                     <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
                     <form id="updateDataForm">
+                        <div class="form-group px-5">
+                            <input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDate" disabled>
+                            <label for="updateDate" class="CLabel" id="dateLabel"></label>
+                        </div>
                         <div class="form-group px-5">
                             <input type="number" step="any" min="0" name="Temperature" class="form-control updateChickenData" id="updateTemp" required>
                             <label for="updateTemp" class="CLabel" id="tempLabel">(Temperature)</label>
@@ -236,7 +318,83 @@
             </div>
         </div>
     </div>
-    <!--End of edit modal-->
+    <!--End of chicken edit modal-->
+
+    <!--Start of BSF edit modal-->
+    <div class="modal fade" id="editDataBSF">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
+                    <form id="updateDataFormBSF">
+                        <div class="form-group px-5">
+                            <input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDateBSF" disabled>
+                            <label for="updateDateBSF" class="CLabel" id="dateLabel"></label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control updateBSFData" name="Temperature" id="updatebsfTemp" required>
+                            <label for="updatebsfTemp" class="CLabel" id="tempLabelUpdate">(Temperature)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control updateBSFData" name="Humidity" id="updatebsfHum" required>
+                            <label for="updatebsfHum" class="CLabel" id="humidLabelUpdate">(Humidity)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control updateBSFData" name="LUX" id="updatebsfLux" required>
+                            <label for="updatebsfLux" class="CLabel" id="phLabelUpdate">(LUX value)</label>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of BSF edit modal-->
+
+    <!--Start of BSFL edit modal -->
+    <div class="modal fade" id="editDataBSFL">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
+                    <form id="updateDataFormBSFL">
+                        <div class="form-group px-5">
+                            <input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDateBSFL" disabled>
+                            <label for="updateDateBSFL" class="CLabel" id="dateLabel"></label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control updateBSFLData" name="Temperature" id="updatebsflTemp" required>
+                            <label for="updatebsflTemp" class="CLabel" id="tempLabelUpdateBSFL">(Temperature)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control updateBSFLData" name="Humidity" id="updatebsflPh" required>
+                            <label for="updatebsflPh" class="CLabel" id="phLabelUpdateBSFL">(pH value)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control updateBSFLData" name="LUX" id="updatebsflMois" required>
+                            <label for="updatebsflMois" class="CLabel" id="moisLabelUpdateBSFL">(Moisture)</label>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of BSFL edit modal-->
 
     <!--Table Section-->
     <section>
@@ -245,11 +403,23 @@
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row pt-md-5 mt-md-3 mb-2">
                         <h3 class="mx-auto text-center text-muted" id="dataTitle">Chicken</h3>  
-                        <!--Start of add Button-->
-                        <div class="col-xl-1 col-lg-1 col-md-1">
-                            <button class="btn mb-3 float-right" id="addBtn" data-toggle="modal" data-target="#addData"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                        <!--Start  of chicken add Button-->
+                        <div class="col-xl-1 col-lg-1 col-md-1" id="chickenAddBtn">
+                            <button class="btn mb-3 float-right" id="addBtn" data-toggle="modal" data-target="#addDataChicken"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
                         </div>
-                        <!--End of add Button-->       
+                        <!--End of chicken add Button-->  
+                        
+                        <!--Start  of BSF add Button-->
+                        <div class="col-xl-1 col-lg-1 col-md-1" id="bsfAddBtn" style="display:none;">
+                            <button class="btn mb-3 float-right" id="addBtnBSF" data-toggle="modal" data-target="#addDataBSF"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                        </div>
+                        <!--End of BSF add Button-->  
+                        
+                        <!--Start  of BSFL add Button-->
+                        <div class="col-xl-1 col-lg-1 col-md-1" id="bsflAddBtn" style="display:none;">
+                            <button class="btn mb-3 float-right" id="addBtnBSFL" data-toggle="modal" data-target="#addDataBSFL"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                        </div>
+                        <!--End of BSFL add Button-->  
                     </div>
 
 
@@ -399,7 +569,7 @@
                                     <!--End of table head-->
     
                                     <!--Start of table body-->
-                                    <tbody class="bodyDataBSFL">
+                                    <tbody class="">
                                         <tr>
                                             <th>1</th>
                                             <th>4/18/2020, 9:00:16 PM</th>
@@ -459,8 +629,8 @@
                                     <!--End of table head-->
     
                                     <!--Start of table body-->
-                                    <tbody>
-                            
+                                    <tbody class="bodyDataBSFL">
+                                           
                                     </tbody>
                                     <!--End of table body-->
                                 </table>

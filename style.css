@@ -356,7 +356,7 @@ input::-webkit-inner-spin-button {
 /*---------------------------------------------------------------------
 AddForm Styling
 ---------------------------------------------------------------------*/
-.addCProduction,.updateCProduction,.addChickenData,.updateChickenData{
+.addCProduction,.updateCProduction,.addChickenData,.updateChickenData,.updateDateData,.updateBSFData,.updateBSFLData{
   position: relative;
   font-size: 20px;
   border: none;
@@ -365,7 +365,7 @@ AddForm Styling
   transition: all .5s;
 }
 
-.addCProduction:focus,.updateCProduction:focus,.addChickenData:focus,.updateChickenData:focus{
+.addCProduction:focus,.updateCProduction:focus,.addChickenData:focus,.updateChickenData:focus,.updateDateData:focus,.updateBSFData:focus,.updateBSFLData:focus{
   box-shadow: none;
   border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
   border-image-slice: 1;
@@ -381,41 +381,79 @@ AddForm Styling
   line-height: 15px;
 }
 
-#productionLabel,#tempLabel{
+#dateLabel{
   top: 100px;
 }
 
-#weightLabel,#humidLabel{
+#productionLabel,#tempLabel,#tempLabelUpdate,#tempLabelUpdateBSFL{
   top: 160px;
 }
 
-#sickLabel,#phLabel{
+#weightLabel,#humidLabel,#humidLabelUpdate,#phLabelUpdateBSFL{
   top: 220px;
 }
 
-#runtLabel,#moistureLabel{
+#sickLabel,#phLabel,#phLabelUpdate,#moisLabelUpdateBSFL{
   top: 280px;
 }
 
-#mortalityLabel{
+#runtLabel,#moistureLabel{
   top: 340px;
 }
 
-#givenLabel{
+#mortalityLabel{
   top: 400px;
 }
 
-#leftLabel{
-  top:460px;
+#givenLabel{
+  top: 460px;
 }
+
+#leftLabel{
+  top:520px;
+}
+
+/*Start Add data page*/
+#tempLabelAdd, #tempLabelBSFLAdd{
+  top: 100px;
+}
+
+#humidLabelAdd, #PhLabelBSFLAdd{
+  top: 160px;
+}
+
+#phLabelAdd, #moistureLabelBSFLAdd{
+  top: 220px;
+}
+
+#moistureLabelAdd{
+  top: 280px;
+}
+/*End Add data page*/
+
 
 
 
 .addCProduction:focus + .CLabel,.addCProduction:valid + .CLabel,
 .updateCProduction:focus:focus + .CLabel, .updateCProduction:valid + .CLabel,
 .addChickenData:focus + .CLabel, .addChickenData:valid +.CLabel,
-.updateChickenData:focus + .CLabel, .updateChickenData:valid +.CLabel
+.updateChickenData:focus + .CLabel, .updateChickenData:valid +.CLabel,
+.addDataBSF:focus + .CLabel, .addDataBSF:valid +.CLabel,
+.updateBSFData:focus + .CLabel, .updateBSFData:valid + .CLabel,
+.updateBSFLData:focus + .CLabel, .updateBSFLData:valid + .CLabel
 {
   padding-left: 270px;
   font-size: 14px;;
+}
+
+
+
+.datepicker td, .datepicker th {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.85rem;
+}
+
+.datepicker {
+  margin-bottom: 3rem;
 }
