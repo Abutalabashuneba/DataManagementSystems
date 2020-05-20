@@ -137,6 +137,10 @@ var remove = function(e){
 
     if(confirm("Are you sure want to remove this data?")){
         chicken1ref.child(deleteIndex).remove();
+		if(chickenData1 === null)
+		{
+			datalist.innerHTML = "";
+		}
     }
 }
 
@@ -289,6 +293,10 @@ var removeBSF = function(e){
 
     if(confirm("Are you sure want to remove this data?")){
         bsfref.child(deleteIndexBSF).remove();
+		if(bsfObj1 === null)
+		{
+			datalistBSF.innerHTML = "";
+		}
     }
 }
 
@@ -443,6 +451,10 @@ var removeBSFL = function(e){
 
     if(confirm("Are you sure want to remove this data?")){
         bsflref.child(deleteIndexBSFL).remove();
+		if(bsflObj1 === null)
+		{
+			datalistBSFL.innerHTML = "";
+		}
     }
 }
 
