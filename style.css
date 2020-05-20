@@ -381,36 +381,32 @@ AddForm Styling
   line-height: 15px;
 }
 
-#dateLabel{
+#dateLabel, #productionLabel{
   top: 100px;
 }
 
-#productionLabel,#tempLabel,#tempLabelUpdate,#tempLabelUpdateBSFL{
+#weightLabel,#tempLabel,#tempLabelUpdateBSFL,#tempLabelUpdate{
   top: 160px;
 }
 
-#weightLabel,#humidLabel,#humidLabelUpdate,#phLabelUpdateBSFL{
+#sickLabel,#humidLabel, #humidLabelUpdate,#phLabelUpdateBSFL{
   top: 220px;
 }
 
-#sickLabel,#phLabel,#phLabelUpdate,#moisLabelUpdateBSFL{
+#runtLabel,#phLabel,#phLabelUpdate,#moisLabelUpdateBSFL{
   top: 280px;
 }
 
-#runtLabel,#moistureLabel{
+#mortalityLabel,#moistureLabel{
   top: 340px;
 }
 
-#mortalityLabel{
+#givenLabel{
   top: 400px;
 }
 
-#givenLabel{
-  top: 460px;
-}
-
 #leftLabel{
-  top:520px;
+  top:460px;
 }
 
 /*Start Add data page*/
