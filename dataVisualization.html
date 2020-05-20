@@ -175,10 +175,10 @@
                                         </div>
 
                                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                            <!--<select id="chartType" class="form-control">
+                                            <select id="chartType" class="form-control" onchange="onTypeChange()">
                                                 <option value="line" selected="selected">Line</option>
                                                 <option value="bar">Bar</option>
-                                            </select>-->
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -186,9 +186,6 @@
                                 <div class="card-body">
                                     <!---->
                                     <canvas id="myChart1" height="100" ></canvas>
-                                    <canvas id="myChart2" height="100" style="display: none;"></canvas>
-                                    <canvas id="myChart3" height="100" style="display: none;"></canvas>
-                                    <canvas id="myChart4" height="100" style="display: none;"></canvas>
                                 </div>
 
                                 <div class="card-footer">
@@ -197,56 +194,6 @@
                                         <li class="page-item"><a class="page-link" href="#" id="tempWeekly"><span class="badge">Weekly</span></a></li>
                                         <li class="page-item"><a class="page-link" href="#" id="tempMonthly"><span class="badge">Monthly</span></a></li>
                                         <li class="page-item"><a class="page-link" href="#" id="tempAll"><span class="badge">Lifetime</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12" >
-                            <div class="card mb-5" >
-                                <div class="card-header">
-                                    <h4>Temperature - Bar</h4>
-                                </div>
-                                    
-                                <div class="card-body">
-                                    <!---->
-                                    <canvas id="myBarChart1" height="100" ></canvas>
-                                    <canvas id="myBarChart2" height="100" style="display: none;"></canvas>
-                                    <canvas id="myBarChart3" height="100" style="display: none;"></canvas>
-                                    <canvas id="myBarChart4" height="100" style="display: none;"></canvas>
-                                </div>
-
-                                <div class="card-footer">
-                                    <ul class="pagination justify-content-center mb-0 tempPage" id="Dou">
-                                        <li class="page-item active"><a class="page-link" href="#bar" id="tempBarToday"><span class="badge">Today</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#bar" id="tempBarWeekly"><span class="badge">Weekly</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#bar" id="tempBarMonthly"><span class="badge">Monthly</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#bar" id="tempBarAll"><span class="badge">Lifetime</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12" >
-                            <div class="card mb-5" >
-                                <div class="card-header">
-                                    <h4>Temperature - Doughnut</h4>
-                                </div>
-                                    
-                                <div class="card-body">
-                                    <!---->
-                                    <canvas id="myDouChart1" height="100" ></canvas>
-                                    <canvas id="myDouChart2" height="100" style="display: none;"></canvas>
-                                    <canvas id="myDouChart3" height="100" style="display: none;"></canvas>
-                                    <canvas id="myDouChart4" height="100" style="display: none;"></canvas>
-                                </div>
-
-                                <div class="card-footer">
-                                    <ul class="pagination justify-content-center mb-0 tempPage">
-                                        <li class="page-item active"><a class="page-link" href="#Dou" id="tempDouToday"><span class="badge">Today</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#Dou" id="tempDouWeekly"><span class="badge">Weekly</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#Dou" id="tempDouMonthly"><span class="badge">Monthly</span></a></li>
-                                        <li class="page-item"><a class="page-link" href="#Dou" id="tempDouAll"><span class="badge">Lifetime</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -309,6 +256,7 @@
     <!--Javascript plugin for chart-->
     <!--Source from :https://github.com/chartjs/Chart.js/releases/tag/v2.9.3-->
     <script src="js/Chart.js"></script> 
+    <script src="dataObject.js"></script>
     <script src="myChart.js"></script>
     <script src="push.js"></script>
 

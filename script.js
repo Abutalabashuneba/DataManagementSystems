@@ -276,28 +276,10 @@ $(document).ready(function(){
     });
 
 //------------------------------------------------------------------------------------------------
-    //-----------------Start of filter function------------------------------//
-    //Chicken
     $("#searchInput").on("keyup",function(){
-        var valueC = $(this).val().toLowerCase();
+        var value = $(this).val().toLowerCase();
         $("#chickenTable tbody tr").filter(function(){
-            $(this).toggle($(this).text().toLowerCase().indexOf(valueC) > -1)
-        });
-    });
-
-    //BSF filter
-    $("#searchInput").on("keyup",function(){
-        var valueBSF = $(this).val().toLowerCase();
-        $("#bsfTable tbody tr").filter(function(){
-            $(this).toggle($(this).text().toLowerCase().indexOf(valueBSF) > -1)
-        });
-    });
-
-    //BSFL filter
-    $("#searchInput").on("keyup",function(){
-        var valueBSF = $(this).val().toLowerCase();
-        $("#bsflTable tbody tr").filter(function(){
-            $(this).toggle($(this).text().toLowerCase().indexOf(valueBSF) > -1)
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
 
