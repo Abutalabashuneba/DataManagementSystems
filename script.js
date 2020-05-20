@@ -293,6 +293,9 @@ $(document).ready(function(){
             $("#chickenTable").show();
             $("#bsfTable").hide();
             $("#bsflTable").hide();
+			$("#addBtnC").show();
+            $("#addBtnBSF").hide();
+            $("#addBtnBSFL").hide();
         })
     
         $("#btnBsf").click(function(){
@@ -300,6 +303,9 @@ $(document).ready(function(){
             $("#chickenTable").hide();
             $("#bsfTable").show();
             $("#bsflTable").hide();
+			$("#addBtnC").hide();
+            $("#addBtnBSF").show();
+            $("#addBtnBSFL").hide();
         })
     
         $("#btnBsfl").click(function(){
@@ -307,6 +313,9 @@ $(document).ready(function(){
             $("#chickenTable").hide();
             $("#bsfTable").hide();
             $("#bsflTable").show();
+			$("#addBtnC").hide();
+            $("#addBtnBSF").hide();
+            $("#addBtnBSFL").show();
         })
         //-------------------End of Production page----------------------//
     });
