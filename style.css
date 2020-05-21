@@ -448,8 +448,6 @@ AddForm Styling
   padding-left: 270px;
   font-size: 14px;
 }
-<<<<<<< HEAD
-=======
 
 .addBSFProduction:focus + .BSFLabel,.addBSFProduction:valid + .BSFLabel,
 .updateBSFProduction:focus + .BSFLabel, .updateBSFProduction:valid + .BSFLabel
@@ -474,4 +472,3 @@ AddForm Styling
 .datepicker {
   margin-bottom: 3rem;
 }
->>>>>>> 4cfda19a0a111a3dd37ed7456cf44825621a5675
