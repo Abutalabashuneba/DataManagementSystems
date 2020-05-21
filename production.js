@@ -5,7 +5,7 @@ var productionObj;
 var productionKeys;
 
 //fetch the data from database
-productionRef.on("value", snap=>{
+cproductionRef.on("value", snap=>{
     //var dataObj = snap.val();
     //var keys = Object.keys(dataObj);
     productionObj = snap.val();
@@ -88,7 +88,7 @@ $("#addDataFormCP").submit(function(e){
 		timestamp: timestamp
     }
 
-    productionRef.push(data);
+    cproductionRef.push(data);
     $("#addDataFormCP")[0].reset();
     $('#addDataCP').modal('hide');
     
@@ -102,26 +102,25 @@ $("#addDataCP").on("hidden.bs.modal",function(){
 var remove = function(e){
     e.preventDefault();
 
-    var index = $(this).parents("tr").find("td.id").text();
-    var deleteIndex;
-    
-    for(var x = 0; x < productionKeys.length; ++x){
-        if(index-1 == x){
-            deleteIndex = productionKeys[x];
-        }
-    }
-
     if(confirm("Are you sure?")){
-        productionRef.child(deleteIndex).remove();
-		if (index-1 == 0)
+		var index = $(this).parents("tr").find("td.id").text();
+		var deleteIndex;
+    
+		for(var x = 0; x < productionKeys.length; ++x){
+			if(index-1 == x){
+				deleteIndex = productionKeys[x];
+			}
+		}
+		
+        cproductionRef.child(deleteIndex).remove();
+		if(productionObj === null)
 		{
-			window.location.reload(true);
+			datalist.innerHTML = "";
 		}
     }
 }
 
 $(document).on('click', '.table-remove', remove);
-
 
 var tableID;
 
@@ -177,7 +176,7 @@ $("#updateDataFormCP").submit(function(e){
     }
 
     if(confirm("Are you sure?")){
-        productionRef.child(updateIndexCP).update(updateDataCP);
+        cproductionRef.child(updateIndexCP).update(updateDataCP);
     }
    
     $("#updateDataFormCP")[0].reset();

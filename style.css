@@ -316,17 +316,17 @@ SearchBar Styling
 /*---------------------------------------------------------------------
 Add Button Styling
 ---------------------------------------------------------------------*/
-#addBtn, #addBtnCP{
+#addBtn, #addBtnC, #addBtnBSF, #addBtnBSFL{
   background: transparent;
 }
 
-#addBtn:hover, #addBtnCP{
+#addBtn:hover, #addBtnC:hover, #addBtnBSF:hover, #addBtnBSFL:hover{
   animation-name: rotate;
   animation-duration: .5s;
   animation-fill-mode: forwards;
 }
 
-#addBtn:focus, #addBtnCP{
+#addBtn:focus, #addBtnC:focus, #addBtnBSF:focus, #addBtnBSFL:focus{
   box-shadow: none;
 }
 
@@ -356,7 +356,12 @@ input::-webkit-inner-spin-button {
 /*---------------------------------------------------------------------
 AddForm Styling
 ---------------------------------------------------------------------*/
-.addCProduction,.updateCProduction,.addChickenData,.updateChickenData,.updateDateData,.updateBSFData,.updateBSFLData{
+.addCProduction,.updateCProduction,
+.addBSFProduction,.updateBSFProduction,
+.addBSFLProduction,.updateBSFLProduction,
+.addChickenData,.updateChickenData,
+.updateDateData,
+.updateBSFData,.updateBSFLData{
   position: relative;
   font-size: 20px;
   border: none;
@@ -365,14 +370,19 @@ AddForm Styling
   transition: all .5s;
 }
 
-.addCProduction:focus,.updateCProduction:focus,.addChickenData:focus,.updateChickenData:focus,.updateDateData:focus,.updateBSFData:focus,.updateBSFLData:focus{
+.addCProduction:focus,.updateCProduction:focus,
+.addBSFProduction:focus,.updateBSFProduction:focus,
+.addBSFLProduction:focus,.updateBSFLProduction:focus,
+.addChickenData:focus,.updateChickenData:focus,
+.updateDateData:focus,
+.updateBSFData:focus,.updateBSFLData:focus{
   box-shadow: none;
   border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
   border-image-slice: 1;
   transform: translateY(-1px);
 }
 
-.CLabel{
+.CLabel,.BSFLabel,.BSFLLabel{
   position: absolute;
   font-size: 16px;
   padding-left: 10px;
@@ -427,11 +437,8 @@ AddForm Styling
 }
 /*End Add data page*/
 
-
-
-
 .addCProduction:focus + .CLabel,.addCProduction:valid + .CLabel,
-.updateCProduction:focus:focus + .CLabel, .updateCProduction:valid + .CLabel,
+.updateCProduction:focus + .CLabel, .updateCProduction:valid + .CLabel,
 .addChickenData:focus + .CLabel, .addChickenData:valid +.CLabel,
 .updateChickenData:focus + .CLabel, .updateChickenData:valid +.CLabel,
 .addDataBSF:focus + .CLabel, .addDataBSF:valid +.CLabel,
@@ -439,5 +446,32 @@ AddForm Styling
 .updateBSFLData:focus + .CLabel, .updateBSFLData:valid + .CLabel
 {
   padding-left: 270px;
-  font-size: 14px;;
+  font-size: 14px;
 }
+<<<<<<< HEAD
+=======
+
+.addBSFProduction:focus + .BSFLabel,.addBSFProduction:valid + .BSFLabel,
+.updateBSFProduction:focus + .BSFLabel, .updateBSFProduction:valid + .BSFLabel
+{
+	padding-left: 260px;
+	font-size: 14px;
+}
+
+.addBSFLProduction:focus + .BSFLLabel,.addBSFLProduction:valid + .BSFLLabel,
+.updateBSFLProduction:focus + .BSFLLabel, .updateBSFLProduction:valid + .BSFLLabel
+{
+	padding-left: 250px;
+	font-size: 14px;
+}
+
+.datepicker td, .datepicker th {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.85rem;
+}
+
+.datepicker {
+  margin-bottom: 3rem;
+}
+>>>>>>> 4cfda19a0a111a3dd37ed7456cf44825621a5675
