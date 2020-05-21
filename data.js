@@ -51,7 +51,8 @@ function populateTable(){
     for(var x = 0; x < chickenKey1.length; ++x){
         var k = chickenKey1[x];
         var d = new Date(chickenData1[k].timestamp); //change the format of timestamp to be readable
-        var datetime = d.toLocaleString(); //format the time 
+        var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        var datetime = d.toLocaleString('en-us', options); //format the time 
         //var time = d.toLocaleTimeString(); //format the time 
 
         let tr = `
@@ -157,7 +158,8 @@ var update = function(e){
         if(tableID-1 == x){
             var k = chickenKey1[x];
             var d = new Date(chickenData1[k].timestamp); //change the format of timestamp to be readable
-            var datetime = d.toLocaleString(); //format the time 
+            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            var datetime = d.toLocaleString('en-us', options); //format the time 
             console.log(datetime);
             document.getElementById("updateDate").value = datetime;
             document.getElementById("updateTemp").value = chickenData1[chickenKey1[x]].temperature;
@@ -211,7 +213,8 @@ function populateTableBSF(){
     for(var x = 0; x < bsfKey1.length; ++x){
         var k = bsfKey1[x];
         var d = new Date(bsfObj1[k].timestamp); //change the format of timestamp to be readable
-        var datetime = d.toLocaleString(); //format the time 
+        var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        var datetime = d.toLocaleString('en-us', options); //format the time 
 
         let tr = `
             <tr>
@@ -309,7 +312,8 @@ var update = function(e){
         if(tableIDBSF-1 == x){
             var k = bsfKey1[x];
             var d = new Date(bsfObj1[k].timestamp); //change the format of timestamp to be readable
-            var datetime = d.toLocaleString(); //format the time 
+            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            var datetime = d.toLocaleString('en-us', options); //format the time 
             console.log(datetime);
             document.getElementById("updateDateBSF").value = datetime;
             document.getElementById("updatebsfTemp").value = bsfObj1[bsfKey1[x]].temperature;
@@ -362,7 +366,8 @@ function populateTableBSFL(){
     for(var x = 0; x < bsflKey1.length; ++x){
         var k = bsflKey1[x];
         var d = new Date(bsflObj1[k].timestamp); //change the format of timestamp to be readable
-        var datetime = d.toLocaleString(); //format the time 
+        var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        var datetime = d.toLocaleString('en-us', options); //format the time 
         
         let tr = `
             <tr>
@@ -463,7 +468,8 @@ var update = function(e){
         if(tableIDBSFL-1 == x){
             var k = bsflKey1[x];
             var d = new Date(bsflObj1[k].timestamp); //change the format of timestamp to be readable
-            var datetime = d.toLocaleString(); //format the time 
+            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            var datetime = d.toLocaleString('en-us', options); //format the time 
             console.log(datetime);
             document.getElementById("updateDateBSFL").value = datetime;
             document.getElementById("updatebsflTemp").value = bsflObj1[bsflKey1[x]].temperature;
@@ -492,14 +498,14 @@ $("#updateDataFormBSFL").submit(function(e){
 
     var updateIndex;
 
-    for(var x = 0; x < bsfKey1.length; ++x){
-        if(tableIDBSF-1 == x){
-            updateIndex = bsfKey1[x];
+    for(var x = 0; x < bsflKey1.length; ++x){
+        if(tableIDBSFL-1 == x){
+            updateIndex = bsflKey1[x];
         }
     }
 
     if(confirm("Are you sure want to update this data?")){
-        bsfref.child(updateIndex).update(updateData);
+        bsflref.child(updateIndex).update(updateData);
     }
    
     $("#updateDataFormBSFL")[0].reset();
