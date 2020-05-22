@@ -57,6 +57,13 @@ dataref.on("value", snap =>{
   if(chkMois) chkMois.innerHTML = dataMois;
   if(valueMois) valueMois.setAttribute("data-value", dataMois);
 
+  //PH value
+  var dataPh = dataObj[keys[keys.length-1]].ph;
+  var valuePh = document.getElementById("ph");
+  var chkPh = document.getElementById("chickenPh");
+  if(chkPh) chkPh.innerHTML = dataPh;
+  if(valueMois) valuePh.setAttribute("data-value", dataPh);
+
   //Push Chicken warning notification
   if(dataTemp < 20 || dataTemp > 30)
   {
@@ -96,31 +103,6 @@ dataref.on("value", snap =>{
     });
   }
   //End of Push Chicken warning notification
-
-  
-  
-
-  if(dataMois == "Too Wet")
-  {
-    $(document).ready(function(){
-      $(".border-mois").addClass("border-warning");
-    })
-    
-  }
-  else if(dataMois == "Too Dry")
-  {
-    $(document).ready(function(){
-      $(".border-mois").addClass("border-danger");
-    })
-    
-  }
-  else
-  {
-    $(document).ready(function(){
-      $(".border-mois").addClass("border-primary");
-    })
-    
-  }
   
 
   $(function() {
