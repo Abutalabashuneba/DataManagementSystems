@@ -157,7 +157,7 @@
     </div>
     <!--End of register modal-->
 
-    <!--Start of add modal-->
+    <!--Start of add Chicken modal-->
     <div class="modal fade" id="addDataCP">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -213,9 +213,65 @@
             </div>
         </div>
     </div>
-    <!--End of add modal-->
+    <!--End of add Chicken modal-->
+	
+	<!--Start of add BSF modal-->
+    <div class="modal fade" id="addDataBSFP">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
+                    <form id="addDataFormBSFP">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addBSFProduction" name="production" id="addAmountBSF" required>
+                            <label for="addAmountBSF" class="BSFLabel" id="productionLabel">(Egg Produced)</label>
+                        </div>
+						
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Add
+                        </button>
+                    </form>
+                </div>
 
-    <!--Start of edit modal-->
+                <div class="modal-footer">
+                    <div class="mx-auto text-center text-danger font-weight-bold" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of add BSF modal-->
+	
+	<!--Start of add BSFL modal-->
+    <div class="modal fade" id="addDataBSFLP">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
+                    <form id="addDataFormBSFLP">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addBSFLProduction" name="production" id="addAmountBSFL" required>
+                            <label for="addAmountBSFL" class="BSFLLabel" id="productionLabel">(Larvae Produced)</label>
+                        </div>
+						
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Add
+                        </button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="mx-auto text-center text-danger font-weight-bold" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of add BSFL modal-->
+
+    <!--Start of edit Chicken modal-->
     <div class="modal fade" id="editDataCP">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -266,7 +322,53 @@
             </div>
         </div>
     </div>
-    <!--End of edit modal-->
+    <!--End of edit Chicken modal-->
+
+	<!--Start of edit BSF modal-->
+    <div class="modal fade" id="editDataBSFP">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
+                    <form id="updateDataFormBSFP">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="amountEgg" class="form-control updateBSFProduction" id="updateAmountBSF" required>
+                            <label for="updateAmountBSF" class="BSFLabel" id="productionLabel">(Egg Produced)</label>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of edit BSF modal-->
+	
+	<!--Start of edit BSF modal-->
+    <div class="modal fade" id="editDataBSFLP">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
+                    <form id="updateDataFormBSFLP">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="amountEgg" class="form-control updateBSFLProduction" id="updateAmountBSFL" required>
+                            <label for="updateAmountBSFL" class="BSFLLabel" id="productionLabel">(Larvae Produced)</label>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of edit BSF modal-->
 
     <!--Table Section-->
     <section>
@@ -283,8 +385,9 @@
                         </nav>
 
                         <h3 class="mx-auto text-center text-muted" id="tableTitle">Chicken</h3>
-                        <button class="btn mb-3 mr-3" id="addBtn" data-toggle="modal" data-target="#addDataCP"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
-
+                        <button class="btn mb-3 mr-3" id="addBtnC" data-toggle="modal" data-target="#addDataCP"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+						<button class="btn mb-3 mr-3" id="addBtnBSF" data-toggle="modal" data-target="#addDataBSFP" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+						<button class="btn mb-3 mr-3" id="addBtnBSFL" data-toggle="modal" data-target="#addDataBSFLP" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
                         <div class="col-xl-12 table-responsive">
                             <table class="table table-striped table-hover table-md bg-light text-center" id="chickenTable">
                             <!--Start of table head-->
@@ -324,7 +427,7 @@
                                 <!--End of table head-->
 
                                 <!--Start of table body-->
-                                <tbody>
+                                <tbody class="bsfproductionBodyData">
 
                                 </tbody>
                                 <!--End of table body-->
@@ -344,7 +447,7 @@
                                     <!--End of table head-->
     
                                     <!--Start of table body-->
-                                    <tbody>
+                                    <tbody class="bsflproductionBodyData">
     
                                     </tbody>
                                     <!--End of table body-->
@@ -402,11 +505,17 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+    
     <script src="script.js"></script>
     <script src="index.js"></script>
     <script src="dataObject.js"></script>
     <script src="signup.js"></script>
     <script src="production.js"></script>
+	<script src="bsfproduction.js"></script>
+	<script src="bsflproduction.js"></script>
     <script src="push.js"></script>
 </body>
 </html>

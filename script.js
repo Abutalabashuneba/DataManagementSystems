@@ -182,16 +182,57 @@ $(document).ready(function(){
        
         //----------------------------End of index page------------------------------//
     //------------------------------------------------------------------------------------------------
+        //------------------------Start of search filter----------------------//
+        
         // $("#searchInput").on("keyup",function(){
         //     var value = $(this).val().toLowerCase();
         //     $("table tbody tr td:nth-child(2)").filter(function(){
         //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         //     });
         // });
-        $("#searchInput").on("keyup",function(){
+
+        //Date picker for search
+        $(function () {
+            $('#datetimepicker').datetimepicker({
+                format: 'L',
+            });
+        });
+
+        //search filter for Chicken
+        $("#searchInput").on("input",function(){
+            var value = $(this).val().toLowerCase();
+            $("#chickenTable tbody tr").filter(function(){
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        //search filter for BSF
+        $("#searchInput").on("input",function(){
+            var valueBSF = $(this).val().toLowerCase();
+            $("#bsfTable tbody tr").filter(function(){
+                $(this).toggle($(this).text().toLowerCase().indexOf(valueBSF) > -1)
+            });
+        });
+
+        //search filter for BSFL
+        $("#searchInput").on("input",function(){
+            var valueBSFL = $(this).val().toLowerCase();
+            $("#bsflTable tbody tr").filter(function(){
+                $(this).toggle($(this).text().toLowerCase().indexOf(valueBSFL) > -1)
+            });
+        });
+    
+    
+
+        /*$("#searchInput").on("input",function(){
             $("table tbody tr .searchVar:contains('" + $(this).val() + "')").parent().show();
             $("table tbody tr .searchVar:not(:contains('" + $(this).val() + "'))").parent().hide();
-        })
+        })*/
+
+      
+            
+        
+        //------------------------End of search filter----------------------//
     
     //------------------------------------------------------------------------------------------------
         //-----------------Start of sensor page------------------------------//
@@ -293,6 +334,9 @@ $(document).ready(function(){
             $("#chickenTable").show();
             $("#bsfTable").hide();
             $("#bsflTable").hide();
+			$("#addBtnC").show();
+            $("#addBtnBSF").hide();
+            $("#addBtnBSFL").hide();
         })
     
         $("#btnBsf").click(function(){
@@ -300,6 +344,9 @@ $(document).ready(function(){
             $("#chickenTable").hide();
             $("#bsfTable").show();
             $("#bsflTable").hide();
+			$("#addBtnC").hide();
+            $("#addBtnBSF").show();
+            $("#addBtnBSFL").hide();
         })
     
         $("#btnBsfl").click(function(){
@@ -307,6 +354,9 @@ $(document).ready(function(){
             $("#chickenTable").hide();
             $("#bsfTable").hide();
             $("#bsflTable").show();
+			$("#addBtnC").hide();
+            $("#addBtnBSF").hide();
+            $("#addBtnBSFL").show();
         })
         //-------------------End of Production page----------------------//
     });
