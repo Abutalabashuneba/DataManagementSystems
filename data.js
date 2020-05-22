@@ -61,7 +61,7 @@ function populateTable(){
                 <td class="searchVar">${datetime}</td>
                 <td>${chickenData1[k].temperature}</td>
                 <td>${chickenData1[k].humidity}</td>
-                <td></td>
+                <td>${chickenData1[k].ph}</td>
                 <td>${chickenData1[k].moisture}</td>
         `;
         html += tr;
@@ -107,7 +107,7 @@ $("#addDataFormC").submit(function(e){
         humidity: hum,
         moisture: moist,
         temperature: temp,
-        //ph : ph,
+        ph : ph,
         timestamp: d
     }
 
@@ -168,7 +168,7 @@ var update = function(e){
             document.getElementById("updateDate").value = datetime;
             document.getElementById("updateTemp").value = chickenData1[chickenKey1[x]].temperature;
             document.getElementById("updateHum").value = chickenData1[chickenKey1[x]].humidity;
-            // document.getElementById("updatepH").value = chickenData1[chickenKey1[x]].ph;
+             document.getElementById("updatepH").value = chickenData1[chickenKey1[x]].ph;
             document.getElementById("updateMoisture").value = chickenData1[chickenKey1[x]].moisture;
         }
     }
@@ -189,7 +189,7 @@ $("#updateDataForm").submit(function(e){
         humidity: hum,
         moisture: moist,
         temperature: temp,
-        //ph : ph,
+        ph : ph,
         //timestamp: d
     }
 
