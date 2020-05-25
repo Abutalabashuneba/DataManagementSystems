@@ -319,7 +319,7 @@
                                             </div>
     
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="chartTypeHumid" class="form-control" onchange="onTypeChange()">
+                                                <select id="bsfChartType2" class="form-control" onchange="onTypeChange()">
                                                     <option value="line" selected="selected">Line</option>
                                                     <option value="bar">Bar</option>
                                                 </select>
@@ -334,10 +334,10 @@
     
                                     <div class="card-footer">
                                         <ul class="pagination justify-content-center mb-0" id="hum">
-                                            <li class="page-item active"><a class="page-link" href="#bsfTempChart" id="humToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="humWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="humMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="humAll"><span class="badge">Lifetime</span></a></li>
+                                            <li class="page-item active"><a class="page-link" href="#bsfTempChart" id="bsfHumToday"><span class="badge">Today</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="bsfHumWeekly"><span class="badge">Weekly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="bsfHumMonthly"><span class="badge">Monthly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="bsfHumAll"><span class="badge">Lifetime</span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -354,7 +354,7 @@
                                             </div>
     
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="chartTypeMoist" class="form-control" onchange="onTypeChange()">
+                                                <select id="bsfChartType3" class="form-control" onchange="onTypeChange()">
                                                     <option value="line" selected="selected">Line</option>
                                                     <option value="bar">Bar</option>
                                                 </select>
@@ -368,11 +368,11 @@
                                     </div>
     
                                     <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0 moistPage">
-                                            <li class="page-item active"><a class="page-link" href="#hum" id="moistToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#hum" id="moistWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#hum" id="moistMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#hum" id="moistAll"><span class="badge">Lifetime</span></a></li>
+                                        <ul class="pagination justify-content-center mb-0">
+                                            <li class="page-item active"><a class="page-link" href="#hum" id="bsfLightToday"><span class="badge">Today</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#hum" id="bsfLightWeekly"><span class="badge">Weekly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#hum" id="bsfLightMonthly"><span class="badge">Monthly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#hum" id="bsfLightAll"><span class="badge">Lifetime</span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -380,6 +380,115 @@
                         </div>
                     </section>
                     <!-- End of bsf visualization -->
+
+                    <!-- Start of bsfl Visualization -->
+                    <section id="bsflChart" style="display:none;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
+                                                <h4>Temperature</h4>
+                                            </div>
+    
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
+                                                <select id="bsflChartType1" class="form-control" onchange="onTypeChange()">
+                                                    <option value="line" selected="selected">Line</option>
+                                                    <option value="bar">Bar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="card-body">
+                                        <!---->
+                                        <canvas id="bsflChart1" height="100" ></canvas>
+                                    </div>
+    
+                                    <div class="card-footer">
+                                        <ul class="pagination justify-content-center mb-0" id="bsflTempChart">
+                                            <li class="page-item active"><a class="page-link" href="#" id="bsflTempToday"><span class="badge">Today</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#" id="bsflTempWeekly"><span class="badge">Weekly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#" id="bsflTempMonthly"><span class="badge">Monthly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#" id="bsflTempAll"><span class="badge">Lifetime</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
+                                                <h4>pH</h4>
+                                            </div>
+    
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
+                                                <select id="bsflChartType2" class="form-control" onchange="onTypeChange()">
+                                                    <option value="line" selected="selected">Line</option>
+                                                    <option value="bar">Bar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="card-body">
+                                        <!---->
+                                        <canvas id="bsflChart2" height="100" ></canvas>
+                                    </div>
+    
+                                    <div class="card-footer">
+                                        <ul class="pagination justify-content-center mb-0" id="pH">
+                                            <li class="page-item active"><a class="page-link" href="#bsflTempChart" id="bsflpHToday"><span class="badge">Today</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#bsflTempChart" id="bsflpHWeekly"><span class="badge">Weekly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#bsflTempChart" id="bsflpHMonthly"><span class="badge">Monthly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#bsflTempChart" id="bsflpHAll"><span class="badge">Lifetime</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
+                                                <h4>Moisture</h4>
+                                            </div>
+    
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
+                                                <select id="bsflChartType3" class="form-control" onchange="onTypeChange()">
+                                                    <option value="line" selected="selected">Line</option>
+                                                    <option value="bar">Bar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="card-body">
+                                        <!---->
+                                        <canvas id="bsflChart3" height="100" ></canvas>
+                                    </div>
+    
+                                    <div class="card-footer">
+                                        <ul class="pagination justify-content-center mb-0">
+                                            <li class="page-item active"><a class="page-link" href="#pH" id="bsflMoistToday"><span class="badge">Today</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#pH" id="bsflMoistWeekly"><span class="badge">Weekly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#pH" id="bsflMoistMonthly"><span class="badge">Monthly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#pH" id="bsflMoistAll"><span class="badge">Lifetime</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End of bsfl visualization -->
                 </div>
             </div>
         </div>
