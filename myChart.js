@@ -208,6 +208,9 @@ var bsflMoistPointMonthly = [];
 var bsflMoistLifetime = [];
 var bsflMoistPointLifetime = [];
 ////////////////////////////////////////////////////
+var mixChart;
+var mixContext = document.getElementById("mixChart1").getContext("2d");
+
 
 ref.once("value", snap=>{
     var dataObj = snap.val();
@@ -490,6 +493,64 @@ ref.once("value", snap=>{
                 bsflpHPointLifetime.push(allBSFLoHPoint[x][y]);
                 bsflMoistLifetime.push(allBSFLMoistLabel[x][y]);
                 bsflMoistPointLifetime.push(allBSFLMoistPoint[x][y]);
+            }
+        }
+    }
+
+    configMix = {
+        type: "line",
+        data:{
+            labels: labelTempDaily,
+            datasets:[{
+                label: "Chicken Temperature",
+                data: pointTempDaily,
+                pointRadius: 0,
+				fill: false,
+				lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(201,134,212,0.7)",
+                backgroundColor: "rgba(201,134,212,0.7)",
+                pointHoverBorderColor : "rgba(142,77,185,0.9)",
+            },{
+                label: "Chicken Humidity",
+                data: pointHumidityDaily,
+                pointRadius: 0,
+				fill: false,
+				lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(160, 227, 226, 0.7)",
+                backgroundColor: "rgba(160, 227, 226, 0.7)",
+                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+            },{
+                label: "Chicken Moisture",
+                data: pointMoistDaily,
+                pointRadius: 0,
+				fill: false,
+				lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(207, 89, 89, 0.7)",
+                backgroundColor: "rgba(207, 89, 89, 0.7)",
+                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+            }]
+        },
+        options:{
+            tooltips:{
+                intersect: false,
+                mode: "index"
+            },
+            scales:{
+                xAxes:[{
+                    type: "time",
+                    distribution: "series",
+                    offset : false,
+                    ticks:{
+                        autoSkip: true,
+						autoSkipPadding: 75,
+                    },
+                    time:{
+                        unit : "minute",
+                    },
+                }],
             }
         }
     }
@@ -944,7 +1005,7 @@ ref.once("value", snap=>{
     bsflChart1 = new Chart(bsflContext1,bsflConfigTemp);
     bsflChart2 = new Chart(bsflContext2,bsflConfigpH);
     bsflChart3 = new Chart(bsflContext3,bsflConfigMoist);
-    
+    mixChart = new Chart(mixContext,configMix);
 })
 
 
@@ -1200,6 +1261,38 @@ $(document).ready(function(){
             bsflConfigMoist.options.scales.xAxes[0].time.unit = "month";
         }
 
+        //update mix chart
+        if($(this).children().attr("id") == "mixDaily"){
+            // console.log(configMix.data.datasets[0].data); temp
+            // console.log(configMix.data.datasets[1].data); humidity
+            configMix.data.datasets[0].data = pointTempDaily;
+            configMix.data.datasets[1].data = pointHumidityDaily;
+            configMix.data.datasets[2].data = pointMoistDaily;
+            configMix.data.labels = labelTempDaily;
+            // configMix.data.datasets[0].label = "Today's moisture";
+            configMix.options.scales.xAxes[0].time.unit = "minute";
+        }else if($(this).children().attr("id") == "mixWeekly"){
+            configMix.data.datasets[0].data = pointTempWeekly;
+            configMix.data.datasets[1].data = pointHumidityWeekly;
+            configMix.data.datasets[2].data = pointMoistWeekly;
+            configMix.data.labels = labelTempWeekly;
+            // configMix.data.datasets[0].label = "Weekly moisture";
+            configMix.options.scales.xAxes[0].time.unit = "day";
+        }else if($(this).children().attr("id") == "mixMonthly"){
+            configMix.data.datasets[0].data = pointTempMonthly;
+            configMix.data.datasets[1].data = pointHumidityMonthly;
+            configMix.data.datasets[2].data = pointMoistMonthly;
+            configMix.data.labels = labelTempMonthly;
+            // configMix.data.datasets[0].label = "Monthly moisture";
+            configMix.options.scales.xAxes[0].time.unit = "day";
+        }else if($(this).children().attr("id") == "mixAll"){
+            configMix.data.datasets[0].data = pointTempLifetime;
+            configMix.data.datasets[1].data = pointHumidityLifetime;
+            configMix.data.datasets[2].data = pointMoistLifetime;
+            configMix.data.labels = labelTempLifetime;
+            // configMix.data.datasets[0].label = "Lifetime moisture";
+            configMix.options.scales.xAxes[0].time.unit = "month";
+        }
 
         myChart.update();
         myChart2.update();
@@ -1210,23 +1303,34 @@ $(document).ready(function(){
         bsflChart1.update();
         bsflChart2.update();
         bsflChart3.update();
+        mixChart.update();
     });
 
     $("#chickenVisualization").click(function(){
         $("#chickenChart").show();
         $("#bsfChart").hide();
         $("#bsflChart").hide();
+        $("#mixChart").hide();
     })
 
     $("#bsfVisualization").click(function(){
         $("#chickenChart").hide();
         $("#bsfChart").show();
         $("#bsflChart").hide();
+        $("#mixChart").hide();
     })
 
     $("#bsflVisualization").click(function(){
         $("#chickenChart").hide();
         $("#bsfChart").hide();
         $("#bsflChart").show();
+        $("#mixChart").hide();
+    })
+
+    $("#mix").click(function(){
+        $("#chickenChart").hide();
+        $("#bsfChart").hide();
+        $("#bsflChart").hide();
+        $("#mixChart").show();
     })
 })

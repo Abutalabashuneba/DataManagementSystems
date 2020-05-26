@@ -160,6 +160,7 @@
                                 <li class="page-item active"><a href="#" class="page-link" id="chickenVisualization"><span class="badge">Chicken</span></a></li>
                                 <li class="page-item "><a href="#" class="page-link" id="bsfVisualization"><span class="badge">BSF</span></a></li>
                                 <li class="page-item "><a href="#" class="page-link" id="bsflVisualization"><span class="badge">BSF Larvae</span></a></li>
+                                <li class="page-item "><a href="#" class="page-link" id="mix"><span class="badge">Mix</span></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -489,6 +490,45 @@
                         </div>
                     </section>
                     <!-- End of bsfl visualization -->
+
+                    <!-- Start of mix Visualization -->
+                    <section id="mixChart" style="display:none;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
+                                                <h4>Mix</h4>
+                                            </div>
+    
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
+                                                <select id="bsflChartType1" class="form-control" onchange="onTypeChange()" disabled>
+                                                    <option value="line" selected="selected">Line</option>
+                                                    <option value="bar">Bar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="card-body">
+                                        <!---->
+                                        <canvas id="mixChart1" height="100" ></canvas>
+                                    </div>
+    
+                                    <div class="card-footer">
+                                        <ul class="pagination justify-content-center mb-0" id="bsflTempChart">
+                                            <li class="page-item active"><a class="page-link" href="#" id="mixDaily"><span class="badge">Today</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#" id="mixWeekly"><span class="badge">Weekly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#" id="mixMonthly"><span class="badge">Monthly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#" id="mixAll"><span class="badge">Lifetime</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End of mix visualization -->
                 </div>
             </div>
         </div>
