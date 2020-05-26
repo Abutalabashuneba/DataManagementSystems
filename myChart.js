@@ -18,6 +18,9 @@ var configTemp;
 var chartType = "line";
 var context = document.getElementById("myChart1").getContext("2d");
 
+var allChickenTempLabel = [];
+var allChickenTempPoint = [];
+
 var labelTempDaily = [];
 var pointTempDaily = [];
 
@@ -35,6 +38,9 @@ var myChart2;
 var configHum;
 var chartTypeHum = "line";
 var context2 = document.getElementById("myChart2").getContext("2d");
+
+var allChickenHumLabel = [];
+var allChickenHumPoint = [];
 
 var labelHumidityDaily = [];
 var pointHumidityDaily = [];
@@ -55,6 +61,9 @@ var configMoist;
 var chartTypeMoist = "line";
 var context3 = document.getElementById("myChart3").getContext("2d");
 
+var allChickenMoistLabel = [];
+var allChickenMoistPoint = [];
+
 var labelMoistDaily = [];
 var pointMoistDaily = [];
 
@@ -73,6 +82,9 @@ var bsfChart1;
 var bsfConfigTemp;
 var bsfChartType1 = "line";
 var bsfContext1 = document.getElementById("bsfChart1").getContext("2d");
+
+var allBSFTempLabel = [];
+var allBSFTempPoint = [];
 
 var bsfTempDaily = [];
 var bsfTempPointDaily = [];
@@ -93,6 +105,9 @@ var bsfConfigHum;
 var bsfChartType2 = "line";
 var bsfContext2 = document.getElementById("bsfChart2").getContext("2d");
 
+var allBSFHumLabel = [];
+var allBSFHumPoint = [];
+
 var bsfHumDaily = [];
 var bsfHumPointDaily = [];
 
@@ -111,6 +126,9 @@ var bsfChart3;
 var bsfConfigLight;
 var bsfChartType3 = "line";
 var bsfContext3 = document.getElementById("bsfChart3").getContext("2d");
+
+var allBSFLightLabel = [];
+var allBSFLightPoint = [];
 
 var bsfLightDaily = [];
 var bsfLightPointDaily = [];
@@ -131,6 +149,9 @@ var bsflConfigTemp;
 var bsflChartType1 = "line";
 var bsflContext1 = document.getElementById("bsflChart1").getContext("2d");
 
+var allBSFLTempLabel = []
+var allBSFLTempPoint = []
+
 var bsflTempDaily = [];
 var bsflTempPointDaily = [];
 
@@ -149,6 +170,9 @@ var bsflChart2;
 var bsflConfigpH;
 var bsflChartType2 = "line";
 var bsflContext2 = document.getElementById("bsflChart2").getContext("2d");
+
+var allBSFLpHLabel = []
+var allBSFLoHPoint = []
 
 var bsflpHDaily = [];
 var bsflpHPointDaily = [];
@@ -169,6 +193,9 @@ var bsflConfigMoist;
 var bsflChartType3 = "line";
 var bsflContext3 = document.getElementById("bsflChart3").getContext("2d");
 
+var allBSFLMoistLabel = []
+var allBSFLMoistPoint = []
+
 var bsflMoistDaily = [];
 var bsflMoistPointDaily = [];
 
@@ -182,62 +209,287 @@ var bsflMoistLifetime = [];
 var bsflMoistPointLifetime = [];
 ////////////////////////////////////////////////////
 
-var dataObj;
-var keys;
+ref.once("value", snap=>{
+    var dataObj = snap.val();
+    var keys = Object.keys(dataObj);
 
-chicken1ref.once("value", snap=>{
-    dataObj = snap.val();
-    keys = Object.keys(dataObj);
+    var bsfObj;
+    var bsflObj;
+    var chickenObj;
+    var productionObj;
 
+    var bsfKeys;
+    var bsflKeys;
+    var chickenKeys;
+    var productionKeys;
+
+    var allObj = [];
+    var allKeys = [];
+ 
+    //push object into an array
     for(var x = 0; x < keys.length; ++x){
         var k = keys[x];
 
-        var d = new Date(dataObj[k].timestamp);
-        var date = d.toLocaleDateString();
+        allObj.push(dataObj[k]);
+        allKeys.push(Object.keys(allObj[x]));
+    }
 
-        var month = d.getMonth();
-        
-        if(dataObj[k].timestamp != undefined){
-            if(date == todayDate){
-                if(dataObj[k].temperature != undefined || dataObj[k].temperature != "Null"){
-                    labelTempDaily.push(dataObj[k].timestamp);
-                    pointTempDaily.push(dataObj[k].temperature);
-                    labelHumidityDaily.push(dataObj[k].timestamp);
-                    pointHumidityDaily.push(dataObj[k].humidity);
-                    labelMoistDaily.push(dataObj[k].timestamp);
-                    pointMoistDaily.push(dataObj[k].moisture);
-                }
-            }
     
-            if(d >= newDate(-7) && d <= newDate(0)){
-                if(dataObj[k].temperature != undefined || dataObj[k].temperature != "Null"){
-                    labelTempWeekly.push(dataObj[k].timestamp);
-                    pointTempWeekly.push(dataObj[k].temperature);
-                    labelHumidityWeekly.push(dataObj[k].timestamp);
-                    pointHumidityWeekly.push(dataObj[k].humidity);
-                    labelMoistWeekly.push(dataObj[k].timestamp);
-                    pointMoistWeekly.push(dataObj[k].moisture);
-                }
-            }
+    bsfObj = allObj[0];
+    bsfKeys = Object.keys(bsfObj);
+    bsfData = [];
+
+    bsflObj = allObj[1];
+    bsflKeys = Object.keys(bsflObj);
+    bsflData = [];
+
+    chickenObj = allObj[2];
+    chickenKeys = Object.keys(chickenObj);
+    chickenData = [];
+
+    productionObj = allObj[3];
+    productionKeys = Object.keys(productionObj);
+    productionData = [];
+
+    for(var x = 0; x < bsfKeys.length; ++x){
+        var keys = Object.keys(bsfObj[bsfKeys[x]]);
+        var tempArr = [];
+        for (var y = 0; y < keys.length; ++y){
+            // console.log(bsfObj[bsfKeys[x]][keys[y]]);
+            tempArr.push(bsfObj[bsfKeys[x]][keys[y]]);
+        }
+        // console.log("Break");
+        bsfData.push(tempArr);
+    }
+
+    for(var x = 0; x < bsflKeys.length; ++x){
+        var keys = Object.keys(bsflObj[bsflKeys[x]]);
+        var tempArr = [];
+        for (var y = 0; y < keys.length; ++y){
+            // console.log(bsflObj[bsflKeys[x]][keys[y]]);
+            tempArr.push(bsflObj[bsflKeys[x]][keys[y]]);
+        }
+        bsflData.push(tempArr);
+    }
+
+    for(var x = 0; x < chickenKeys.length; ++x){
+        var keys = Object.keys(chickenObj[chickenKeys[x]]);
+        var tempArr = [];
+        for (var y = 0; y < keys.length; ++y){
+            // console.log(chickenObj[chickenKeys[x]][keys[y]]);
+            tempArr.push(chickenObj[chickenKeys[x]][keys[y]]);
+        }
+        chickenData.push(tempArr);
+    }
+
+    for(var x = 0; x < productionKeys.length; ++x){
+        var keys = Object.keys(productionObj[productionKeys[x]]);
+        var tempArr = [];
+        for (var y = 0; y < keys.length; ++y){
+            // console.log(productionObj[productionKeys[x]][keys[y]]);
+            tempArr.push(productionObj[productionKeys[x]][keys[y]]);
+        }
+        productionData.push(tempArr);
+    }
+
+    //
+    for(var x = 0; x < chickenData.length; ++x){
+        var tempTempPoint = [];
+        var tempTempLabel = [];
+        var tempHumPoint = [];
+        var tempHumLabel = [];
+        var tempMoistPoint = [];
+        var tempMoistLabel = [];
+        for(var y = 0; y < chickenData[x].length; y++){
+            tempTempLabel.push(chickenData[x][y].timestamp);
+            tempTempPoint.push(chickenData[x][y].temperature);
+            tempHumLabel.push(chickenData[x][y].timestamp);
+            tempHumPoint.push(chickenData[x][y].humidity);
+            tempMoistLabel.push(chickenData[x][y].timestamp);
+            tempMoistPoint.push(chickenData[x][y].moisture);
+        }
     
-            if(month == todayMonth){
-                if(dataObj[k].temperature != undefined || dataObj[k].temperature != "Null"){
-                    labelTempMonthly.push(dataObj[k].timestamp);
-                    pointTempMonthly.push(dataObj[k].temperature);
-                    labelHumidityMonthly.push(dataObj[k].timestamp);
-                    pointHumidityMonthly.push(dataObj[k].humidity);
-                    labelMoistMonthly.push(dataObj[k].timestamp);
-                    pointMoistMonthly.push(dataObj[k].moisture);
+        allChickenTempLabel.push(tempTempLabel);
+        allChickenTempPoint.push(tempTempPoint);
+        allChickenHumLabel.push(tempHumLabel);
+        allChickenHumPoint.push(tempHumPoint);
+        allChickenMoistLabel.push(tempMoistLabel);
+        allChickenMoistPoint.push(tempMoistPoint);
+    }
+
+    for(var x = 0; x < bsfData.length; ++x){
+        var tempTempPoint = [];
+        var tempTempLabel = [];
+        var tempHumPoint = [];
+        var tempHumLabel = [];
+        var tempLightPoint = [];
+        var tempLightLabel = [];
+        for(var y = 0; y < bsfData[x].length; y++){
+            tempTempLabel.push(bsfData[x][y].timestamp);
+            tempTempPoint.push(bsfData[x][y].temperature);
+            tempHumLabel.push(bsfData[x][y].timestamp);
+            tempHumPoint.push(bsfData[x][y].humidity);
+            tempLightLabel.push(bsfData[x][y].timestamp);
+            tempLightPoint.push(bsfData[x][y].light);
+        }
+    
+        allBSFTempLabel.push(tempTempLabel);
+        allBSFTempPoint.push(tempTempPoint);
+        allBSFHumLabel.push(tempHumLabel);
+        allBSFHumPoint.push(tempHumPoint);
+        allBSFLightLabel.push(tempLightLabel);
+        allBSFLightPoint.push(tempLightPoint);
+    }
+
+    for(var x = 0; x < bsflData.length; ++x){
+        var tempTempPoint = [];
+        var tempTempLabel = [];
+        var temppHPoint = [];
+        var temppHLabel = [];
+        var tempMoistPoint = [];
+        var tempMoistLabel = [];
+        for(var y = 0; y < bsflData[x].length; y++){
+            tempTempLabel.push(bsflData[x][y].timestamp);
+            tempTempPoint.push(bsflData[x][y].temperature);
+            temppHLabel.push(bsflData[x][y].timestamp);
+            temppHPoint.push(bsflData[x][y].pH);
+            tempMoistLabel.push(bsflData[x][y].timestamp);
+            tempMoistPoint.push(bsflData[x][y].moisture);
+        }
+    
+        allBSFLTempLabel.push(tempTempLabel);
+        allBSFLTempPoint.push(tempTempPoint);
+        allBSFLpHLabel.push(temppHLabel);
+        allBSFLoHPoint.push(temppHPoint);
+        allBSFLMoistLabel.push(tempMoistLabel);
+        allBSFLMoistPoint.push(tempMoistPoint);
+    }
+
+    for(var x = 0; x < allChickenTempPoint.length; ++x){
+        for(var y = 0; y < allChickenTempPoint[x].length; ++y){
+            var d = new Date(allChickenTempLabel[x][y]);
+            var date = d.toLocaleDateString();
+            var month = d.getMonth();
+            if(x == 0){ //to be changed
+                if(date == todayDate){
+                    labelTempDaily.push(allChickenTempLabel[x][y]);
+                    pointTempDaily.push(allChickenTempPoint[x][y]);
+                    labelHumidityDaily.push(allChickenHumLabel[x][y]);
+                    pointHumidityDaily.push(allChickenHumPoint[x][y]);
+                    labelMoistDaily.push(allChickenMoistLabel[x][y]);
+                    pointMoistDaily.push(allChickenMoistPoint[x][y]);
                 }
+
+                if(d >= newDate(-7) && d <= newDate(0)){
+                    labelTempWeekly.push(allChickenTempLabel[x][y]);
+                    pointTempWeekly.push(allChickenTempPoint[x][y]);
+                    labelHumidityWeekly.push(allChickenHumLabel[x][y]);
+                    pointHumidityWeekly.push(allChickenHumPoint[x][y]);
+                    labelMoistWeekly.push(allChickenMoistLabel[x][y]);
+                    pointMoistWeekly.push(allChickenMoistPoint[x][y]);
+                }
+
+                if(month == todayMonth){
+                    labelTempMonthly.push(allChickenTempLabel[x][y]);
+                    pointTempMonthly.push(allChickenTempPoint[x][y]);
+                    labelHumidityMonthly.push(allChickenHumLabel[x][y]);
+                    pointHumidityMonthly.push(allChickenHumPoint[x][y]);
+                    labelMoistMonthly.push(allChickenMoistLabel[x][y]);
+                    pointMoistMonthly.push(allChickenMoistPoint[x][y]);
+                }
+
+                labelTempLifetime.push(allChickenTempLabel[x][y]);
+                pointTempLifetime.push(allChickenTempPoint[x][y]);
+                labelHumidityLifetime.push(allChickenHumLabel[x][y]);
+                pointHumidityLifetime.push(allChickenHumPoint[x][y]);
+                labelMoistLifetime.push(allChickenMoistLabel[x][y]);
+                pointMoistLifetime.push(allChickenMoistPoint[x][y]);
             }
-            
-            if(dataObj[k].temperature != undefined || dataObj[k].temperature != "Null"){
-                labelTempLifetime.push(dataObj[k].timestamp);
-                pointTempLifetime.push(dataObj[k].temperature);
-                labelHumidityLifetime.push(dataObj[k].timestamp);
-                pointHumidityLifetime.push(dataObj[k].humidity);
-                labelMoistLifetime.push(dataObj[k].timestamp);
-                pointMoistLifetime.push(dataObj[k].moisture);
+        }
+    }
+
+    for(var x = 0; x < allBSFTempPoint.length; ++x){
+        for(var y = 0; y < allBSFTempPoint[x].length; ++y){
+            var d = new Date(allBSFTempLabel[x][y]);
+            var date = d.toLocaleDateString();
+            var month = d.getMonth();
+            if(x == 0){ //to be changed
+                if(date == todayDate){
+                    bsfTempDaily.push(allBSFTempLabel[x][y]);
+                    bsfTempPointDaily.push(allBSFTempPoint[x][y]);
+                    bsfHumDaily.push(allBSFHumLabel[x][y]);
+                    bsfHumPointDaily.push(allBSFHumPoint[x][y]);
+                    bsfLightDaily.push(allBSFLightLabel[x][y]);
+                    bsfLightPointDaily.push(allBSFLightPoint[x][y]);
+                }
+
+                if(d >= newDate(-7) && d <= newDate(0)){
+                    bsfTempWeekly.push(allBSFTempLabel[x][y]);
+                    bsfTempPointWeekly.push(allBSFTempPoint[x][y]);
+                    bsfHumWeekly.push(allBSFHumLabel[x][y]);
+                    bsfHumPointWeekly.push(allBSFHumPoint[x][y]);
+                    bsfLightWeekly.push(allBSFLightLabel[x][y]);
+                    bsfLightPointWeekly.push(allBSFLightPoint[x][y]);
+                }
+
+                if(month == todayMonth){
+                    bsfTempMonthly.push(allBSFTempLabel[x][y]);
+                    bsfTempPointMonthly.push(allBSFTempPoint[x][y]);
+                    bsfHumMonthly.push(allBSFHumLabel[x][y]);
+                    bsfHumPointMonthly.push(allBSFHumPoint[x][y]);
+                    bsfLightMonthly.push(allBSFLightLabel[x][y]);
+                    bsfLightPointMonthly.push(allBSFLightPoint[x][y]);
+                }
+
+                bsfTempLifetime.push(allBSFTempLabel[x][y]);
+                bsfTempPointLifetime.push(allBSFTempPoint[x][y]);
+                bsfHumLifetime.push(allBSFHumLabel[x][y]);
+                bsfHumPointLifetime.push(allBSFHumPoint[x][y]);
+                bsfLightLifetime.push(allBSFLightLabel[x][y]);
+                bsfLightPointLifetime.push(allBSFLightPoint[x][y]);
+            }
+        }
+    }
+
+    for(var x = 0; x < allBSFLTempPoint.length; ++x){
+        for(var y = 0; y < allBSFLTempPoint[x].length; ++y){
+            var d = new Date(allBSFLTempLabel[x][y]);
+            var date = d.toLocaleDateString();
+            var month = d.getMonth();
+            if(x == 0){ //to be changed
+                if(date == todayDate){
+                    bsflTempDaily.push(allBSFLTempLabel[x][y]);
+                    bsflTempPointDaily.push(allBSFLTempPoint[x][y]);
+                    bsflpHDaily.push(allBSFLpHLabel[x][y]);
+                    bsflpHPointDaily.push(allBSFLoHPoint[x][y]);
+                    bsflMoistDaily.push(allBSFLMoistLabel[x][y]);
+                    bsflMoistPointDaily.push(allBSFLMoistPoint[x][y]);
+                }
+
+                if(d >= newDate(-7) && d <= newDate(0)){
+                    bsflTempWeekly.push(allBSFLTempLabel[x][y]);
+                    bsflTempPointWeekly.push(allBSFLTempPoint[x][y]);
+                    bsflpHWeekly.push(allBSFLpHLabel[x][y]);
+                    bsflpHPointWeekly.push(allBSFLoHPoint[x][y]);
+                    bsflMoistWeekly.push(allBSFLMoistLabel[x][y]);
+                    bsflMoistPointWeekly.push(allBSFLMoistPoint[x][y]);
+                }
+
+                if(month == todayMonth){
+                    bsflTempMonthly.push(allBSFLTempLabel[x][y]);
+                    bsflTempPointMonthly.push(allBSFLTempPoint[x][y]);
+                    bsflpHMonthly.push(allBSFLpHLabel[x][y]);
+                    bsflpHPointMonthly.push(allBSFLoHPoint[x][y]);
+                    bsflMoistMonthly.push(allBSFLMoistLabel[x][y]);
+                    bsflMoistPointMonthly.push(allBSFLMoistPoint[x][y]);
+                }
+
+                bsflTempLifetime.push(allBSFLTempLabel[x][y]);
+                bsflTempPointLifetime.push(allBSFLTempPoint[x][y]);
+                bsflpHLifetime.push(allBSFLpHLabel[x][y]);
+                bsflpHPointLifetime.push(allBSFLoHPoint[x][y]);
+                bsflMoistLifetime.push(allBSFLMoistLabel[x][y]);
+                bsflMoistPointLifetime.push(allBSFLMoistPoint[x][y]);
             }
         }
     }
@@ -389,71 +641,6 @@ chicken1ref.once("value", snap=>{
         }
     }
 
-    myChart = new Chart(context,configTemp);
-    myChart2 = new Chart(context2,configHum);
-    myChart3 = new Chart(context3,configMoist);
-})
-
-var bsfObject;
-var bsfKeys;
-
-bsfref.once("value", snap=>{
-    bsfObject = snap.val();
-    bsfKeys = Object.keys(bsfObject);
-
-    for(var x = 0; x < bsfKeys.length; ++x){
-        var k = bsfKeys[x];
-
-        var d = new Date(bsfObject[k].timestamp);
-        var date = d.toLocaleDateString();
-
-        var month = d.getMonth();
-        
-        if(bsfObject[k].timestamp != undefined){
-            if(date == todayDate){
-                if(bsfObject[k].temperature != undefined || bsfObject[k].temperature != "Null"){
-                    bsfTempDaily.push(bsfObject[k].timestamp);
-                    bsfTempPointDaily.push(bsfObject[k].temperature);
-                    bsfHumDaily.push(bsfObject[k].timestamp);
-                    bsfHumPointDaily.push(bsfObject[k].humidity);
-                    bsfLightDaily.push(bsfObject[k].timestamp);
-                    bsfLightPointDaily.push(bsfObject[k].light);
-                }
-            }
-    
-            if(d >= newDate(-7) && d <= newDate(0)){
-                if(bsfObject[k].temperature != undefined || bsfObject[k].temperature != "Null"){
-                    bsfTempWeekly.push(bsfObject[k].timestamp);
-                    bsfTempPointWeekly.push(bsfObject[k].temperature);
-                    bsfHumWeekly.push(bsfObject[k].timestamp);
-                    bsfHumPointWeekly.push(bsfObject[k].humidity);
-                    bsfLightWeekly.push(bsfObject[k].timestamp);
-                    bsfLightPointWeekly.push(bsfObject[k].light);
-                }
-            }
-    
-            if(month == todayMonth){
-                if(bsfObject[k].temperature != undefined || bsfObject[k].temperature != "Null"){
-                    bsfTempMonthly.push(bsfObject[k].timestamp);
-                    bsfTempPointMonthly.push(bsfObject[k].temperature);
-                    bsfHumMonthly.push(bsfObject[k].timestamp);
-                    bsfHumPointMonthly.push(bsfObject[k].humidity);
-                    bsfLightMonthly.push(bsfObject[k].timestamp);
-                    bsfLightPointMonthly.push(bsfObject[k].light);
-                }
-            }
-            
-            if(bsfObject[k].temperature != undefined || bsfObject[k].temperature != "Null"){
-                bsfTempLifetime.push(bsfObject[k].timestamp);
-                bsfTempPointLifetime.push(bsfObject[k].temperature);
-                bsfHumLifetime.push(bsfObject[k].timestamp);
-                bsfHumPointLifetime.push(bsfObject[k].humidity);
-                bsfLightLifetime.push(bsfObject[k].timestamp);
-                bsfLightPointLifetime.push(bsfObject[k].light);
-            }
-        }
-    }
-
     bsfConfigTemp = {
         data:{
             labels: bsfTempDaily,
@@ -597,70 +784,6 @@ bsfref.once("value", snap=>{
                         labelString : "Light (Lux)"
                     }
                 }]
-            }
-        }
-    }
-    bsfChart1 = new Chart(bsfContext1,bsfConfigTemp);
-    bsfChart2 = new Chart(bsfContext2,bsfConfigHum);
-    bsfChart3 = new Chart(bsfContext3,bsfConfigLight);
-})
-
-var bsflObject;
-var bsflKeys;
-
-bsflref.once("value", snap=>{
-    bsflObject = snap.val();
-    bsflKeys = Object.keys(bsflObject);
-
-    for(var x = 0; x < bsflKeys.length; ++x){
-        var k = bsflKeys[x];
-
-        var d = new Date(bsflObject[k].timestamp);
-        var date = d.toLocaleDateString();
-
-        var month = d.getMonth();
-        
-        if(bsflObject[k].timestamp != undefined){
-            if(date == todayDate){
-                if(bsflObject[k].temperature != undefined || bsflObject[k].temperature != "Null"){
-                    bsflTempDaily.push(bsflObject[k].timestamp);
-                    bsflTempPointDaily.push(bsflObject[k].temperature);
-                    bsflpHDaily.push(bsflObject[k].timestamp);
-                    bsflpHPointDaily.push(bsflObject[k].pH);
-                    bsflMoistDaily.push(bsflObject[k].timestamp);
-                    bsflMoistPointDaily.push(bsflObject[k].moisture);
-                }
-            }
-    
-            if(d >= newDate(-7) && d <= newDate(0)){
-                if(bsflObject[k].temperature != undefined || bsflObject[k].temperature != "Null"){
-                    bsflTempWeekly.push(bsflObject[k].timestamp);
-                    bsflTempPointWeekly.push(bsflObject[k].temperature);
-                    bsflpHWeekly.push(bsflObject[k].timestamp);
-                    bsflpHPointWeekly.push(bsflObject[k].pH);
-                    bsflMoistWeekly.push(bsflObject[k].timestamp);
-                    bsflMoistPointWeekly.push(bsflObject[k].moisture);
-                }
-            }
-    
-            if(month == todayMonth){
-                if(bsflObject[k].temperature != undefined || bsflObject[k].temperature != "Null"){
-                    bsflTempMonthly.push(bsflObject[k].timestamp);
-                    bsflTempPointMonthly.push(bsflObject[k].temperature);
-                    bsflpHMonthly.push(bsflObject[k].timestamp);
-                    bsflpHPointMonthly.push(bsflObject[k].pH);
-                    bsflMoistMonthly.push(bsflObject[k].timestamp);
-                    bsflMoistPointMonthly.push(bsflObject[k].moisture);
-                }
-            }
-            
-            if(bsflObject[k].temperature != undefined || bsflObject[k].temperature != "Null"){
-                bsflTempLifetime.push(bsflObject[k].timestamp);
-                bsflTempPointLifetime.push(bsflObject[k].temperature);
-                bsflpHLifetime.push(bsflObject[k].timestamp);
-                bsflpHPointLifetime.push(bsflObject[k].pH);
-                bsflMoistLifetime.push(bsflObject[k].timestamp);
-                bsflMoistPointLifetime.push(bsflObject[k].moisture);
             }
         }
     }
@@ -811,10 +934,20 @@ bsflref.once("value", snap=>{
             }
         }
     }
+    
+    myChart = new Chart(context,configTemp);
+    myChart2 = new Chart(context2,configHum);
+    myChart3 = new Chart(context3,configMoist);
+    bsfChart1 = new Chart(bsfContext1,bsfConfigTemp);
+    bsfChart2 = new Chart(bsfContext2,bsfConfigHum);
+    bsfChart3 = new Chart(bsfContext3,bsfConfigLight);
     bsflChart1 = new Chart(bsflContext1,bsflConfigTemp);
     bsflChart2 = new Chart(bsflContext2,bsflConfigpH);
     bsflChart3 = new Chart(bsflContext3,bsflConfigMoist);
+    
 })
+
+
 
 function onTypeChange(){
     chartType = document.getElementById("chartType").value;
