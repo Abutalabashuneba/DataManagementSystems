@@ -64,7 +64,13 @@ dataref.on("value", snap =>{
   if(chkPh) chkPh.innerHTML = dataPh;
   if(valueMois) valuePh.setAttribute("data-value", dataPh);
 
-  //Push Chicken warning notification
+  //-------------------Push Chicken warning notification----------------------------------//
+
+  //Convert timestamp to date
+  var date =  new Date(dataObj[keys[keys.length-1]].timestamp);
+  var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+  var datetime = date.toLocaleString('en-us', options); //format the time 
+
   if(dataTemp < 20 || dataTemp > 30)
   {
     console.log(dataTemp);
@@ -77,6 +83,11 @@ dataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-temp").innerHTML = datetime;
+    document.getElementById("msg-temp").innerHTML = "The temperature of the Chicken environment is " + dataTemp + "°C";
+    $('.toast-temp').toast('show');
   }
   if(dataHumid < 60 || dataHumid > 80)
   {
@@ -89,6 +100,11 @@ dataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-humid").innerHTML = datetime;
+    document.getElementById("msg-humid").innerHTML = "The humidity of the Chicken environment is " + dataHumid + "%";
+    $('.toast-humid').toast('show');
   }
   if(dataMois > 10)
   {
@@ -101,8 +117,13 @@ dataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-mois").innerHTML = datetime;
+    document.getElementById("msg-mois").innerHTML = "The Soil Moisture of the Chicken environment is " + dataMois + "%";
+    $('.toast-mois').toast('show');
   }
-  //End of Push Chicken warning notification
+  //-------------------End Chicken warning notification----------------------------------//
   
 
   $(function() {
@@ -158,7 +179,12 @@ bsfDataref.on("value", snap =>{
   if(bsfLig) bsfLig.innerHTML = dataLightBSF;
   if(valueLightBSF) valueLightBSF.setAttribute("data-value", dataLightBSF);
 
-  //Push BSF warning notification
+  //-----------------Push BSF warning notification--------------------------------//
+  //Convert timestamp to date
+  var dateBSF =  new Date(dataObjBSF[keysBSF[keysBSF.length-1]].timestamp);
+  var optionsBSF = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+  var datetimeBSF = dateBSF.toLocaleString('en-us', optionsBSF); //format the time 
+
   if(dataTempBSF < 25 || dataTempBSF > 35)
   {
     Push.create("Temperature Warning",{
@@ -170,6 +196,11 @@ bsfDataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-tempBSF").innerHTML = datetimeBSF;
+    document.getElementById("msg-tempBSF").innerHTML = "The temperature of the BSF environment is " + dataTempBSF + "°C";
+    $('.toast-tempBSF').toast('show');
   }
   if(dataHumidBSF < 60)
   {
@@ -182,6 +213,11 @@ bsfDataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-humidBSF").innerHTML = datetimeBSF;
+    document.getElementById("msg-humidBSF").innerHTML = "The humidity of the BSF environment is " + dataHumidBSF + "%";
+    $('.toast-humidBSF').toast('show');
   }
   if(dataLightBSF < 1000)
   {
@@ -194,8 +230,13 @@ bsfDataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-luxBSF").innerHTML = datetimeBSF;
+    document.getElementById("msg-luxBSF").innerHTML = "The Light Intensity of the BSF environment is " + dataLightBSF + "LUX";
+    $('.toast-luxBSF').toast('show');
   }
-  //End of Push BSF warning notification
+  //-----------------End of Push BSF warning notification--------------------------------//
 
   $(function() {
     $(".progress").each(function() {
@@ -224,31 +265,36 @@ bsfDataref.on("value", snap =>{
 
 /*--------------------------  Progess bar for BSFL /*-------------------------- */
 bsflDataref.on("value", snap =>{
-  var dataObjBSF = snap.val();
-  var keysBSF = Object.keys(dataObjBSF);
+  var dataObjBSFL = snap.val();
+  var keysBSFL = Object.keys(dataObjBSFL);
 
   //Temeprature
-  var dataTempBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].temperature;
+  var dataTempBSFL = dataObjBSFL[keysBSFL[keysBSFL.length-1]].temperature;
   var valueTempBSFL = document.getElementById("tempBSFL");
   var bsflTemperature = document.getElementById("bsflTemp");
   if(bsflTemperature) bsflTemperature.innerHTML = dataTempBSFL;
   if(valueTempBSFL) valueTempBSFL.setAttribute("data-value",dataTempBSFL);
 
   //pH
-  var dataPhBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].pH;
+  var dataPhBSFL = dataObjBSFL[keysBSFL[keysBSFL.length-1]].pH;
   var valuePhBSFL = document.getElementById("phBSFL");
   var bsflpH = document.getElementById("bsflPH");
   if(bsflpH) bsflpH.innerHTML = dataPhBSFL;
   if(valuePhBSFL) valuePhBSFL.setAttribute("data-value",dataPhBSFL);
 
   //Soil Moisture
-  var dataMoistureBSFL = dataObjBSF[keysBSF[keysBSF.length-1]].moisture;
+  var dataMoistureBSFL = dataObjBSFL[keysBSFL[keysBSFL.length-1]].moisture;
   var valueMoistureBSFL = document.getElementById("moistureBSFL");
   var bsflMoisture = document.getElementById("bsflMoisture");
   if(bsflMoisture) bsflMoisture.innerHTML = dataMoistureBSFL;
   if(valueMoistureBSFL) valueMoistureBSFL.setAttribute("data-value", dataMoistureBSFL);
 
-  //Push BSF warning notification
+  //----------------------------Push BSFL warning notification-----------------------------------//
+  //Convert timestamp to datetime
+  var dateBSFL =  new Date(dataObjBSFL[keysBSFL[keysBSFL.length-1]].timestamp);
+  var optionsBSF = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+  var datetimeBSFL = dateBSFL.toLocaleString('en-us', optionsBSF); //format the time 
+
   if(dataTempBSFL < 30 || dataTempBSFL > 36)
   {
     Push.create("Temperature Warning",{
@@ -260,6 +306,11 @@ bsflDataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-tempBSFL").innerHTML = datetimeBSFL;
+    document.getElementById("msg-tempBSFL").innerHTML = "The temperature of the BSFL environment is " + dataTempBSFL + "°C";
+    $('.toast-tempBSFL').toast('show');
   }
   if(dataPhBSFL < 6 || dataPhBSFL > 10)
   {
@@ -272,6 +323,11 @@ bsflDataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-phBSFL").innerHTML = datetimeBSFL;
+    document.getElementById("msg-phBSFL").innerHTML = "The pH soil of the BSFL environment is " + dataPhBSFL + "pH";
+    $('.toast-phBSFL').toast('show');
   }
   if(dataMoistureBSFL < 60 || dataMoistureBSFL > 80)
   {
@@ -284,6 +340,11 @@ bsflDataref.on("value", snap =>{
           this.close();
       }
     });
+
+    //Toast messages
+    document.getElementById("date-moisBSFL").innerHTML = datetimeBSFL;
+    document.getElementById("msg-moisBSFL").innerHTML = "The soil moisture of the BSFL environment is " + dataMoistureBSFL + "%";
+    $('.toast-moisBSFL').toast('show');
   }
   
   //End of Push BSF warning notification
