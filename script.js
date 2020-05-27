@@ -10,9 +10,9 @@ $(document).ready(function(){
             $("#dropdownBSFLRow-data").hide();
             $("#dropdownChickenRow-data").show();
             $("#dataTitle").html("Chicken");
-            $("#chickenAddBtn").show();
-            $("#bsfAddBtn").hide();
-            $("#bsflAddBtn").hide();
+            $("#btnChicken").show();
+            $("#btnBSF").hide();
+            $("#btnBSFL").hide();
         });
     
         //BSF
@@ -24,9 +24,9 @@ $(document).ready(function(){
             $("#dropdownBSFLRow-data").hide();
             $("#dropdownBSFRow-data").show();
             $("#dataTitle").html("BSF");
-            $("#chickenAddBtn").hide();
-            $("#bsfAddBtn").show();
-            $("#bsflAddBtn").hide();
+            $("#btnChicken").hide();
+            $("#btnBSF").show();
+            $("#btnBSFL").hide();
         });
         
         //BSFL
@@ -38,9 +38,9 @@ $(document).ready(function(){
             $("#dropdownBSFRow-data").hide();
             $("#dropdownBSFLRow-data").show();
             $("#dataTitle").html("BSFL");
-            $("#chickenAddBtn").hide();
-            $("#bsfAddBtn").hide();
-            $("#bsflAddBtn").show();
+            $("#btnChicken").hide();
+            $("#btnBSF").hide();
+            $("#btnBSFL").show();
         });
     
         //Chicken Area-1
@@ -48,15 +48,18 @@ $(document).ready(function(){
             $("#chickenTable-Area2").hide();
             $("#chickenTable-Area1").show(); 
             $("#dataDropdownChicken").html("Area-1");
+            $("#chickenAddBtn1").show(); 
+            $("#chickenAddBtn2").hide();
             
         });
     
         //Chicken Area-2
         $("#dataCarea-2").click(function(){
-            $("#chickenDashArea-1").hide();
-            $("#chickenDashArea-2").show(); 
+            $("#chickenTable-Area1").hide();
+            $("#chickenTable-Area2").show(); 
             $("#dataDropdownChicken").html("Area-2");
-            
+            $("#chickenAddBtn2").show(); 
+            $("#chickenAddBtn1").hide();
         });
     
         //BSF Area-1

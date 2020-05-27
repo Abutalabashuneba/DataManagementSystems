@@ -7,6 +7,7 @@ var cproductionRef = database.ref("Data/Production/Chicken");
 var bsfproductionRef = database.ref("Data/Production/BSF");
 var bsflproductionRef = database.ref("Data/Production/BSFL");
 var chicken1ref = database.ref("Data/Chicken/Area1");
+var chicken2ref = database.ref("Data/Chicken/Area2");
 var bsfref = database.ref("Data/BSF/Area1");
 var bsflref = database.ref("Data/BSFL/Area1");
 

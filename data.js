@@ -1,6 +1,10 @@
 //select the table for chicken
 var datalist = document.querySelector(".bodyData");
 
+//select the table for chicken
+var datalistChicken2 = document.querySelector(".bodyData-2");
+
+
 //select the table for BSF
 var datalistBSF = document.querySelector(".bodyDataBSF");
 
@@ -16,6 +20,18 @@ chicken1ref.on("value", snap=>{
     
     //populate the table with data
     populateTable();
+
+})
+
+var chickenData2;
+var chickenKey2;
+//fetch the chicken data area-2 from database
+chicken2ref.on("value", snap=>{
+    chickenData2 = snap.val();
+    chickenKey2 = Object.keys(chickenData2);
+    
+    //populate the table with data
+    populateTableChicken2();
 
 })
 
@@ -44,6 +60,7 @@ bsflref.on("value", snap=>{
 })
 
 //---------------------------------------Chicken Table---------------------------------//
+//-------------------------------------Area-1--------------------------------------//
 function populateTable(){
     var html = "";
     
@@ -92,7 +109,7 @@ function populateTable(){
     
 }
 
-//add chicken data intable
+//add chicken data in table
 $("#addDataFormC").submit(function(e){
     e.preventDefault();
 
@@ -208,6 +225,176 @@ $("#updateDataForm").submit(function(e){
     $("#updateDataForm")[0].reset();
     $('#editData').modal('hide');
 });
+//-------------------------End of Area-1--------------------------------------//
+
+
+//------------------------------------Area-2----------------------------//
+function populateTableChicken2(){
+    var html = "";
+    
+    //loop through the data
+    for(var x = 0; x < chickenKey2.length; ++x){
+        var k = chickenKey2[x];
+        var d = new Date(chickenData2[k].timestamp); //change the format of timestamp to be readable
+        var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        var datetime = d.toLocaleString('en-us', options); //format the time 
+        //var time = d.toLocaleTimeString(); //format the time 
+
+        let tr = `
+            <tr>
+                <td class="id">${x + 1}</td>
+                <td class="searchVar">${datetime}</td>
+                <td>${chickenData2[k].temperature}</td>
+                <td>${chickenData2[k].humidity}</td>
+                <td>${chickenData2[k].ph}</td>
+                <td>${chickenData2[k].moisture}</td>
+        `;
+        html += tr;
+
+        tr = `
+                <td>
+                <span class="table-remove-2"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                <span class="table-edit-2" data-toggle="modal" data-target="#editDataC-2"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                </td>
+            </tr>
+        `;
+
+        html += tr;
+    }
+    //append the table with fetched data
+    datalistChicken2.innerHTML = html;
+
+    //$('table tr td.hehe').click(function(){
+    //    console.log($(this).text());
+    //});
+    $('[data-toggle="tooltip"]').tooltip({
+		trigger : 'hover'
+	});
+	
+	$('[data-toggle="tooltip"]').on('click', function () {
+        $(this).tooltip('hide')
+    });
+    
+}
+
+//add chicken data in table
+$("#addDataFormC-2").submit(function(e){
+    e.preventDefault();
+
+    var temp = parseFloat(document.getElementById("cTemp-2").value);
+    var hum = parseFloat(document.getElementById("cHum-2").value);
+    var ph = parseFloat(document.getElementById("cPh-2").value);
+    var moist = parseFloat(document.getElementById("cMoisture-2").value);
+    var d = new Date().getTime();
+
+
+    var data = {
+        humidity: hum,
+        moisture: moist,
+        temperature: temp,
+        ph : ph,
+        timestamp: d
+    }
+
+    chicken2ref.push(data);
+    $("#addDataFormC-2")[0].reset();
+    $('#addDataChicken-2').modal('hide');
+
+    
+});
+
+//remove data on hiding modal
+$("#addDataChicken-2").on("hidden.bs.modal",function(){
+    $(this).find("form")[0].reset();
+})
+
+//Remove data
+var remove = function(e){
+    e.preventDefault();
+
+    var index = $(this).parents("tr").find("td.id").text();
+    var deleteIndex;
+    
+    for(var x = 0; x < chickenKey2.length; ++x){
+        if(index-1 == x){
+            deleteIndex = chickenKey2[x];
+        }
+    }
+
+    if(confirm("Are you sure want to remove this data?")){
+        chicken2ref.child(deleteIndex).remove();
+		if(chickenData2 === null)
+		{
+			datalistChicken2.innerHTML = "";
+		}
+    }
+}
+
+$(document).on('click', '.table-remove-2', remove);
+
+var tableIDC2;
+
+var update = function(e){
+    e.preventDefault();
+
+    var index = $(this).parents("tr").find("td.id").text();
+
+    tableIDC2 = index;
+    
+   
+    for(var x = 0; x < chickenKey1.length; ++x){
+        if(tableIDC2-1 == x){
+            var k = chickenKey1[x];
+            var d = new Date(chickenData1[k].timestamp); //change the format of timestamp to be readable
+            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            var datetime = d.toLocaleString('en-us', options); //format the time 
+            console.log(datetime);
+            document.getElementById("updateDate-2").value = datetime;
+            document.getElementById("updateTemp-2").value = chickenData2[chickenKey2[x]].temperature;
+            document.getElementById("updateHum-2").value = chickenData2[chickenKey2[x]].humidity;
+             document.getElementById("updatepH-2").value = chickenData2[chickenKey2[x]].ph;
+            document.getElementById("updateMoisture-2").value = chickenData2[chickenKey2[x]].moisture;
+        }
+    }
+}
+
+$(document).on('click', '.table-edit-2', update);
+
+$("#updateDataForm-2").submit(function(e){
+    e.preventDefault();
+
+    var temp = parseFloat(document.getElementById("updateTemp-2").value);
+    var hum = parseFloat(document.getElementById("updateHum-2").value);
+    var ph = parseFloat(document.getElementById("updatepH-2").value);
+    var moist = parseFloat(document.getElementById("updateMoisture-2").value);
+    var d = new Date().getTime();
+
+    var updateData = {
+        humidity: hum,
+        moisture: moist,
+        temperature: temp,
+        ph : ph,
+        //timestamp: d
+    }
+
+    var updateIndex;
+
+    for(var x = 0; x < chickenKey2.length; ++x){
+        if(tableIDC2-1 == x){
+            updateIndex = chickenKey2[x];
+        }
+    }
+
+    if(confirm("Are you sure want to update this data?")){
+        chicken2ref.child(updateIndex).update(updateData);
+    }
+   
+    $("#updateDataForm-2")[0].reset();
+    $('#editDataC-2').modal('hide');
+});
+
+
+//-------------------------------End of Area-2----------------------------//
 
 //-------------------------------BSF Table------------------------------------------//
 function populateTableBSF(){

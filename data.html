@@ -161,7 +161,7 @@
     </div>
     <!--End of register modal-->
 
-    <!--Start of Chicken add modal-->
+    <!--Start of Chicken area-1 add modal-->
     <div class="modal fade" id="addDataChicken">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -202,7 +202,50 @@
             </div>
         </div>
     </div>
-    <!--End of Chicken add modal-->
+    <!--End of Chicken area-1 add modal-->
+
+    <!--Start of Chicken area-2 add modal-->
+    <div class="modal fade" id="addDataChicken-2">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Add Data</h4>
+                    <form id="addDataFormC-2">
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="cTemp-2" required>
+                            <label for="cTemp" class="CLabel" id="tempLabelAdd">(Temperature)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Humidity" id="cHum-2" required>
+                            <label for="cHum" class="CLabel" id="humidLabelAdd">(Humidity)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="pH" id="cPh-2" required>
+                            <label for="cPh" class="CLabel" id="phLabelAdd">(ph value)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" class="form-control addChickenData" name="Moisture" id="cMoisture-2" required>
+                            <label for="cMoisture" class="CLabel" id="moistureLabelAdd">(Moisture)</label>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block addDataBtn text-white">
+                            Add
+                        </button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="mx-auto text-center text-danger font-weight-bold" id="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Chicken area-2 add modal-->
 
     <!--Start of BSF add modal-->
     <div class="modal fade" id="addDataBSF">
@@ -282,7 +325,7 @@
     </div>
     <!--End of BSFL add modal-->
 
-    <!--Start of chicken edit modal-->
+    <!--Start of chicken area-1 edit modal-->
     <div class="modal fade" id="editData">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -322,7 +365,49 @@
             </div>
         </div>
     </div>
-    <!--End of chicken edit modal-->
+    <!--End of chicken area-1 edit modal-->
+
+    <!--Start of chicken area-2 edit modal-->
+    <div class="modal fade" id="editDataC-2">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="text-center font-weight-bold mt-3 mb-4">Edit Data</h4>
+                    <form id="updateDataForm-2">
+                        <div class="form-group px-5">
+                            <input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDate-2" disabled>
+                            <label for="updateDate" class="CLabel" id="dateLabel"></label>
+                        </div>
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="Temperature" class="form-control updateChickenData" id="updateTemp-2" required>
+                            <label for="updateTemp" class="CLabel" id="tempLabel">(Temperature)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="Humidity" class="form-control updateChickenData" id="updateHum-2" required>
+                            <label for="updateHum" class="CLabel" id="humidLabel">(Humidity)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="pH" class="form-control updateChickenData" id="updatepH-2" required>
+                            <label for="updatepH" class="CLabel" id="phLabel">(ph value)</label>
+                        </div>
+
+                        <div class="form-group px-5">
+                            <input type="number" step="any" min="0" name="Moisture" class="form-control updateChickenData" id="updateMoisture-2" required>
+                            <label for="updateMoisture" class="CLabel" id="moistureLabel">(Moisture)</label>
+                        </div>
+
+                        <button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of chicken area-2 edit modal-->
 
     <!--Start of BSF edit modal-->
     <div class="modal fade" id="editDataBSF">
@@ -405,25 +490,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row pt-md-5 mt-md-3 mb-2">
-                        <h3 class="mx-auto text-center text-muted" id="dataTitle">Chicken</h3>  
-                        <!--Start  of chicken add Button-->
-                        <div class="col-xl-1 col-lg-1 col-md-1" id="chickenAddBtn">
-                            <button class="btn mb-3 float-right" id="addBtn" data-toggle="modal" data-target="#addDataChicken"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
-                        </div>
-                        <!--End of chicken add Button-->  
-                        
-                        <!--Start  of BSF add Button-->
-                        <div class="col-xl-1 col-lg-1 col-md-1" id="bsfAddBtn" style="display:none;">
-                            <button class="btn mb-3 float-right" id="addBtnBSF" data-toggle="modal" data-target="#addDataBSF"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
-                        </div>
-                        <!--End of BSF add Button-->  
-                        
-                        <!--Start  of BSFL add Button-->
-                        <div class="col-xl-1 col-lg-1 col-md-1" id="bsflAddBtn" style="display:none;">
-                            <button class="btn mb-3 float-right" id="addBtnBSFL" data-toggle="modal" data-target="#addDataBSFL"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
-                        </div>
-                        <!--End of BSFL add Button-->  
+                    <div class="row pt-md-5 mt-md-3 mb-2"  >
+                        <h3 class="mx-auto text-center text-muted" id="dataTitle">Chicken</h3> 
                     </div>
 
 
@@ -477,32 +545,65 @@
                         </div>
                         <!--End of BSFL-->
                         <!--End of Area DropDown-->
+                    </div> 
 
-                        <div class="row pl-4 mt-2">
-                            <div class='col-md-5'>
-                                 <div class="form-group">
-                                     <div class='input-group date' id='datetimepickerStart' data-target-input="nearest">
-                                         <input type='text' class="form-control" placeholder="From Date" id="searchDateStart"/>
-                                         <div class="input-group-append" data-target="#datetimepickerStart" data-toggle="datetimepicker">
-                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                         </div>
+                    <div class="row mt-2">
+                        <div class='col-xl-3 col-lg-3 col-md-3'>
+                             <div class="form-group">
+                                 <div class='input-group date' id='datetimepickerStart' data-target-input="nearest">
+                                     <input type='text' class="form-control" placeholder="From Date" id="searchDateStart"/>
+                                     <div class="input-group-append" data-target="#datetimepickerStart" data-toggle="datetimepicker">
+                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                      </div>
                                  </div>
                              </div>
- 
-                             <div class='col-md-5'>
-                                 <div class="form-group">
-                                     <div class='input-group date' id='datetimepickerEnd' data-target-input="nearest">
-                                         <input type='text' class="form-control" placeholder="To Date" id="searchDateEnd"/>
-                                         <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
-                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                         </div>
+                        </div>
+
+                        <div class='col-xl-3 col-lg-3 col-md-3'>
+                             <div class="form-group">
+                                 <div class='input-group date' id='datetimepickerEnd' data-target-input="nearest">
+                                     <input type='text' class="form-control" placeholder="To Date" id="searchDateEnd"/>
+                                     <div class="input-group-append" data-target="#datetimepickerEnd" data-toggle="datetimepicker">
+                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                      </div>
                                  </div>
                              </div>
-                            
-                         </div>
-                        
+                        </div>
+
+                        <div class='col-xl-5 col-lg-5 col-md-5 ml-auto'>
+                            <div id="btnChicken">
+                                <!--Start  of chicken area-1 add Button-->
+                               <div id="chickenAddBtn1">
+                                   <button class="btn mb-3 float-right" id="addBtn" data-toggle="modal" data-target="#addDataChicken"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                               </div>
+                               <!--End of chicken add area-1 Button-->  
+                               
+                               <!--Start  of chicken area-2 add Button-->
+                               <div id="chickenAddBtn2" style="display:none;">
+                                   <button class="btn mb-3 float-right" id="addBtn" data-toggle="modal" data-target="#addDataChicken-2"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                               </div>
+                               <!--End of chicken area-2 add Button-->  
+                            </div> 
+   
+                            <div id="btnBSF" style="display:none;">
+                               <!--Start  of BSF add Button-->
+                               <div id="bsfAddBtn" >
+                                   <button class="btn mb-3 float-right" id="addBtnBSF" data-toggle="modal" data-target="#addDataBSF"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                               </div>
+                               <!--End of BSF add Button-->      
+                            </div>
+                           
+                            <div id="btnBSFL" style="display:none;">
+                               <!--Start  of BSFL add Button-->
+                               <div id="bsflAddBtn" >
+                                   <button class="btn mb-3 float-right" id="addBtnBSFL" data-toggle="modal" data-target="#addDataBSFL"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                               </div>
+                               <!--End of BSFL add Button-->  
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-xl-12 table-responsive">
                             <!--Start of chicken table-->
                             <div id="chickenTable">
@@ -547,7 +648,7 @@
                                     <!--End of table head-->
         
                                     <!--Start of table body-->
-                                    <tbody class="bodyData">
+                                    <tbody class="bodyData-2">
                                             
                                     </tbody>
                                     <!--End of table body-->
