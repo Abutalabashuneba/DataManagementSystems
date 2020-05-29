@@ -33,8 +33,6 @@ $("#logoutForm").submit(function(e){
 dataref.on("value", snap =>{
   var dataObj = snap.val();
   var keys = Object.keys(dataObj);
-  //console.log(dataObj);
-  //console.log(keys);
 
   //Temeprature
   var dataTemp = dataObj[keys[keys.length-1]].temperature;
@@ -73,7 +71,6 @@ dataref.on("value", snap =>{
 
   if(dataTemp < 20 || dataTemp > 30)
   {
-    console.log(dataTemp);
     Push.create("Temperature Warning",{
       body: "Current Chicken Temperauture is " + dataTemp + "°C",
       icon: 'images/warning.png',

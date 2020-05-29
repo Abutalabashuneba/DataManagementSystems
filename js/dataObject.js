@@ -31,4 +31,11 @@ dataRef.on("value", snap=>{
     dataKeys = Object.keys(dataObj);
 })
 
+chicken1ref.on("value", snap=>{
+    var x = snap.val();
+    var k = Object.keys(x);
+
+    // console.log(x);
+})
+
 

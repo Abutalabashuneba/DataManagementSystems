@@ -1,100 +1,5 @@
 $(document).ready(function(){
     //------------------------------------------------------------------------------------------------
-        //----------------------------Start of data page------------------------------//
-        //Chicken
-        $("#dataChickenBtn").click(function() {
-            $("#chickenTable").show();
-            $("#bsfTable").hide();
-            $("#bsflTable").hide();
-            $("#dropdownBSFRow-data").hide();
-            $("#dropdownBSFLRow-data").hide();
-            $("#dropdownChickenRow-data").show();
-            $("#dataTitle").html("Chicken");
-            $("#btnChicken").show();
-            $("#btnBSF").hide();
-            $("#btnBSFL").hide();
-        });
-    
-        //BSF
-        $("#dataBSFBtn").click(function() {
-            $("#bsfTable").show();
-            $("#chickenTable").hide();
-            $("#bsflTable").hide();
-            $("#dropdownChickenRow-data").hide();
-            $("#dropdownBSFLRow-data").hide();
-            $("#dropdownBSFRow-data").show();
-            $("#dataTitle").html("BSF");
-            $("#btnChicken").hide();
-            $("#btnBSF").show();
-            $("#btnBSFL").hide();
-        });
-        
-        //BSFL
-        $("#dataBSFLBtn").click(function() {
-            $("#chickenTable").hide();
-            $("#bsfTable").hide();
-            $("#bsflTable").show();
-            $("#dropdownChickenRow-data").hide();
-            $("#dropdownBSFRow-data").hide();
-            $("#dropdownBSFLRow-data").show();
-            $("#dataTitle").html("BSFL");
-            $("#btnChicken").hide();
-            $("#btnBSF").hide();
-            $("#btnBSFL").show();
-        });
-    
-        //Chicken Area-1
-        $("#dataCarea-1").click(function(){
-            $("#chickenTable-Area2").hide();
-            $("#chickenTable-Area1").show(); 
-            $("#dataDropdownChicken").html("Area-1");
-            $("#chickenAddBtn1").show(); 
-            $("#chickenAddBtn2").hide();
-            
-        });
-    
-        //Chicken Area-2
-        $("#dataCarea-2").click(function(){
-            $("#chickenTable-Area1").hide();
-            $("#chickenTable-Area2").show(); 
-            $("#dataDropdownChicken").html("Area-2");
-            $("#chickenAddBtn2").show(); 
-            $("#chickenAddBtn1").hide();
-        });
-    
-        //BSF Area-1
-        $("#dataBSFarea-1").click(function(){
-            $("#bsfTable-Area2").hide();
-            $("#bsfTable-Area1").show(); 
-            $("#dataDropdownBSF").html("Area-1");
-            
-        });
-    
-        //BSF Area-2
-        $("#dataBSFarea-2").click(function(){
-            $("#bsfTable-Area1").hide();
-            $("#bsfTable-Area2").show(); 
-            $("#dataDropdownBSF").html("Area-2");
-            
-        });
-    
-        //BSFL Area-1
-        $("#dataBSFLarea-1").click(function(){
-            $("#bsflTable-Area2").hide();
-            $("#bsflTable-Area1").show(); 
-            $("#dataDropdownBSFL").html("Area-1");
-            
-        });
-    
-        //BSFL Area-2
-        $("#dataBSFLarea-2").click(function(){
-            $("#bsflTable-Area1").hide();
-            $("#bsflTable-Area2").show(); 
-            $("#dataDropdownBSFL").html("Area-2");
-            
-        });
-        //----------------------------End of data page------------------------------//
-        
     //------------------------------------------------------------------------------------------------
         //----------------------------Start of index page------------------------------//
     
@@ -362,7 +267,5 @@ $(document).ready(function(){
             $("#addBtnBSFL").show();
         })
         //-------------------End of Production page----------------------//
-
-
     });
     

@@ -101,22 +101,6 @@ body{
 }
 
 /*---------------------------------------------------------------------
-Footer
----------------------------------------------------------------------*/
-@media (max-width:1200px){
-    footer{
-        margin-left: 150px;
-    }
-}
-
-@media (max-width:768px){
-    footer{
-        margin-left: 0;
-    }
-}
-
-
-/*---------------------------------------------------------------------
 Sensor Card
 ---------------------------------------------------------------------*/
 .card-img-top{
@@ -201,24 +185,6 @@ Sensor Card
     background-color: #f44336;
     color: #fff;
   }
-/*---------------------------------------------------------------------
-Registration form
----------------------------------------------------------------------*/
-.signupBtn, .addDataBtn, .updateDataBtn{
-    background-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
-}
-
-.registerInput, .addInput, .updateInput{
-    transition: all .4s;
-    border-width: 2px;
-}
-
-.registerInput:focus, .addInput:focus, .updateInput:focus{
-    box-shadow: none;
-    border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
-    border-image-slice: 1;
-    transform: translateY(-1px);
-}
 
 /*---------------------------------------------------------------------
 Index page Progress bar
@@ -395,19 +361,19 @@ AddForm Styling
   top: 100px;
 }
 
-#weightLabel,#tempLabel,#tempLabelUpdateBSFL,#tempLabelUpdate{
+#weightLabel{
   top: 160px;
 }
 
-#sickLabel,#humidLabel, #humidLabelUpdate,#phLabelUpdateBSFL{
+#sickLabel{
   top: 220px;
 }
 
-#runtLabel,#phLabel,#phLabelUpdate,#moisLabelUpdateBSFL{
+#runtLabel{
   top: 280px;
 }
 
-#mortalityLabel,#moistureLabel{
+#mortalityLabel{
   top: 340px;
 }
 
@@ -420,21 +386,26 @@ AddForm Styling
 }
 
 /*Start Add data page*/
-#tempLabelAdd, #tempLabelBSFLAdd{
-  top: 100px;
+#tempLabelAdd, #tempLabelBSFLAdd, #bsftempLabelAdd{
+  top: 35px;
 }
 
-#humidLabelAdd, #PhLabelBSFLAdd{
-  top: 160px;
+#humidLabelAdd, #PhLabelBSFLAdd, #bsfhumidLabelAdd,#tempLabel,#tempLabelUpdate,#tempLabelUpdateBSFL{
+  top: 95px;
 }
 
-#phLabelAdd, #moistureLabelBSFLAdd{
-  top: 220px;
+#phLabelAdd, #moistureLabelBSFLAdd, #bsflightLabelAdd,#humidLabel, #humidLabelUpdate,#phLabelUpdateBSFL{
+  top: 155px;
 }
 
-#moistureLabelAdd{
-  top: 280px;
+#moistureLabelAdd,#phLabel,#luxLabelUpdate,#moisLabelUpdateBSFL{
+  top: 215px;
 }
+
+#moistureLabel{
+  top: 275px;
+}
+
 /*End Add data page*/
 
 .addCProduction:focus + .CLabel,.addCProduction:valid + .CLabel,
@@ -474,8 +445,22 @@ AddForm Styling
 }
 
 /*---------------------------------------------------------------------
-Notification page
+Registration form
 ---------------------------------------------------------------------*/
-.toast{
-  width: 100%;
+.signupBtn, .addDataBtn, .updateDataBtn{
+  background-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
+}
+
+.registerInput, .addInput, .updateInput{
+  transition: all .4s;
+  border: none;
+  border-bottom: 1px solid #777;
+  border-radius: 0;
+}
+
+.registerInput:focus, .addInput:focus, .updateInput:focus{
+  box-shadow: none;
+  border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
+  border-image-slice: 1;
+  transform: translateY(-1px);
 }

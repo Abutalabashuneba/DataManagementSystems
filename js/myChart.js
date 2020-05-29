@@ -1,3 +1,5 @@
+
+
 var timeFormat = "MM/DD/YYYY HH:mm";
 
 function newDate(days){
@@ -11,6 +13,9 @@ function newDateString(days){
 var fullDate = new Date();
 var todayDate = fullDate.toLocaleDateString();
 var todayMonth = fullDate.getMonth();
+
+var areaSelected = "Area1";
+var range = $(".tempPage").find("li.page-item.active").children().attr("id");
 
 ////////////////////////////////////////////////////
 var myChart;
@@ -211,23 +216,25 @@ var bsflMoistPointLifetime = [];
 var mixChart;
 var mixContext = document.getElementById("mixChart1").getContext("2d");
 
+var dataObj;
+var keys;
+
+var bsfObj;
+var bsflObj;
+var chickenObj;
+var productionObj;
+
+var bsfKeys;
+var bsflKeys;
+var chickenKeys;
+var productionKeys
+
+var allObj = [];
+var allKeys = [];
 
 ref.once("value", snap=>{
-    var dataObj = snap.val();
-    var keys = Object.keys(dataObj);
-
-    var bsfObj;
-    var bsflObj;
-    var chickenObj;
-    var productionObj;
-
-    var bsfKeys;
-    var bsflKeys;
-    var chickenKeys;
-    var productionKeys;
-
-    var allObj = [];
-    var allKeys = [];
+    dataObj = snap.val();
+    keys = Object.keys(dataObj);
  
     //push object into an array
     for(var x = 0; x < keys.length; ++x){
@@ -237,7 +244,6 @@ ref.once("value", snap=>{
         allKeys.push(Object.keys(allObj[x]));
     }
 
-    
     bsfObj = allObj[0];
     bsfKeys = Object.keys(bsfObj);
     bsfData = [];
@@ -245,10 +251,19 @@ ref.once("value", snap=>{
     bsflObj = allObj[1];
     bsflKeys = Object.keys(bsflObj);
     bsflData = [];
-
+    
     chickenObj = allObj[2];
     chickenKeys = Object.keys(chickenObj);
     chickenData = [];
+    
+    // console.log(chickenObj["Area2"]["-M8JifaKN-9uUN-q7ydx"].humidity);
+    // console.log(Object.keys(chickenObj["Area2"])); Array of key
+    // try to get array of area 2 humidity....
+    for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
+        // console.log(Object.keys(chickenObj["Area2"])[x]); 
+        // console.log(chickenObj["Area2"][Object.keys(chickenObj["Area2"])[x]].temperature);
+    }
+    
 
     productionObj = allObj[3];
     productionKeys = Object.keys(productionObj);
@@ -258,7 +273,6 @@ ref.once("value", snap=>{
         var keys = Object.keys(bsfObj[bsfKeys[x]]);
         var tempArr = [];
         for (var y = 0; y < keys.length; ++y){
-            // console.log(bsfObj[bsfKeys[x]][keys[y]]);
             tempArr.push(bsfObj[bsfKeys[x]][keys[y]]);
         }
         // console.log("Break");
@@ -269,33 +283,42 @@ ref.once("value", snap=>{
         var keys = Object.keys(bsflObj[bsflKeys[x]]);
         var tempArr = [];
         for (var y = 0; y < keys.length; ++y){
-            // console.log(bsflObj[bsflKeys[x]][keys[y]]);
             tempArr.push(bsflObj[bsflKeys[x]][keys[y]]);
         }
         bsflData.push(tempArr);
     }
 
+    //dynamically generate options list
+    var chickenArea = document.querySelector("#areaChicken");
+
+    let html = "";
+
     for(var x = 0; x < chickenKeys.length; ++x){
         var keys = Object.keys(chickenObj[chickenKeys[x]]);
         var tempArr = [];
         for (var y = 0; y < keys.length; ++y){
-            // console.log(chickenObj[chickenKeys[x]][keys[y]]);
             tempArr.push(chickenObj[chickenKeys[x]][keys[y]]);
         }
         chickenData.push(tempArr);
+
+        let options = `
+            <option value="Area${x + 1}" >Area ${x + 1}</option>
+        `;
+
+        html += options;
     }
+
+    chickenArea.innerHTML = html;
 
     for(var x = 0; x < productionKeys.length; ++x){
         var keys = Object.keys(productionObj[productionKeys[x]]);
         var tempArr = [];
         for (var y = 0; y < keys.length; ++y){
-            // console.log(productionObj[productionKeys[x]][keys[y]]);
             tempArr.push(productionObj[productionKeys[x]][keys[y]]);
         }
         productionData.push(tempArr);
     }
 
-    //
     for(var x = 0; x < chickenData.length; ++x){
         var tempTempPoint = [];
         var tempTempLabel = [];
@@ -1006,6 +1029,16 @@ ref.once("value", snap=>{
     bsflChart2 = new Chart(bsflContext2,bsflConfigpH);
     bsflChart3 = new Chart(bsflContext3,bsflConfigMoist);
     mixChart = new Chart(mixContext,configMix);
+
+    for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
+        // console.log(Object.keys(chickenObj["Area2"])[x]); 
+        // console.log(chickenObj["Area2"][Object.keys(chickenObj["Area2"])[x]].temperature);
+        
+    }
+
+    // console.log(labelTempDaily); 7
+    // console.log(labelTempWeekly); 172
+    // console.log(labelTempMonthly); 325
 })
 
 
@@ -1048,7 +1081,20 @@ function onTypeChange(){
     bsflChart3.update();
 }
 
+function onAreaChange(){
+    areaSelected = document.getElementById("areaChicken").value;
+
+    // pointTempDaily = [];
+
+    // for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
+    //     pointTempDaily.push(chickenObj[areaSelected][Object.keys(chickenObj[areaSelected])[x]].temperature);
+    // }
+
+    // configTemp.data.datasets[0].data = pointTempDaily;
+    // myChart.update();
+}
 $(document).ready(function(){
+
     $(".pagination li").click(function(){
         //change the active pagination on click
         $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
@@ -1071,6 +1117,8 @@ $(document).ready(function(){
             configTemp.data.datasets[0].label = "Monthly temperature";
             configTemp.options.scales.xAxes[0].time.unit = "day";
         }else if($(this).children().attr("id") == "tempAll"){
+            // configTemp.data.datasets[0].data = pointTempLifetime;
+            // configTemp.data.labels = labelTempLifetime;
             configTemp.data.datasets[0].data = pointTempLifetime;
             configTemp.data.labels = labelTempLifetime;
             configTemp.data.datasets[0].label = "Lifetime temperature";
@@ -1263,34 +1311,28 @@ $(document).ready(function(){
 
         //update mix chart
         if($(this).children().attr("id") == "mixDaily"){
-            // console.log(configMix.data.datasets[0].data); temp
-            // console.log(configMix.data.datasets[1].data); humidity
             configMix.data.datasets[0].data = pointTempDaily;
             configMix.data.datasets[1].data = pointHumidityDaily;
             configMix.data.datasets[2].data = pointMoistDaily;
             configMix.data.labels = labelTempDaily;
-            // configMix.data.datasets[0].label = "Today's moisture";
             configMix.options.scales.xAxes[0].time.unit = "minute";
         }else if($(this).children().attr("id") == "mixWeekly"){
             configMix.data.datasets[0].data = pointTempWeekly;
             configMix.data.datasets[1].data = pointHumidityWeekly;
             configMix.data.datasets[2].data = pointMoistWeekly;
             configMix.data.labels = labelTempWeekly;
-            // configMix.data.datasets[0].label = "Weekly moisture";
             configMix.options.scales.xAxes[0].time.unit = "day";
         }else if($(this).children().attr("id") == "mixMonthly"){
             configMix.data.datasets[0].data = pointTempMonthly;
             configMix.data.datasets[1].data = pointHumidityMonthly;
             configMix.data.datasets[2].data = pointMoistMonthly;
             configMix.data.labels = labelTempMonthly;
-            // configMix.data.datasets[0].label = "Monthly moisture";
             configMix.options.scales.xAxes[0].time.unit = "day";
         }else if($(this).children().attr("id") == "mixAll"){
             configMix.data.datasets[0].data = pointTempLifetime;
             configMix.data.datasets[1].data = pointHumidityLifetime;
             configMix.data.datasets[2].data = pointMoistLifetime;
             configMix.data.labels = labelTempLifetime;
-            // configMix.data.datasets[0].label = "Lifetime moisture";
             configMix.options.scales.xAxes[0].time.unit = "month";
         }
 
@@ -1334,3 +1376,4 @@ $(document).ready(function(){
         $("#mixChart").show();
     })
 })
+
