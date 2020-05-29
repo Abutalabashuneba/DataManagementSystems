@@ -73,7 +73,7 @@ function populateTables(type){
                     <td>${chickenObj[areaSelected][keys].ph}</td>
                     <td>${chickenObj[areaSelected][keys].moisture}</td>
                     <td>
-                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn">&#10005;</button></span>
+                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
                     <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
                     </td>
                 </tr>
@@ -85,9 +85,18 @@ function populateTables(type){
         datalist.innerHTML = rowData;
 
         for(var x = 0; x < chickenKeys.length; ++x){
-            let optionslist = `
-                <option value="Area${x + 1}" >Area ${x + 1}</option>
-            `;
+            let optionslist = "";
+            if(areaSelected == `Area${x+1}`){
+                optionslist = `
+                    <option value="Area${x + 1}" selected>Area ${x + 1}</option>
+                `;
+            }
+
+            else{
+                optionslist = `
+                    <option value="Area${x + 1}" >Area ${x + 1}</option>
+                `;
+            }
             html += optionslist;
         }
         dropdown.innerHTML = html;
@@ -134,9 +143,18 @@ function populateTables(type){
         datalist.innerHTML = rowData;
 
         for(var x = 0; x < bsfKeys.length; ++x){
-            let optionslist = `
-                <option value="Area${x + 1}" >Area ${x + 1}</option>
-            `;
+            let optionslist = "";
+            if(areaSelected == `Area${x+1}`){
+                optionslist = `
+                    <option value="Area${x + 1}" selected>Area ${x + 1}</option>
+                `;
+            }
+
+            else{
+                optionslist = `
+                    <option value="Area${x + 1}" >Area ${x + 1}</option>
+                `;
+            }
             html += optionslist;
         }
 
@@ -186,9 +204,18 @@ function populateTables(type){
         dataHeader.innerHTML = header;
 
         for(var x = 0; x < bsflKeys.length; ++x){
-            let optionslist = `
-                <option value="Area${x + 1}" >Area ${x + 1}</option>
-            `;
+            let optionslist = "";
+            if(areaSelected == `Area${x+1}`){
+                optionslist = `
+                    <option value="Area${x + 1}" selected>Area ${x + 1}</option>
+                `;
+            }
+
+            else{
+                optionslist = `
+                    <option value="Area${x + 1}" >Area ${x + 1}</option>
+                `;
+            }
             html += optionslist;
         }
 
@@ -246,13 +273,8 @@ $("#addBtn").click(function(){
                                     timestamp: new Date().getTime()
                                 }
 
-                                // chickenObj[areaSelected].push(data);
                                 let myref = database.ref("Data/"+type+"/"+areaSelected);
                                 myref.push(data);
-
-                                areaSelected = "Area1";
-                                populateTables(type);
-
                             }
                             else{
                                 $.showAlert({
@@ -306,9 +328,6 @@ $("#addBtn").click(function(){
                                 }
                                 let myref = database.ref("Data/"+type+"/"+areaSelected);
                                 myref.push(data);
-
-                                areaSelected = "Area1";
-                                populateTables(type);
                             }
                             else{
                                 $.showAlert({
@@ -362,9 +381,6 @@ $("#addBtn").click(function(){
                                 }
                                 let myref = database.ref("Data/"+type+"/"+areaSelected);
                                 myref.push(data);
-
-                                areaSelected = "Area1";
-                                populateTables(type);
                             }
                             else{
                                 $.showAlert({
@@ -560,12 +576,8 @@ var update = function(e){
                                     temperature: parseInt($form.find("#updateTemp").val()),
                                     ph : parseInt($form.find("#updatepH").val()),
                                 }
-
-                                // chickenObj[areaSelected].push(data);
                                 let myref = database.ref("Data/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
-                                // areaSelected = "Area1";
-                                populateTables(type);
                             }
                             else{
                                 $.showAlert({
@@ -632,8 +644,6 @@ var update = function(e){
                                 }
                                 let myref = database.ref("Data/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
-                                areaSelected = "Area1";
-                                populateTables(type);
                             }
                             else{
                                 $.showAlert({
@@ -700,8 +710,6 @@ var update = function(e){
                                 }
                                 let myref = database.ref("Data/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
-                                areaSelected = "Area1";
-                                populateTables(type);
                             }
                             else{
                                 $.showAlert({

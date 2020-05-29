@@ -14,21 +14,6 @@ if(sessionStorage.getItem("type") == "Admin"){
   document.getElementById("register").style.display = "block";
 }
 
-$("#logoutForm").submit(function(e){
-    e.preventDefault();
-   
-    /*firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-      }).catch(function(error) {
-        // An error happened.
-      });*/
-
-    sessionStorage.clear();
-    window.location.replace("login.html");
-});
-
-
-
 /*--------------------------  Progess bar for Chicken /*-------------------------- */
 dataref.on("value", snap =>{
   var dataObj = snap.val();
