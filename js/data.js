@@ -8,6 +8,10 @@ var ref = database.ref("Data");
 let allObj = [];
 let allKeys = [];
 
+var bsfObj;
+var bsflObj;
+var chickenObj;
+
 let type = document.getElementById("dataTitle").textContent;
 let dropdown = document.querySelector("#chickenAreaData");
 let areaSelected = "Area1";
@@ -37,11 +41,15 @@ ref.on("value", snap=>{
     chickenObj = allObj[2];
     chickenKeys = Object.keys(chickenObj);
 
-    populateTables(type);
+    populateTables();
 })
 
-function populateTables(type){
+function populateTables(){
     if(type == "Chicken"){
+        if(chickenObj[areaSelected] == undefined){
+            areaSelected = "Area1";
+        }
+
         let html = "";
         let rowData = "";
 
@@ -86,23 +94,28 @@ function populateTables(type){
 
         for(var x = 0; x < chickenKeys.length; ++x){
             let optionslist = "";
-            if(areaSelected == `Area${x+1}`){
+            if(areaSelected == `${chickenKeys[x]}`){
                 optionslist = `
-                    <option value="Area${x + 1}" selected>Area ${x + 1}</option>
+                    <option value="${chickenKeys[x]}" selected>${chickenKeys[x]}</option>
                 `;
             }
 
             else{
                 optionslist = `
-                    <option value="Area${x + 1}" >Area ${x + 1}</option>
+                    <option value="${chickenKeys[x]}" >${chickenKeys[x]}</option>
                 `;
             }
             html += optionslist;
         }
         dropdown.innerHTML = html;
+    
     }
 
     else if(type == "BSF"){
+        if(bsfObj[areaSelected] == undefined){
+            areaSelected = "Area1";
+        }
+
         let html = "";
         let rowData = "";
 
@@ -144,15 +157,15 @@ function populateTables(type){
 
         for(var x = 0; x < bsfKeys.length; ++x){
             let optionslist = "";
-            if(areaSelected == `Area${x+1}`){
+            if(areaSelected == `${bsfKeys[x]}`){
                 optionslist = `
-                    <option value="Area${x + 1}" selected>Area ${x + 1}</option>
+                    <option value="${bsfKeys[x]}" selected>${bsfKeys[x]}</option>
                 `;
             }
 
             else{
                 optionslist = `
-                    <option value="Area${x + 1}" >Area ${x + 1}</option>
+                    <option value="${bsfKeys[x]}" >${bsfKeys[x]}</option>
                 `;
             }
             html += optionslist;
@@ -162,6 +175,10 @@ function populateTables(type){
     }
 
     else if(type == "BSFL"){
+        if(bsflObj[areaSelected] == undefined){
+            areaSelected = "Area1";
+        }
+
         let html = "";
         let rowData = "";
 
@@ -205,15 +222,15 @@ function populateTables(type){
 
         for(var x = 0; x < bsflKeys.length; ++x){
             let optionslist = "";
-            if(areaSelected == `Area${x+1}`){
+            if(areaSelected == `${bsflKeys[x]}`){
                 optionslist = `
-                    <option value="Area${x + 1}" selected>Area ${x + 1}</option>
+                    <option value="${bsflKeys[x]}" selected>${bsflKeys[x]}</option>
                 `;
             }
 
             else{
                 optionslist = `
-                    <option value="Area${x + 1}" >Area ${x + 1}</option>
+                    <option value="${bsflKeys[x]}" >${bsflKeys[x]}</option>
                 `;
             }
             html += optionslist;
@@ -398,7 +415,6 @@ $("#addBtn").click(function(){
 })
 
 $("#dataPage li").click(function(){
-    // document.getElementById("dataTitle").innerHTML =
     if($(this).children().attr("id") == "dataChickenBtn"){
         document.getElementById("dataTitle").innerHTML = "Chicken";
     }
@@ -413,7 +429,7 @@ $("#dataPage li").click(function(){
 
     type = document.getElementById("dataTitle").textContent;
     areaSelected = "Area1";
-    populateTables(type);
+    populateTables();
 })
 
 //Remove data
@@ -440,14 +456,15 @@ var remove = function(e){
                 "<b>pH:</b> " + chickenObj[areaSelected][deleteIndex].ph + "<br/>" +
                 "<b>Moisture:</b> " + chickenObj[areaSelected][deleteIndex].moisture,
             onSubmit: function(result){
-                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                myref.child(deleteIndex).remove();
-                if(chickenObj === null)
-                {
-                    datalist.innerHTML = "";
+                if(result){
+                    $.showAlert({
+                        title : "Delete status",
+                        body : "Data has been deleted successfully"
+                    })
+
+                    let myref = database.ref("Data/"+type+"/"+areaSelected);
+                    myref.child(deleteIndex).remove();
                 }
-                areaSelected = "Area1";
-                populateTables(type);
             }
         })
         
@@ -469,17 +486,17 @@ var remove = function(e){
                 "<b>Humidity:</b> " + bsfObj[areaSelected][deleteIndex].humidity+ "<br/>" +
                 "<b>Lux:</b> " + bsfObj[areaSelected][deleteIndex].light,
             onSubmit: function(result){
-                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                myref.child(deleteIndex).remove();
-                if(chickenObj === null)
-                {
-                    datalist.innerHTML = "";
+                if(result){
+                    $.showAlert({
+                        title : "Delete status",
+                        body : "Data has been deleted successfully"
+                    })
+
+                    let myref = database.ref("Data/"+type+"/"+areaSelected);
+                    myref.child(deleteIndex).remove();
                 }
-                areaSelected = "Area1";
-                populateTables(type);
             }
         })
-        populateTables(type);
     }
 
     else if(type = "BSFL"){
@@ -498,17 +515,17 @@ var remove = function(e){
                 "<b>pH:</b> " + bsflObj[areaSelected][deleteIndex].pH+ "<br/>" +
                 "<b>Moisture:</b> " + bsflObj[areaSelected][deleteIndex].moisture,
             onSubmit: function(result){
-                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                myref.child(deleteIndex).remove();
-                if(chickenObj === null)
-                {
-                    datalist.innerHTML = "";
+                if(result){
+                    $.showAlert({
+                        title : "Delete status",
+                        body : "Data has been deleted successfully"
+                    })
+
+                    let myref = database.ref("Data/"+type+"/"+areaSelected);
+                    myref.child(deleteIndex).remove();
                 }
-                areaSelected = "Area1";
-                populateTables(type);
             }
         })
-        populateTables(type);
     }
 }
 
@@ -732,92 +749,15 @@ function dataAreaChange(){
     areaSelected = document.getElementById("chickenAreaData").value;
     
     if(type == "Chicken"){
-        let rowData = "";
-
-        for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
-            var keys =  Object.keys(chickenObj[areaSelected])[x];
-
-            var d = new Date(chickenObj[areaSelected][keys].timestamp);
-            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            var datetime = d.toLocaleString('en-us', options); 
-
-            let tr = `
-                <tr>
-                    <td class="id">${x + 1}</td>
-                    <td class="searchVar">${datetime}</td>
-                    <td>${chickenObj[areaSelected][keys].temperature}</td>
-                    <td>${chickenObj[areaSelected][keys].humidity}</td>
-                    <td>${chickenObj[areaSelected][keys].ph}</td>
-                    <td>${chickenObj[areaSelected][keys].moisture}</td>
-                    <td>
-                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                    <span class="table-edit" data-toggle="modal" data-target="#editData"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                    </td>
-                </tr>
-            `;
-
-            
-            rowData += tr;
-        }
-        datalist.innerHTML = rowData;
+        populateTables();
     }
 
     else if(type == "BSF"){
-        let rowData = "";
-
-        for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
-            var keys =  Object.keys(bsfObj[areaSelected])[x];
-
-            var d = new Date(bsfObj[areaSelected][keys].timestamp);
-            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            var datetime = d.toLocaleString('en-us', options); 
-
-            let tr =`
-                <tr>
-                    <td class="id">${x + 1}</td>
-                    <td class="searchVar">${datetime}</td>
-                    <td>${bsfObj[areaSelected][keys].temperature}</td>
-                    <td>${bsfObj[areaSelected][keys].humidity}</td>
-                    <td>${bsfObj[areaSelected][keys].light}</td>
-                    <td>
-                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                    <span class="table-edit" data-toggle="modal" data-target="#editData"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                    </td>
-                </tr>
-            `;
-            rowData += tr;
-        }
-
-        datalist.innerHTML = rowData;
+        populateTables();
     }
 
     else if(type == "BSFL"){
-        let rowData = "";
-
-        for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
-            var keys =  Object.keys(bsflObj[areaSelected])[x];
-
-            var d = new Date(bsflObj[areaSelected][keys].timestamp);
-            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            var datetime = d.toLocaleString('en-us', options); 
-
-            let tr =`
-                <tr>
-                    <td class="id">${x + 1}</td>
-                    <td class="searchVar">${datetime}</td>
-                    <td>${bsflObj[areaSelected][keys].temperature}</td>
-                    <td>${bsflObj[areaSelected][keys].pH}</td>
-                    <td>${bsflObj[areaSelected][keys].moisture}</td>
-                    <td>
-                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                    <span class="table-edit" data-toggle="modal" data-target="#editData"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                    </td>
-                </tr>
-            `;
-
-            rowData += tr;
-        }
-        datalist.innerHTML = rowData;
+        populateTables();
     }
 }
 

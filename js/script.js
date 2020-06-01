@@ -231,41 +231,11 @@ $(document).ready(function(){
             $( this ).addClass( 'page-item active' );
         });
     
-        
+        // $(".tempPage li").on( 'click', function() {
+        //     $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
+        //     $( this ).addClass( 'page-item active' );
+        // });
         
         //-------------------End of sensor page----------------------//
-    
-    
-        //-------------------Start of production page----------------------//
-        $("#btnChicken").click(function(){
-            $("#tableTitle").html("Chicken");
-            $("#chickenTable").show();
-            $("#bsfTable").hide();
-            $("#bsflTable").hide();
-			$("#addBtnC").show();
-            $("#addBtnBSF").hide();
-            $("#addBtnBSFL").hide();
-        })
-    
-        $("#btnBsf").click(function(){
-            $("#tableTitle").html("BSF");
-            $("#chickenTable").hide();
-            $("#bsfTable").show();
-            $("#bsflTable").hide();
-			$("#addBtnC").hide();
-            $("#addBtnBSF").show();
-            $("#addBtnBSFL").hide();
-        })
-    
-        $("#btnBsfl").click(function(){
-            $("#tableTitle").html("BSF Larvae");
-            $("#chickenTable").hide();
-            $("#bsfTable").hide();
-            $("#bsflTable").show();
-			$("#addBtnC").hide();
-            $("#addBtnBSF").hide();
-            $("#addBtnBSFL").show();
-        })
-        //-------------------End of Production page----------------------//
     });
     

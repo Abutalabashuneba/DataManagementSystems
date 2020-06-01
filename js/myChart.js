@@ -1,5 +1,3 @@
-
-
 var timeFormat = "MM/DD/YYYY HH:mm";
 
 function newDate(days){

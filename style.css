@@ -357,53 +357,41 @@ AddForm Styling
   line-height: 15px;
 }
 
-#dateLabel, #productionLabel{
+#dateLabel{
   top: 100px;
 }
 
-#weightLabel{
-  top: 160px;
-}
-
-#sickLabel{
-  top: 220px;
-}
-
-#runtLabel{
-  top: 280px;
-}
-
-#mortalityLabel{
-  top: 340px;
-}
-
-#givenLabel{
-  top: 400px;
-}
-
-#leftLabel{
-  top:460px;
-}
-
 /*Start Add data page*/
-#tempLabelAdd, #tempLabelBSFLAdd, #bsftempLabelAdd{
+#tempLabelAdd, #tempLabelBSFLAdd, #bsftempLabelAdd, #productionLabel{
   top: 35px;
 }
 
-#humidLabelAdd, #PhLabelBSFLAdd, #bsfhumidLabelAdd,#tempLabel,#tempLabelUpdate,#tempLabelUpdateBSFL{
+#humidLabelAdd, #PhLabelBSFLAdd, #bsfhumidLabelAdd,#tempLabel,#tempLabelUpdate,#tempLabelUpdateBSFL,#weightLabel, #updateproductionLabel{
   top: 95px;
 }
 
-#phLabelAdd, #moistureLabelBSFLAdd, #bsflightLabelAdd,#humidLabel, #humidLabelUpdate,#phLabelUpdateBSFL{
+#phLabelAdd, #moistureLabelBSFLAdd, #bsflightLabelAdd,#humidLabel, #humidLabelUpdate,#phLabelUpdateBSFL,#sickLabel, #updateweightLabel{
   top: 155px;
 }
 
-#moistureLabelAdd,#phLabel,#luxLabelUpdate,#moisLabelUpdateBSFL{
+#moistureLabelAdd,#phLabel,#luxLabelUpdate,#moisLabelUpdateBSFL,#runtLabel, #updatesickLabel{
   top: 215px;
 }
 
-#moistureLabel{
+#moistureLabel,#mortalityLabel, #updateruntLabel{
   top: 275px;
+}
+
+#givenLabel, #updatemortalityLabel{
+  top: 335px;
+}
+
+#leftLabel, #updategivenLabel{
+  top:395px;
+}
+
+#updateleftLabel{
+  top:455px;
 }
 
 /*End Add data page*/
@@ -417,21 +405,18 @@ AddForm Styling
 .updateBSFLData:focus + .CLabel, .updateBSFLData:valid + .CLabel
 {
   padding-left: 270px;
-  font-size: 14px;
 }
 
 .addBSFProduction:focus + .BSFLabel,.addBSFProduction:valid + .BSFLabel,
 .updateBSFProduction:focus + .BSFLabel, .updateBSFProduction:valid + .BSFLabel
 {
 	padding-left: 260px;
-	font-size: 14px;
 }
 
 .addBSFLProduction:focus + .BSFLLabel,.addBSFLProduction:valid + .BSFLLabel,
 .updateBSFLProduction:focus + .BSFLLabel, .updateBSFLProduction:valid + .BSFLLabel
 {
 	padding-left: 250px;
-	font-size: 14px;
 }
 
 .datepicker td, .datepicker th {
