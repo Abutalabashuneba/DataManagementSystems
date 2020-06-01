@@ -278,10 +278,6 @@ $("#addBtn").click(function(){
                             "<b>Moisture:</b> " + $form.find("#cMoisture").val(),
                         onSubmit: function(result){
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
                                 let data = {
                                     humidity: parseInt($form.find("#cHum").val()),
                                     moisture: parseInt($form.find("#cMoisture").val()),
@@ -290,18 +286,26 @@ $("#addBtn").click(function(){
                                     timestamp: new Date().getTime()
                                 }
 
-                                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                                myref.push(data);
+                                if(!isNaN(data.humidity) && !isNaN(data.moisture) && !isNaN(data.temperature) && !isNaN(data.ph)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been added successfully",
+                                    })
+                                    
+                                    modal.hide()
+                                    let myref = database.ref("Data/"+type+"/"+areaSelected);
+                                    myref.push(data);
+                                }
+                                else{
+                                    $.showAlert({
+                                        title: "Push failed",
+                                        body: "Check if all inputs are filled"
+                                    })
+                                }
                             }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
-                            }
+                            
                         }
                     })
-                    modal.hide()
                 })
             },
         })
@@ -333,28 +337,31 @@ $("#addBtn").click(function(){
                             "<b>Lux:</b> " + $form.find("#bsfLux").val(),
                         onSubmit: function(result){
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
                                 let data = {
                                     humidity: parseInt($form.find("#bsfHum").val()),
                                     light: parseInt($form.find("#bsfLux").val()),
                                     temperature: parseInt($form.find("#bsfTemp").val()),
                                     timestamp: new Date().getTime()
                                 }
-                                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                                myref.push(data);
-                            }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
+
+                                if(!isNaN(data.humidity) && !isNaN(data.light) && !isNaN(data.temperature)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been added successfully",
+                                    })
+                                    modal.hide()
+                                    let myref = database.ref("Data/"+type+"/"+areaSelected);
+                                    myref.push(data);
+                                }
+                                else{
+                                    $.showAlert({
+                                        title: "Push failed",
+                                        body: "Check if all the inputs are filled"
+                                    })
+                                }
                             }
                         }
                     })
-                    modal.hide()
                 })
             }
         })
@@ -386,28 +393,31 @@ $("#addBtn").click(function(){
                             "<b>Moisture:</b> " + $form.find("#bsflMois").val(),
                         onSubmit: function(result){
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
                                 let data = {
                                     pH: parseInt($form.find("#bsflPh").val()),
                                     temperature: parseInt($form.find("#bsflTemp").val()),
                                     moisture: parseInt($form.find("#bsflMois").val()),
                                     timestamp: new Date().getTime()
                                 }
-                                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                                myref.push(data);
-                            }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
+
+                                if(!isNaN(data.pH) && !isNaN(data.temperature) && !isNaN(data.moisture)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been added successfully",
+                                    })
+                                    modal.hide()
+                                    let myref = database.ref("Data/"+type+"/"+areaSelected);
+                                    myref.push(data);
+                                }
+                                else{
+                                    $.showAlert({
+                                        title: "Push failed",
+                                        body: "Check if all the inputs are filled"
+                                    })
+                                }
                             }
                         }
                     })
-                    modal.hide()
                 })
             }
         })

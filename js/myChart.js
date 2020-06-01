@@ -1,3 +1,6 @@
+var database = firebase.database();
+var ref = database.ref("Data"); 
+
 var timeFormat = "MM/DD/YYYY HH:mm";
 
 function newDate(days){

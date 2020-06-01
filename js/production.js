@@ -245,10 +245,6 @@ $("#addBtnC").click(function(){
                             "<b>Feed Leftover (kg):</b> " + $form.find("#addfeedLeft").val(),
                         onSubmit: function(result){
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
                                 let data = {
                                     amount: parseInt($form.find("#addAmountC").val()),
                                     average: parseInt($form.find("#addAvgC").val()),
@@ -260,18 +256,27 @@ $("#addBtnC").click(function(){
                                     timestamp: new Date().getTime()
                                 }
 
-                                let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
-                                myref.push(data);
+                                if(!isNaN(data.amount) && !isNaN(data.average) && !isNaN(data.sick) && !isNaN(data.runt) && !isNaN(data.mortality) && !isNaN(data.give) && !isNaN(data.left)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been added successfully",
+                                    })
+                                    
+                                    modal.hide()
+                                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                    myref.push(data);
+                                }
+                                
+                                else{
+                                    $.showAlert({
+                                        title: "Push failed",
+                                        body: "Check if all the inputs are filled"
+                                    })
+                                }
                             }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
-                            }
+                            
                         }
                     })
-                    modal.hide()
                 })
             },
         })
@@ -297,27 +302,30 @@ $("#addBtnC").click(function(){
                             "<b>Eggs Produced (Grams):</b> " + $form.find("#addAmountBSF").val(),
                         onSubmit: function(result){
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
                                 let data = {
                                     eggs : parseInt($form.find("#addAmountBSF").val()),
                                     timestamp: new Date().getTime()
                                 }
 
-                                let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
-                                myref.push(data);
+                                if(!isNaN(data.eggs)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been added successfully",
+                                    })
+                                    modal.hide()
+                                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                    myref.push(data);
+                                }
+                                else{
+                                    $.showAlert({
+                                        title: "Push failed",
+                                        body: "Check if all the inputs are filled"
+                                    })
+                                }
                             }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
-                            }
+                            
                         }
                     })
-                    modal.hide()
                 })
             },
         })
@@ -343,27 +351,32 @@ $("#addBtnC").click(function(){
                             "<b>Larvae Produced (Grams):</b> " + $form.find("#addAmountBSFL").val(),
                         onSubmit: function(result){
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
                                 let data = {
                                     eggs : parseInt($form.find("#addAmountBSFL").val()),
                                     timestamp: new Date().getTime()
                                 }
 
-                                let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
-                                myref.push(data);
+                                if(!isNaN(data.eggs)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been added successfully",
+                                    })
+                                   
+                                    modal.hide()
+                                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                    myref.push(data);
+                                }
+
+                                else{
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has not been added successfully"
+                                    })
+                                }
                             }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
-                            }
+                            
                         }
                     })
-                    modal.hide()
                 })
             },
         })
