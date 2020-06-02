@@ -50,14 +50,15 @@ function populateTables(){
 		var start = moment().subtract(1, 'days');
     var end = moment();
     function cb(start, end) {
-		
-var count = 0;
 		let rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 		for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
 			
-		if (start.valueOf() <= productionObj[type][areaSelected][keys].timestamp && end.valueOf() >= productionObj[type][areaSelected][keys].timestamp)
+			var newstartdate = Date.parse(start.format('YYYY.MM.DD 00:00:00'));
+			
+			var newenddate = Date.parse(end.format('YYYY.MM.DD 23:59:59'));
+		if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp)
 		{
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -65,7 +66,7 @@ var count = 0;
 
             let tr = `
                 <tr>
-                    <td class="id">${count += 1}</td>
+                    <td class="id">${x + 1}</td>
                     <td>${datetime}</td>
                     <td>${productionObj[type][areaSelected][keys].amount}</td>
                     <td>${productionObj[type][areaSelected][keys].average}</td>
@@ -147,12 +148,14 @@ var start = moment().subtract(1, 'days');
     var end = moment();
     function cb(start, end) {
 		
-var count = 0;
 		let rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
-if (start.valueOf() <= productionObj[type][areaSelected][keys].timestamp && end.valueOf() >= productionObj[type][areaSelected][keys].timestamp)
+			var newstartdate = Date.parse(start.format('YYYY.MM.DD 00:00:00'));
+			
+			var newenddate = Date.parse(end.format('YYYY.MM.DD 23:59:59'));
+if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp)
 		{
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -233,12 +236,14 @@ var start = moment().subtract(1, 'days');
     var end = moment();
     function cb(start, end) {
 		
-var count = 0;
 		let rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
-if (start.valueOf() <= productionObj[type][areaSelected][keys].timestamp && end.valueOf() >= productionObj[type][areaSelected][keys].timestamp)
+			var newstartdate = Date.parse(start.format('YYYY.MM.DD 00:00:00'));
+			
+			var newenddate = Date.parse(end.format('YYYY.MM.DD 23:59:59'));
+if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp)
 		{
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -519,6 +524,7 @@ var remove = function(e){
     }
 
     if(type == "Chicken"){
+		
         $.showConfirm({
             title: "Are you sure",
             textTrue : "Yes",
@@ -539,7 +545,11 @@ var remove = function(e){
                     })
                     let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
+					if (x == 1)
+					{
+						
 					datalistC.innerHTML = "";
+					}
                 }
             }
         })
@@ -560,7 +570,11 @@ var remove = function(e){
                     })
                     let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
+					if (x == 1)
+					{
+						
 					datalistBSF.innerHTML = "";
+					}
                 }
             }
         })
@@ -581,7 +595,11 @@ var remove = function(e){
                     })
                     let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
+					if (x == 1)
+					{
+						
 					datalistBSFL.innerHTML = "";
+					}
                 }
             }
         })
