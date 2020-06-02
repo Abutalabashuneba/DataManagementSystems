@@ -1,6 +1,12 @@
 //select the table
-let tableHead = document.querySelector(".productionHeader");
-let datalist = document.querySelector(".productionBodyData");
+let tableHeadC = document.querySelector(".productionHeaderC");
+let tableHeadBSF = document.querySelector(".productionHeaderBSF");
+let tableHeadBSFL = document.querySelector(".productionHeaderBSFL");
+
+let datalistC = document.querySelector(".productionBodyDataC");
+let datalistBSF = document.querySelector(".productionBodyDataBSF");
+let datalistBSFL = document.querySelector(".productionBodyDataBSFL");
+
 let dropdown = document.querySelector("#productionArea");
 
 var database = firebase.database();
@@ -20,12 +26,12 @@ productionRef.on("value",snap=>{
 
 
 function populateTables(){
+	
     if(type == "Chicken"){
         if(productionObj[type][areaSelected] == undefined){
             areaSelected = "Area1";
         }
-
-        let html = "";
+		let html = "";
         let rowData = "";
 
         let header = `
@@ -41,17 +47,25 @@ function populateTables(){
                 <th>Feed Leftover (kg)</th>
                 <th>Options</th>
         `;
-
-        for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+		var start = moment().subtract(1, 'days');
+    var end = moment();
+    function cb(start, end) {
+		
+var count = 0;
+		let rowData = "";
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+		for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
-
+			
+		if (start.valueOf() <= productionObj[type][areaSelected][keys].timestamp && end.valueOf() >= productionObj[type][areaSelected][keys].timestamp)
+		{
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
 
             let tr = `
                 <tr>
-                    <td class="id">${x + 1}</td>
+                    <td class="id">${count += 1}</td>
                     <td>${datetime}</td>
                     <td>${productionObj[type][areaSelected][keys].amount}</td>
                     <td>${productionObj[type][areaSelected][keys].average}</td>
@@ -67,8 +81,29 @@ function populateTables(){
                 </tr>
             `;
             rowData += tr;
+		}
+		}
+        datalistC.innerHTML = rowData;
+	}
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
+    }, cb);
 
+    cb(start, end);
+	
+		
+		
+		
+		
         for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
             let optionsList = "";
             if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
@@ -84,10 +119,14 @@ function populateTables(){
             }
             html += optionsList;
         }
+		
+		
+        tableHeadC.innerHTML = header;
         dropdown.innerHTML = html;
-        tableHead.innerHTML = header;
-        datalist.innerHTML = rowData;
-    }
+		
+		
+		
+}
 
     else if(type == "BSF"){
         if(productionObj[type][areaSelected] == undefined){
@@ -104,10 +143,17 @@ function populateTables(){
                 <th>Eggs Produced (Grams)</th>
                 <th>Options</th>
         `;
-
+var start = moment().subtract(1, 'days');
+    var end = moment();
+    function cb(start, end) {
+		
+var count = 0;
+		let rowData = "";
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
-
+if (start.valueOf() <= productionObj[type][areaSelected][keys].timestamp && end.valueOf() >= productionObj[type][areaSelected][keys].timestamp)
+		{
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
@@ -125,6 +171,10 @@ function populateTables(){
             `;
             rowData += tr;
         }
+		}
+		
+        datalistBSF.innerHTML = rowData;
+	}
 
         for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
             let optionsList = "";
@@ -141,9 +191,24 @@ function populateTables(){
             }
             html += optionsList;
         }
+		
+		 $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
 
-        tableHead.innerHTML = header;
-        datalist.innerHTML = rowData;
+    cb(start, end);
+	
+
+        tableHeadBSF.innerHTML = header;
         dropdown.innerHTML = html;
     }
 
@@ -163,9 +228,18 @@ function populateTables(){
                 <th>Options</th>
         `;
 
+
+var start = moment().subtract(1, 'days');
+    var end = moment();
+    function cb(start, end) {
+		
+var count = 0;
+		let rowData = "";
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
-
+if (start.valueOf() <= productionObj[type][areaSelected][keys].timestamp && end.valueOf() >= productionObj[type][areaSelected][keys].timestamp)
+		{
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
@@ -182,7 +256,10 @@ function populateTables(){
                 </tr>
             `;
             rowData += tr;
-        }
+	}}
+	
+        datalistBSFL.innerHTML = rowData;
+	}
 
         for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
             let optionsList = "";
@@ -200,8 +277,23 @@ function populateTables(){
             html += optionsList;
         }
 
-        tableHead.innerHTML = header;
-        datalist.innerHTML = rowData;
+		 $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+	
+
+        tableHeadBSFL.innerHTML = header;
         dropdown.innerHTML = html;
     }
 }
@@ -386,14 +478,27 @@ $("#addBtnC").click(function(){
 $("#productionPage li").click(function(){
     if($(this).children().attr("id") == "btnChicken"){
         document.getElementById("tableTitle").innerHTML = "Chicken";
+		
+		$("#chickentab").show();
+		$("#bsftab").hide();
+		$("#bsfltab").hide();
     }
 
     else if($(this).children().attr("id") == "btnBsf"){
         document.getElementById("tableTitle").innerHTML = "BSF";
+		
+		$("#chickentab").hide();
+		$("#bsftab").show();
+		$("#bsfltab").hide();
+		
     }
 
     else if($(this).children().attr("id") == "btnBsfl"){
         document.getElementById("tableTitle").innerHTML = "BSFL";
+		
+		$("#chickentab").hide();
+		$("#bsftab").hide();
+		$("#bsfltab").show();
     }
 
     type = document.getElementById("tableTitle").textContent;
@@ -434,6 +539,7 @@ var remove = function(e){
                     })
                     let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
+					datalistC.innerHTML = "";
                 }
             }
         })
@@ -454,6 +560,7 @@ var remove = function(e){
                     })
                     let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
+					datalistBSF.innerHTML = "";
                 }
             }
         })
@@ -474,6 +581,7 @@ var remove = function(e){
                     })
                     let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
+					datalistBSFL.innerHTML = "";
                 }
             }
         })
