@@ -1,6 +1,11 @@
 //select the table for chicken
-let datalist = document.querySelector(".bodyData");
-let dataHeader = document.querySelector(".bodyHeader");
+let datalistC = document.querySelector(".bodyDataC");
+let datalistBSF = document.querySelector(".bodyDataBSF");
+let datalistBSFL = document.querySelector(".bodyDataBSFL");
+
+let dataHeaderC = document.querySelector(".bodyHeaderC");
+let dataHeaderBSF = document.querySelector(".bodyHeaderBSF");
+let dataHeaderBSFL = document.querySelector(".bodyHeaderBSFL");
 
 var database = firebase.database();
 var ref = database.ref("Data");   
@@ -64,10 +69,19 @@ function populateTables(){
                 <th>Option</th>
             </tr>
         `;
-
+var start = moment().subtract(1, 'days');
+    var end = moment();
+    function cb(start, end) {
+		
+		let rowData = "";
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
             var keys =  Object.keys(chickenObj[areaSelected])[x];
-            
+			var newstartdate = Date.parse(start.format('YYYY.MM.DD 00:00:00'));
+			
+			var newenddate = Date.parse(end.format('YYYY.MM.DD 23:59:59'));
+            if (newstartdate <= chickenObj[areaSelected][keys].timestamp && newenddate >= chickenObj[areaSelected][keys].timestamp)
+		{
             var d = new Date(chickenObj[areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
@@ -86,11 +100,25 @@ function populateTables(){
                     </td>
                 </tr>
             `;
-        
             rowData += tr;
+        }}
+        datalistC.innerHTML = rowData;
+	}
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
-        dataHeader.innerHTML = header;
-        datalist.innerHTML = rowData;
+    }, cb);
+
+    cb(start, end);
+        dataHeaderC.innerHTML = header;
 
         for(var x = 0; x < chickenKeys.length; ++x){
             let optionslist = "";
@@ -129,10 +157,21 @@ function populateTables(){
                 <th>Option</th>
             </tr>
         `;
+var start = moment().subtract(1, 'days');
+    var end = moment();
+    function cb(start, end) {
+		
+		let rowData = "";
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 
         for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
             var keys =  Object.keys(bsfObj[areaSelected])[x];
 
+			var newstartdate = Date.parse(start.format('YYYY.MM.DD 00:00:00'));
+			
+			var newenddate = Date.parse(end.format('YYYY.MM.DD 23:59:59'));
+            if (newstartdate <= bsfObj[areaSelected][keys].timestamp && newenddate >= bsfObj[areaSelected][keys].timestamp)
+		{
             var d = new Date(bsfObj[areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
@@ -151,9 +190,24 @@ function populateTables(){
                 </tr>
             `;
             rowData += tr;
+        }}
+        datalistBSF.innerHTML = rowData;
+	}
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
-        dataHeader.innerHTML = header;
-        datalist.innerHTML = rowData;
+    }, cb);
+
+    cb(start, end);
+        dataHeaderBSF.innerHTML = header;
 
         for(var x = 0; x < bsfKeys.length; ++x){
             let optionslist = "";
@@ -192,10 +246,21 @@ function populateTables(){
                 <th>Option</th>
             </tr>
         `;
+var start = moment().subtract(1, 'days');
+    var end = moment();
+    function cb(start, end) {
+		
+		let rowData = "";
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 
         for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
             var keys =  Object.keys(bsflObj[areaSelected])[x];
 
+			var newstartdate = Date.parse(start.format('YYYY.MM.DD 00:00:00'));
+			
+			var newenddate = Date.parse(end.format('YYYY.MM.DD 23:59:59'));
+            if (newstartdate <= bsflObj[areaSelected][keys].timestamp && newenddate >= bsflObj[areaSelected][keys].timestamp)
+		{
             var d = new Date(bsflObj[areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
@@ -215,10 +280,24 @@ function populateTables(){
             `;
 
             rowData += tr;
+        }}
+        datalistBSFL.innerHTML = rowData;
+	}
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
-        
-        datalist.innerHTML = rowData;
-        dataHeader.innerHTML = header;
+    }, cb);
+
+    cb(start, end);
+        dataHeaderBSFL.innerHTML = header;
 
         for(var x = 0; x < bsflKeys.length; ++x){
             let optionslist = "";
@@ -427,14 +506,24 @@ $("#addBtn").click(function(){
 $("#dataPage li").click(function(){
     if($(this).children().attr("id") == "dataChickenBtn"){
         document.getElementById("dataTitle").innerHTML = "Chicken";
+		
+		$("#chickentab").show();
+		$("#bsftab").hide();
+		$("#bsfltab").hide();
     }
 
     else if($(this).children().attr("id") == "dataBSFBtn"){
         document.getElementById("dataTitle").innerHTML = "BSF";
+		$("#chickentab").hide();
+		$("#bsftab").show();
+		$("#bsfltab").hide();
     }
 
     else if($(this).children().attr("id") == "dataBSFLBtn"){
         document.getElementById("dataTitle").innerHTML = "BSFL";
+		$("#chickentab").hide();
+		$("#bsftab").hide();
+		$("#bsfltab").show();
     }
 
     type = document.getElementById("dataTitle").textContent;

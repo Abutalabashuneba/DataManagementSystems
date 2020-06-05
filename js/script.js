@@ -237,5 +237,8 @@ $(document).ready(function(){
         // });
         
         //-------------------End of sensor page----------------------//
+		
     });
+	
+	
     
