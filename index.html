@@ -77,7 +77,7 @@
                         <!--Start Pagination-->
                         <div class="col-xl-8 col-lg-8 col-md-8 pagination-col">
                             <nav>
-                                <ul class="pagination paginationBtn">
+                                <ul class="pagination paginationBtn" id="dashPage">
                                     <li class="page-item active"><a href="#" class="page-link" id="dashChickenBtn"><span class="badge">Chicken</span></a></li>
                                     <li><a href="#" class="page-link" id="dashBSFBtn"><span class="badge">BSF Adult</span></a></li>
                                     <li><a href="#" class="page-link" id="dashBSFLBtn"><span class="badge">BSF Larvae</span></a></li>
@@ -86,44 +86,12 @@
                         </div>
                         <!--End Pagination-->
 
-                        <!--Start of Area DropDown-->
-                        <!--Chicken-->
-                        <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownChickenRow">
-                            <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="dashDropdownChicken">
-                                Area-1
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#" id="dashCarea-1">Area-1</a>
-                                <a class="dropdown-item" href="#" id="dashCarea-2">Area-2</a>
-                            </div>
+                        <!--Dropdown Area-->
+                        <div class="col-xl-2 col-lg-2 col-md-4 dropdown ml-auto" id="dropdownChickenRow-dash">
+                            <select id="chickenAreaDash" class="form-control" onchange="dataAreaChange()">
+                            </select>
                         </div>
-                        <!--End of Chicken-->
-
-                        <!--BSF-->
-                        <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownBSFRow" style="display:none;">
-                            <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="dashDropdownBSF">
-                                Area-1
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#" id="dashBSFarea-1">Area-1</a>
-                                <a class="dropdown-item" href="#" id="dashBSFarea-2">Area-2</a>
-                            </div>
-                        </div>
-                        <!--End of BSF-->
-
-                        <!--BSFL-->
-                        <div class="col-xl-4 col-lg-4 col-md-4 dropdown" id="dropdownBSFLRow" style="display:none;">
-                            <button type="button" class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" id="dashDropdownBSFL">
-                                Area-1
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#" id="dashBSFLarea-1">Area-1</a>
-                                <a class="dropdown-item" href="#" id="dashBSFLarea-2">Area-2</a>
-                            </div>
-                        </div>
-                        <!--End of BSFL-->
-                        <!--End of Area DropDown-->
-
+                        <!--Dropdown Area-->
                     </div>
                     
                     <!--Start of Dashboard Chicken-->
@@ -134,7 +102,7 @@
                             <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
-                                        <h4><i class="fas fa-temperature-low"></i> Chicken - Temperature</h4>
+                                        <h4 id="dashCard1Title"><i class="fas fa-temperature-low"></i> Chicken - Temperature</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="progress mx-auto" id="temp">
@@ -145,7 +113,7 @@
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenTemp"></span><sup class="small">°C</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="dashCard-1"></span><sup class="small">°C</sup></div>
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +125,7 @@
                             <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
-                                        <h4><i class="fas fa-temperature-low"></i> Chicken - Humidity</h4>
+                                        <h4 id="dashCard2Title"><i class="fas fa-temperature-low"></i> Chicken - Humidity</h4>
                                     </div>
 
                                     <div class="card-body">
@@ -169,7 +137,7 @@
                                                 <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenHumid"></span><sup class="small">%</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="dashCard-2"></span><sup class="small" id="symbolCard2">%</sup></div>
                                             </div>
                                         </div>
                                     </div>
@@ -181,19 +149,19 @@
                             <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
-                                        <h4><i class="fas fa-temperature-low"></i> Chicken - Moisture</h4>
+                                        <h4 id="dashCard3Title"><i class="fas fa-temperature-low"></i> Chicken - Moisture</h4>
                                     </div>
 
                                     <div class="card-body">
                                         <div class="progress mx-auto" id="mois" >
                                             <span class="progress-left">
-                                                <span class="progress-bar border-mois"></span>
+                                                <span class="progress-bar border-primary"></span>
                                             </span>
                                             <span class="progress-right">
-                                                <span class="progress-bar border-mois"></span>
+                                                <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenMois"></span><sup class="small">%</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="dashCard-3"></span><sup class="small" id="symbolCard3">%</sup></div>
                                             </div>
                                         </div>
                                     </div>
@@ -202,7 +170,7 @@
                             <!--End of chicken Moisture-->
 
                             <!--Start of chicken pH-->
-                            <div class="col-xl-6">
+                            <div class="col-xl-6" id="card4">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> Chicken - ph Value</h4>
@@ -211,13 +179,13 @@
                                     <div class="card-body">
                                         <div class="progress mx-auto" id="ph" >
                                             <span class="progress-left">
-                                                <span class="progress-bar border-ph"></span>
+                                                <span class="progress-bar border-primary"></span>
                                             </span>
                                             <span class="progress-right">
-                                                <span class="progress-bar border-ph"></span>
+                                                <span class="progress-bar border-primary"></span>
                                             </span>
                                             <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                            <div class="h2 font-weight-bold"><span id="chickenPh"></span><sup class="small">pH</sup></div>
+                                            <div class="h2 font-weight-bold"><span id="dashCard-4"></span><sup class="small">pH</sup></div>
                                             </div>
                                         </div>
                                     </div>
@@ -228,9 +196,9 @@
                         <!--End of chicken Dashboard Area-1 -->
 
                         <!--Start of chicken Dashboard Area-2 -->
-                        <div class="row" id="chickenDashArea-2" style="display:none;">
+                        <!-- <div class="row" id="chickenDashArea-2" style="display:none;"> -->
                             <!--Start of chicken Temperature-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> Chicken - Temperature</h4>
@@ -250,11 +218,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of chicken Temperature-->
 
                             <!--Start of chicken Humidity-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> Chicken - Humidity</h4>
@@ -274,11 +242,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of chicken Humidity-->
 
                             <!--Start of chicken Moisture-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> Chicken - Moisture</h4>
@@ -298,10 +266,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of chicken Moisture-->
 
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> Chicken - ph Value</h4>
@@ -311,18 +279,18 @@
                                         
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> -->
+                        <!-- </div> -->
                         <!--End of chicken Dashboard Area-2 -->
                     </div>
                     <!--End of Dashboard Chicken-->
 
                     <!--Start of Dashboard BSF-->
-                    <div id="dashBSF" style="display:none;">
+                    <!-- <div id="dashBSF" style="display:none;"> -->
                         <!--Start of BSF Dashboard Area-1 -->
-                        <div class="row" id="bsfDashArea-1">
+                        <!-- <div class="row" id="bsfDashArea-1"> -->
                             <!--Start of BSF Temperature-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSF - Temperature</h4>
@@ -341,11 +309,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSF Temperature-->
 
                             <!--Start of BSF Humidity-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSF - Humidity</h4>
@@ -365,11 +333,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSF Humidity-->
 
                             <!--Start of BSF Light-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSF - Light</h4>
@@ -389,15 +357,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSF Light-->
-                        </div>
+                        <!-- </div> -->
                         <!--End of BSF Dashboard Area-1 -->
 
                         <!--Start of BSF Dashboard Area-2 -->
-                        <div class="row" id="bsfDashArea-2" style="display:none;">
+                        <!-- <div class="row" id="bsfDashArea-2" style="display:none;"> -->
                             <!--Start of BSF Temperature-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSF - Temperature - 2</h4>
@@ -416,11 +384,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSF Temperature-->
 
                             <!--Start of BSF Humidity-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSF - Humidity - 2</h4>
@@ -440,10 +408,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSF Humidity-->
 
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSF - Light - 2</h4>
@@ -454,17 +422,17 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!--End of BSF Dashboard Area-2 -->
-                    </div>
+                    <!-- </div> -->
                     <!--End of Dashboard BSF Adult-->
 
                     <!--Start of Dashboard BSF Larvae-->
-                    <div id="dashBSFL" style="display:none;">
+                    <!-- <div id="dashBSFL" style="display:none;"> -->
                         <!--Start of BSF Dashboard Area-1 -->
-                        <div class="row" id="bsflDashArea-1">
+                        <!-- <div class="row" id="bsflDashArea-1"> -->
                             <!--Start of BSFL Temperature-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSFL - Temperature</h4>
@@ -483,11 +451,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSFL Temperature-->
 
                             <!--Start of BSFL pH value-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSFL - pH Value</h4>
@@ -507,11 +475,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSFL pH value-->
 
                             <!--Start of BSFL Soil Moisture-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSFL - Soil Moisture</h4>
@@ -531,16 +499,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSFL Soil Moisture-->
-                        </div>
+                        <!-- </div> -->
                         <!--End of BSF Dashboard Area-1 -->
 
                         <!--Start of BSF Dashboard Area-2 -->
-                        <div class="row" id="bsflDashArea-2" style="display:none;">
+                        <!-- <div class="row" id="bsflDashArea-2" style="display:none;"> -->
                             <!--Start of BSF Temperature-->
-                            <div class="col-xl-6">
-                                <div class="card mb-5">
+                            <!-- <div class="col-xl-6"> -->
+                                <!-- <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSFL - Temperature - 2</h4>
                                     </div>
@@ -558,11 +526,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSF Temperature-->
 
                             <!--Start of BSF Humidity-->
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSFL - Humidity - 2</h4>
@@ -582,10 +550,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--End of BSF Humidity-->
 
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-5">
                                     <div class="card-header align-items-center">
                                         <h4><i class="fas fa-temperature-low"></i> BSFL - pH - 2</h4>
@@ -596,9 +564,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!--End of BSF Dashboard Area-2 -->
-                    </div>
+                    <!-- </div> -->
                     <!--End of Dashboard BSF Larvae-->
                             
                    

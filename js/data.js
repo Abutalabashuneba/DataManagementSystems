@@ -5,16 +5,16 @@ let dataHeader = document.querySelector(".bodyHeader");
 var database = firebase.database();
 var ref = database.ref("Data");   
 
-let allObj = [];
-let allKeys = [];
+var allObj = [];
+var allKeys = [];
 
 var bsfObj;
 var bsflObj;
 var chickenObj;
 
-let type = document.getElementById("dataTitle").textContent;
-let dropdown = document.querySelector("#chickenAreaData");
-let areaSelected = "Area1";
+var type = document.getElementById("dataTitle").textContent;
+var dropdown = document.querySelector("#chickenAreaData");
+var areaSelected = "Area1";
 
 ref.on("value", snap=>{
     var dataObj = snap.val();
@@ -205,7 +205,7 @@ function populateTables(){
                     <td class="id">${x + 1}</td>
                     <td class="searchVar">${datetime}</td>
                     <td>${bsflObj[areaSelected][keys].temperature}</td>
-                    <td>${bsflObj[areaSelected][keys].pH}</td>
+                    <td>${bsflObj[areaSelected][keys].ph}</td>
                     <td>${bsflObj[areaSelected][keys].moisture}</td>
                     <td>
                     <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" title="delete">&#10005;</button></span>
@@ -394,13 +394,13 @@ $("#addBtn").click(function(){
                         onSubmit: function(result){
                             if(result){
                                 let data = {
-                                    pH: parseInt($form.find("#bsflPh").val()),
+                                    ph: parseInt($form.find("#bsflPh").val()),
                                     temperature: parseInt($form.find("#bsflTemp").val()),
                                     moisture: parseInt($form.find("#bsflMois").val()),
                                     timestamp: new Date().getTime()
                                 }
 
-                                if(!isNaN(data.pH) && !isNaN(data.temperature) && !isNaN(data.moisture)){
+                                if(!isNaN(data.ph) && !isNaN(data.temperature) && !isNaN(data.moisture)){
                                     $.showAlert({
                                         title: "Push Status",
                                         body: "Data has been added successfully",
@@ -522,7 +522,7 @@ var remove = function(e){
             textFalse : "No",
             body: 
                 "<b>Temperature:</b> " + bsflObj[areaSelected][deleteIndex].temperature + "<br/>" +
-                "<b>pH:</b> " + bsflObj[areaSelected][deleteIndex].pH+ "<br/>" +
+                "<b>pH:</b> " + bsflObj[areaSelected][deleteIndex].ph+ "<br/>" +
                 "<b>Moisture:</b> " + bsflObj[areaSelected][deleteIndex].moisture,
             onSubmit: function(result){
                 if(result){
@@ -704,7 +704,7 @@ var update = function(e){
             bsflObj[areaSelected][keys].temperature + '>' +
             '<label for="updatebsflTemp" class="CLabel" id="tempLabelUpdateBSFL">(Temperature)</label></div>' +
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control updateBSFLData" name="Humidity" id="updatebsflPh" value=' +
-            bsflObj[areaSelected][keys].pH + '>' +  
+            bsflObj[areaSelected][keys].ph + '>' +  
             '<label for="updatebsflPh" class="CLabel" id="phLabelUpdateBSFL">(pH value)</label></div>' + 
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control updateBSFLData" name="LUX" id="updatebsflMois" value=' +
             bsflObj[areaSelected][keys].moisture + '>' +
@@ -731,7 +731,7 @@ var update = function(e){
                                     body: "Data has been added successfully",
                                 })
                                 let data = {
-                                    pH: parseInt($form.find("#updatebsflPh").val()),
+                                    ph: parseInt($form.find("#updatebsflPh").val()),
                                     temperature: parseInt($form.find("#updatebsflTemp").val()),
                                     moisture: parseInt($form.find("#updatebsflMois").val()),
                                 }

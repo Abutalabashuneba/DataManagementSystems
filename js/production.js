@@ -1,15 +1,15 @@
 //select the table
-let tableHead = document.querySelector(".productionHeader");
-let datalist = document.querySelector(".productionBodyData");
-let dropdown = document.querySelector("#productionArea");
+var tableHead = document.querySelector(".productionHeader");
+var datalist = document.querySelector(".productionBodyData");
+var dropdown = document.querySelector("#productionArea");
 
 var database = firebase.database();
 var productionRef = database.ref("Data/Production"); 
 
-let type = "Chicken";
-let areaSelected = "Area1";
-let productionObj;
-let productionKeys;
+var type = "Chicken";
+var areaSelected = "Area1";
+var productionObj;
+var productionKeys;
 
 productionRef.on("value",snap=>{
     productionObj = snap.val();
