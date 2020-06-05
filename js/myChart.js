@@ -11,1370 +11,1433 @@ function newDateString(days){
     return moment().add(days,"d").format(timeFormat);
 }
 
-var fullDate = new Date();
-var todayDate = fullDate.toLocaleDateString();
-var todayMonth = fullDate.getMonth();
-
-var areaSelected = "Area1";
 var range = $(".tempPage").find("li.page-item.active").children().attr("id");
 
-////////////////////////////////////////////////////
-var myChart;
-var configTemp;
+var type = "Chicken";
+var areaSelected = "Area1";
 var chartType = "line";
-var context = document.getElementById("myChart1").getContext("2d");
-
-var allChickenTempLabel = [];
-var allChickenTempPoint = [];
-
-var labelTempDaily = [];
+var chart1;
+var chart2;
+var chart3;
+var chart4;
+var config1 = {
+    type: "line",
+    data:{
+        datasets:[{
+            type: chartType,
+            label: "Today temperature",
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(201,134,212,0.7)",
+            backgroundColor: "rgba(201,134,212,0.7)",
+            pointHoverBorderColor : "rgba(142,77,185,0.9)",
+        }],
+    },
+    options:{
+        
+        tooltips:{
+            intersect: false,
+            mode: "index"
+        },
+        scales:{
+            xAxes:[{
+                type: "time",
+                distribution: "series",
+                offset : false,
+                ticks:{
+                    autoSkip: true,
+                    autoSkipPadding: 75,
+                },
+                time:{
+                    unit : "minute",
+                },
+            }],
+            yAxes:[{
+                ticks:{
+                    beginAtZero: true,
+                    max : 100,
+                    stepValue: 10
+                },
+                scaleLabel : {
+                    display : true,
+                    labelString : "Temperature"
+                }
+            }]
+        }
+    }
+}
+var config2 = {
+    type: "line",
+    data:{
+        datasets:[{
+            type: chartType,
+            label: "Today humidity",
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(201,134,212,0.7)",
+            backgroundColor: "rgba(201,134,212,0.7)",
+            pointHoverBorderColor : "rgba(142,77,185,0.9)",
+        }],
+    },
+    options:{
+        
+        tooltips:{
+            intersect: false,
+            mode: "index"
+        },
+        scales:{
+            xAxes:[{
+                type: "time",
+                distribution: "series",
+                offset : false,
+                ticks:{
+                    autoSkip: true,
+                    autoSkipPadding: 75,
+                },
+                time:{
+                    unit : "minute",
+                },
+            }],
+            yAxes:[{
+                ticks:{
+                    beginAtZero: true,
+                    max : 100,
+                    stepValue: 10
+                },
+                scaleLabel : {
+                    display : true,
+                    labelString : "Humidity"
+                }
+            }]
+        }
+    }
+}
+var config3 = {
+    type: "line",
+    data:{
+        datasets:[{
+            type: chartType,
+            label: "Today moisture",
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(201,134,212,0.7)",
+            backgroundColor: "rgba(201,134,212,0.7)",
+            pointHoverBorderColor : "rgba(142,77,185,0.9)",
+        }],
+    },
+    options:{
+        
+        tooltips:{
+            intersect: false,
+            mode: "index"
+        },
+        scales:{
+            xAxes:[{
+                type: "time",
+                distribution: "series",
+                offset : false,
+                ticks:{
+                    autoSkip: true,
+                    autoSkipPadding: 75,
+                },
+                time:{
+                    unit : "minute",
+                },
+            }],
+            yAxes:[{
+                ticks:{
+                    beginAtZero: true,
+                    max : 100,
+                    stepValue: 10
+                },
+                scaleLabel : {
+                    display : true,
+                    labelString : "Moisture"
+                }
+            }]
+        }
+    }
+}
+var config4 = {
+    type: "line",
+    data:{
+        datasets:[{
+            type: chartType,
+            label: "Today pH",
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(201,134,212,0.7)",
+            backgroundColor: "rgba(201,134,212,0.7)",
+            pointHoverBorderColor : "rgba(142,77,185,0.9)",
+        }],
+    },
+    options:{
+        
+        tooltips:{
+            intersect: false,
+            mode: "index"
+        },
+        scales:{
+            xAxes:[{
+                type: "time",
+                distribution: "series",
+                offset : false,
+                ticks:{
+                    autoSkip: true,
+                    autoSkipPadding: 75,
+                },
+                time:{
+                    unit : "minute",
+                },
+            }],
+            yAxes:[{
+                ticks:{
+                    beginAtZero: true,
+                    max : 100,
+                    stepValue: 10
+                },
+                scaleLabel : {
+                    display : true,
+                    labelString : "pH"
+                }
+            }]
+        }
+    }
+}
+var configMix = {
+    type: "line",
+    data:{
+        // labels: labelTempDaily,
+        datasets:[{
+            label: "Chicken Temperature",
+            // data: pointTempDaily,
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(201,134,212,0.7)",
+            backgroundColor: "rgba(201,134,212,0.7)",
+            pointHoverBorderColor : "rgba(142,77,185,0.9)",
+        },{
+            label: "Chicken Humidity",
+            // data: pointHumidityDaily,
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(160, 227, 226, 0.7)",
+            backgroundColor: "rgba(160, 227, 226, 0.7)",
+            pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+        },{
+            label: "Chicken Moisture",
+            // data: pointMoistDaily,
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(207, 89, 89, 0.7)",
+            backgroundColor: "rgba(207, 89, 89, 0.7)",
+            pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+        },
+        {
+            label: "Chicken ph",
+            pointRadius: 0,
+            fill: false,
+            lineTension: 0.5,
+            borderWidth: 2,
+            borderColor: "rgba(207, 89, 89, 0.7)",
+            backgroundColor: "rgba(207, 89, 89, 0.7)",
+            pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+        }]
+    },
+    options:{
+        tooltips:{
+            intersect: false,
+            mode: "index"
+        },
+        scales:{
+            xAxes:[{
+                type: "time",
+                distribution: "series",
+                offset : false,
+                ticks:{
+                    autoSkip: true,
+                    autoSkipPadding: 75,
+                },
+                time:{
+                    unit : "minute",
+                },
+            }],
+        }
+    }
+}
+var labelDaily = [];
+var labelWeekly = [];
+var labelMonthly = [];
+var labelAll = [];
 var pointTempDaily = [];
-
-var labelTempWeekly = [];
 var pointTempWeekly = [];
-
-var labelTempMonthly = [];
 var pointTempMonthly = [];
-
-var labelTempLifetime = [];
-var pointTempLifetime = [];
-
-////////////////////////////////////////////////////
-var myChart2;
-var configHum;
-var chartTypeHum = "line";
-var context2 = document.getElementById("myChart2").getContext("2d");
-
-var allChickenHumLabel = [];
-var allChickenHumPoint = [];
-
-var labelHumidityDaily = [];
+var pointTempAll = [];
 var pointHumidityDaily = [];
-
-var labelHumidityWeekly = [];
 var pointHumidityWeekly = [];
-
-var labelHumidityMonthly = [];
 var pointHumidityMonthly = [];
-
-var labelHumidityLifetime = [];
-var pointHumidityLifetime = [];
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
-var myChart3;
-var configMoist;
-var chartTypeMoist = "line";
+var pointHumidityAll = [];
+var pointMoistureDaily = [];
+var pointMoistureWeekly = [];
+var pointMoistureMonthly = [];
+var pointMoistureAll = [];
+var pointpHDaily = [];
+var pointpHWeekly = [];
+var pointpHMonthly = [];
+var pointpHAll = [];
+//
+var labelBSFDaily = [];
+var labelBSFWeekly = [];
+var labelBSFMonthly = [];
+var labelBSFAll = [];
+var pointTempBSFDaily = [];
+var pointTempBSFWeekly = [];
+var pointTempBSFMonthly = [];
+var pointTempBSFAll = [];
+var pointHumidityBSFDaily = [];
+var pointHumidityBSFWeekly = [];
+var pointHumidityBSFMonthly = [];
+var pointHumidityBSFAll = [];
+var pointLightBSFDaily = [];
+var pointLightBSFWeekly = [];
+var pointLightBSFMonthly = [];
+var pointLightBSFAll = [];
+//
+var labelBSFLDaily = [];
+var labelBSFLWeekly = [];
+var labelBSFLMonthly = [];
+var labelBSFLAll = [];
+var pointTempBSFLDaily = [];
+var pointTempBSFLWeekly = [];
+var pointTempBSFLMonthly = [];
+var pointTempBSFLAll = [];
+var pointMoistureBSFLDaily = [];
+var pointMoistureBSFLWeekly = [];
+var pointMoistureBSFLMonthly = [];
+var pointMoistureBSFLAll = [];
+var pointpHBSFLDaily = [];
+var pointpHBSFLWeekly = [];
+var pointpHBSFLMonthly = [];
+var pointpHBSFLAll = [];
+//
+var areaDrop = document.querySelector(".areaDropdown");
+var context = document.getElementById("myChart1").getContext("2d");
+var context2 = document.getElementById("myChart2").getContext("2d");
 var context3 = document.getElementById("myChart3").getContext("2d");
-
-var allChickenMoistLabel = [];
-var allChickenMoistPoint = [];
-
-var labelMoistDaily = [];
-var pointMoistDaily = [];
-
-var labelMoistWeekly = [];
-var pointMoistWeekly = [];
-
-var labelMoistMonthly = [];
-var pointMoistMonthly = [];
-
-var labelMoistLifetime = [];
-var pointMoistLifetime = [];
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
-var bsfChart1;
-var bsfConfigTemp;
-var bsfChartType1 = "line";
-var bsfContext1 = document.getElementById("bsfChart1").getContext("2d");
-
-var allBSFTempLabel = [];
-var allBSFTempPoint = [];
-
-var bsfTempDaily = [];
-var bsfTempPointDaily = [];
-
-var bsfTempWeekly = [];
-var bsfTempPointWeekly = [];
-
-var bsfTempMonthly = [];
-var bsfTempPointMonthly = [];
-
-var bsfTempLifetime = [];
-var bsfTempPointLifetime = [];
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
-var bsfChart2;
-var bsfConfigHum;
-var bsfChartType2 = "line";
-var bsfContext2 = document.getElementById("bsfChart2").getContext("2d");
-
-var allBSFHumLabel = [];
-var allBSFHumPoint = [];
-
-var bsfHumDaily = [];
-var bsfHumPointDaily = [];
-
-var bsfHumWeekly = [];
-var bsfHumPointWeekly = [];
-
-var bsfHumMonthly = [];
-var bsfHumPointMonthly = [];
-
-var bsfHumLifetime = [];
-var bsfHumPointLifetime = [];
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
-var bsfChart3;
-var bsfConfigLight;
-var bsfChartType3 = "line";
-var bsfContext3 = document.getElementById("bsfChart3").getContext("2d");
-
-var allBSFLightLabel = [];
-var allBSFLightPoint = [];
-
-var bsfLightDaily = [];
-var bsfLightPointDaily = [];
-
-var bsfLightWeekly = [];
-var bsfLightPointWeekly = [];
-
-var bsfLightMonthly = [];
-var bsfLightPointMonthly = [];
-
-var bsfLightLifetime = [];
-var bsfLightPointLifetime = [];
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
-var bsflChart1;
-var bsflConfigTemp;
-var bsflChartType1 = "line";
-var bsflContext1 = document.getElementById("bsflChart1").getContext("2d");
-
-var allBSFLTempLabel = []
-var allBSFLTempPoint = []
-
-var bsflTempDaily = [];
-var bsflTempPointDaily = [];
-
-var bsflTempWeekly = [];
-var bsflTempPointWeekly = [];
-
-var bsflTempMonthly = [];
-var bsflTempPointMonthly = [];
-
-var bsflTempLifetime = [];
-var bsflTempPointLifetime = [];
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
-var bsflChart2;
-var bsflConfigpH;
-var bsflChartType2 = "line";
-var bsflContext2 = document.getElementById("bsflChart2").getContext("2d");
-
-var allBSFLpHLabel = []
-var allBSFLoHPoint = []
-
-var bsflpHDaily = [];
-var bsflpHPointDaily = [];
-
-var bsflpHWeekly = [];
-var bsflpHPointWeekly = [];
-
-var bsflpHMonthly = [];
-var bsflpHPointMonthly = [];
-
-var bsflpHLifetime = [];
-var bsflpHPointLifetime = [];
-////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////
-var bsflChart3;
-var bsflConfigMoist;
-var bsflChartType3 = "line";
-var bsflContext3 = document.getElementById("bsflChart3").getContext("2d");
-
-var allBSFLMoistLabel = []
-var allBSFLMoistPoint = []
-
-var bsflMoistDaily = [];
-var bsflMoistPointDaily = [];
-
-var bsflMoistWeekly = [];
-var bsflMoistPointWeekly = [];
-
-var bsflMoistMonthly = [];
-var bsflMoistPointMonthly = [];
-
-var bsflMoistLifetime = [];
-var bsflMoistPointLifetime = [];
-////////////////////////////////////////////////////
-var mixChart;
-var mixContext = document.getElementById("mixChart1").getContext("2d");
-
-var dataObj;
-var keys;
-
+var context4 = document.getElementById("myChart4").getContext("2d");
 var bsfObj;
-var bsflObj;
-var chickenObj;
-var productionObj;
-
 var bsfKeys;
+var bsflObj;
 var bsflKeys;
+var chickenObj;
 var chickenKeys;
-var productionKeys
+var productionObj;
+var productionKeys;
 
-var allObj = [];
-var allKeys = [];
+let d = new Date();
+d.setHours(0,0,0,0);
+let dayStart = +d;
+d.setHours(23,59,59,999);
+let dayEnd = +d;
+
+let week = newDate(-6);
+week.setHours(0,0,0,0);
+let weekStart = +week;
+let weekEnd = new Date().getTime();
+
+let month = newDate(-29);
+month.setHours(0,0,0,0);
+let monthStart = +month;
+let monthEnd = new Date().getTime();
 
 ref.once("value", snap=>{
-    dataObj = snap.val();
-    keys = Object.keys(dataObj);
- 
-    //push object into an array
+    var dataObj = snap.val();
+    var keys = Object.keys(dataObj);
+
     for(var x = 0; x < keys.length; ++x){
         var k = keys[x];
+        
+        if(k == "BSF"){
+            bsfObj = dataObj[k];
+        }
 
-        allObj.push(dataObj[k]);
-        allKeys.push(Object.keys(allObj[x]));
+        else if(k == "BSFL"){
+            bsflObj = dataObj[k];
+        }
+
+        else if(k == "Chicken"){
+            chickenObj = dataObj[k];
+        }
+
+        else if(k == "Production"){
+            productionObj = dataObj[k];
+        }
     }
 
-    bsfObj = allObj[0];
     bsfKeys = Object.keys(bsfObj);
-    bsfData = [];
-
-    bsflObj = allObj[1];
     bsflKeys = Object.keys(bsflObj);
-    bsflData = [];
-    
-    chickenObj = allObj[2];
     chickenKeys = Object.keys(chickenObj);
-    chickenData = [];
-    
-    // console.log(chickenObj["Area2"]["-M8JifaKN-9uUN-q7ydx"].humidity);
-    // console.log(Object.keys(chickenObj["Area2"])); Array of key
-    // try to get array of area 2 humidity....
-    for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
-        // console.log(Object.keys(chickenObj["Area2"])[x]); 
-        // console.log(chickenObj["Area2"][Object.keys(chickenObj["Area2"])[x]].temperature);
-    }
-    
-
-    productionObj = allObj[3];
     productionKeys = Object.keys(productionObj);
-    productionData = [];
 
-    for(var x = 0; x < bsfKeys.length; ++x){
-        var keys = Object.keys(bsfObj[bsfKeys[x]]);
-        var tempArr = [];
-        for (var y = 0; y < keys.length; ++y){
-            tempArr.push(bsfObj[bsfKeys[x]][keys[y]]);
+    drawCharts();
+})
+
+function drawCharts(){
+    labelDaily = [];
+    labelWeekly = [];
+    labelMonthly = [];
+    labelAll = [];
+    pointTempDaily = [];
+    pointTempWeekly = [];
+    pointTempMonthly = [];
+    pointTempAll = [];
+    pointHumidityDaily = [];
+    pointHumidityWeekly = [];
+    pointHumidityMonthly = [];
+    pointHumidityAll = [];
+    pointMoistureDaily = [];
+    pointMoistureWeekly = [];
+    pointMoistureMonthly = [];
+    pointMoistureAll = [];
+    pointpHDaily = [];
+    pointpHWeekly = [];
+    pointpHMonthly = [];
+    pointpHAll = [];
+    //
+    labelBSFDaily = [];
+    labelBSFWeekly = [];
+    labelBSFMonthly = [];
+    labelBSFAll = [];
+    pointTempBSFDaily = [];
+    pointTempBSFWeekly = [];
+    pointTempBSFMonthly = [];
+    pointTempBSFAll = [];
+    pointHumidityBSFDaily = [];
+    pointHumidityBSFWeekly = [];
+    pointHumidityBSFMonthly = [];
+    pointHumidityBSFAll = [];
+    pointLightBSFDaily = [];
+    pointLightBSFWeekly = [];
+    pointLightBSFMonthly = [];
+    pointLightBSFAll = [];
+    //
+    labelBSFLDaily = [];
+    labelBSFLWeekly = [];
+    labelBSFLMonthly = [];
+    labelBSFLAll = [];
+    pointTempBSFLDaily = [];
+    pointTempBSFLWeekly = [];
+    pointTempBSFLMonthly = [];
+    pointTempBSFLAll = [];
+    pointMoistureBSFLDaily = [];
+    pointMoistureBSFLWeekly = [];
+    pointMoistureBSFLAll = [];
+    pointMoistureBSFLMonthly = [];
+    pointpHBSFLWeekly = [];
+    pointpHBSFLDaily = [];
+    pointpHBSFLAll = [];
+    pointpHBSFLMonthly = [];
+    //
+
+    if(chickenObj[areaSelected] != null){
+        for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
+        var k = Object.keys(chickenObj[areaSelected])[x];
+
+        if(chickenObj[areaSelected][k].timestamp > dayStart && chickenObj[areaSelected][k].timestamp < dayEnd){
+            labelDaily.push(chickenObj[areaSelected][k].timestamp);
+            pointTempDaily.push(chickenObj[areaSelected][k].temperature);
+            pointHumidityDaily.push(chickenObj[areaSelected][k].humidity);
+            pointMoistureDaily.push(chickenObj[areaSelected][k].moisture);
+            pointpHDaily.push(chickenObj[areaSelected][k].ph);
         }
-        // console.log("Break");
-        bsfData.push(tempArr);
+
+        if(chickenObj[areaSelected][k].timestamp > weekStart && chickenObj[areaSelected][k].timestamp < weekEnd){
+            labelWeekly.push(chickenObj[areaSelected][k].timestamp);
+            pointTempWeekly.push(chickenObj[areaSelected][k].temperature);
+            pointHumidityWeekly.push(chickenObj[areaSelected][k].humidity);
+            pointMoistureWeekly.push(chickenObj[areaSelected][k].moisture);
+            pointpHWeekly.push(chickenObj[areaSelected][k].ph);
+        }
+
+        if(chickenObj[areaSelected][k].timestamp > monthStart && chickenObj[areaSelected][k].timestamp < monthEnd){
+            labelMonthly.push(chickenObj[areaSelected][k].timestamp);
+            pointTempMonthly.push(chickenObj[areaSelected][k].temperature);
+            pointHumidityMonthly.push(chickenObj[areaSelected][k].humidity);
+            pointMoistureMonthly.push(chickenObj[areaSelected][k].moisture);
+            pointpHMonthly.push(chickenObj[areaSelected][k].ph);
+        }
+        
+        labelAll.push(chickenObj[areaSelected][k].timestamp);
+        pointTempAll.push(chickenObj[areaSelected][k].temperature);
+        pointHumidityAll.push(chickenObj[areaSelected][k].humidity);
+        pointMoistureAll.push(chickenObj[areaSelected][k].moisture);
+        pointpHAll.push(chickenObj[areaSelected][k].ph);
+    }
     }
 
-    for(var x = 0; x < bsflKeys.length; ++x){
-        var keys = Object.keys(bsflObj[bsflKeys[x]]);
-        var tempArr = [];
-        for (var y = 0; y < keys.length; ++y){
-            tempArr.push(bsflObj[bsflKeys[x]][keys[y]]);
+    if(bsfObj[areaSelected] != null){
+        for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
+            var k = Object.keys(bsfObj[areaSelected])[x];
+    
+            if(bsfObj[areaSelected][k].timestamp > dayStart && bsfObj[areaSelected][k].timestamp < dayEnd){
+                labelBSFDaily.push(bsfObj[areaSelected][k].timestamp);
+                pointTempBSFDaily.push(bsfObj[areaSelected][k].temperature);
+                pointHumidityBSFDaily.push(bsfObj[areaSelected][k].humidity);
+                pointLightBSFDaily.push(bsfObj[areaSelected][k].light);
+            }
+    
+            if(bsfObj[areaSelected][k].timestamp > weekStart && bsfObj[areaSelected][k].timestamp < weekEnd){
+                labelBSFWeekly.push(bsfObj[areaSelected][k].timestamp);
+                pointTempBSFWeekly.push(bsfObj[areaSelected][k].temperature);
+                pointHumidityBSFWeekly.push(bsfObj[areaSelected][k].humidity);
+                pointLightBSFWeekly.push(bsfObj[areaSelected][k].light);
+            }
+    
+            if(bsfObj[areaSelected][k].timestamp > monthStart && bsfObj[areaSelected][k].timestamp < monthEnd){
+                labelBSFMonthly.push(bsfObj[areaSelected][k].timestamp);
+                pointTempBSFMonthly.push(bsfObj[areaSelected][k].temperature);
+                pointHumidityBSFMonthly.push(bsfObj[areaSelected][k].humidity);
+                pointLightBSFMonthly.push(bsfObj[areaSelected][k].light);
+            }
+    
+            labelBSFAll.push(bsfObj[areaSelected][k].timestamp);
+            pointTempBSFAll.push(bsfObj[areaSelected][k].temperature);
+            pointHumidityBSFAll.push(bsfObj[areaSelected][k].humidity);
+            pointLightBSFAll.push(bsfObj[areaSelected][k].light);
         }
-        bsflData.push(tempArr);
     }
 
-    //dynamically generate options list
-    var chickenArea = document.querySelector("#areaChicken");
+    if(bsflObj[areaSelected] != null){
+        for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
+            var k = Object.keys(bsflObj[areaSelected])[x];
+    
+            if(bsflObj[areaSelected][k].timestamp > dayStart && bsflObj[areaSelected][k].timestamp < dayEnd){
+                labelBSFLDaily.push(bsflObj[areaSelected][k].timestamp);
+                pointTempBSFLDaily.push(bsflObj[areaSelected][k].temperature);
+                pointMoistureBSFLDaily.push(bsflObj[areaSelected][k].moisture);
+                pointpHBSFLDaily.push(bsflObj[areaSelected][k].ph);
+            }
+    
+            if(bsflObj[areaSelected][k].timestamp > weekStart && bsflObj[areaSelected][k].timestamp < weekEnd){
+                labelBSFLWeekly.push(bsflObj[areaSelected][k].timestamp);
+                pointTempBSFLWeekly.push(bsflObj[areaSelected][k].temperature);
+                pointMoistureBSFLWeekly.push(bsflObj[areaSelected][k].moisture);
+                pointpHBSFLWeekly.push(bsflObj[areaSelected][k].ph);
+            }
+    
+            if(bsflObj[areaSelected][k].timestamp > monthStart && bsflObj[areaSelected][k].timestamp < monthEnd){
+                labelBSFLMonthly.push(bsflObj[areaSelected][k].timestamp);
+                pointTempBSFLMonthly.push(bsflObj[areaSelected][k].temperature);
+                pointMoistureBSFLMonthly.push(bsflObj[areaSelected][k].moisture);
+                pointpHBSFLMonthly.push(bsflObj[areaSelected][k].ph);
+            }
+    
+            labelBSFLAll.push(bsflObj[areaSelected][k].timestamp);
+            pointTempBSFLAll.push(bsflObj[areaSelected][k].temperature);
+            pointMoistureBSFLAll.push(bsflObj[areaSelected][k].moisture);
+            pointpHBSFLAll.push(bsflObj[areaSelected][k].ph);
+        }
+    }
 
     let html = "";
-
-    for(var x = 0; x < chickenKeys.length; ++x){
-        var keys = Object.keys(chickenObj[chickenKeys[x]]);
-        var tempArr = [];
-        for (var y = 0; y < keys.length; ++y){
-            tempArr.push(chickenObj[chickenKeys[x]][keys[y]]);
-        }
-        chickenData.push(tempArr);
-
-        let options = `
-            <option value="Area${x + 1}" >Area ${x + 1}</option>
-        `;
-
-        html += options;
-    }
-
-    chickenArea.innerHTML = html;
-
-    for(var x = 0; x < productionKeys.length; ++x){
-        var keys = Object.keys(productionObj[productionKeys[x]]);
-        var tempArr = [];
-        for (var y = 0; y < keys.length; ++y){
-            tempArr.push(productionObj[productionKeys[x]][keys[y]]);
-        }
-        productionData.push(tempArr);
-    }
-
-    for(var x = 0; x < chickenData.length; ++x){
-        var tempTempPoint = [];
-        var tempTempLabel = [];
-        var tempHumPoint = [];
-        var tempHumLabel = [];
-        var tempMoistPoint = [];
-        var tempMoistLabel = [];
-        for(var y = 0; y < chickenData[x].length; y++){
-            tempTempLabel.push(chickenData[x][y].timestamp);
-            tempTempPoint.push(chickenData[x][y].temperature);
-            tempHumLabel.push(chickenData[x][y].timestamp);
-            tempHumPoint.push(chickenData[x][y].humidity);
-            tempMoistLabel.push(chickenData[x][y].timestamp);
-            tempMoistPoint.push(chickenData[x][y].moisture);
-        }
-    
-        allChickenTempLabel.push(tempTempLabel);
-        allChickenTempPoint.push(tempTempPoint);
-        allChickenHumLabel.push(tempHumLabel);
-        allChickenHumPoint.push(tempHumPoint);
-        allChickenMoistLabel.push(tempMoistLabel);
-        allChickenMoistPoint.push(tempMoistPoint);
-    }
-
-    for(var x = 0; x < bsfData.length; ++x){
-        var tempTempPoint = [];
-        var tempTempLabel = [];
-        var tempHumPoint = [];
-        var tempHumLabel = [];
-        var tempLightPoint = [];
-        var tempLightLabel = [];
-        for(var y = 0; y < bsfData[x].length; y++){
-            tempTempLabel.push(bsfData[x][y].timestamp);
-            tempTempPoint.push(bsfData[x][y].temperature);
-            tempHumLabel.push(bsfData[x][y].timestamp);
-            tempHumPoint.push(bsfData[x][y].humidity);
-            tempLightLabel.push(bsfData[x][y].timestamp);
-            tempLightPoint.push(bsfData[x][y].light);
-        }
-    
-        allBSFTempLabel.push(tempTempLabel);
-        allBSFTempPoint.push(tempTempPoint);
-        allBSFHumLabel.push(tempHumLabel);
-        allBSFHumPoint.push(tempHumPoint);
-        allBSFLightLabel.push(tempLightLabel);
-        allBSFLightPoint.push(tempLightPoint);
-    }
-
-    for(var x = 0; x < bsflData.length; ++x){
-        var tempTempPoint = [];
-        var tempTempLabel = [];
-        var temppHPoint = [];
-        var temppHLabel = [];
-        var tempMoistPoint = [];
-        var tempMoistLabel = [];
-        for(var y = 0; y < bsflData[x].length; y++){
-            tempTempLabel.push(bsflData[x][y].timestamp);
-            tempTempPoint.push(bsflData[x][y].temperature);
-            temppHLabel.push(bsflData[x][y].timestamp);
-            temppHPoint.push(bsflData[x][y].pH);
-            tempMoistLabel.push(bsflData[x][y].timestamp);
-            tempMoistPoint.push(bsflData[x][y].moisture);
-        }
-    
-        allBSFLTempLabel.push(tempTempLabel);
-        allBSFLTempPoint.push(tempTempPoint);
-        allBSFLpHLabel.push(temppHLabel);
-        allBSFLoHPoint.push(temppHPoint);
-        allBSFLMoistLabel.push(tempMoistLabel);
-        allBSFLMoistPoint.push(tempMoistPoint);
-    }
-
-    for(var x = 0; x < allChickenTempPoint.length; ++x){
-        for(var y = 0; y < allChickenTempPoint[x].length; ++y){
-            var d = new Date(allChickenTempLabel[x][y]);
-            var date = d.toLocaleDateString();
-            var month = d.getMonth();
-            if(x == 0){ //to be changed
-                if(date == todayDate){
-                    labelTempDaily.push(allChickenTempLabel[x][y]);
-                    pointTempDaily.push(allChickenTempPoint[x][y]);
-                    labelHumidityDaily.push(allChickenHumLabel[x][y]);
-                    pointHumidityDaily.push(allChickenHumPoint[x][y]);
-                    labelMoistDaily.push(allChickenMoistLabel[x][y]);
-                    pointMoistDaily.push(allChickenMoistPoint[x][y]);
-                }
-
-                if(d >= newDate(-7) && d <= newDate(0)){
-                    labelTempWeekly.push(allChickenTempLabel[x][y]);
-                    pointTempWeekly.push(allChickenTempPoint[x][y]);
-                    labelHumidityWeekly.push(allChickenHumLabel[x][y]);
-                    pointHumidityWeekly.push(allChickenHumPoint[x][y]);
-                    labelMoistWeekly.push(allChickenMoistLabel[x][y]);
-                    pointMoistWeekly.push(allChickenMoistPoint[x][y]);
-                }
-
-                if(month == todayMonth){
-                    labelTempMonthly.push(allChickenTempLabel[x][y]);
-                    pointTempMonthly.push(allChickenTempPoint[x][y]);
-                    labelHumidityMonthly.push(allChickenHumLabel[x][y]);
-                    pointHumidityMonthly.push(allChickenHumPoint[x][y]);
-                    labelMoistMonthly.push(allChickenMoistLabel[x][y]);
-                    pointMoistMonthly.push(allChickenMoistPoint[x][y]);
-                }
-
-                labelTempLifetime.push(allChickenTempLabel[x][y]);
-                pointTempLifetime.push(allChickenTempPoint[x][y]);
-                labelHumidityLifetime.push(allChickenHumLabel[x][y]);
-                pointHumidityLifetime.push(allChickenHumPoint[x][y]);
-                labelMoistLifetime.push(allChickenMoistLabel[x][y]);
-                pointMoistLifetime.push(allChickenMoistPoint[x][y]);
+    if(type == "Chicken"){
+        for(var x = 0; x < chickenKeys.length; ++x){
+            let optionslist = "";
+            if(areaSelected == `${chickenKeys[x]}`){
+                optionslist = `
+                    <option value="${chickenKeys[x]}" selected>${chickenKeys[x]}</option>
+                `;
             }
-        }
-    }
-
-    for(var x = 0; x < allBSFTempPoint.length; ++x){
-        for(var y = 0; y < allBSFTempPoint[x].length; ++y){
-            var d = new Date(allBSFTempLabel[x][y]);
-            var date = d.toLocaleDateString();
-            var month = d.getMonth();
-            if(x == 0){ //to be changed
-                if(date == todayDate){
-                    bsfTempDaily.push(allBSFTempLabel[x][y]);
-                    bsfTempPointDaily.push(allBSFTempPoint[x][y]);
-                    bsfHumDaily.push(allBSFHumLabel[x][y]);
-                    bsfHumPointDaily.push(allBSFHumPoint[x][y]);
-                    bsfLightDaily.push(allBSFLightLabel[x][y]);
-                    bsfLightPointDaily.push(allBSFLightPoint[x][y]);
-                }
-
-                if(d >= newDate(-7) && d <= newDate(0)){
-                    bsfTempWeekly.push(allBSFTempLabel[x][y]);
-                    bsfTempPointWeekly.push(allBSFTempPoint[x][y]);
-                    bsfHumWeekly.push(allBSFHumLabel[x][y]);
-                    bsfHumPointWeekly.push(allBSFHumPoint[x][y]);
-                    bsfLightWeekly.push(allBSFLightLabel[x][y]);
-                    bsfLightPointWeekly.push(allBSFLightPoint[x][y]);
-                }
-
-                if(month == todayMonth){
-                    bsfTempMonthly.push(allBSFTempLabel[x][y]);
-                    bsfTempPointMonthly.push(allBSFTempPoint[x][y]);
-                    bsfHumMonthly.push(allBSFHumLabel[x][y]);
-                    bsfHumPointMonthly.push(allBSFHumPoint[x][y]);
-                    bsfLightMonthly.push(allBSFLightLabel[x][y]);
-                    bsfLightPointMonthly.push(allBSFLightPoint[x][y]);
-                }
-
-                bsfTempLifetime.push(allBSFTempLabel[x][y]);
-                bsfTempPointLifetime.push(allBSFTempPoint[x][y]);
-                bsfHumLifetime.push(allBSFHumLabel[x][y]);
-                bsfHumPointLifetime.push(allBSFHumPoint[x][y]);
-                bsfLightLifetime.push(allBSFLightLabel[x][y]);
-                bsfLightPointLifetime.push(allBSFLightPoint[x][y]);
+    
+            else{
+                optionslist = `
+                    <option value="${chickenKeys[x]}" >${chickenKeys[x]}</option>
+                `;
             }
+            html += optionslist;
         }
+        areaDrop.innerHTML = html;
     }
 
-    for(var x = 0; x < allBSFLTempPoint.length; ++x){
-        for(var y = 0; y < allBSFLTempPoint[x].length; ++y){
-            var d = new Date(allBSFLTempLabel[x][y]);
-            var date = d.toLocaleDateString();
-            var month = d.getMonth();
-            if(x == 0){ //to be changed
-                if(date == todayDate){
-                    bsflTempDaily.push(allBSFLTempLabel[x][y]);
-                    bsflTempPointDaily.push(allBSFLTempPoint[x][y]);
-                    bsflpHDaily.push(allBSFLpHLabel[x][y]);
-                    bsflpHPointDaily.push(allBSFLoHPoint[x][y]);
-                    bsflMoistDaily.push(allBSFLMoistLabel[x][y]);
-                    bsflMoistPointDaily.push(allBSFLMoistPoint[x][y]);
-                }
-
-                if(d >= newDate(-7) && d <= newDate(0)){
-                    bsflTempWeekly.push(allBSFLTempLabel[x][y]);
-                    bsflTempPointWeekly.push(allBSFLTempPoint[x][y]);
-                    bsflpHWeekly.push(allBSFLpHLabel[x][y]);
-                    bsflpHPointWeekly.push(allBSFLoHPoint[x][y]);
-                    bsflMoistWeekly.push(allBSFLMoistLabel[x][y]);
-                    bsflMoistPointWeekly.push(allBSFLMoistPoint[x][y]);
-                }
-
-                if(month == todayMonth){
-                    bsflTempMonthly.push(allBSFLTempLabel[x][y]);
-                    bsflTempPointMonthly.push(allBSFLTempPoint[x][y]);
-                    bsflpHMonthly.push(allBSFLpHLabel[x][y]);
-                    bsflpHPointMonthly.push(allBSFLoHPoint[x][y]);
-                    bsflMoistMonthly.push(allBSFLMoistLabel[x][y]);
-                    bsflMoistPointMonthly.push(allBSFLMoistPoint[x][y]);
-                }
-
-                bsflTempLifetime.push(allBSFLTempLabel[x][y]);
-                bsflTempPointLifetime.push(allBSFLTempPoint[x][y]);
-                bsflpHLifetime.push(allBSFLpHLabel[x][y]);
-                bsflpHPointLifetime.push(allBSFLoHPoint[x][y]);
-                bsflMoistLifetime.push(allBSFLMoistLabel[x][y]);
-                bsflMoistPointLifetime.push(allBSFLMoistPoint[x][y]);
+    else if(type == "BSF"){
+        for(var x = 0; x < bsfKeys.length; ++x){
+            let optionslist = "";
+            if(areaSelected == `${bsfKeys[x]}`){
+                optionslist = `
+                    <option value="${bsfKeys[x]}" selected>${bsfKeys[x]}</option>
+                `;
             }
+
+            else{
+                optionslist = `
+                    <option value="${bsfKeys[x]}" >${bsfKeys[x]}</option>
+                `;
+            }
+            html += optionslist;
         }
+
+        areaDrop.innerHTML = html;
     }
 
-    configMix = {
-        type: "line",
-        data:{
-            labels: labelTempDaily,
-            datasets:[{
+    else if(type == "BSFL"){
+        for(var x = 0; x < bsflKeys.length; ++x){
+            let optionslist = "";
+            if(areaSelected == `${bsflKeys[x]}`){
+                optionslist = `
+                    <option value="${bsflKeys[x]}" selected>${bsflKeys[x]}</option>
+                `;
+            }
+
+            else{
+                optionslist = `
+                    <option value="${bsflKeys[x]}" >${bsflKeys[x]}</option>
+                `;
+            }
+            html += optionslist;
+        }
+
+        areaDrop.innerHTML = html;
+    }
+
+    if(!chart1 && !chart2 && !chart3 && !chart4){
+        config1.data.labels = labelDaily;
+        config1.data.datasets[0].data = pointTempDaily;
+        chart1 = new Chart(context,config1);
+
+        config2.data.labels = labelDaily;
+        config2.data.datasets[0].data = pointHumidityDaily;
+        chart2 = new Chart(context2,config2);
+
+        config3.data.labels = labelDaily;
+        config3.data.datasets[0].data = pointMoistureDaily;
+        chart3 = new Chart(context3,config3);
+
+        config4.data.labels = labelDaily;
+        config4.data.datasets[0].data = pointpHDaily;
+        chart4 = new Chart(context4,config4);
+    }
+
+    else{
+        if(type == "Chicken"){
+            config1.data.datasets.splice(1,config1.data.datasets.length);
+            config2.data.datasets.splice(1,config2.data.datasets.length);
+            config3.data.datasets.splice(1,config3.data.datasets.length);
+            config4.data.datasets.splice(1,config4.data.datasets.length);
+
+            config1.data.labels = labelDaily;
+            config1.data.datasets[0].data = pointTempDaily;
+            config1.options.scales.xAxes[0].time.unit = "minute";
+
+            config2.data.labels = labelDaily;
+            config2.data.datasets[0].data = pointHumidityDaily;
+            config2.options.scales.xAxes[0].time.unit = "minute";
+
+            config3.data.labels = labelDaily;
+            config3.data.datasets[0].data = pointMoistureDaily;
+            config3.options.scales.xAxes[0].time.unit = "minute";
+
+            config4.data.labels = labelDaily;
+            config4.data.datasets[0].data = pointpHDaily;
+            config4.options.scales.xAxes[0].time.unit = "minute";
+        }
+
+        else if(type == "BSF"){
+            config1.data.datasets.splice(1,config1.data.datasets.length);
+            config2.data.datasets.splice(1,config2.data.datasets.length);
+            config3.data.datasets.splice(1,config3.data.datasets.length);
+            
+            config1.data.labels = labelBSFDaily;
+            config1.data.datasets[0].data = pointTempBSFDaily;
+            config1.options.scales.xAxes[0].time.unit = "minute";
+
+            config2.data.labels = labelBSFDaily;
+            config2.data.datasets[0].data = pointHumidityBSFDaily;
+            config2.options.scales.xAxes[0].time.unit = "minute";
+
+            config3.data.labels = labelBSFDaily;
+            config3.data.datasets[0].data = pointLightBSFDaily;
+            config3.options.scales.xAxes[0].time.unit = "minute";
+        }
+
+        else if(type == "BSFL"){
+            config1.data.datasets.splice(1,config1.data.datasets.length);
+            config2.data.datasets.splice(1,config2.data.datasets.length);
+            config3.data.datasets.splice(1,config3.data.datasets.length);
+
+            config1.data.labels = labelBSFLDaily;
+            config1.data.datasets[0].data = pointTempBSFLDaily;
+            config1.options.scales.xAxes[0].time.unit = "minute";
+
+            config2.data.labels = labelBSFLDaily;
+            config2.data.datasets[0].data = pointMoistureBSFLDaily;
+            config2.options.scales.xAxes[0].time.unit = "minute";
+
+            config3.data.labels = labelBSFLDaily;
+            config3.data.datasets[0].data = pointpHBSFLDaily;
+            config3.options.scales.xAxes[0].time.unit = "minute";
+        }
+
+        else if(type == "mix"){
+            config1.data.datasets.splice(0,config1.data.datasets.length);
+            config2.data.datasets.splice(0,config2.data.datasets.length);
+            config3.data.datasets.splice(0,config3.data.datasets.length);
+        
+            let newDataOne = {
                 label: "Chicken Temperature",
                 data: pointTempDaily,
                 pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
+                fill: false,
+                lineTension: 0.5,
                 borderWidth: 2,
                 borderColor: "rgba(201,134,212,0.7)",
                 backgroundColor: "rgba(201,134,212,0.7)",
                 pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            },{
+            }
+
+            let newDataTwo = {
                 label: "Chicken Humidity",
                 data: pointHumidityDaily,
                 pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
+                fill: false,
+                lineTension: 0.5,
                 borderWidth: 2,
                 borderColor: "rgba(160, 227, 226, 0.7)",
                 backgroundColor: "rgba(160, 227, 226, 0.7)",
                 pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
-            },{
+            }
+
+            let newDataThree = {
                 label: "Chicken Moisture",
-                data: pointMoistDaily,
+                data: pointMoistureDaily,
                 pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
+                fill: false,
+                lineTension: 0.5,
                 borderWidth: 2,
                 borderColor: "rgba(207, 89, 89, 0.7)",
                 backgroundColor: "rgba(207, 89, 89, 0.7)",
                 pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
-            }]
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
             }
-        }
-    }
 
-    configTemp = {
-        data:{
-            labels: labelTempDaily,
-            datasets:[{
-                label: "Today's temperature",
-                data: pointTempDaily,
-                type: "line",
+            let newDataFour = {
+                label: "Chicken ph",
+                data: pointpHDaily,
                 pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(30, 230, 140, 0.7)",
+                backgroundColor: "rgba(30, 230, 140, 0.7)",
+                pointHoverBorderColor : "rgba(30, 230, 140, 1)",
+            }
+            config1.data.labels = labelDaily;
+            config1.data.datasets.push(newDataOne);
+            config1.data.datasets.push(newDataTwo);
+            config1.data.datasets.push(newDataThree);
+            config1.data.datasets.push(newDataFour);
+            config1.options.scales.xAxes[0].time.unit = "minute";
+
+
+            let newDataBSFOne = {
+                label: "BSF Temperature",
+                data: pointTempBSFDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
                 borderWidth: 2,
                 borderColor: "rgba(201,134,212,0.7)",
                 backgroundColor: "rgba(201,134,212,0.7)",
                 pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Temperature"
-                    }
-                }]
             }
-        }
-    }
 
-    configHum = {
-        data:{
-            labels: labelHumidityDaily,
-            datasets:[{
-                label: "Today's humidity",
-                data: pointHumidityDaily,
-                type: "line",
+            let newDataBSFTwo = {
+                label: "BSF Humidity",
+                data: pointHumidityBSFDaily,
                 pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(160, 227, 226, 0.7)",
+                backgroundColor: "rgba(160, 227, 226, 0.7)",
+                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+            }
+
+            let newDataBSFThree = {
+                label: "BSF Light",
+                data: pointLightBSFDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(207, 89, 89, 0.7)",
+                backgroundColor: "rgba(207, 89, 89, 0.7)",
+                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+            }
+
+            config2.data.labels = labelDaily;
+            config2.data.datasets.push(newDataBSFOne);
+            config2.data.datasets.push(newDataBSFTwo);
+            config2.data.datasets.push(newDataBSFThree);
+            config2.options.scales.xAxes[0].time.unit = "minute";
+
+            let newDataBSFLOne = {
+                label: "BSFL Temperature",
+                data: pointTempBSFLDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
                 borderWidth: 2,
                 borderColor: "rgba(201,134,212,0.7)",
                 backgroundColor: "rgba(201,134,212,0.7)",
                 pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Humidity (%)"
-                    }
-                }]
             }
-        }
-    }
 
-    configMoist = {
-        data:{
-            labels: labelMoistDaily,
-            datasets:[{
-                label: "Today's moisture",
-                data: pointMoistDaily,
-                type: "line",
+            let newDataBSFLTwo = {
+                label: "BSFL Moisture",
+                data: pointMoistureBSFLDaily,
                 pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
+                fill: false,
+                lineTension: 0.5,
                 borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Moisture (%)"
-                    }
-                }]
+                borderColor: "rgba(160, 227, 226, 0.7)",
+                backgroundColor: "rgba(160, 227, 226, 0.7)",
+                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
             }
-        }
-    }
 
-    bsfConfigTemp = {
-        data:{
-            labels: bsfTempDaily,
-            datasets:[{
-                label: "Today's temperature",
-                data: bsfTempPointDaily,
-                type: "line",
+            let newDataBSFLThree = {
+                label: "BSFL ph",
+                data: pointpHDaily,
                 pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
+                fill: false,
+                lineTension: 0.5,
                 borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Temperature"
-                    }
-                }]
+                borderColor: "rgba(207, 89, 89, 0.7)",
+                backgroundColor: "rgba(207, 89, 89, 0.7)",
+                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
             }
+
+            config3.data.labels = labelDaily;
+            config3.data.datasets.push(newDataBSFLOne);
+            config3.data.datasets.push(newDataBSFLTwo);
+            config3.data.datasets.push(newDataBSFLThree);
+            config3.options.scales.xAxes[0].time.unit = "minute";
+        }
+
+        chart1.update();
+        chart2.update();
+        chart3.update();
+        chart4.update();
+    }
+}
+
+function drawDaily(context,envData){
+    if(type == "Chicken"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Today Temperature";
+            config1.data.labels = labelDaily;
+            config1.options.scales.xAxes[0].time.unit = "minute";
+            config1.data.datasets[0].data = pointTempDaily;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Today humidity";
+            config2.data.labels = labelDaily;
+            config2.options.scales.xAxes[0].time.unit = "minute";
+            config2.data.datasets[0].data = pointHumidityDaily;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Today moisture";
+            config3.options.scales.xAxes[0].time.unit = "minute";
+            config3.data.labels = labelDaily;
+            config3.data.datasets[0].data = pointMoistureDaily;
+        }
+
+        else if(envData == "ph"){
+            config4.options.scales.xAxes[0].time.unit = "minute";
+            config4.data.labels = labelDaily;
+            config4.data.datasets[0].data = pointpHDaily;
         }
     }
 
-    bsfConfigHum = {
-        data:{
-            labels: bsfHumDaily,
-            datasets:[{
-                label: "Today's humidity",
-                data: bsfHumPointDaily,
-                type: "line",
-                pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Humidity"
-                    }
-                }]
-            }
+    else if(type == "BSF"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Today Temperature";
+            config1.data.labels = labelBSFDaily;
+            config1.options.scales.xAxes[0].time.unit = "minute";
+            config1.data.datasets[0].data = pointTempBSFDaily;
+        }
+
+        else if(envData == "humidity"){
+            config1.data.datasets[0].label = "Today humidity";
+            config2.data.labels = labelBSFDaily;
+            config2.options.scales.xAxes[0].time.unit = "minute";
+            config2.data.datasets[0].data = pointHumidityBSFDaily;
+        }
+
+        else if(envData == "moisture"){
+            config1.data.datasets[0].label = "Today light";
+            config3.options.scales.xAxes[0].time.unit = "minute";
+            config3.data.labels = labelBSFDaily;
+            config3.data.datasets[0].data = pointLightBSFDaily;
         }
     }
 
-    bsfConfigLight = {
-        data:{
-            labels: bsfLightDaily,
-            datasets:[{
-                label: "Today's Light",
-                data: bsfLightPointDaily,
-                type: "line",
-                pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        // beginAtZero: true,
-                        // max : 100,
-                        // stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Light (Lux)"
-                    }
-                }]
-            }
+    else if(type == "BSFL"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Today Temperature";
+            config1.data.labels = labelBSFLDaily;
+            config1.options.scales.xAxes[0].time.unit = "minute";
+            config1.data.datasets[0].data = pointTempBSFLDaily;
+        }
+
+        else if(envData == "humidity"){
+            config1.data.datasets[0].label = "Today moisture";
+            config2.data.labels = labelBSFLDaily;
+            config2.options.scales.xAxes[0].time.unit = "minute";
+            config2.data.datasets[0].data = pointMoistureBSFLDaily;
+        }
+
+        else if(envData == "moisture"){
+            config1.data.datasets[0].label = "Today ph";
+            config3.options.scales.xAxes[0].time.unit = "minute";
+            config3.data.labels = labelBSFLDaily;
+            config3.data.datasets[0].data = pointpHBSFLDaily;
         }
     }
 
-    bsflConfigTemp = {
-        data:{
-            labels: bsflTempDaily,
-            datasets:[{
-                label: "Today's temperature",
-                data: bsflTempPointDaily,
-                type: "line",
-                pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Temperature"
-                    }
-                }]
-            }
+    else if(type == "mix"){
+        if(envData == "temperature"){
+            config1.data.labels = labelDaily;
+            config1.data.datasets[0].data = pointTempDaily;
+            config1.data.datasets[1].data = pointHumidityDaily;
+            config1.data.datasets[2].data = pointMoistureDaily;
+            config1.data.datasets[3].data = pointpHDaily;
+            config1.options.scales.xAxes[0].time.unit = "minute";
+        }
+
+        else if(envData == "humidity"){
+            config2.data.labels = labelBSFDaily;
+            config2.data.datasets[0].data = pointTempBSFDaily;
+            config2.data.datasets[1].data = pointHumidityBSFDaily;
+            config2.data.datasets[2].data = pointLightBSFDaily;
+            config2.options.scales.xAxes[0].time.unit = "minute";
+
+        }
+
+        else if(envData == "moisture"){
+            config3.data.labels = labelBSFLDaily;
+            config3.data.datasets[0].data = pointTempBSFLDaily;
+            config3.data.datasets[1].data = pointMoistureBSFLDaily;
+            config3.data.datasets[2].data = pointpHBSFLDaily;
+            config3.options.scales.xAxes[0].time.unit = "minute";
         }
     }
 
-    bsflConfigpH = {
-        data:{
-            labels: bsflpHDaily,
-            datasets:[{
-                label: "Today's pH",
-                data: bsflpHPointDaily,
-                type: "line",
-                pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "pH value"
-                    }
-                }]
-            }
+    context.update();
+}
+
+function drawWeekly(context,envData){
+    if(type == "Chicken"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Weekly Temperature";
+            config1.data.labels = labelWeekly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+            config1.data.datasets[0].data = pointTempWeekly;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Weekly humidity";
+            config2.data.labels = labelWeekly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+            config2.data.datasets[0].data = pointHumidityWeekly;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Weekly moisture";
+            config3.data.labels = labelWeekly;
+            config3.options.scales.xAxes[0].time.unit = "day";
+            config3.data.datasets[0].data = pointMoistureWeekly;
+        }
+
+        else if(envData == "ph"){
+            config4.data.datasets[0].label = "Weekly ph";
+            config4.data.labels = labelWeekly;
+            config4.options.scales.xAxes[0].time.unit = "day";
+            config4.data.datasets[0].data = pointpHWeekly;
         }
     }
 
-    bsflConfigMoist = {
-        data:{
-            labels: bsflMoistDaily,
-            datasets:[{
-                label: "Today's Moisture",
-                data: bsflMoistPointDaily,
-                type: "line",
-                pointRadius: 0,
-				fill: false,
-				lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }],
-        },
-        options:{
-            tooltips:{
-                intersect: false,
-                mode: "index"
-            },
-            scales:{
-                xAxes:[{
-                    type: "time",
-                    distribution: "series",
-                    offset : false,
-                    ticks:{
-                        autoSkip: true,
-						autoSkipPadding: 75,
-                    },
-                    time:{
-                        unit : "minute",
-                    },
-                }],
-                yAxes:[{
-                    ticks:{
-                        beginAtZero: true,
-                        max : 100,
-                        stepValue: 10
-                    },
-                    scaleLabel : {
-                        display : true,
-                        labelString : "Moisutre"
-                    }
-                }]
-            }
+    else if(type == "BSF"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Weekly Temperature";
+            config1.data.labels = labelBSFWeekly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+            config1.data.datasets[0].data = pointTempBSFWeekly;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Weekly humidity";
+            config2.data.labels = labelBSFWeekly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+            config2.data.datasets[0].data = pointHumidityBSFWeekly;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Weekly light";
+            config3.options.scales.xAxes[0].time.unit = "day";
+            config3.data.labels = labelBSFWeekly;
+            config3.data.datasets[0].data = pointLightBSFWeekly;
         }
     }
-    
-    myChart = new Chart(context,configTemp);
-    myChart2 = new Chart(context2,configHum);
-    myChart3 = new Chart(context3,configMoist);
-    bsfChart1 = new Chart(bsfContext1,bsfConfigTemp);
-    bsfChart2 = new Chart(bsfContext2,bsfConfigHum);
-    bsfChart3 = new Chart(bsfContext3,bsfConfigLight);
-    bsflChart1 = new Chart(bsflContext1,bsflConfigTemp);
-    bsflChart2 = new Chart(bsflContext2,bsflConfigpH);
-    bsflChart3 = new Chart(bsflContext3,bsflConfigMoist);
-    mixChart = new Chart(mixContext,configMix);
 
-    for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
-        // console.log(Object.keys(chickenObj["Area2"])[x]); 
-        // console.log(chickenObj["Area2"][Object.keys(chickenObj["Area2"])[x]].temperature);
-        
+    else if(type == "BSFL"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Weekly Temperature";
+            config1.data.labels = labelBSFLWeekly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+            config1.data.datasets[0].data = pointTempBSFLWeekly;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Weekly moisture";
+            config2.data.labels = labelBSFLWeekly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+            config2.data.datasets[0].data = pointMoistureBSFLWeekly;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Weekly ph";
+            config3.options.scales.xAxes[0].time.unit = "day";
+            config3.data.labels = labelBSFLWeekly;
+            config3.data.datasets[0].data = pointpHBSFLWeekly;
+        }
     }
 
-    // console.log(labelTempDaily); 7
-    // console.log(labelTempWeekly); 172
-    // console.log(labelTempMonthly); 325
+    else if(type == "mix"){
+        if(envData == "temperature"){
+            config1.data.labels = labelWeekly;
+            config1.data.datasets[0].data = pointTempWeekly;
+            config1.data.datasets[1].data = pointHumidityWeekly;
+            config1.data.datasets[2].data = pointMoistureWeekly;
+            config1.data.datasets[3].data = pointpHWeekly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+        }
+
+        else if(envData == "humidity"){
+            config2.data.labels = labelBSFWeekly;
+            config2.data.datasets[0].data = pointTempBSFWeekly;
+            config2.data.datasets[1].data = pointHumidityBSFWeekly;
+            config2.data.datasets[2].data = pointLightBSFWeekly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+
+        }
+
+        else if(envData == "moisture"){
+            config3.data.labels = labelBSFLWeekly;
+            config3.data.datasets[0].data = pointTempBSFLWeekly;
+            config3.data.datasets[1].data = pointMoistureBSFLWeekly;
+            config3.data.datasets[2].data = pointpHBSFLWeekly;
+            config3.options.scales.xAxes[0].time.unit = "day";
+        }
+    }
+
+    context.update();
+}
+
+function drawMonthly(context,envData){
+    if(type == "Chicken"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Monthly Temperature";
+            config1.data.labels = labelMonthly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+            config1.data.datasets[0].data = pointTempMonthly;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Monthly humidity";
+            config2.data.labels = labelMonthly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+            config2.data.datasets[0].data = pointHumidityMonthly;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Monthly moisture";
+            config3.data.labels = labelMonthly;
+            config3.options.scales.xAxes[0].time.unit = "day";
+            config3.data.datasets[0].data = pointMoistureMonthly;
+        }
+
+        else if(envData == "ph"){
+            config4.data.datasets[0].label = "Monthly ph";
+            config4.data.labels = labelMonthly;
+            config4.options.scales.xAxes[0].time.unit = "day";
+            config4.data.datasets[0].data = pointpHMonthly;
+        }
+    }
+
+    else if(type == "BSF"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Monthly Temperature";
+            config1.data.labels = labelBSFMonthly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+            config1.data.datasets[0].data = pointTempBSFMonthly;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Monthly humidity";
+            config2.data.labels = labelBSFMonthly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+            config2.data.datasets[0].data = pointHumidityBSFMonthly;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Monthly light";
+            config3.options.scales.xAxes[0].time.unit = "day";
+            config3.data.labels = labelBSFMonthly;
+            config3.data.datasets[0].data = pointLightBSFMonthly;
+        }
+    }
+
+    else if(type == "BSFL"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Monthly Temperature";
+            config1.data.labels = labelBSFLMonthly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+            config1.data.datasets[0].data = pointTempBSFLMonthly;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Monthly moisture";
+            config2.data.labels = labelBSFLMonthly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+            config2.data.datasets[0].data = pointMoistureBSFLMonthly;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Monthly ph";
+            config3.options.scales.xAxes[0].time.unit = "day";
+            config3.data.labels = labelBSFLMonthly;
+            config3.data.datasets[0].data = pointpHBSFLMonthly;
+        }
+    }
+
+    else if(type == "mix"){
+        if(envData == "temperature"){
+            config1.data.labels = labelMonthly;
+            config1.data.datasets[0].data = pointTempMonthly;
+            config1.data.datasets[1].data = pointHumidityMonthly;
+            config1.data.datasets[2].data = pointMoistureMonthly;
+            config1.data.datasets[3].data = pointpHMonthly;
+            config1.options.scales.xAxes[0].time.unit = "day";
+        }
+
+        else if(envData == "humidity"){
+            config2.data.labels = labelBSFMonthly;
+            config2.data.datasets[0].data = pointTempBSFMonthly;
+            config2.data.datasets[1].data = pointHumidityBSFMonthly;
+            config2.data.datasets[2].data = pointLightBSFMonthly;
+            config2.options.scales.xAxes[0].time.unit = "day";
+
+        }
+
+        else if(envData == "moisture"){
+            config3.data.labels = labelBSFLMonthly;
+            config3.data.datasets[0].data = pointTempBSFLMonthly;
+            config3.data.datasets[1].data = pointMoistureBSFLMonthly;
+            config3.data.datasets[2].data = pointpHBSFLMonthly;
+            config3.options.scales.xAxes[0].time.unit = "day";
+        }
+    }
+
+    context.update();
+}
+
+function drawLifetime(context,envData){
+    if(type == "Chicken"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Lifetime Temperature";
+            config1.data.labels = labelAll;
+            config1.options.scales.xAxes[0].time.unit = "month";
+            config1.data.datasets[0].data = pointTempAll;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Lifetime Humidity";
+            config2.data.labels = labelAll;
+            config2.options.scales.xAxes[0].time.unit = "month";
+            config2.data.datasets[0].data = pointHumidityAll;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Lifetime moisture";
+            config3.data.labels = labelAll;
+            config3.options.scales.xAxes[0].time.unit = "month";
+            config3.data.datasets[0].data = pointMoistureAll;
+        }
+
+        else if(envData == "ph"){
+            config4.data.datasets[0].label = "Lifetime ph";
+            config4.data.labels = labelAll;
+            config4.options.scales.xAxes[0].time.unit = "month";
+            config4.data.datasets[0].data = pointpHAll;
+        }
+    }
+
+    else if(type == "BSF"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Lifetime Temperature";
+            config1.data.labels = labelBSFAll;
+            config1.options.scales.xAxes[0].time.unit = "month";
+            config1.data.datasets[0].data = pointTempBSFAll;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Lifetime humidity";
+            config2.data.labels = labelBSFAll;
+            config2.options.scales.xAxes[0].time.unit = "month";
+            config2.data.datasets[0].data = pointHumidityBSFAll;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Lifetime light";
+            config3.options.scales.xAxes[0].time.unit = "month";
+            config3.data.labels = labelBSFAll;
+            config3.data.datasets[0].data = pointLightBSFAll;
+        }
+    }
+
+    else if(type == "BSFL"){
+        if(envData == "temperature"){
+            config1.data.datasets[0].label = "Lifetime Temperature";
+            config1.data.labels = labelBSFLAll;
+            config1.options.scales.xAxes[0].time.unit = "day";
+            config1.data.datasets[0].data = pointTempBSFLAll;
+        }
+
+        else if(envData == "humidity"){
+            config2.data.datasets[0].label = "Lifetime moisture";
+            config2.data.labels = labelBSFLAll;
+            config2.options.scales.xAxes[0].time.unit = "day";
+            config2.data.datasets[0].data = pointMoistureBSFLAll;
+        }
+
+        else if(envData == "moisture"){
+            config3.data.datasets[0].label = "Lifetime ph";
+            config3.options.scales.xAxes[0].time.unit = "day";
+            config3.data.labels = labelBSFLAll;
+            config3.data.datasets[0].data = pointpHBSFLAll;
+        }
+    }
+
+    else if(type == "mix"){
+        if(envData == "temperature"){
+            config1.data.labels = labelAll;
+            config1.data.datasets[0].data = pointTempAll;
+            config1.data.datasets[1].data = pointHumidityAll;
+            config1.data.datasets[2].data = pointMoistureAll;
+            config1.data.datasets[3].data = pointpHAll;
+            config1.options.scales.xAxes[0].time.unit = "month";
+        }
+
+        else if(envData == "humidity"){
+            config2.data.labels = labelBSFAll;
+            config2.data.datasets[0].data = pointTempBSFAll;
+            config2.data.datasets[1].data = pointHumidityBSFAll;
+            config2.data.datasets[2].data = pointLightBSFAll;
+            config2.options.scales.xAxes[0].time.unit = "month";
+
+        }
+
+        else if(envData == "moisture"){
+            config3.data.labels = labelBSFLAll;
+            config3.data.datasets[0].data = pointTempBSFLAll;
+            config3.data.datasets[1].data = pointMoistureBSFLAll;
+            config3.data.datasets[2].data = pointpHBSFLAll;
+            config3.options.scales.xAxes[0].time.unit = "month";
+        }
+    }
+
+    context.update();
+}
+
+$("#typePage li").click(function(){
+    if($(this).children().attr("id") == "chickenVisualization"){
+        document.getElementById("canvas4").style.display = "block";
+        config1.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config2.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config3.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config4.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        areaSelected = "Area1";
+        type = "Chicken";
+        document.getElementById("headerCanvas1").innerHTML = "Temperature";
+        document.getElementById("headerCanvas2").innerHTML = "Humidity";
+        document.getElementById("headerCanvas3").innerHTML = "Moisture";
+        config1.data.datasets[0].label = "Today temperature";
+        config2.data.datasets[0].label = "Today humidity";
+        config3.data.datasets[0].label = "Today moisture";
+        drawCharts();
+    }
+
+    else if($(this).children().attr("id") == "bsfVisualization"){
+        document.getElementById("canvas4").style.display = "none";
+        config1.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config2.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config3.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config4.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        areaSelected = "Area1";
+        type = "BSF";
+        document.getElementById("headerCanvas1").innerHTML = "Temperature";
+        document.getElementById("headerCanvas2").innerHTML = "Humidity";
+        document.getElementById("headerCanvas3").innerHTML = "Light";
+        config1.data.datasets[0].label = "Today temperature";
+        config2.data.datasets[0].label = "Today humidity";
+        config3.data.datasets[0].label = "Today light";
+        drawCharts();
+    }
+
+    else if($(this).children().attr("id") == "bsflVisualization"){
+        document.getElementById("canvas4").style.display = "none";
+        config1.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config2.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config3.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config4.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        areaSelected = "Area1";
+        type = "BSFL";
+        document.getElementById("headerCanvas1").innerHTML = "Temperature";
+        document.getElementById("headerCanvas2").innerHTML = "Moisture";
+        document.getElementById("headerCanvas3").innerHTML = "ph";
+        config1.data.datasets[0].label = "Today temperature";
+        config2.data.datasets[0].label = "Today moisture";
+        config3.data.datasets[0].label = "Today ph";
+        drawCharts();
+    }
+
+    else if($(this).children().attr("id") == "mix"){
+        document.getElementById("canvas4").style.display = "none";
+        config1.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config2.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config3.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        config4.data.datasets[0].type = document.getElementById("typeChart").value = "line";
+        areaSelected = "Area1";
+        type = "mix";
+        document.getElementById("headerCanvas1").innerHTML = "Chicken - Mix";
+        document.getElementById("headerCanvas2").innerHTML = "BSF - Mix";
+        document.getElementById("headerCanvas3").innerHTML = "BSFL - Mix";
+        drawCharts();
+    }
+
+    $(".paginationBtn li").parent().find( 'li.page-item.active' ).removeClass( 'active' );
+    $(".tempPage li").first().addClass("page-item active");
+    $(".humPage li").first().addClass("page-item active");
+    $(".moistPage li").first().addClass("page-item active");
+    $(".phPage li").first().addClass("page-item active");
 })
 
+$(".tempPage li").click(function(){
+    if($(this).children().attr("id") == "tempToday"){
+        drawDaily(chart1,"temperature");
+    }
 
+    else if($(this).children().attr("id") == "tempWeekly"){
+        drawWeekly(chart1,"temperature");
+    }
+
+    else if($(this).children().attr("id") == "tempMonthly"){
+        drawMonthly(chart1,"temperature");
+    }
+
+    else if($(this).children().attr("id") == "tempAll"){
+        drawLifetime(chart1,"temperature");
+    }
+})
+
+$(".humPage li").click(function(){
+    if($(this).children().attr("id") == "humToday"){
+        drawDaily(chart2,"humidity");
+    }
+
+    else if($(this).children().attr("id") == "humWeekly"){
+        drawWeekly(chart2,"humidity");
+    }
+
+    else if($(this).children().attr("id") == "humMonthly"){
+        drawMonthly(chart2,"humidity");
+    }
+
+    else if($(this).children().attr("id") == "humAll"){
+        drawLifetime(chart2,"humidity");
+    }
+})
+
+$(".moistPage li").click(function(){
+    if($(this).children().attr("id") == "moistToday"){
+        drawDaily(chart3,"moisture");
+    }
+
+    else if($(this).children().attr("id") == "moistWeekly"){
+        drawWeekly(chart3,"moisture");
+    }
+
+    else if($(this).children().attr("id") == "moistMonthly"){
+        drawMonthly(chart3,"moisture");
+    }
+
+    else if($(this).children().attr("id") == "moistAll"){
+        drawLifetime(chart3,"moisture");
+    }
+})
+
+$(".phPage li").click(function(){
+    if($(this).children().attr("id") == "phToday"){
+        drawDaily(chart4,"ph");
+    }
+
+    else if($(this).children().attr("id") == "phWeekly"){
+        drawWeekly(chart4,"ph");
+    }
+
+    else if($(this).children().attr("id") == "phMonthly"){
+        drawMonthly(chart4,"ph");
+    }
+
+    else if($(this).children().attr("id") == "phAll"){
+        drawLifetime(chart4,"ph");
+    }
+})
 
 function onTypeChange(){
-    chartType = document.getElementById("chartType").value;
-    configTemp.data.datasets[0].type = chartType;
-    myChart.update();
-    
-    chartTypeHum = document.getElementById("chartTypeHumid").value;
-    configHum.data.datasets[0].type = chartTypeHum;
-    myChart2.update();
-
-    chartTypeMoist = document.getElementById("chartTypeMoist").value;
-    configMoist.data.datasets[0].type = chartTypeMoist;
-    myChart3.update();
-
-    bsfChartType1 = document.getElementById("bsfChartType1").value;
-    bsfConfigTemp.data.datasets[0].type = bsfChartType1;
-    bsfChart1.update();
-
-    bsfChartType2 = document.getElementById("bsfChartType2").value;
-    bsfConfigHum.data.datasets[0].type = bsfChartType2;
-    bsfChart2.update();
-
-    bsfChartType3 = document.getElementById("bsfChartType3").value;
-    bsfConfigLight.data.datasets[0].type = bsfChartType3;
-    bsfChart3.update();
-
-    bsflChartType1 = document.getElementById("bsflChartType1").value;
-    bsflConfigTemp.data.datasets[0].type = bsflChartType1;
-    bsflChart1.update();
-
-    bsflChartType2 = document.getElementById("bsflChartType2").value;
-    bsflConfigpH.data.datasets[0].type = bsflChartType2;
-    bsflChart2.update();
-
-    bsflChartType3 = document.getElementById("bsflChartType3").value;
-    bsflConfigMoist.data.datasets[0].type = bsflChartType3;
-    bsflChart3.update();
+    config1.data.datasets[0].type = document.getElementById("typeChart").value;
+    config2.data.datasets[0].type = document.getElementById("typeChart").value;
+    config3.data.datasets[0].type = document.getElementById("typeChart").value;
+    config4.data.datasets[0].type = document.getElementById("typeChart").value;
+    chart1.update();
+    chart2.update();
+    chart3.update();
+    chart4.update();
 }
 
 function onAreaChange(){
-    areaSelected = document.getElementById("areaChicken").value;
+    areaSelected = document.getElementById("dropdown").value;
 
-    // pointTempDaily = [];
+    $(".card-footer .paginationBtn li").parent().find( 'li.page-item.active' ).removeClass( 'active' );
+    $(".tempPage li").first().addClass("page-item active");
+    $(".humPage li").first().addClass("page-item active");
+    $(".moistPage li").first().addClass("page-item active");
+    $(".phPage li").first().addClass("page-item active");
 
-    // for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
-    //     pointTempDaily.push(chickenObj[areaSelected][Object.keys(chickenObj[areaSelected])[x]].temperature);
-    // }
-
-    // configTemp.data.datasets[0].data = pointTempDaily;
-    // myChart.update();
+    drawCharts();
 }
-$(document).ready(function(){
-
-    $(".pagination li").click(function(){
-        //change the active pagination on click
-        $( this ).parent().find( 'li.page-item.active' ).removeClass( 'active' );
-        $( this ).addClass( 'page-item active' );
-        
-        //update temperature chart
-        if($(this).children().attr("id") == "tempToday"){
-            configTemp.data.datasets[0].data = pointTempDaily;
-            configTemp.data.labels = labelTempDaily;
-            configTemp.data.datasets[0].label = "Today's temperature";
-            configTemp.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "tempWeekly"){
-            configTemp.data.datasets[0].data = pointTempWeekly;
-            configTemp.data.labels = labelTempWeekly;
-            configTemp.data.datasets[0].label = "Weekly temperature";
-            configTemp.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "tempMonthly"){
-            configTemp.data.datasets[0].data = pointTempMonthly;
-            configTemp.data.labels = labelTempMonthly;
-            configTemp.data.datasets[0].label = "Monthly temperature";
-            configTemp.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "tempAll"){
-            // configTemp.data.datasets[0].data = pointTempLifetime;
-            // configTemp.data.labels = labelTempLifetime;
-            configTemp.data.datasets[0].data = pointTempLifetime;
-            configTemp.data.labels = labelTempLifetime;
-            configTemp.data.datasets[0].label = "Lifetime temperature";
-            configTemp.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update humidy chart
-        if($(this).children().attr("id") == "humToday"){
-            configHum.data.datasets[0].data = pointHumidityDaily;
-            configHum.data.labels = labelHumidityDaily;
-            configHum.data.datasets[0].label = "Today's humidity";
-            configHum.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "humWeekly"){
-            configHum.data.datasets[0].data = pointHumidityWeekly;
-            configHum.data.labels = labelHumidityWeekly;
-            configHum.data.datasets[0].label = "Weekly humidity";
-            configHum.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "humMonthly"){
-            configHum.data.datasets[0].data = pointHumidityMonthly;
-            configHum.data.labels = labelHumidityMonthly;
-            configHum.data.datasets[0].label = "Monthly humidity";
-            configHum.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "humAll"){
-            configHum.data.datasets[0].data = pointHumidityLifetime;
-            configHum.data.labels = labelHumidityLifetime;
-            configHum.data.datasets[0].label = "Lifetime humidity";
-            configHum.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update moisture chart
-        if($(this).children().attr("id") == "moistToday"){
-            configMoist.data.datasets[0].data = pointMoistDaily;
-            configMoist.data.labels = labelMoistDaily;
-            configMoist.data.datasets[0].label = "Today's moisture";
-            configMoist.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "moistWeekly"){
-            configMoist.data.datasets[0].data = pointMoistWeekly;
-            configMoist.data.labels = labelMoistWeekly;
-            configMoist.data.datasets[0].label = "Weekly moisture";
-            configMoist.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "moistMonthly"){
-            configMoist.data.datasets[0].data = pointMoistMonthly;
-            configMoist.data.labels = labelMoistMonthly;
-            configMoist.data.datasets[0].label = "Monthly moisture";
-            configMoist.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "moistAll"){
-            configMoist.data.datasets[0].data = pointMoistLifetime;
-            configMoist.data.labels = labelHumidityLifetime;
-            configMoist.data.datasets[0].label = "Lifetime moisture";
-            configMoist.options.scales.xAxes[0].time.unit = "month";
-        }
-
-       //update temperature chart
-        if($(this).children().attr("id") == "bsfTempToday"){
-            bsfConfigTemp.data.datasets[0].data = bsfTempPointDaily;
-            bsfConfigTemp.data.labels = bsfTempDaily;
-            bsfConfigTemp.data.datasets[0].label = "Today's temperature";
-            bsfConfigTemp.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "bsfTempWeekly"){
-            bsfConfigTemp.data.datasets[0].data = bsfTempPointWeekly;
-            bsfConfigTemp.data.labels = bsfTempWeekly;
-            bsfConfigTemp.data.datasets[0].label = "Weekly temperature";
-            bsfConfigTemp.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsfTempMonthly"){
-            bsfConfigTemp.data.datasets[0].data = bsfTempPointMonthly;
-            bsfConfigTemp.data.labels = bsfTempMonthly;
-            bsfConfigTemp.data.datasets[0].label = "Monthly temperature";
-            bsfConfigTemp.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsfTempAll"){
-            bsfConfigTemp.data.datasets[0].data = bsfTempPointLifetime;
-            bsfConfigTemp.data.labels = bsfTempLifetime;
-            bsfConfigTemp.data.datasets[0].label = "Lifetime temperature";
-            bsfConfigTemp.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update humidity chart
-        if($(this).children().attr("id") == "bsfHumToday"){
-            bsfConfigHum.data.datasets[0].data = bsfHumPointDaily;
-            bsfConfigHum.data.labels = bsfHumDaily;
-            bsfConfigHum.data.datasets[0].label = "Today's humidity";
-            bsfConfigHum.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "bsfHumWeekly"){
-            bsfConfigHum.data.datasets[0].data = bsfHumPointWeekly;
-            bsfConfigHum.data.labels = bsfHumWeekly;
-            bsfConfigHum.data.datasets[0].label = "Weekly humidity";
-            bsfConfigHum.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsfHumMonthly"){
-            bsfConfigHum.data.datasets[0].data = bsfHumPointMonthly;
-            bsfConfigHum.data.labels = bsfHumMonthly;
-            bsfConfigHum.data.datasets[0].label = "Monthly humidity";
-            bsfConfigHum.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsfHumAll"){
-            bsfConfigHum.data.datasets[0].data = bsfHumPointLifetime;
-            bsfConfigHum.data.labels = bsfHumLifetime;
-            bsfConfigHum.data.datasets[0].label = "Lifetime humidity";
-            bsfConfigHum.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update moisture chart
-        if($(this).children().attr("id") == "bsfLightToday"){
-            bsfConfigLight.data.datasets[0].data = bsfLightPointDaily;
-            bsfConfigLight.data.labels = bsfLightDaily;
-            bsfConfigLight.data.datasets[0].label = "Today's light";
-            bsfConfigLight.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "bsfLightWeekly"){
-            bsfConfigLight.data.datasets[0].data = bsfLightPointWeekly;
-            bsfConfigLight.data.labels = bsfLightWeekly;
-            bsfConfigLight.data.datasets[0].label = "Weekly light";
-            bsfConfigLight.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsfLightMonthly"){
-            bsfConfigLight.data.datasets[0].data = bsfLightPointMonthly;
-            bsfConfigLight.data.labels = bsfLightMonthly;
-            bsfConfigLight.data.datasets[0].label = "Monthly light";
-            bsfConfigLight.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsfLightAll"){
-            bsfConfigLight.data.datasets[0].data = bsfLightPointLifetime;
-            bsfConfigLight.data.labels = bsfLightLifetime;
-            bsfConfigLight.data.datasets[0].label = "Lifetime light";
-            bsfConfigLight.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update bsfl temperature chart
-        if($(this).children().attr("id") == "bsflTempToday"){
-            bsflConfigTemp.data.datasets[0].data = bsflTempPointDaily;
-            bsflConfigTemp.data.labels = bsflTempDaily;
-            bsflConfigTemp.data.datasets[0].label = "Today's temperature";
-            bsflConfigTemp.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "bsflTempWeekly"){
-            bsflConfigTemp.data.datasets[0].data = bsflTempPointWeekly;
-            bsflConfigTemp.data.labels = bsflTempWeekly;
-            bsflConfigTemp.data.datasets[0].label = "Weekly temperature";
-            bsflConfigTemp.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsflTempMonthly"){
-            bsflConfigTemp.data.datasets[0].data = bsflTempPointMonthly;
-            bsflConfigTemp.data.labels = bsflTempMonthly;
-            bsflConfigTemp.data.datasets[0].label = "Monthly temperature";
-            bsflConfigTemp.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsflTempAll"){
-            bsflConfigTemp.data.datasets[0].data = bsflTempPointLifetime;
-            bsflConfigTemp.data.labels = bsflTempLifetime;
-            bsflConfigTemp.data.datasets[0].label = "Lifetime temperature";
-            bsflConfigTemp.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update bsfl ph chart
-        if($(this).children().attr("id") == "bsflpHToday"){
-            bsflConfigpH.data.datasets[0].data = bsflpHPointDaily;
-            bsflConfigpH.data.labels = bsflpHDaily;
-            bsflConfigpH.data.datasets[0].label = "Today's pH";
-            bsflConfigpH.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "bsflpHWeekly"){
-            bsflConfigpH.data.datasets[0].data = bsflpHPointWeekly;
-            bsflConfigpH.data.labels = bsflpHWeekly;
-            bsflConfigpH.data.datasets[0].label = "Weekly pH";
-            bsflConfigpH.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsflpHMonthly"){
-            bsflConfigpH.data.datasets[0].data = bsflpHPointMonthly;
-            bsflConfigpH.data.labels = bsflpHMonthly;
-            bsflConfigpH.data.datasets[0].label = "Monthly pH";
-            bsflConfigpH.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsflpHAll"){
-            bsflConfigpH.data.datasets[0].data = bsflpHPointLifetime;
-            bsflConfigpH.data.labels = bsflpHLifetime;
-            bsflConfigpH.data.datasets[0].label = "Lifetime pH";
-            bsflConfigpH.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update bsfl moisture chart
-        if($(this).children().attr("id") == "bsflMoistToday"){
-            bsflConfigMoist.data.datasets[0].data = bsflMoistPointDaily;
-            bsflConfigMoist.data.labels = bsflMoistDaily;
-            bsflConfigMoist.data.datasets[0].label = "Today's moisture";
-            bsflConfigMoist.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "bsflMoistWeekly"){
-            bsflConfigMoist.data.datasets[0].data = bsflMoistPointWeekly;
-            bsflConfigMoist.data.labels = bsflMoistWeekly;
-            bsflConfigMoist.data.datasets[0].label = "Weekly moisture";
-            bsflConfigMoist.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsflMoistMonthly"){
-            bsflConfigMoist.data.datasets[0].data = bsflMoistPointMonthly;
-            bsflConfigMoist.data.labels = bsflMoistMonthly;
-            bsflConfigMoist.data.datasets[0].label = "Monthly moisture";
-            bsflConfigMoist.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "bsflMoistAll"){
-            bsflConfigMoist.data.datasets[0].data = bsflMoistPointLifetime;
-            bsflConfigMoist.data.labels = bsflMoistLifetime;
-            bsflConfigMoist.data.datasets[0].label = "Lifetime moisture";
-            bsflConfigMoist.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        //update mix chart
-        if($(this).children().attr("id") == "mixDaily"){
-            configMix.data.datasets[0].data = pointTempDaily;
-            configMix.data.datasets[1].data = pointHumidityDaily;
-            configMix.data.datasets[2].data = pointMoistDaily;
-            configMix.data.labels = labelTempDaily;
-            configMix.options.scales.xAxes[0].time.unit = "minute";
-        }else if($(this).children().attr("id") == "mixWeekly"){
-            configMix.data.datasets[0].data = pointTempWeekly;
-            configMix.data.datasets[1].data = pointHumidityWeekly;
-            configMix.data.datasets[2].data = pointMoistWeekly;
-            configMix.data.labels = labelTempWeekly;
-            configMix.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "mixMonthly"){
-            configMix.data.datasets[0].data = pointTempMonthly;
-            configMix.data.datasets[1].data = pointHumidityMonthly;
-            configMix.data.datasets[2].data = pointMoistMonthly;
-            configMix.data.labels = labelTempMonthly;
-            configMix.options.scales.xAxes[0].time.unit = "day";
-        }else if($(this).children().attr("id") == "mixAll"){
-            configMix.data.datasets[0].data = pointTempLifetime;
-            configMix.data.datasets[1].data = pointHumidityLifetime;
-            configMix.data.datasets[2].data = pointMoistLifetime;
-            configMix.data.labels = labelTempLifetime;
-            configMix.options.scales.xAxes[0].time.unit = "month";
-        }
-
-        myChart.update();
-        myChart2.update();
-        myChart3.update();
-        bsfChart1.update();
-        bsfChart2.update();
-        bsfChart3.update();
-        bsflChart1.update();
-        bsflChart2.update();
-        bsflChart3.update();
-        mixChart.update();
-    });
-
-    $("#chickenVisualization").click(function(){
-        $("#chickenChart").show();
-        $("#bsfChart").hide();
-        $("#bsflChart").hide();
-        $("#mixChart").hide();
-    })
-
-    $("#bsfVisualization").click(function(){
-        $("#chickenChart").hide();
-        $("#bsfChart").show();
-        $("#bsflChart").hide();
-        $("#mixChart").hide();
-    })
-
-    $("#bsflVisualization").click(function(){
-        $("#chickenChart").hide();
-        $("#bsfChart").hide();
-        $("#bsflChart").show();
-        $("#mixChart").hide();
-    })
-
-    $("#mix").click(function(){
-        $("#chickenChart").hide();
-        $("#bsfChart").hide();
-        $("#bsflChart").hide();
-        $("#mixChart").show();
-    })
-})
-

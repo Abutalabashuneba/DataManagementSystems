@@ -71,15 +71,32 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row pt-md-5 mt-md-3 mb-2 pl-3">
-                        <nav>
-                            <ul class="pagination paginationBtn">
-                                <li class="page-item active"><a href="#" class="page-link" id="chickenVisualization"><span class="badge">Chicken</span></a></li>
-                                <li class="page-item "><a href="#" class="page-link" id="bsfVisualization"><span class="badge">BSF</span></a></li>
-                                <li class="page-item "><a href="#" class="page-link" id="bsflVisualization"><span class="badge">BSF Larvae</span></a></li>
-                                <li class="page-item "><a href="#" class="page-link" id="mix"><span class="badge">Mix</span></a></li>
-                            </ul>
-                        </nav>
+                        <div class="col-xl-5 pl-0">
+                            <nav>
+                                <ul class="pagination paginationBtn" id="typePage">
+                                    <li class="page-item active"><a href="#" class="page-link" id="chickenVisualization"><span class="badge">Chicken</span></a></li>
+                                    <li class="page-item "><a href="#" class="page-link" id="bsfVisualization"><span class="badge">BSF</span></a></li>
+                                    <li class="page-item "><a href="#" class="page-link" id="bsflVisualization"><span class="badge">BSF Larvae</span></a></li>
+                                    <li class="page-item "><a href="#" class="page-link" id="mix"><span class="badge">Mix</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
+                            <select class="form-control" id="typeChart" onchange="onTypeChange()">
+                                <option value="line" selected="selected">Line</option>
+                                <option value="bar">Bar</option>
+                            </select>
+                        </div>
+    
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3">
+                            <select class="form-control areaDropdown" id="dropdown" onchange="onAreaChange()">
+                            </select>
+                        </div>
                     </div>
+
+                    
+
                     <!-- Start of Chicken Visualization -->
                     <section id="chickenChart">
                         <div class="row">
@@ -88,19 +105,7 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Temperature</h4>
-                                            </div>
-    
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="chartType" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3">
-                                                <select id="areaChicken" class="form-control" onchange="onAreaChange()">
-                                                </select>
+                                                <h4 class="mb-0" id="headerCanvas1">Temperature</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +116,7 @@
                                     </div>
     
                                     <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0 tempPage" id="temp">
+                                        <ul class="pagination paginationBtn justify-content-center mb-0 tempPage" id="temp">
                                             <li class="page-item active"><a class="page-link" href="#" id="tempToday"><span class="badge">Today</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#" id="tempWeekly"><span class="badge">Weekly</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#" id="tempMonthly"><span class="badge">Monthly</span></a></li>
@@ -128,15 +133,10 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Humidity</h4>
+                                                <h4 class="mb-0" id="headerCanvas2">Humidity</h4>
                                             </div>
     
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="chartTypeHumid" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
+                                            
                                         </div>
                                     </div>
     
@@ -146,7 +146,7 @@
                                     </div>
     
                                     <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0 humPage" id="hum">
+                                        <ul class="pagination justify-content-center mb-0 humPage paginationBtn" id="hum">
                                             <li class="page-item active"><a class="page-link" href="#temp" id="humToday"><span class="badge">Today</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#temp" id="humWeekly"><span class="badge">Weekly</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#temp" id="humMonthly"><span class="badge">Monthly</span></a></li>
@@ -163,15 +163,10 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Moisture</h4>
+                                                <h4 class="mb-0" id="headerCanvas3">Moisture</h4>
                                             </div>
     
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="chartTypeMoist" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
+                                            
                                         </div>
                                     </div>
     
@@ -181,7 +176,7 @@
                                     </div>
     
                                     <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0 moistPage">
+                                        <ul class="pagination justify-content-center mb-0 moistPage paginationBtn" id="moist">
                                             <li class="page-item active"><a class="page-link" href="#hum" id="moistToday"><span class="badge">Today</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#hum" id="moistWeekly"><span class="badge">Weekly</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#hum" id="moistMonthly"><span class="badge">Monthly</span></a></li>
@@ -191,265 +186,38 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row" id="canvas4">
+                            <div class="col-12">
+                                <div class="card mb-5">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
+                                                <h4 class="mb-0" id="headerCanvas4">ph</h4>
+                                            </div>
+    
+                                            
+                                        </div>
+                                    </div>
+    
+                                    <div class="card-body">
+                                        <!---->
+                                        <canvas id="myChart4" height="100" ></canvas>
+                                    </div>
+    
+                                    <div class="card-footer">
+                                        <ul class="pagination justify-content-center mb-0 paginationBtn phPage">
+                                            <li class="page-item active"><a class="page-link" href="#moist" id="phToday"><span class="badge">Today</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#moist" id="phWeekly"><span class="badge">Weekly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#moist" id="phMonthly"><span class="badge">Monthly</span></a></li>
+                                            <li class="page-item"><a class="page-link" href="#moist" id="phAll"><span class="badge">Lifetime</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     <!-- End of chicken visualization -->
-
-                    <!-- Start of bsf Visualization -->
-                    <section id="bsfChart" style="display:none;">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Temperature</h4>
-                                            </div>
-    
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="bsfChartType1" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body">
-                                        <!---->
-                                        <canvas id="bsfChart1" height="100" ></canvas>
-                                    </div>
-    
-                                    <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0" id="bsfTempChart">
-                                            <li class="page-item active"><a class="page-link" href="#" id="bsfTempToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="bsfTempWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="bsfTempMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="bsfTempAll"><span class="badge">Lifetime</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Humidity</h4>
-                                            </div>
-    
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="bsfChartType2" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body">
-                                        <!---->
-                                        <canvas id="bsfChart2" height="100" ></canvas>
-                                    </div>
-    
-                                    <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0" id="hum">
-                                            <li class="page-item active"><a class="page-link" href="#bsfTempChart" id="bsfHumToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="bsfHumWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="bsfHumMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsfTempChart" id="bsfHumAll"><span class="badge">Lifetime</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Light</h4>
-                                            </div>
-    
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="bsfChartType3" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body">
-                                        <!---->
-                                        <canvas id="bsfChart3" height="100" ></canvas>
-                                    </div>
-    
-                                    <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0">
-                                            <li class="page-item active"><a class="page-link" href="#hum" id="bsfLightToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#hum" id="bsfLightWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#hum" id="bsfLightMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#hum" id="bsfLightAll"><span class="badge">Lifetime</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- End of bsf visualization -->
-
-                    <!-- Start of bsfl Visualization -->
-                    <section id="bsflChart" style="display:none;">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Temperature</h4>
-                                            </div>
-    
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="bsflChartType1" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body">
-                                        <!---->
-                                        <canvas id="bsflChart1" height="100" ></canvas>
-                                    </div>
-    
-                                    <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0" id="bsflTempChart">
-                                            <li class="page-item active"><a class="page-link" href="#" id="bsflTempToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="bsflTempWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="bsflTempMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="bsflTempAll"><span class="badge">Lifetime</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>pH</h4>
-                                            </div>
-    
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="bsflChartType2" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body">
-                                        <!---->
-                                        <canvas id="bsflChart2" height="100" ></canvas>
-                                    </div>
-    
-                                    <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0" id="pH">
-                                            <li class="page-item active"><a class="page-link" href="#bsflTempChart" id="bsflpHToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsflTempChart" id="bsflpHWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsflTempChart" id="bsflpHMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#bsflTempChart" id="bsflpHAll"><span class="badge">Lifetime</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Moisture</h4>
-                                            </div>
-    
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="bsflChartType3" class="form-control" onchange="onTypeChange()">
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body">
-                                        <!---->
-                                        <canvas id="bsflChart3" height="100" ></canvas>
-                                    </div>
-    
-                                    <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0">
-                                            <li class="page-item active"><a class="page-link" href="#pH" id="bsflMoistToday"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#pH" id="bsflMoistWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#pH" id="bsflMoistMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#pH" id="bsflMoistAll"><span class="badge">Lifetime</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- End of bsfl visualization -->
-
-                    <!-- Start of mix Visualization -->
-                    <section id="mixChart" style="display:none;">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-5">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4>Mix</h4>
-                                            </div>
-    
-                                            <!-- <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                                                <select id="bsflChartType1" class="form-control" onchange="onTypeChange()" disabled>
-                                                    <option value="line" selected="selected">Line</option>
-                                                    <option value="bar">Bar</option>
-                                                </select>
-                                            </div> -->
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body">
-                                        <!---->
-                                        <canvas id="mixChart1" height="100" ></canvas>
-                                    </div>
-    
-                                    <div class="card-footer">
-                                        <ul class="pagination justify-content-center mb-0" id="bsflTempChart">
-                                            <li class="page-item active"><a class="page-link" href="#" id="mixDaily"><span class="badge">Today</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="mixWeekly"><span class="badge">Weekly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="mixMonthly"><span class="badge">Monthly</span></a></li>
-                                            <li class="page-item"><a class="page-link" href="#" id="mixAll"><span class="badge">Lifetime</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- End of mix visualization -->
                 </div>
             </div>
         </div>
