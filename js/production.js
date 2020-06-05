@@ -1,21 +1,21 @@
 //select the table
-let tableHeadC = document.querySelector(".productionHeaderC");
-let tableHeadBSF = document.querySelector(".productionHeaderBSF");
-let tableHeadBSFL = document.querySelector(".productionHeaderBSFL");
+var tableHeadC = document.querySelector(".productionHeaderC");
+var tableHeadBSF = document.querySelector(".productionHeaderBSF");
+var tableHeadBSFL = document.querySelector(".productionHeaderBSFL");
 
-let datalistC = document.querySelector(".productionBodyDataC");
-let datalistBSF = document.querySelector(".productionBodyDataBSF");
-let datalistBSFL = document.querySelector(".productionBodyDataBSFL");
+var datalistC = document.querySelector(".productionBodyDataC");
+var datalistBSF = document.querySelector(".productionBodyDataBSF");
+var datalistBSFL = document.querySelector(".productionBodyDataBSFL");
 
-let dropdown = document.querySelector("#productionArea");
+var dropdown = document.querySelector("#productionArea");
 
 var database = firebase.database();
 var productionRef = database.ref("Data/Production"); 
 
-let type = "Chicken";
-let areaSelected = "Area1";
-let productionObj;
-let productionKeys;
+var type = "Chicken";
+var areaSelected = "Area1";
+var productionObj;
+var productionKeys;
 
 productionRef.on("value",snap=>{
     productionObj = snap.val();
@@ -31,10 +31,10 @@ function populateTables(){
         if(productionObj[type][areaSelected] == undefined){
             areaSelected = "Area1";
         }
-		let html = "";
-        let rowData = "";
+		var html = "";
+        var rowData = "";
 
-        let header = `
+        var header = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -50,7 +50,7 @@ function populateTables(){
 		var start = moment().subtract(1, 'days');
     var end = moment();
     function cb(start, end) {
-		let rowData = "";
+		var rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 		for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
@@ -64,7 +64,7 @@ function populateTables(){
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
 
-            let tr = `
+            var tr = `
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td>${datetime}</td>
@@ -106,7 +106,7 @@ function populateTables(){
 		
 		
         for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-            let optionsList = "";
+            var optionsList = "";
             if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
                 optionsList = `
                     <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
@@ -134,10 +134,10 @@ function populateTables(){
             areaSelected = "Area1";
         }
 
-        let html = "";
-        let rowData = "";
+        var html = "";
+        var rowData = "";
 
-        let header = `
+        var header = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -148,7 +148,7 @@ var start = moment().subtract(1, 'days');
     var end = moment();
     function cb(start, end) {
 		
-		let rowData = "";
+		var rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
@@ -161,7 +161,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
 
-            let tr = `
+            var tr = `
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td>${datetime}</td>
@@ -180,7 +180,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
 	}
 
         for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-            let optionsList = "";
+            var optionsList = "";
             if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
                 optionsList = `
                     <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
@@ -220,10 +220,10 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
             areaSelected = "Area1";
         }
 
-        let html = "";
-        let rowData = "";
+        var html = "";
+        var rowData = "";
 
-        let header = `
+        var header = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -236,7 +236,7 @@ var start = moment().subtract(1, 'days');
     var end = moment();
     function cb(start, end) {
 		
-		let rowData = "";
+		var rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
             var keys = Object.keys(productionObj[type][areaSelected])[x];
@@ -249,7 +249,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
 
-            let tr = `
+            var tr = `
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td>${datetime}</td>
@@ -267,7 +267,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
 	}
 
         for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-            let optionsList = "";
+            var optionsList = "";
             if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
                 optionsList = `
                     <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
@@ -342,7 +342,7 @@ $("#addBtnC").click(function(){
                             "<b>Feed Leftover (kg):</b> " + $form.find("#addfeedLeft").val(),
                         onSubmit: function(result){
                             if(result){
-                                let data = {
+                                var data = {
                                     amount: parseInt($form.find("#addAmountC").val()),
                                     average: parseInt($form.find("#addAvgC").val()),
                                     sick: parseInt($form.find("#addSickC").val()),
@@ -360,7 +360,7 @@ $("#addBtnC").click(function(){
                                     })
                                     
                                     modal.hide()
-                                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                     myref.push(data);
                                 }
                                 
@@ -399,7 +399,7 @@ $("#addBtnC").click(function(){
                             "<b>Eggs Produced (Grams):</b> " + $form.find("#addAmountBSF").val(),
                         onSubmit: function(result){
                             if(result){
-                                let data = {
+                                var data = {
                                     eggs : parseInt($form.find("#addAmountBSF").val()),
                                     timestamp: new Date().getTime()
                                 }
@@ -410,7 +410,7 @@ $("#addBtnC").click(function(){
                                         body: "Data has been added successfully",
                                     })
                                     modal.hide()
-                                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                     myref.push(data);
                                 }
                                 else{
@@ -448,7 +448,7 @@ $("#addBtnC").click(function(){
                             "<b>Larvae Produced (Grams):</b> " + $form.find("#addAmountBSFL").val(),
                         onSubmit: function(result){
                             if(result){
-                                let data = {
+                                var data = {
                                     eggs : parseInt($form.find("#addAmountBSFL").val()),
                                     timestamp: new Date().getTime()
                                 }
@@ -460,7 +460,7 @@ $("#addBtnC").click(function(){
                                     })
                                    
                                     modal.hide()
-                                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                     myref.push(data);
                                 }
 
@@ -543,7 +543,7 @@ var remove = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -568,7 +568,7 @@ var remove = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -593,7 +593,7 @@ var remove = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -676,7 +676,7 @@ var update = function(e){
                                     title: "Push Status",
                                     body: "Data has been updated successfully",
                                 })
-                                let data = {
+                                var data = {
                                     amount: parseInt($form.find("#updateAmountC").val()),
                                     average: parseInt($form.find("#updateAvgC").val()),
                                     sick: parseInt($form.find("#updateSickC").val()),
@@ -685,7 +685,7 @@ var update = function(e){
                                     give: parseInt($form.find("#updatefeedGiven").val()),
                                     left: parseInt($form.find("#updatefeedLeft").val()),
                                 }
-                                let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
                             }
                             else{
@@ -730,10 +730,10 @@ var update = function(e){
                                     title: "Push Status",
                                     body: "Data has been updated successfully",
                                 })
-                                let data = {
+                                var data = {
                                     eggs: parseInt($form.find("#updateAmountBSF").val()),
                                 }
-                                let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
                             }
                             else{
@@ -778,10 +778,10 @@ var update = function(e){
                                     title: "Push Status",
                                     body: "Data has been updated successfully",
                                 })
-                                let data = {
+                                var data = {
                                     eggs: parseInt($form.find("#updateAmountBSF").val()),
                                 }
-                                let myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
                             }
                             else{

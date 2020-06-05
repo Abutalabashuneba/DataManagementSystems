@@ -4,86 +4,86 @@ $(document).ready(function(){
         //----------------------------Start of index page------------------------------//
     
         //Chicken
-        $("#dashChickenBtn").click(function(){
-            $("#dashChicken").show();
-            $("#dashBSF").hide();
-            $("#dashBSFL").hide();
-            $("#dashboardTitle").html("Chicken");
-            $("#dropdownBSFRow").hide();
-            $("#dropdownBSFLRow").hide();
-            $("#dropdownChickenRow").show();    
-        });
+        // $("#dashChickenBtn").click(function(){
+        //     $("#dashChicken").show();
+        //     $("#dashBSF").hide();
+        //     $("#dashBSFL").hide();
+        //     $("#dashboardTitle").html("Chicken");
+        //     $("#dropdownBSFRow").hide();
+        //     $("#dropdownBSFLRow").hide();
+        //     $("#dropdownChickenRow").show();    
+        // });
     
-        //BSF
-        $("#dashBSFBtn").click(function(){
-            $("#dashChicken").hide();
-            $("#dashBSFL").hide();
-            $("#dashBSF").show(); 
-            $("#dashboardTitle").html("BSF");
-            $("#dropdownChickenRow").hide();
-            $("#dropdownBSFLRow").hide();
-            $("#dropdownBSFRow").show();
-        });
+        // //BSF
+        // $("#dashBSFBtn").click(function(){
+        //     $("#dashChicken").hide();
+        //     $("#dashBSFL").hide();
+        //     $("#dashBSF").show(); 
+        //     $("#dashboardTitle").html("BSF");
+        //     $("#dropdownChickenRow").hide();
+        //     $("#dropdownBSFLRow").hide();
+        //     $("#dropdownBSFRow").show();
+        // });
     
-        //BSFL
-        $("#dashBSFLBtn").click(function(){
-            $("#dashChicken").hide();
-            $("#dashBSF").hide();
-            $("#dashBSFL").show(); 
-            $("#dashboardTitle").html("BSFL");
-            $("#dropdownChickenRow").hide();
-            $("#dropdownBSFRow").hide();
-            $("#dropdownBSFLRow").show();
+        // //BSFL
+        // $("#dashBSFLBtn").click(function(){
+        //     $("#dashChicken").hide();
+        //     $("#dashBSF").hide();
+        //     $("#dashBSFL").show(); 
+        //     $("#dashboardTitle").html("BSFL");
+        //     $("#dropdownChickenRow").hide();
+        //     $("#dropdownBSFRow").hide();
+        //     $("#dropdownBSFLRow").show();
             
-        });
+        // });
     
-        //Chicken Area-1
-        $("#dashCarea-1").click(function(){
-            $("#chickenDashArea-2").hide();
-            $("#chickenDashArea-1").show(); 
-            $("#dashDropdownChicken").html("Area-1");
+        // //Chicken Area-1
+        // $("#dashCarea-1").click(function(){
+        //     $("#chickenDashArea-2").hide();
+        //     $("#chickenDashArea-1").show(); 
+        //     $("#dashDropdownChicken").html("Area-1");
             
-        });
+        // });
     
-        //Chicken Area-2
-        $("#dashCarea-2").click(function(){
-            $("#chickenDashArea-1").hide();
-            $("#chickenDashArea-2").show(); 
-            $("#dashDropdownChicken").html("Area-2");
+        // //Chicken Area-2
+        // $("#dashCarea-2").click(function(){
+        //     $("#chickenDashArea-1").hide();
+        //     $("#chickenDashArea-2").show(); 
+        //     $("#dashDropdownChicken").html("Area-2");
             
-        });
+        // });
     
-        //BSF Area-1
-        $("#dashBSFarea-1").click(function(){
-            $("#bsfDashArea-2").hide();
-            $("#bsfDashArea-1").show(); 
-            $("#dashDropdownBSF").html("Area-1");
+        // //BSF Area-1
+        // $("#dashBSFarea-1").click(function(){
+        //     $("#bsfDashArea-2").hide();
+        //     $("#bsfDashArea-1").show(); 
+        //     $("#dashDropdownBSF").html("Area-1");
             
-        });
+        // });
     
-        //BSF Area-2
-        $("#dashBSFarea-2").click(function(){
-            $("#bsfDashArea-1").hide();
-            $("#bsfDashArea-2").show(); 
-            $("#dashDropdownBSF").html("Area-2");
+        // //BSF Area-2
+        // $("#dashBSFarea-2").click(function(){
+        //     $("#bsfDashArea-1").hide();
+        //     $("#bsfDashArea-2").show(); 
+        //     $("#dashDropdownBSF").html("Area-2");
             
-        });
+        // });
     
-        //BSFL Area-1
-        $("#dashBSFLarea-1").click(function(){
-            $("#bsflDashArea-2").hide();
-            $("#bsflDashArea-1").show(); 
-            $("#dashDropdownBSFL").html("Area-1");
+        // //BSFL Area-1
+        // $("#dashBSFLarea-1").click(function(){
+        //     $("#bsflDashArea-2").hide();
+        //     $("#bsflDashArea-1").show(); 
+        //     $("#dashDropdownBSFL").html("Area-1");
             
-        });
+        // });
     
-        //BSFL Area-2
-        $("#dashBSFLarea-2").click(function(){
-            $("#bsflDashArea-1").hide();
-            $("#bsflDashArea-2").show(); 
-            $("#dashDropdownBSFL").html("Area-2");
+        // //BSFL Area-2
+        // $("#dashBSFLarea-2").click(function(){
+        //     $("#bsflDashArea-1").hide();
+        //     $("#bsflDashArea-2").show(); 
+        //     $("#dashDropdownBSFL").html("Area-2");
             
-        });
+        // });
     
     
     
