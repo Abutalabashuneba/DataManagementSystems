@@ -1,11 +1,11 @@
 //select the table for chicken
-let datalistC = document.querySelector(".bodyDataC");
-let datalistBSF = document.querySelector(".bodyDataBSF");
-let datalistBSFL = document.querySelector(".bodyDataBSFL");
+var datalistC = document.querySelector(".bodyDataC");
+var datalistBSF = document.querySelector(".bodyDataBSF");
+var datalistBSFL = document.querySelector(".bodyDataBSFL");
 
-let dataHeaderC = document.querySelector(".bodyHeaderC");
-let dataHeaderBSF = document.querySelector(".bodyHeaderBSF");
-let dataHeaderBSFL = document.querySelector(".bodyHeaderBSFL");
+var dataHeaderC = document.querySelector(".bodyHeaderC");
+var dataHeaderBSF = document.querySelector(".bodyHeaderBSF");
+var dataHeaderBSFL = document.querySelector(".bodyHeaderBSFL");
 
 var database = firebase.database();
 var ref = database.ref("Data");   
