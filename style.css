@@ -264,7 +264,7 @@ SearchBar Styling
 #searchInput{
   background: transparent;
   border: none;
-  border-radius: 5px;
+  border-radius: 0;
   border-bottom: 2px solid #eee;
   transition: ease-in .3s;
 }
