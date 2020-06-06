@@ -1,9 +1,6 @@
 var database = firebase.database();
 var ref = database.ref("Data");   
-
-var dataref = database.ref("Data/Chicken/Area1");
-var bsfDataref = database.ref("Data/BSF/Area1");
-var bsflDataref = database.ref("Data/BSFL/Area1");
+var ref2 = database.ref("Notification");
 
 var allObj = [];
 var allKeys = [];
@@ -61,7 +58,6 @@ function populateDashboard(){
       areaSelected = "Area1";
     }
 
-    document.getElementById("card4").style.display = "block";
 
     let html = "";
 
@@ -82,15 +78,23 @@ function populateDashboard(){
       }
       html += optionslist;
     }
-    dropdown.innerHTML = html;
+    if(dropdown) dropdown.innerHTML = html;
 
+    var card4 = document.getElementById("card4");
+    if(card4) card4.style.display = "block";
     //Change card title
-    document.getElementById("dashCard1Title").innerHTML = "Chicken - Temperature";
-    document.getElementById("dashCard2Title").innerHTML = "Chicken - Humidity";
-    document.getElementById("dashCard3Title").innerHTML = "Chicken - Light Intensity";
+    var title1 = document.getElementById("dashCard1Title");
+    if(title1) title1.innerHTML = "Chicken - Temperature";
+    var title2 = document.getElementById("dashCard2Title");
+    if(title2) title2.innerHTML = "Chicken - Humidity";
+    var title3 = document.getElementById("dashCard3Title");
+    if(title3) title3.innerHTML = "Chicken - Moisture";
     //Change card symbol
-    document.getElementById("symbolCard2").innerHTML = "%";
-    document.getElementById("symbolCard3").innerHTML = "%";
+    var symbol1 = document.getElementById("symbolCard2");
+    if(symbol1) symbol1.innerHTML = "%";
+
+    var symbol2 = document.getElementById("symbolCard3");
+    if(symbol2) symbol2.innerHTML = "%";
 
     //Temeprature
     var dataTemp = chickenObj[areaSelected][keys].temperature;
@@ -127,7 +131,7 @@ function populateDashboard(){
     var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
     var datetime = date.toLocaleString('en-us', options); //format the time 
 
-    if(dataTemp < 20 || dataTemp > 30)
+    if(dataTemp < 20 || dataTemp > 30 && datetime != datetime)
     {
       Push.create("Temperature Warning",{
         body: "Current Chicken Temperauture is " + dataTemp + "°C",
@@ -220,7 +224,6 @@ function populateDashboard(){
 
     let html = "";
     var keys = Object.keys(bsfObj[areaSelected])[Object.keys(bsfObj[areaSelected]).length-1];
-    console.log(bsfObj[areaSelected][keys].temperature);
 
     for(var x = 0; x < bsfKeys.length; ++x){
       let optionslist = "";
