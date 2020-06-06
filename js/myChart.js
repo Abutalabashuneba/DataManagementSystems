@@ -11,8 +11,6 @@ function newDateString(days){
     return moment().add(days,"d").format(timeFormat);
 }
 
-var range = $(".tempPage").find("li.page-item.active").children().attr("id");
-
 var type = "Chicken";
 var areaSelected = "Area1";
 var chartType = "line";
@@ -212,73 +210,7 @@ var config4 = {
         }
     }
 }
-var configMix = {
-    type: "line",
-    data:{
-        // labels: labelTempDaily,
-        datasets:[{
-            label: "Chicken Temperature",
-            // data: pointTempDaily,
-            pointRadius: 0,
-            fill: false,
-            lineTension: 0.5,
-            borderWidth: 2,
-            borderColor: "rgba(201,134,212,0.7)",
-            backgroundColor: "rgba(201,134,212,0.7)",
-            pointHoverBorderColor : "rgba(142,77,185,0.9)",
-        },{
-            label: "Chicken Humidity",
-            // data: pointHumidityDaily,
-            pointRadius: 0,
-            fill: false,
-            lineTension: 0.5,
-            borderWidth: 2,
-            borderColor: "rgba(160, 227, 226, 0.7)",
-            backgroundColor: "rgba(160, 227, 226, 0.7)",
-            pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
-        },{
-            label: "Chicken Moisture",
-            // data: pointMoistDaily,
-            pointRadius: 0,
-            fill: false,
-            lineTension: 0.5,
-            borderWidth: 2,
-            borderColor: "rgba(207, 89, 89, 0.7)",
-            backgroundColor: "rgba(207, 89, 89, 0.7)",
-            pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
-        },
-        {
-            label: "Chicken ph",
-            pointRadius: 0,
-            fill: false,
-            lineTension: 0.5,
-            borderWidth: 2,
-            borderColor: "rgba(207, 89, 89, 0.7)",
-            backgroundColor: "rgba(207, 89, 89, 0.7)",
-            pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
-        }]
-    },
-    options:{
-        tooltips:{
-            intersect: false,
-            mode: "index"
-        },
-        scales:{
-            xAxes:[{
-                type: "time",
-                distribution: "series",
-                offset : false,
-                ticks:{
-                    autoSkip: true,
-                    autoSkipPadding: 75,
-                },
-                time:{
-                    unit : "minute",
-                },
-            }],
-        }
-    }
-}
+
 var labelDaily = [];
 var labelWeekly = [];
 var labelMonthly = [];
@@ -335,6 +267,9 @@ var pointpHBSFLMonthly = [];
 var pointpHBSFLAll = [];
 //
 var areaDrop = document.querySelector(".areaDropdown");
+var chickenDrop = document.querySelector("#mixChicken");
+var bsfDrop = document.querySelector("#mixBSF");
+var bsflDrop = document.querySelector("#mixBSFL");
 var context = document.getElementById("myChart1").getContext("2d");
 var context2 = document.getElementById("myChart2").getContext("2d");
 var context3 = document.getElementById("myChart3").getContext("2d");
@@ -396,7 +331,7 @@ ref.once("value", snap=>{
     drawCharts();
 })
 
-function drawCharts(){
+function drawCharts(num=0){
     labelDaily = [];
     labelWeekly = [];
     labelMonthly = [];
@@ -453,6 +388,7 @@ function drawCharts(){
     pointpHBSFLMonthly = [];
     //
 
+    
     if(chickenObj[areaSelected] != null){
         for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
         var k = Object.keys(chickenObj[areaSelected])[x];
@@ -835,7 +771,6 @@ function drawCharts(){
             config3.data.datasets.push(newDataBSFLThree);
             config3.options.scales.xAxes[0].time.unit = "minute";
         }
-
         chart1.update();
         chart2.update();
         chart3.update();
@@ -1270,11 +1205,38 @@ function drawLifetime(context,envData){
             config3.options.scales.xAxes[0].time.unit = "month";
         }
     }
-
     context.update();
 }
 
 $("#typePage li").click(function(){
+    var chickenList = "";
+    for(var x = 0; x < chickenKeys.length; ++x){
+        var list = `
+            <option value="${chickenKeys[x]}" selected>${chickenKeys[x]}</option>
+        `;
+        chickenList += list;
+    }
+    chickenDrop.innerHTML = chickenList;
+
+    var bsfList = "";
+    for(var x = 0; x < bsfKeys.length; ++x){
+        var list = `
+            <option value="${bsfKeys[x]}" selected>${bsfKeys[x]}</option>
+        `;
+        bsfList += list;
+    }
+    bsfDrop.innerHTML = bsfList;
+
+    var bsflList = "";
+    for(var x = 0; x < bsflKeys.length; ++x){
+        var list = `
+            <option value="${bsflKeys[x]}" selected>${bsflKeys[x]}</option>
+        `;
+        bsflList += list;
+    }
+    bsflDrop.innerHTML = bsflList;
+
+
     if($(this).children().attr("id") == "chickenVisualization"){
         document.getElementById("canvas4").style.display = "block";
         config1.data.datasets[0].type = document.getElementById("typeChart").value = "line";
@@ -1289,6 +1251,11 @@ $("#typePage li").click(function(){
         config1.data.datasets[0].label = "Today temperature";
         config2.data.datasets[0].label = "Today humidity";
         config3.data.datasets[0].label = "Today moisture";
+        document.getElementById("typeChart").style.display = "block";
+        document.getElementById("dropdown").style.display = "block";
+        document.getElementById("mixChicken").style.display = "none";
+        document.getElementById("mixBSF").style.display = "none";
+        document.getElementById("mixBSFL").style.display = "none";
         drawCharts();
     }
 
@@ -1306,6 +1273,11 @@ $("#typePage li").click(function(){
         config1.data.datasets[0].label = "Today temperature";
         config2.data.datasets[0].label = "Today humidity";
         config3.data.datasets[0].label = "Today light";
+        document.getElementById("typeChart").style.display = "block";
+        document.getElementById("dropdown").style.display = "block";
+        document.getElementById("mixChicken").style.display = "none";
+        document.getElementById("mixBSF").style.display = "none";
+        document.getElementById("mixBSFL").style.display = "none";
         drawCharts();
     }
 
@@ -1323,6 +1295,11 @@ $("#typePage li").click(function(){
         config1.data.datasets[0].label = "Today temperature";
         config2.data.datasets[0].label = "Today moisture";
         config3.data.datasets[0].label = "Today ph";
+        document.getElementById("typeChart").style.display = "block";
+        document.getElementById("dropdown").style.display = "block";
+        document.getElementById("mixChicken").style.display = "none";
+        document.getElementById("mixBSF").style.display = "none";
+        document.getElementById("mixBSFL").style.display = "none";
         drawCharts();
     }
 
@@ -1337,6 +1314,11 @@ $("#typePage li").click(function(){
         document.getElementById("headerCanvas1").innerHTML = "Chicken - Mix";
         document.getElementById("headerCanvas2").innerHTML = "BSF - Mix";
         document.getElementById("headerCanvas3").innerHTML = "BSFL - Mix";
+        document.getElementById("typeChart").style.display = "none";
+        document.getElementById("dropdown").style.display = "none";
+        document.getElementById("mixChicken").style.display = "block";
+        document.getElementById("mixBSF").style.display = "block";
+        document.getElementById("mixBSFL").style.display = "block";
         drawCharts();
     }
 
@@ -1432,7 +1414,6 @@ function onTypeChange(){
 
 function onAreaChange(){
     areaSelected = document.getElementById("dropdown").value;
-
     $(".card-footer .paginationBtn li").parent().find( 'li.page-item.active' ).removeClass( 'active' );
     $(".tempPage li").first().addClass("page-item active");
     $(".humPage li").first().addClass("page-item active");
@@ -1441,3 +1422,333 @@ function onAreaChange(){
 
     drawCharts();
 }
+
+$("#mixChicken").change(function(){
+    labelDaily = [];
+    labelWeekly = [];
+    labelMonthly = [];
+    labelAll = [];
+    pointTempDaily = [];
+    pointTempWeekly = [];
+    pointTempMonthly = [];
+    pointTempAll = [];
+    pointHumidityDaily = [];
+    pointHumidityWeekly = [];
+    pointHumidityMonthly = [];
+    pointHumidityAll = [];
+    pointMoistureDaily = [];
+    pointMoistureWeekly = [];
+    pointMoistureMonthly = [];
+    pointMoistureAll = [];
+    pointpHDaily = [];
+    pointpHWeekly = [];
+    pointpHMonthly = [];
+    pointpHAll = [];
+    areaSelected = this.value;
+
+    if(chickenObj[areaSelected] != null){
+        for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
+        var k = Object.keys(chickenObj[areaSelected])[x];
+
+        if(chickenObj[areaSelected][k].timestamp > dayStart && chickenObj[areaSelected][k].timestamp < dayEnd){
+            labelDaily.push(chickenObj[areaSelected][k].timestamp);
+            pointTempDaily.push(chickenObj[areaSelected][k].temperature);
+            pointHumidityDaily.push(chickenObj[areaSelected][k].humidity);
+            pointMoistureDaily.push(chickenObj[areaSelected][k].moisture);
+            pointpHDaily.push(chickenObj[areaSelected][k].ph);
+        }
+
+        if(chickenObj[areaSelected][k].timestamp > weekStart && chickenObj[areaSelected][k].timestamp < weekEnd){
+            labelWeekly.push(chickenObj[areaSelected][k].timestamp);
+            pointTempWeekly.push(chickenObj[areaSelected][k].temperature);
+            pointHumidityWeekly.push(chickenObj[areaSelected][k].humidity);
+            pointMoistureWeekly.push(chickenObj[areaSelected][k].moisture);
+            pointpHWeekly.push(chickenObj[areaSelected][k].ph);
+        }
+
+        if(chickenObj[areaSelected][k].timestamp > monthStart && chickenObj[areaSelected][k].timestamp < monthEnd){
+            labelMonthly.push(chickenObj[areaSelected][k].timestamp);
+            pointTempMonthly.push(chickenObj[areaSelected][k].temperature);
+            pointHumidityMonthly.push(chickenObj[areaSelected][k].humidity);
+            pointMoistureMonthly.push(chickenObj[areaSelected][k].moisture);
+            pointpHMonthly.push(chickenObj[areaSelected][k].ph);
+        }
+        
+        labelAll.push(chickenObj[areaSelected][k].timestamp);
+        pointTempAll.push(chickenObj[areaSelected][k].temperature);
+        pointHumidityAll.push(chickenObj[areaSelected][k].humidity);
+        pointMoistureAll.push(chickenObj[areaSelected][k].moisture);
+        pointpHAll.push(chickenObj[areaSelected][k].ph);
+    }
+    }
+    $(".card-footer .paginationBtn li").parent().find( 'li.page-item.active' ).removeClass( 'active' );
+    $(".tempPage li").first().addClass("page-item active");
+    $(".humPage li").first().addClass("page-item active");
+    $(".moistPage li").first().addClass("page-item active");
+    $(".phPage li").first().addClass("page-item active");
+    
+    config1.data.datasets.splice(0,config1.data.datasets.length);
+    
+    let newDataOne = {
+        label: "Chicken Temperature",
+        data: pointTempDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(201,134,212,0.7)",
+        backgroundColor: "rgba(201,134,212,0.7)",
+        pointHoverBorderColor : "rgba(142,77,185,0.9)",
+    }
+
+    let newDataTwo = {
+        label: "Chicken Humidity",
+        data: pointHumidityDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(160, 227, 226, 0.7)",
+        backgroundColor: "rgba(160, 227, 226, 0.7)",
+        pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+    }
+
+    let newDataThree = {
+        label: "Chicken Moisture",
+        data: pointMoistureDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(207, 89, 89, 0.7)",
+        backgroundColor: "rgba(207, 89, 89, 0.7)",
+        pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+    }
+
+    let newDataFour = {
+        label: "Chicken ph",
+        data: pointpHDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(30, 230, 140, 0.7)",
+        backgroundColor: "rgba(30, 230, 140, 0.7)",
+        pointHoverBorderColor : "rgba(30, 230, 140, 1)",
+    }
+    config1.data.labels = labelDaily;
+    config1.data.datasets.push(newDataOne);
+    config1.data.datasets.push(newDataTwo);
+    config1.data.datasets.push(newDataThree);
+    config1.data.datasets.push(newDataFour);
+    config1.options.scales.xAxes[0].time.unit = "minute";
+    chart1.update();
+})
+
+$("#mixBSF").change(function(){
+    labelBSFDaily = [];
+    labelBSFWeekly = [];
+    labelBSFMonthly = [];
+    labelBSFAll = [];
+    pointTempBSFDaily = [];
+    pointTempBSFWeekly = [];
+    pointTempBSFMonthly = [];
+    pointTempBSFAll = [];
+    pointHumidityBSFDaily = [];
+    pointHumidityBSFWeekly = [];
+    pointHumidityBSFMonthly = [];
+    pointHumidityBSFAll = [];
+    pointLightBSFDaily = [];
+    pointLightBSFWeekly = [];
+    pointLightBSFMonthly = [];
+    pointLightBSFAll = [];
+
+    if(bsfObj[areaSelected] != null){
+        for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
+            var k = Object.keys(bsfObj[areaSelected])[x];
+    
+            if(bsfObj[areaSelected][k].timestamp > dayStart && bsfObj[areaSelected][k].timestamp < dayEnd){
+                labelBSFDaily.push(bsfObj[areaSelected][k].timestamp);
+                pointTempBSFDaily.push(bsfObj[areaSelected][k].temperature);
+                pointHumidityBSFDaily.push(bsfObj[areaSelected][k].humidity);
+                pointLightBSFDaily.push(bsfObj[areaSelected][k].light);
+            }
+    
+            if(bsfObj[areaSelected][k].timestamp > weekStart && bsfObj[areaSelected][k].timestamp < weekEnd){
+                labelBSFWeekly.push(bsfObj[areaSelected][k].timestamp);
+                pointTempBSFWeekly.push(bsfObj[areaSelected][k].temperature);
+                pointHumidityBSFWeekly.push(bsfObj[areaSelected][k].humidity);
+                pointLightBSFWeekly.push(bsfObj[areaSelected][k].light);
+            }
+    
+            if(bsfObj[areaSelected][k].timestamp > monthStart && bsfObj[areaSelected][k].timestamp < monthEnd){
+                labelBSFMonthly.push(bsfObj[areaSelected][k].timestamp);
+                pointTempBSFMonthly.push(bsfObj[areaSelected][k].temperature);
+                pointHumidityBSFMonthly.push(bsfObj[areaSelected][k].humidity);
+                pointLightBSFMonthly.push(bsfObj[areaSelected][k].light);
+            }
+    
+            labelBSFAll.push(bsfObj[areaSelected][k].timestamp);
+            pointTempBSFAll.push(bsfObj[areaSelected][k].temperature);
+            pointHumidityBSFAll.push(bsfObj[areaSelected][k].humidity);
+            pointLightBSFAll.push(bsfObj[areaSelected][k].light);
+        }
+    }
+
+    $(".card-footer .paginationBtn li").parent().find( 'li.page-item.active' ).removeClass( 'active' );
+    $(".tempPage li").first().addClass("page-item active");
+    $(".humPage li").first().addClass("page-item active");
+    $(".moistPage li").first().addClass("page-item active");
+    $(".phPage li").first().addClass("page-item active");
+
+    config2.data.datasets.splice(1,config2.data.datasets.length);
+
+    let newDataBSFOne = {
+        label: "BSF Temperature",
+        data: pointTempBSFDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(201,134,212,0.7)",
+        backgroundColor: "rgba(201,134,212,0.7)",
+        pointHoverBorderColor : "rgba(142,77,185,0.9)",
+    }
+
+    let newDataBSFTwo = {
+        label: "BSF Humidity",
+        data: pointHumidityBSFDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(160, 227, 226, 0.7)",
+        backgroundColor: "rgba(160, 227, 226, 0.7)",
+        pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+    }
+
+    let newDataBSFThree = {
+        label: "BSF Light",
+        data: pointLightBSFDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(207, 89, 89, 0.7)",
+        backgroundColor: "rgba(207, 89, 89, 0.7)",
+        pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+    }
+
+    config2.data.labels = labelDaily;
+    config2.data.datasets.push(newDataBSFOne);
+    config2.data.datasets.push(newDataBSFTwo);
+    config2.data.datasets.push(newDataBSFThree);
+    config2.options.scales.xAxes[0].time.unit = "minute";
+    chart2.update();
+})
+
+$("mixBSFL").change(function(){
+    labelBSFLDaily = [];
+    labelBSFLWeekly = [];
+    labelBSFLMonthly = [];
+    labelBSFLAll = [];
+    pointTempBSFLDaily = [];
+    pointTempBSFLWeekly = [];
+    pointTempBSFLMonthly = [];
+    pointTempBSFLAll = [];
+    pointMoistureBSFLDaily = [];
+    pointMoistureBSFLWeekly = [];
+    pointMoistureBSFLAll = [];
+    pointMoistureBSFLMonthly = [];
+    pointpHBSFLWeekly = [];
+    pointpHBSFLDaily = [];
+    pointpHBSFLAll = [];
+    pointpHBSFLMonthly = [];
+
+    if(bsflObj[areaSelected] != null){
+        for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
+            var k = Object.keys(bsflObj[areaSelected])[x];
+    
+            if(bsflObj[areaSelected][k].timestamp > dayStart && bsflObj[areaSelected][k].timestamp < dayEnd){
+                labelBSFLDaily.push(bsflObj[areaSelected][k].timestamp);
+                pointTempBSFLDaily.push(bsflObj[areaSelected][k].temperature);
+                pointMoistureBSFLDaily.push(bsflObj[areaSelected][k].moisture);
+                pointpHBSFLDaily.push(bsflObj[areaSelected][k].ph);
+            }
+    
+            if(bsflObj[areaSelected][k].timestamp > weekStart && bsflObj[areaSelected][k].timestamp < weekEnd){
+                labelBSFLWeekly.push(bsflObj[areaSelected][k].timestamp);
+                pointTempBSFLWeekly.push(bsflObj[areaSelected][k].temperature);
+                pointMoistureBSFLWeekly.push(bsflObj[areaSelected][k].moisture);
+                pointpHBSFLWeekly.push(bsflObj[areaSelected][k].ph);
+            }
+    
+            if(bsflObj[areaSelected][k].timestamp > monthStart && bsflObj[areaSelected][k].timestamp < monthEnd){
+                labelBSFLMonthly.push(bsflObj[areaSelected][k].timestamp);
+                pointTempBSFLMonthly.push(bsflObj[areaSelected][k].temperature);
+                pointMoistureBSFLMonthly.push(bsflObj[areaSelected][k].moisture);
+                pointpHBSFLMonthly.push(bsflObj[areaSelected][k].ph);
+            }
+    
+            labelBSFLAll.push(bsflObj[areaSelected][k].timestamp);
+            pointTempBSFLAll.push(bsflObj[areaSelected][k].temperature);
+            pointMoistureBSFLAll.push(bsflObj[areaSelected][k].moisture);
+            pointpHBSFLAll.push(bsflObj[areaSelected][k].ph);
+        }
+    }
+
+    $(".card-footer .paginationBtn li").parent().find( 'li.page-item.active' ).removeClass( 'active' );
+    $(".tempPage li").first().addClass("page-item active");
+    $(".humPage li").first().addClass("page-item active");
+    $(".moistPage li").first().addClass("page-item active");
+    $(".phPage li").first().addClass("page-item active");
+
+    config3.data.datasets.splice(1,config3.data.datasets.length);
+
+    let newDataBSFLOne = {
+        label: "BSFL Temperature",
+        data: pointTempBSFLDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(201,134,212,0.7)",
+        backgroundColor: "rgba(201,134,212,0.7)",
+        pointHoverBorderColor : "rgba(142,77,185,0.9)",
+    }
+
+    let newDataBSFLTwo = {
+        label: "BSFL Moisture",
+        data: pointMoistureBSFLDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(160, 227, 226, 0.7)",
+        backgroundColor: "rgba(160, 227, 226, 0.7)",
+        pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+    }
+
+    let newDataBSFLThree = {
+        label: "BSFL ph",
+        data: pointpHDaily,
+        pointRadius: 0,
+        fill: false,
+        lineTension: 0.5,
+        borderWidth: 2,
+        borderColor: "rgba(207, 89, 89, 0.7)",
+        backgroundColor: "rgba(207, 89, 89, 0.7)",
+        pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+    }
+
+    config3.data.labels = labelDaily;
+    config3.data.datasets.push(newDataBSFLOne);
+    config3.data.datasets.push(newDataBSFLTwo);
+    config3.data.datasets.push(newDataBSFLThree);
+    config3.options.scales.xAxes[0].time.unit = "minute";
+    chart3.update();
+})
+
+
+
+
