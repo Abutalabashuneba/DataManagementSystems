@@ -331,7 +331,7 @@ $("#addBtn").click(function(){
     if(type == "Chicken"){
         $.showModal({
             title : "Chicken" + "-" + areaSelected,
-            body: '<form id="addData"><div class="form-group px-5">' +
+            body: '<form><div class="form-group px-5">' +
             '<input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="cTemp" required>' + 
             '<label for="cTemp" class="CLabel" id="tempLabelAdd">(Temperature)</label></div>' + 
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="Humidity" id="cHum" required>' +

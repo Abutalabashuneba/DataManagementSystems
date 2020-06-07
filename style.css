@@ -40,13 +40,13 @@ Login page
 /*---------------------------------------------------------------------
 Register page
 ---------------------------------------------------------------------*/
-.register_container{
+/* .register_container{
     border: 1px solid black;
     padding: 50px 60px;
     box-shadow: 3px 5px 8px 2px #414443;
     border-radius: 5px;
     background-color: white;
-}
+} */
 
 
 /*---------------------------------------------------------------------
@@ -327,7 +327,8 @@ AddForm Styling
 .addBSFLProduction,.updateBSFLProduction,
 .addChickenData,.updateChickenData,
 .updateDateData,
-.updateBSFData,.updateBSFLData{
+.updateBSFData,.updateBSFLData,
+.registerInput{
   position: relative;
   font-size: 20px;
   border: none;
@@ -341,7 +342,8 @@ AddForm Styling
 .addBSFLProduction:focus,.updateBSFLProduction:focus,
 .addChickenData:focus,.updateChickenData:focus,
 .updateDateData:focus,
-.updateBSFData:focus,.updateBSFLData:focus{
+.updateBSFData:focus,.updateBSFLData:focus,
+.registerInput:focus{
   box-shadow: none;
   border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
   border-image-slice: 1;
@@ -362,27 +364,27 @@ AddForm Styling
 }
 
 /*Start Add data page*/
-#tempLabelAdd, #tempLabelBSFLAdd, #bsftempLabelAdd, #productionLabel{
+#tempLabelAdd, #tempLabelBSFLAdd, #bsftempLabelAdd, #productionLabel, #userLabel{
   top: 35px;
 }
 
-#humidLabelAdd, #PhLabelBSFLAdd, #bsfhumidLabelAdd,#tempLabel,#tempLabelUpdate,#tempLabelUpdateBSFL,#weightLabel, #updateproductionLabel{
+#humidLabelAdd, #PhLabelBSFLAdd, #bsfhumidLabelAdd,#tempLabel,#tempLabelUpdate,#tempLabelUpdateBSFL,#weightLabel, #updateproductionLabel,#nameLabel{
   top: 95px;
 }
 
-#phLabelAdd, #moistureLabelBSFLAdd, #bsflightLabelAdd,#humidLabel, #humidLabelUpdate,#phLabelUpdateBSFL,#sickLabel, #updateweightLabel{
+#phLabelAdd, #moistureLabelBSFLAdd, #bsflightLabelAdd,#humidLabel, #humidLabelUpdate,#phLabelUpdateBSFL,#sickLabel, #updateweightLabel,#emailLabel{
   top: 155px;
 }
 
-#moistureLabelAdd,#phLabel,#luxLabelUpdate,#moisLabelUpdateBSFL,#runtLabel, #updatesickLabel{
+#moistureLabelAdd,#phLabel,#luxLabelUpdate,#moisLabelUpdateBSFL,#runtLabel, #updatesickLabel,#phoneLabel{
   top: 215px;
 }
 
-#moistureLabel,#mortalityLabel, #updateruntLabel{
+#moistureLabel,#mortalityLabel, #updateruntLabel,#pwdLabel{
   top: 275px;
 }
 
-#givenLabel, #updatemortalityLabel{
+#givenLabel, #updatemortalityLabel,#pwdConLabel{
   top: 335px;
 }
 
@@ -402,22 +404,23 @@ AddForm Styling
 .updateChickenData:focus + .CLabel, .updateChickenData:valid +.CLabel,
 .addDataBSF:focus + .CLabel, .addDataBSF:valid +.CLabel,
 .updateBSFData:focus + .CLabel, .updateBSFData:valid + .CLabel,
-.updateBSFLData:focus + .CLabel, .updateBSFLData:valid + .CLabel
+.updateBSFLData:focus + .CLabel, .updateBSFLData:valid + .CLabel,
+.registerInput:focus + .CLabel, .registerInput:valid + .CLabel
 {
   padding-left: 270px;
 }
 
-.addBSFProduction:focus + .BSFLabel,.addBSFProduction:valid + .BSFLabel,
+/* .addBSFProduction:focus + .BSFLabel,.addBSFProduction:valid + .BSFLabel,
 .updateBSFProduction:focus + .BSFLabel, .updateBSFProduction:valid + .BSFLabel
 {
 	padding-left: 260px;
-}
+} */
 
-.addBSFLProduction:focus + .BSFLLabel,.addBSFLProduction:valid + .BSFLLabel,
+/* .addBSFLProduction:focus + .BSFLLabel,.addBSFLProduction:valid + .BSFLLabel,
 .updateBSFLProduction:focus + .BSFLLabel, .updateBSFLProduction:valid + .BSFLLabel
 {
 	padding-left: 250px;
-}
+} */
 
 .datepicker td, .datepicker th {
   width: 2.5rem;
@@ -437,14 +440,14 @@ Registration form
   background-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
 }
 
-.registerInput, .addInput, .updateInput{
+.addInput, .updateInput{
   transition: all .4s;
   border: none;
   border-bottom: 1px solid #777;
   border-radius: 0;
 }
 
-.registerInput:focus, .addInput:focus, .updateInput:focus{
+.addInput:focus, .updateInput:focus{
   box-shadow: none;
   border-image: linear-gradient(to right,rgba(85, 201, 255, 1.0),rgba(0, 255, 191, 1.0));
   border-image-slice: 1;

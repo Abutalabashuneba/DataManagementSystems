@@ -6,20 +6,19 @@ function registerForm(){
         title : "Register Account",
         body: 
             '<form><div class="form-group px-5">' +
-            '<input type="text" name="uname" id="uname" class="form-control registerInput" placeholder="Enter username" required/></div>' + 
+            '<input type="text" name="uname" id="uname" class="form-control registerInput" required/><label class="CLabel" id="userLabel">(Username)</label>' + '</div>' + '<div class="form-group px-5">' +
+            '<input type="text" name="fullname" id="fullname" class="form-control registerInput" required/><label class="CLabel" id="nameLabel">(Fullname)</label>' + 
+            '</div><div class="form-group px-5">' + 
+            '<input type="email" name="email" id="email" class="form-control registerInput" required/><label class="CLabel" id="emailLabel">(Email)</label></div>' + 
+            '<div class="form-group px-5">' + 
+            '<input type="text" name="mobile" id="mobile" class="form-control registerInput" required/><label class="CLabel" id="phoneLabel">(Mobile No)</label></div>' + 
             '<div class="form-group px-5">' +
-            '<input type="text" name="fullname" id="fullname" class="form-control registerInput" placeholder="Enter fullname" required/></div>' + 
-            '<div class="form-group px-5">' + 
-            '<input type="email" name="email" id="email" class="form-control registerInput" placeholder="Enter email" required/></div>' + 
-            '<div class="form-group px-5">' + 
-            '<input type="text" name="mobile" id="mobile" class="form-control registerInput" placeholder="Enter mobile no" required/></div>' + 
-            '<div class="form-group px-5">' +
-            '<input type="password" name="pwd" id="pwd" placeholder="Enter password" class="form-control registerInput" required/></div>' + 
-            '<div class="form-group px-5">' + 
-            '<input type="password" name="pwdCon" id="pwdCon" placeholder="Re-enter password" class="form-control registerInput" required/></div>' +
+            '<input type="password" name="pwd" id="pwd" class="form-control registerInput" required/><label class="CLabel" id="pwdLabel">(Password)</label>' +
+            '</div><div class="form-group px-5">' + 
+            '<input type="password" name="pwdCon" id="pwdCon" class="form-control registerInput" required/><label class="CLabel" id="pwdConLabel">(Confirm Password)</label></div>' +
             '<div class="form-group text-center"><span>For: </span><label>' + 
             '<input type="radio" name="accountType" id="admin" required value="Admin">Admin</label>' + 
-            '<label><input type="radio" name="accountType" id="user" required value="User">User</label></div>' + 
+            '<label class="ml-2"><input type="radio" name="accountType" id="user" required value="User">User</label></div>' + 
             '<button type="submit" name="signup" class="btn  btn-block signupBtn text-white">SignUp</button></form>',
         onCreate: function(modal){
             $(modal.element).on("click","button[type='submit']", function(event){
@@ -45,6 +44,7 @@ function registerForm(){
                         '<b>Mobile No.</b>: ' + $form.find('#mobile').val() + "<br/>" +
                         '<b>Type</b>: ' + accType,
                         onSubmit: function(result){
+                            var errorMessage = "";
                             if(result){
                                 refAcc.once("value",snap=>{
                                     if(snap.val() == null){
@@ -70,9 +70,19 @@ function registerForm(){
                                         for(var x = 0; x < len; ++x){
                                             var k = keys[x];
                             
-                                            if($form.find('#email').val() == accObj[k].email || $form.find('#uname').val() == accObj[k].username || $form.find('#mobile').val() == accObj[k].phone){
+                                            if($form.find('#email').val() == accObj[k].email){
                                                 validate = false;
-                                                errorMessage = "Email/Username/Phone existed";
+                                                errorMessage += "Email existed";
+                                            }
+
+                                            if($form.find('#uname').val() == accObj[k].username){
+                                                validate = false;
+                                                errorMessage += " Username existed";
+                                            }
+
+                                            if($form.find('#mobile').val() == accObj[k].phone){
+                                                validate = false;
+                                                errorMessage += " Phone existed";
                                             }
                                         }
 
@@ -88,17 +98,19 @@ function registerForm(){
                                                     phone : $form.find('#mobile').val()
                                                 }
                                                 refAcc.push(data);
-                                                console.log("pushed");
+                                                modal.hide()  
                                             }
                                         }else{
-                                            //
+                                            $.showAlert({
+                                                title : "Account creation failed",
+                                                body : errorMessage
+                                            })
                                         }
                                     }
                                 })
                             }
                         }
                 })
-                modal.hide()  
             })
         }
     })
