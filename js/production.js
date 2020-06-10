@@ -47,7 +47,7 @@ function populateTables(){
                 <th>Feed Leftover (kg)</th>
                 <th>Options</th>
         `;
-		var start = moment().subtract(1, 'days');
+		var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		var rowData = "";
@@ -144,7 +144,7 @@ function populateTables(){
                 <th>Eggs Produced (Grams)</th>
                 <th>Options</th>
         `;
-var start = moment().subtract(1, 'days');
+var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		
@@ -232,7 +232,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
         `;
 
 
-var start = moment().subtract(1, 'days');
+var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		

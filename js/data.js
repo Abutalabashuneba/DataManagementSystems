@@ -69,7 +69,7 @@ function populateTables(){
                 <th>Option</th>
             </tr>
         `;
-var start = moment().subtract(1, 'days');
+var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		
@@ -157,7 +157,7 @@ var start = moment().subtract(1, 'days');
                 <th>Option</th>
             </tr>
         `;
-var start = moment().subtract(1, 'days');
+var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		
@@ -246,7 +246,7 @@ var start = moment().subtract(1, 'days');
                 <th>Option</th>
             </tr>
         `;
-var start = moment().subtract(1, 'days');
+var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		
