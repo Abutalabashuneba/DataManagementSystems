@@ -23,13 +23,14 @@ SoftwareSerial s(D6,D5);
 #define soilWet 500 
 #define soilDry 750 
 
+
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200); //enable Serial Monitor
   s.begin(115200); //enable SUART Port
   while(!Serial) continue;
   
-
   //Connect WiFi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);                                     //try to connect with wifi
   Serial.print("Connecting to ");
@@ -44,7 +45,7 @@ void setup() {
   Serial.print("IP Address is : ");
   Serial.println(WiFi.localIP());                                            //print local IP address
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
-  
+
 }
 
 void loop() {
@@ -76,16 +77,39 @@ void loop() {
   int data3=root["mois"];
   Serial.println(data3);
   Serial.println(); 
-  
-  // Push json Object to Firebase
+  int data4=root["light"];
+  Serial.println(data4);
+  Serial.println(); 
+ 
+  // Push json Object to Firebase ------------------------------------------------
   DynamicJsonBuffer jsonBuffer2;
   JsonObject& dataObject = jsonBuffer2.createObject();
   JsonObject& tempTime = dataObject.createNestedObject("timestamp");
-  dataObject["temperature"] = data1;
-  dataObject["humidity"] = data2;
-  dataObject["moisture"] = data3;
-  tempTime[".sv"] = "timestamp";
 
+  //Read status from firebase
+  String dht11Status = Firebase.getString("/Sensors/Chicken/Area1/DHT11/Status");
+  String fc28Status = Firebase.getString("/Sensors/Chicken/Area1/FC28/Status");
+  
+  Serial.print(dht11Status);
+  if(dht11Status == "On"){
+    dataObject["temperature"] = data1;
+    dataObject["humidity"] = data2;
+    }
+  else if(dht11Status == "Off"){
+    dataObject["temperature"] = "undefined";
+    dataObject["humidity"] = "undefined";
+    }
+    
+  Serial.print(fc28Status);
+  if(fc28Status == "On"){
+    dataObject["moisture"] = data3;
+  }
+  else if(fc28Status == "Off"){
+    dataObject["moisture"] = "undefined";
+    }
+  
+  tempTime[".sv"] = "timestamp";
+  
   Firebase.push("Data/Chicken/Area1", dataObject);
   
   // handle error  
@@ -96,5 +120,5 @@ void loop() {
   }
 
   //Delay 5 minutes
-  delay(300000);
+  delay(60000);
 }
