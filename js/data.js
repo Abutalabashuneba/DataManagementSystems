@@ -32,18 +32,22 @@ ref.on("value", snap=>{
 
     for(var x = 0; x < keys.length; ++x){
         var k = keys[x];
-
-        allObj.push(dataObj[k]);
-        allKeys.push(Object.keys(allObj[x]));
+      
+            if(k == "BSF"){
+              bsfObj = dataObj[k];
+            }
+      
+            else if(k == "BSFL"){
+              bsflObj = dataObj[k];
+            }
+      
+            else if(k == "Chicken"){
+              chickenObj = dataObj[k];
+            }
     }
-
-    bsfObj = allObj[0];
-    bsfKeys = Object.keys(bsfObj);
-
-    bsflObj = allObj[1];
-    bsflKeys = Object.keys(bsflObj);
     
-    chickenObj = allObj[2];
+    bsfKeys = Object.keys(bsfObj);
+    bsflKeys = Object.keys(bsflObj);
     chickenKeys = Object.keys(chickenObj);
 
     populateTables();
@@ -56,9 +60,11 @@ function populateTables(){
         }
 
         let html = "";
+        let header = "";
         let rowData = "";
 
-        let header = `
+        if(sessionStorage.getItem("type") == "Admin"){
+            header = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -68,10 +74,22 @@ function populateTables(){
                 <th>Moisture</th>
                 <th>Option</th>
             </tr>
-        `;
-var start = moment().subtract(31, 'days');
-    var end = moment();
-    function cb(start, end) {
+            `;
+        }else{
+            header = `
+            <tr class="text-muted">
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Temperature (°C)</th>
+                <th>Humidity (%)</th>
+                <th>pH</th>
+                <th>Moisture</th>
+            </tr>
+            `;
+        }
+        var start = moment().subtract(31, 'days');
+        var end = moment();
+        function cb(start, end) {
 		
 		let rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -85,8 +103,9 @@ var start = moment().subtract(31, 'days');
             var d = new Date(chickenObj[areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
-
-            let tr = `
+            let tr = "";
+            if(sessionStorage.getItem("type") == "Admin"){
+                tr = `
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td class="searchVar">${datetime}</td>
@@ -99,7 +118,21 @@ var start = moment().subtract(31, 'days');
                     <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
                     </td>
                 </tr>
-            `;
+                `;
+            }
+
+            else{
+                tr = `
+                <tr>
+                    <td class="id">${x + 1}</td>
+                    <td class="searchVar">${datetime}</td>
+                    <td>${chickenObj[areaSelected][keys].temperature}</td>
+                    <td>${chickenObj[areaSelected][keys].humidity}</td>
+                    <td>${chickenObj[areaSelected][keys].ph}</td>
+                    <td>${chickenObj[areaSelected][keys].moisture}</td>
+                </tr>
+                `;
+            }
             rowData += tr;
         }}
         datalistC.innerHTML = rowData;
@@ -146,8 +179,9 @@ var start = moment().subtract(31, 'days');
 
         let html = "";
         let rowData = "";
-
-        let header = `
+        let header2 = "";
+        if(sessionStorage.getItem("type") == "Admin"){
+            header2 = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -157,7 +191,20 @@ var start = moment().subtract(31, 'days');
                 <th>Option</th>
             </tr>
         `;
-var start = moment().subtract(31, 'days');
+        }
+
+        else{
+            header2 = `
+            <tr class="text-muted">
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Temperature (°C)</th>
+                <th>Humidity (%)</th>
+                <th>Light (LUX)</th>
+            </tr>
+        `;
+        }
+    var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		
@@ -175,8 +222,9 @@ var start = moment().subtract(31, 'days');
             var d = new Date(bsfObj[areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
-
-            let tr =`
+            let tr2 = "";
+            if(sessionStorage.getItem("type") == "Admin"){
+                tr2 =`
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td class="searchVar">${datetime}</td>
@@ -189,7 +237,20 @@ var start = moment().subtract(31, 'days');
                     </td>
                 </tr>
             `;
-            rowData += tr;
+            }
+
+            else{
+                tr2 =`
+                <tr>
+                    <td class="id">${x + 1}</td>
+                    <td class="searchVar">${datetime}</td>
+                    <td>${bsfObj[areaSelected][keys].temperature}</td>
+                    <td>${bsfObj[areaSelected][keys].humidity}</td>
+                    <td>${bsfObj[areaSelected][keys].light}</td>
+                </tr>
+            `;
+            }
+            rowData += tr2;
         }}
         datalistBSF.innerHTML = rowData;
 	}
@@ -207,7 +268,7 @@ var start = moment().subtract(31, 'days');
     }, cb);
 
     cb(start, end);
-        dataHeaderBSF.innerHTML = header;
+        dataHeaderBSF.innerHTML = header2;
 
         for(var x = 0; x < bsfKeys.length; ++x){
             let optionslist = "";
@@ -235,8 +296,9 @@ var start = moment().subtract(31, 'days');
 
         let html = "";
         let rowData = "";
-
-        let header = `
+        let header3 = "";
+        if(sessionStorage.getItem("type") == "Admin"){
+            header3 = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -246,7 +308,20 @@ var start = moment().subtract(31, 'days');
                 <th>Option</th>
             </tr>
         `;
-var start = moment().subtract(31, 'days');
+        }
+
+        else{
+            header3 = `
+            <tr class="text-muted">
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Temperature (°C)</th>
+                <th>pH</th>
+                <th>Moisture</th>
+            </tr>
+        `;
+        }
+    var start = moment().subtract(31, 'days');
     var end = moment();
     function cb(start, end) {
 		
@@ -264,8 +339,9 @@ var start = moment().subtract(31, 'days');
             var d = new Date(bsflObj[areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
-
-            let tr =`
+            let tr3 = "";
+            if(sessionStorage.getItem("type") == "Admin"){
+                tr3 =`
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td class="searchVar">${datetime}</td>
@@ -278,8 +354,21 @@ var start = moment().subtract(31, 'days');
                     </td>
                 </tr>
             `;
+            }
 
-            rowData += tr;
+            else{
+                tr3 =`
+                <tr>
+                    <td class="id">${x + 1}</td>
+                    <td class="searchVar">${datetime}</td>
+                    <td>${bsflObj[areaSelected][keys].temperature}</td>
+                    <td>${bsflObj[areaSelected][keys].ph}</td>
+                    <td>${bsflObj[areaSelected][keys].moisture}</td>
+                </tr>
+            `;
+            }
+
+            rowData += tr3;
         }}
         datalistBSFL.innerHTML = rowData;
 	}
@@ -297,7 +386,7 @@ var start = moment().subtract(31, 'days');
     }, cb);
 
     cb(start, end);
-        dataHeaderBSFL.innerHTML = header;
+        dataHeaderBSFL.innerHTML = header3;
 
         for(var x = 0; x < bsflKeys.length; ++x){
             let optionslist = "";

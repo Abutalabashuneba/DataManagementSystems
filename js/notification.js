@@ -6,17 +6,19 @@ $('[data-toggle="tooltip"]').tooltip()
 })
 
 
-function onGranted(){
-requestBtn.style.background = "green";
-}
-
-function onDenied(){
-requestBtn.style.background = "red";
-}
-
-requestBtn.onclick = function(){
-console.log("Running");
-Push.Permission.request(onGranted, onDenied);
+if(requestBtn){
+  function onGranted(){
+    requestBtn.style.background = "green";
+    }
+    
+    function onDenied(){
+    requestBtn.style.background = "red";
+    }
+    
+    requestBtn.onclick = function(){
+    console.log("Running");
+    Push.Permission.request(onGranted, onDenied);
+    }
 }
 //End of Permission request for notification
 
@@ -53,10 +55,25 @@ ref.on("value", snap=>{
     var area2 = "Area2";
     
   
-    bsfKeys = Object.keys(bsfObj);
-    console.log(bsfObj);
-    bsflKeys = Object.keys(bsflObj);
-    chickenKeys = Object.keys(chickenObj);
+    for(var x = 0; x < keys.length; ++x){
+      var k = keys[x];
+    
+          if(k == "BSF"){
+            bsfObj = dataObj[k];
+          }
+    
+          else if(k == "BSFL"){
+            bsflObj = dataObj[k];
+          }
+    
+          else if(k == "Chicken"){
+            chickenObj = dataObj[k];
+          }
+    }
+  
+      bsfKeys = Object.keys(bsfObj);
+      bsflKeys = Object.keys(bsflObj);
+      chickenKeys = Object.keys(chickenObj);
     
     
     //var dataTemp = chickenObj[areaSelected][keys].temperature;

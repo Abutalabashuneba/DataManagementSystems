@@ -33,8 +33,9 @@ function populateTables(){
         }
 		var html = "";
         var rowData = "";
-
-        var header = `
+        var header1 = "";
+        if(sessionStorage.getItem("type") == "Admin"){
+            header1 = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -47,9 +48,24 @@ function populateTables(){
                 <th>Feed Leftover (kg)</th>
                 <th>Options</th>
         `;
+        }
+        else{
+            header1 = `
+            <tr class="text-muted">
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Amount</th>
+                <th>Average Weight (kg)</th>
+                <th>Sick</th>
+                <th>Runt</th>
+                <th>Mortality</th>
+                <th>Feed Given (kg)</th>
+                <th>Feed Leftover (kg)</th>
+        `;
+        }
 		var start = moment().subtract(31, 'days');
-    var end = moment();
-    function cb(start, end) {
+        var end = moment();
+        function cb(start, end) {
 		var rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 		for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
@@ -63,8 +79,9 @@ function populateTables(){
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
-
-            var tr = `
+            var tr1 = "";
+            if(sessionStorage.getItem("type") == "Admin"){
+                tr1 = `
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td>${datetime}</td>
@@ -81,7 +98,23 @@ function populateTables(){
                     </td>
                 </tr>
             `;
-            rowData += tr;
+            }
+            else{
+                tr1 = `
+                <tr>
+                    <td class="id">${x + 1}</td>
+                    <td>${datetime}</td>
+                    <td>${productionObj[type][areaSelected][keys].amount}</td>
+                    <td>${productionObj[type][areaSelected][keys].average}</td>
+                    <td>${productionObj[type][areaSelected][keys].sick}</td>
+                    <td>${productionObj[type][areaSelected][keys].runt}</td>
+                    <td>${productionObj[type][areaSelected][keys].mortality}</td>
+                    <td>${productionObj[type][areaSelected][keys].give}</td>
+                    <td>${productionObj[type][areaSelected][keys].left}</td>
+                </tr>
+            `;
+            }
+            rowData += tr1;
 		}
 		}
         datalistC.innerHTML = rowData;
@@ -121,12 +154,8 @@ function populateTables(){
             html += optionsList;
         }
 		
-		
-        tableHeadC.innerHTML = header;
+        tableHeadC.innerHTML = header1;
         dropdown.innerHTML = html;
-		
-		
-		
 }
 
     else if(type == "BSF"){
@@ -136,17 +165,28 @@ function populateTables(){
 
         var html = "";
         var rowData = "";
-
-        var header = `
+        var header2 = "";
+        if(sessionStorage.getItem("type") == "Admin"){
+            header2 = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
                 <th>Eggs Produced (Grams)</th>
                 <th>Options</th>
         `;
-var start = moment().subtract(31, 'days');
-    var end = moment();
-    function cb(start, end) {
+        }
+
+        else{
+            header2 = `
+            <tr class="text-muted">
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Eggs Produced (Grams)</th>
+            `;
+        }
+        var start = moment().subtract(31, 'days');
+        var end = moment();
+        function cb(start, end) {
 		
 		var rowData = "";
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -160,8 +200,9 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
-
-            var tr = `
+            var tr2 = "";
+            if(sessionStorage.getItem("type") == "Admin"){
+                tr2 = `
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td>${datetime}</td>
@@ -172,7 +213,18 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
                     </td>
                 </tr>
             `;
-            rowData += tr;
+            }
+
+            else{
+                tr2 = `
+                <tr>
+                    <td class="id">${x + 1}</td>
+                    <td>${datetime}</td>
+                    <td>${productionObj[type][areaSelected][keys].eggs}</td>
+                </tr>
+            `;
+            }
+            rowData += tr2;
         }
 		}
 		
@@ -211,7 +263,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
     cb(start, end);
 	
 
-        tableHeadBSF.innerHTML = header;
+        tableHeadBSF.innerHTML = header2;
         dropdown.innerHTML = html;
     }
 
@@ -222,14 +274,27 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
 
         var html = "";
         var rowData = "";
-
-        var header = `
+        var header3 = "";
+        if(sessionStorage.getItem("type") == "Admin"){
+            header3 = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
                 <th>Larvae Produced (Grams)</th>
                 <th>Options</th>
-        `;
+            </tr>
+            `;
+        }
+
+        else{
+            header3 = `
+            <tr class="text-muted">
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Larvae Produced (Grams)</th>
+            </tr>
+            `;
+        }
 
 
 var start = moment().subtract(31, 'days');
@@ -248,8 +313,9 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
             var d = new Date(productionObj[type][areaSelected][keys].timestamp);
             var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
             var datetime = d.toLocaleString('en-us', options); 
-
-            var tr = `
+            var tr3 = "";
+            if(sessionStorage.getItem("type") == "Admin"){
+                tr3 = `
                 <tr>
                     <td class="id">${x + 1}</td>
                     <td>${datetime}</td>
@@ -260,7 +326,19 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
                     </td>
                 </tr>
             `;
-            rowData += tr;
+            }
+
+            else{
+                tr3 = `
+                <tr>
+                    <td class="id">${x + 1}</td>
+                    <td>${datetime}</td>
+                    <td>${productionObj[type][areaSelected][keys].eggs}</td>
+                    <td>
+                </tr>
+            `;
+            }
+            rowData += tr3;
 	}}
 	
         datalistBSFL.innerHTML = rowData;
@@ -298,7 +376,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
     cb(start, end);
 	
 
-        tableHeadBSFL.innerHTML = header;
+        tableHeadBSFL.innerHTML = header3;
         dropdown.innerHTML = html;
     }
 }
