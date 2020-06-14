@@ -11,7 +11,7 @@ function registerForm(){
             '</div><div class="form-group px-5">' + 
             '<input type="email" name="email" id="email" class="form-control registerInput" required/><label class="CLabel" id="emailLabel">(Email)</label></div>' + 
             '<div class="form-group px-5">' + 
-            '<input type="text" name="mobile" id="mobile" class="form-control registerInput" required/><label class="CLabel" id="phoneLabel">(Mobile No)</label></div>' + 
+            '<input type="number" name="mobile" id="mobile" class="form-control registerInput" required/><label class="CLabel" id="phoneLabel">(Mobile No)</label></div>' + 
             '<div class="form-group px-5">' +
             '<input type="password" name="pwd" id="pwd" class="form-control registerInput" required/><label class="CLabel" id="pwdLabel">(Password)</label>' +
             '</div><div class="form-group px-5">' + 
