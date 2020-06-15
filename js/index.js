@@ -242,15 +242,27 @@ function populateDashboard(){
     dropdown.innerHTML = html;
 
     //Remove 4th card
-    document.getElementById("card4").style.display = "none";
+    var bsfCard4 = document.getElementById("card4");
+    if(bsfCard4) bsfCard4.style.display = "none";
+  
     //Change card title
-    document.getElementById("dashCard1Title").innerHTML = "BSF - Temperature";
-    document.getElementById("dashCard2Title").innerHTML = "BSF - Humidity";
-    document.getElementById("dashCard3Title").innerHTML = "BSF - Light Intensity";
-    //Change card symbol
-    document.getElementById("symbolCard2").innerHTML = "%";
-    document.getElementById("symbolCard3").innerHTML = "Lux";
+    var bsfTitle1 = document.getElementById("dashCard1Title");
+    if(bsfTitle1) bsfTitle1.innerHTML = "BSF - Temperature";
+    
+    var bsfTitle2 = document.getElementById("dashCard2Title");
+    if(bsfTitle2) bsfTitle2.innerHTML = "BSF - Humidity";
 
+    var bsfTitle3 = document.getElementById("dashCard3Title");
+    if(bsfTitle3) bsfTitle3.innerHTML = "BSF - Light Intensity";
+
+    //Change card symbol
+    var bsfSymbol = document.getElementById("symbolCard2");
+    if(bsfSymbol) bsfSymbol.innerHTML = "%";
+
+    var bsfSymbol2 = document.getElementById("symbolCard3");
+    if(bsfSymbol2) bsfSymbol2.innerHTML = "Lux";
+    
+    
     //Temeprature
     var dataTempBSF = bsfObj[areaSelected][keys].temperature;
     var valueTempBSF = document.getElementById("temp");
@@ -494,6 +506,7 @@ function populateDashboard(){
       if (value > 0) {
         if (value <= 50) {
         right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+        left.css("transform", "rotate(" + percentageToDegrees(0) + "deg)")
         } else {
         right.css('transform', 'rotate(180deg)')
         left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
