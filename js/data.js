@@ -17,10 +17,10 @@ var bsfObj;
 var bsflObj;
 var chickenObj;
 
-var tempPatt = /\b([1-9][1-9]|100)\b/;
-var humidPatt = /\b([1-9][1-9]|100)\b/;
+var tempPatt = /(?:\b|-)([1-9]{1,2}[0]?|100)\b/;
+var humidPatt = /(?:\b|-)([1-9]{1,2}[0]?|100)\b/;
 var phPatt = /\b(0?[1-9]|1[0-4])\b/;
-var moistPatt = /\b([1-9][1-9]|100)\b/;
+var moistPatt = /(?:\b|-)([1-9]{1,2}[0]?|100)\b/;
 var lightPatt = /\b([1-9]{1,5}|10|100|1000|10000|100000)\b/;
 
 var type = document.getElementById("dataTitle").textContent;
