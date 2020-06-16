@@ -17,11 +17,11 @@ var bsfObj;
 var bsflObj;
 var chickenObj;
 
-var tempPatt = /(?:\b|-)([1-9]{1,2}[0]?|100)\b/;
-var humidPatt = /(?:\b|-)([1-9]{1,2}[0]?|100)\b/;
+var tempPatt = /(^100$)|^[1-9]\d?$/;
+var humidPatt = /(^100$)|^[1-9]\d?$/;
 var phPatt = /\b(0?[1-9]|1[0-4])\b/;
-var moistPatt = /(?:\b|-)([1-9]{1,2}[0]?|100)\b/;
-var lightPatt = /\b([1-9]{1,5}|10|100|1000|10000|100000)\b/;
+var moistPatt = /(^100$)|^[1-9]\d?$/;
+var lightPatt = /\b[0-9]{1,5}/;
 
 var type = document.getElementById("dataTitle").textContent;
 var dropdown = document.querySelector("#chickenAreaData");
@@ -564,7 +564,7 @@ $("#addBtn").click(function(){
                                     }
 
                                     if(!lightBSFCheck){                                        
-                                        errorBSFMSG += "Light range 1~100000<br/>";
+                                        errorBSFMSG += "Light range 1~99999<br/>";
                                     }
 
                                     if(tempBSFCheck && humidBSFCheck && lightBSFCheck){
@@ -860,29 +860,64 @@ var update = function(e){
                             "<b>pH:</b> " + $form.find("#updatepH").val() + "<br/>" +
                             "<b>Moisture:</b> " + $form.find("#updateMoisture").val(),
                         onSubmit: function(result){
+                            var errMSG = "";
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
+                                var tempCheck = tempPatt.test($form.find("#updateTemp").val());
+                                var humidCheck = humidPatt.test($form.find("#updateHum").val());
+                                var phCheck = phPatt.test($form.find("#updatepH").val());
+                                var moistCheck = moistPatt.test($form.find("#updateMoisture").val());
+
                                 let data = {
                                     humidity: parseInt($form.find("#updateHum").val()),
                                     moisture: parseInt($form.find("#updateMoisture").val()),
                                     temperature: parseInt($form.find("#updateTemp").val()),
                                     ph : parseInt($form.find("#updatepH").val()),
                                 }
-                                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                                myref.child(keys).update(data);
-                            }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
+                                
+                                if(!isNaN(data.temperature) && !isNaN(data.ph) && !isNaN(data.temperature) && !isNaN(data.moisture)){
+                                    if(!tempCheck){
+                                        errMSG += "Temperature range 1~100<br/>"
+                                    }
+
+                                    if(!humidCheck){
+                                        errMSG += "Humidity range 1~100<br/>"
+                                    }
+
+                                    if(!phCheck){
+                                        errMSG += "ph range 1~14<br/>"
+                                    }
+
+                                    if(!moistCheck){
+                                        errMSG += "Moisture range 1~100<br/>"
+                                    }
+
+                                    if(tempCheck && humidCheck && phCheck && moistCheck){
+                                        $.showAlert({
+                                            title: "Push Status",
+                                            body: "Data has been added successfully",
+                                        })
+                                        modal.hide();
+                                        let myref = database.ref("Data/"+type+"/"+areaSelected);
+                                        myref.child(keys).update(data);
+                                    }
+
+                                    else{
+                                        $.showAlert({
+                                            title: "Update failed",
+                                            body: errMSG
+                                        })
+                                    }
+                                }
+
+                                else{
+                                    $.showAlert({
+                                        title : "Update failed",
+                                        body : "Please check if all inputs are filled"
+                                    })
+                                }
                             }
                         }
                     })
-                    modal.hide()
                 })
             },
         })
@@ -927,28 +962,58 @@ var update = function(e){
                             "<b>Humidity:</b> " + $form.find("#updatebsfHum").val() + "<br/>" +
                             "<b>Light:</b> " + $form.find("#updatebsfLux").val(),
                         onSubmit: function(result){
+                            var errBSFMSG = "";
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
+                                var humidBSFCheck = humidPatt.test($form.find("#updatebsfHum").val());
+                                var tempBSFCheck = tempPatt.test($form.find("#updatebsfTemp").val());
+                                var lightBSFCheck = lightPatt.test($form.find("#updatebsfLux").val());
+                                
                                 let data = {
                                     humidity: parseInt($form.find("#updatebsfHum").val()),
                                     light: parseInt($form.find("#updatebsfLux").val()),
                                     temperature: parseInt($form.find("#updatebsfTemp").val()),
                                 }
-                                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                                myref.child(keys).update(data);
-                            }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
+
+                                if(!isNaN(data.temperature) && !isNaN(data.humidity) && !isNaN(data.light)){
+                                    if(!humidBSFCheck){
+                                        errBSFMSG += "Humidity range 1~100<br/>";
+                                    }
+
+                                    if(!tempBSFCheck){
+                                        errBSFMSG += "Temperature range 1~100<br/>";
+                                    }
+
+                                    if(!lightBSFCheck){
+                                        errBSFMSG += "light range 1~99999<br/>";
+                                    }
+
+                                    if(humidBSFCheck && tempBSFCheck && lightBSFCheck){
+                                        $.showAlert({
+                                            title: "Push Status",
+                                            body: "Successfully update the data",
+                                        })
+                                        modal.hide();
+                                        let myref = database.ref("Data/"+type+"/"+areaSelected);
+                                        myref.child(keys).update(data);
+                                    }
+
+                                    else{
+                                        $.showAlert({
+                                            title: "Update status",
+                                            body: errBSFMSG
+                                        })
+                                    }
+                                }
+
+                                else{
+                                    $.showAlert({
+                                        title: "Update Status",
+                                        body: "Check if all inputs are filled"
+                                    })
+                                }
                             }
                         }
                     })
-                    modal.hide()
                 })
             },
         })
@@ -993,28 +1058,57 @@ var update = function(e){
                             "<b>pH:</b> " + $form.find("#updatebsflPh").val() + "<br/>" +
                             "<b>Moisture:</b> " + $form.find("#updatebsflMois").val(),
                         onSubmit: function(result){
+                            var errBSFLMSG = "";
                             if(result){
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has been added successfully",
-                                })
+                                var tempBSFLCheck = tempPatt.test($form.find("#updatebsflTemp").val());
+                                var phBSFLCheck = phPatt.test($form.find("#updatebsflPh").val());
+                                var moistBSFLCheck = moistPatt.test($form.find("#updatebsflMois").val());
+
                                 let data = {
                                     ph: parseInt($form.find("#updatebsflPh").val()),
                                     temperature: parseInt($form.find("#updatebsflTemp").val()),
                                     moisture: parseInt($form.find("#updatebsflMois").val()),
                                 }
-                                let myref = database.ref("Data/"+type+"/"+areaSelected);
-                                myref.child(keys).update(data);
-                            }
-                            else{
-                                $.showAlert({
-                                    title: "Push Status",
-                                    body: "Data has not been added successfully"
-                                })
+                                
+                                if(!isNaN(data.temperature) && !isNaN(data.ph) && !isNaN(data.moisture)){
+                                    if(!tempBSFLCheck){
+                                        errBSFLMSG += "Temperature range 1~100<br/>"; 
+                                    }
+
+                                    if(!phBSFLCheck){
+                                        errBSFLMSG += "ph range 1~14<br/>"; 
+                                    }
+
+                                    if(!moistBSFLCheck){
+                                        errBSFLMSG += "Moisture range 1~100<br/>"; 
+                                    }
+
+                                    if(tempBSFLCheck && phBSFLCheck && moistBSFLCheck){
+                                        $.showAlert({
+                                            title: "Push Status",
+                                            body: "Data has been added successfully",
+                                        })
+                                        modal.hide();
+                                        let myref = database.ref("Data/"+type+"/"+areaSelected);
+                                        myref.child(keys).update(data);
+                                    }
+
+                                    else{
+                                        $.showAlert({
+                                            title: "Update Status",
+                                            body: errBSFLMSG
+                                        })
+                                    }
+                                }
+                                else{
+                                    $.showAlert({
+                                        title: "Update Status",
+                                        body: "Please check if all inputs are filled"
+                                    })
+                                }
                             }
                         }
                     })
-                    modal.hide()
                 })
             },
         })
