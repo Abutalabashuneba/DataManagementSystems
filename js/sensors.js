@@ -1,7 +1,7 @@
 //connect to firebase database 
 //get reference to the related child (Data)
 var database = firebase.database();
-var ref = database.ref("Sensors");
+var refSensor = database.ref("Sensors");
 
 var bsfObj;
 var bsflObj;
@@ -11,7 +11,7 @@ var type = "Chicken";
 var dropdown = document.querySelector("#chickenAreaSensor");
 var areaSelected = "Area1";
 
-ref.on("value", snap=>{
+refSensor.on("value", snap=>{
     var dataObj = snap.val();
     var keys = Object.keys(dataObj);
   
@@ -64,6 +64,7 @@ function populateSensor(){
         }
         dropdown.innerHTML = html;
         
+        document.getElementById("card-3").style.display = "none";
         document.getElementById("card-1").innerHTML = "Chicken - Temp & Humidity Sensor (DHT11)";
         document.getElementById("card-2").innerHTML = "Chicken - Soil Moisture Sensor (FC-28)";
 
@@ -213,28 +214,29 @@ function populateSensor(){
 $("#switchTemp").change(function(){
     if($(this).prop("checked") == true){
         console.log(type);
-        ref.child(type+'/'+areaSelected+'/DHT11').update({Status:'On'})
+        console.log(areaSelected);
+        refSensor.child(type+'/'+areaSelected+'/DHT11').update({Status:'On'})
     }else{
         console.log("11111");
-        ref.child(type+'/'+areaSelected+'/DHT11').update({Status:'Off'})
+        refSensor.child(type+'/'+areaSelected+'/DHT11').update({Status:'Off'})
     }
 });
 
 //FC-28
 $("#switchMois").change(function(){
     if($(this).prop("checked") == true){
-        ref.child(type+'/'+areaSelected+'/FC28').update({Status:'On'})
+        refSensor.child(type+'/'+areaSelected+'/FC28').update({Status:'On'})
     }else{
-        ref.child(type+'/'+areaSelected+'/FC28').update({Status:'Off'})
+        refSensor.child(type+'/'+areaSelected+'/FC28').update({Status:'Off'})
     }
 });
 
 //Light Sensor
 $("#switchLight").change(function(){
     if($(this).prop("checked") == true){
-        ref.child(type+'/'+areaSelected+'/LightSensor').update({Status:'On'})
+        refSensor.child(type+'/'+areaSelected+'/LightSensor').update({Status:'On'})
     }else{
-        ref.child(type+'/'+areaSelected+'/LightSensor').update({Status:'Off'})
+        refSensor.child(type+'/'+areaSelected+'/LightSensor').update({Status:'Off'})
     }
 });
 
