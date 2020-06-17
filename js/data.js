@@ -21,7 +21,7 @@ var tempPatt = /(^100$)|^[1-9]\d?$/;
 var humidPatt = /(^100$)|^[1-9]\d?$/;
 var phPatt = /\b(0?[1-9]|1[0-4])\b/;
 var moistPatt = /(^100$)|^[1-9]\d?$/;
-var lightPatt = /\b[0-9]{1,5}/;
+var lightPatt = /^([1-9][0-9]{0,5}|100000)$/;
 
 var type = document.getElementById("dataTitle").textContent;
 var dropdown = document.querySelector("#chickenAreaData");
