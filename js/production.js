@@ -1,3 +1,7 @@
+if(sessionStorage.getItem("type") == "Admin"){
+    document.getElementById("addBtnC").style.display = "block";
+  }
+
 //select the table
 var tableHeadC = document.querySelector(".productionHeaderC");
 var tableHeadBSF = document.querySelector(".productionHeaderBSF");

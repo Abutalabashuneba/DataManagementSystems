@@ -1,3 +1,7 @@
+if(sessionStorage.getItem("type") == "Admin"){
+    document.getElementById("addBtn").style.display = "block";
+}
+
 //select the table for chicken
 var datalistC = document.querySelector(".bodyDataC");
 var datalistBSF = document.querySelector(".bodyDataBSF");
