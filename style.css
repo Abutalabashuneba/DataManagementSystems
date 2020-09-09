@@ -410,17 +410,17 @@ AddForm Styling
   padding-left: 270px;
 }
 
-/* .addBSFProduction:focus + .BSFLabel,.addBSFProduction:valid + .BSFLabel,
+.addBSFProduction:focus + .BSFLabel,.addBSFProduction:valid + .BSFLabel,
 .updateBSFProduction:focus + .BSFLabel, .updateBSFProduction:valid + .BSFLabel
 {
-	padding-left: 260px;
-} */
+	padding-left: 255px;
+}
 
-/* .addBSFLProduction:focus + .BSFLLabel,.addBSFLProduction:valid + .BSFLLabel,
+.addBSFLProduction:focus + .BSFLLabel,.addBSFLProduction:valid + .BSFLLabel,
 .updateBSFLProduction:focus + .BSFLLabel, .updateBSFLProduction:valid + .BSFLLabel
 {
-	padding-left: 250px;
-} */
+	padding-left: 235px;
+}
 
 .datepicker td, .datepicker th {
   width: 2.5rem;
