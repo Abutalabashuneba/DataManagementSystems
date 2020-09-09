@@ -177,6 +177,7 @@ function populateTables(){
                 `;
             }
             html += optionslist;
+			
         }
         dropdown.innerHTML = html;
     
@@ -684,6 +685,310 @@ $("#addBtn").click(function(){
             }
         })
     }
+})
+
+$("#addAreaBtn").click(function(){
+    if(type == "Chicken"){
+		var newAreaNo = chickenKeys.length + 1;
+        $.showModal({
+            title : "ADD CHICKEN AREA",
+            body: '<form><div class="form-group px-5">' +
+            '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
+            onCreate: function (modal2) {
+                // create event handler for form submit and handle values
+                $(modal2.element).on("click", "button[type='submit']", function (event) {
+                    event.preventDefault()
+                    var $form = $(modal2.element).find("form")
+					$.showModal({
+						title : "Chicken" + "-" + "Area" + newAreaNo,
+						body: '<form><div class="form-group px-5">' +
+						'<input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="cTemp" required>' + 
+						'<label for="cTemp" class="CLabel" id="tempLabelAdd">(Temperature)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="Humidity" id="cHum" required>' +
+						'<label for="cHum" class="CLabel" id="humidLabelAdd">(Humidity)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="pH" id="cPh" required>' + 
+						'<label for="cPh" class="CLabel" id="phLabelAdd">(ph value)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="Moisture" id="cMoisture" required>' +
+						'<label for="cMoisture" class="CLabel" id="moistureLabelAdd">(Moisture)</label></div>' +
+						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
+						onCreate: function (modal) {
+							// create event handler for form submit and handle values
+							$(modal.element).on("click", "button[type='submit']", function (event) {
+								event.preventDefault()
+								var $form = $(modal.element).find("form")
+								$.showConfirm({
+									title: "Checking",
+									textTrue : "Yes",
+									textFalse : "No",
+									body:
+										"<b>Temperature:</b> " + $form.find("#cTemp").val() + "<br/>" +
+										"<b>Humidity:</b> " + $form.find("#cHum").val() + "<br/>" +
+										"<b>pH:</b> " + $form.find("#cPh").val() + "<br/>" +
+										"<b>Moisture:</b> " + $form.find("#cMoisture").val(),
+									onSubmit: function(result){
+										var errorMSG = "";
+										if(result){
+											var tempCheck = tempPatt.test($form.find("#cTemp").val());
+											var humidCheck = humidPatt.test($form.find("#cHum").val());
+											var phCheck = phPatt.test($form.find("#cPh").val());
+											var moistCheck = moistPatt.test($form.find("#cMoisture").val());
+
+											let data = {
+												humidity: parseInt($form.find("#cHum").val()),
+												moisture: parseInt($form.find("#cMoisture").val()),
+												temperature: parseInt($form.find("#cTemp").val()),
+												ph : parseInt($form.find("#cPh").val()),
+												timestamp: new Date().getTime()
+											}
+
+											if(!isNaN(data.humidity) && !isNaN(data.moisture) && !isNaN(data.temperature) && !isNaN(data.ph)){
+												if(!tempCheck){
+													errorMSG += "Temperature range 1~100<br/>";
+												}
+
+												if(!humidCheck){
+													errorMSG += "Humidity range 1~100<br/>";
+												}
+
+												if(!phCheck){
+													errorMSG += "ph range 1~14<br/>";
+												}
+
+												if(!moistCheck){
+													errorMSG += "Moisture range 1~100<br/>";
+												}
+
+												if(tempCheck && humidCheck && phCheck && moistCheck){
+													$.showAlert({
+														title: "Push Status",
+														body: "Data has been added successfully",
+													})
+
+													modal.hide()
+													modal2.hide()
+													let myarearef = database.ref("Data/"+type);
+													let myref = database.ref("Data/"+type+"/"+"Area"+newAreaNo);
+													myref.push(data);
+												}
+
+												else{
+													$.showAlert({
+														title: "Push failed",
+														body: errorMSG
+													})
+												}
+											}
+											else{
+												$.showAlert({
+													title: "Push failed",
+													body: "Check if all inputs are filled"
+												})
+											}
+										}
+									}
+								})
+							})
+						},
+					})
+				})
+			}
+		})
+	}
+	
+	else if(type == "BSF"){
+		var newAreaNo = bsfKeys.length + 1;
+        $.showModal({
+            title : "ADD BSF AREA",
+            body: '<form><div class="form-group px-5">' +
+            '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
+            onCreate: function (modal2) {
+                // create event handler for form submit and handle values
+                $(modal2.element).on("click", "button[type='submit']", function (event) {
+                    event.preventDefault()
+                    var $form = $(modal2.element).find("form")
+					$.showModal({
+						title : "BSF" + "-" + "Area" + newAreaNo,
+						body: '<form><div class="form-group px-5">' +
+						'<input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="bsfTemp" required>' + 
+						'<label for="bsfTemp" class="CLabel" id="bsftempLabelAdd">(Temperature)</label></div>' +
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="Humidity" id="bsfHum" required>' +
+						'<label for="bsfHum" class="CLabel" id="bsfhumidLabelAdd">(Humidity)</label></div>' +
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="LUX" id="bsfLux" required>' +
+						'<label for="bsfPh" class="CLabel" id="bsflightLabelAdd">(LUX value)</label></div>' + 
+						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
+						onCreate: function (modal) {
+							// create event handler for form submit and handle values
+							$(modal.element).on("click", "button[type='submit']", function (event) {
+								event.preventDefault()
+								var $form = $(modal.element).find("form")
+								$.showConfirm({
+									title: "Checking",
+									textTrue : "Yes",
+									textFalse : "No",
+									body:
+										"<b>Temperature:</b> " + $form.find("#bsfTemp").val() + "<br/>" +
+										"<b>Humidity:</b> " + $form.find("#bsfHum").val() + "<br/>" +
+										"<b>Lux:</b> " + $form.find("#bsfLux").val(),
+									onSubmit: function(result){
+										var errorBSFMSG = "";
+										if(result){
+											var tempBSFCheck = tempPatt.test($form.find("#bsfTemp").val());
+											var humidBSFCheck = humidPatt.test($form.find("#bsfHum").val());
+											var lightBSFCheck = lightPatt.test($form.find("#bsfLux").val());
+
+											let data = {
+												humidity: parseInt($form.find("#bsfHum").val()),
+												light: parseInt($form.find("#bsfLux").val()),
+												temperature: parseInt($form.find("#bsfTemp").val()),
+												timestamp: new Date().getTime()
+											}
+
+											if(!isNaN(data.humidity) && !isNaN(data.light) && !isNaN(data.temperature)){
+												if(!tempBSFCheck){                                        
+													errorBSFMSG += "Temperature range 1~100<br/>";
+												}
+
+												if(!humidBSFCheck){                                        
+													errorBSFMSG += "Humidity range 1~100<br/>";
+												}
+
+												if(!lightBSFCheck){                                        
+													errorBSFMSG += "Light range 1~99999<br/>";
+												}
+
+												if(tempBSFCheck && humidBSFCheck && lightBSFCheck){
+													$.showAlert({
+														title: "Push Status",
+														body: "Data has been added successfully",
+													})
+
+													modal.hide()
+													modal2.hide()
+													let myarearef = database.ref("Data/"+type);
+													let myref = database.ref("Data/"+type+"/"+"Area"+newAreaNo);
+													myref.push(data);
+												}
+
+												else{
+													$.showAlert({
+														title: "Push failed",
+														body: errorBSFMSG
+													})
+												}
+											}
+											else{
+												$.showAlert({
+													title: "Push failed",
+													body: "Check if all the inputs are filled"
+												})
+											}
+										}
+									}
+								})
+							})
+						},
+					})
+				})
+			}
+		})
+	}
+	
+    else if(type == "BSFL"){
+		var newAreaNo = bsflKeys.length + 1;
+        $.showModal({
+            title : "ADD BSFL AREA",
+            body: '<form><div class="form-group px-5">' +
+            '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
+            onCreate: function (modal2) {
+                // create event handler for form submit and handle values
+                $(modal2.element).on("click", "button[type='submit']", function (event) {
+                    event.preventDefault()
+                    var $form = $(modal2.element).find("form")
+					$.showModal({
+						title : "BSF Larvae" + "-" + "Area" + newAreaNo,
+						body: '<form><div class="form-group px-5">' +
+						'<input type="number" step="any" min="0" class="form-control addChickenData" name="Temperature" id="bsflTemp" required>' + 
+						'<label for="bsflTemp" class="CLabel" id="tempLabelBSFLAdd">(Temperature)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="ph" id="bsflPh" required>' + 
+						'<label for="bsflPh" class="CLabel" id="PhLabelBSFLAdd">(pH value)</label></div>' +
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="moist" id="bsflMois" required>' +
+						'<label for="bsflMois" class="CLabel" id="moistureLabelBSFLAdd">(Moisture)</label></div>' +
+						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
+						onCreate: function (modal) {
+							// create event handler for form submit and handle values
+							$(modal.element).on("click", "button[type='submit']", function (event) {
+								event.preventDefault()
+								var $form = $(modal.element).find("form")
+								$.showConfirm({
+									title: "Checking",
+									textTrue : "Yes",
+									textFalse : "No",
+									body:
+										"<b>Temperature:</b> " + $form.find("#bsflTemp").val() + "<br/>" +
+										"<b>pH:</b> " + $form.find("#bsflPh").val() + "<br/>" +
+										"<b>Moisture:</b> " + $form.find("#bsflMois").val(),
+									onSubmit: function(result){
+										var errorBSFLMSG = "";
+										if(result){
+											var tempBSFLCheck = tempPatt.test($form.find("#bsflTemp").val());
+											var phBSFLCheck = phPatt.test($form.find("#bsflPh").val());
+											var moistBSFLCheck = moistPatt.test($form.find("#bsflMois").val());
+
+											let data = {
+												ph: parseInt($form.find("#bsflPh").val()),
+												temperature: parseInt($form.find("#bsflTemp").val()),
+												moisture: parseInt($form.find("#bsflMois").val()),
+												timestamp: new Date().getTime()
+											}
+
+											if(!isNaN(data.ph) && !isNaN(data.temperature) && !isNaN(data.moisture)){
+												if(!tempBSFLCheck){
+													errorBSFLMSG += "Temperature range 1~100<br/>";
+												}
+
+												if(!phBSFLCheck){
+													errorBSFLMSG += "ph range 1~14<br/>";
+												}
+
+												if(!moistBSFLCheck){
+													errorBSFLMSG += "Moisture range 1~100<br/>";
+												}
+
+												if(tempBSFLCheck && phBSFLCheck && moistBSFLCheck){
+													$.showAlert({
+														title: "Push Status",
+														body: "Data has been added successfully",
+													})
+
+													modal.hide()
+													modal2.hide()
+													let myarearef = database.ref("Data/"+type);
+													let myref = database.ref("Data/"+type+"/"+"Area"+newAreaNo);
+													myref.push(data);												}
+
+												else{
+													$.showAlert({
+														title: "Push failed",
+														body: errorBSFLMSG
+													})
+												}
+											}
+											else{
+												$.showAlert({
+													title: "Push failed",
+													body: "Check if all the inputs are filled"
+												})
+											}
+										}
+									}
+								})
+							})
+						},
+					})
+				})
+			}
+		})
+	}
 })
 
 $("#dataPage li").click(function(){

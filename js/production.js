@@ -11,15 +11,22 @@ var datalistC = document.querySelector(".productionBodyDataC");
 var datalistBSF = document.querySelector(".productionBodyDataBSF");
 var datalistBSFL = document.querySelector(".productionBodyDataBSFL");
 
-var dropdown = document.querySelector("#productionArea");
+var dropdownC = document.querySelector("#productionArea");
 
 var database = firebase.database();
 var productionRef = database.ref("Data/Production"); 
 
-var type = "Chicken";
+var allObj = [];
+var allKeys = [];
+
+var type = document.getElementById("tableTitle").textContent;
 var areaSelected = "Area1";
 var productionObj;
 var productionKeys;
+
+var productionbsfObj;
+var productionbsflObj;
+var productionchickenObj;
 
 productionRef.on("value",snap=>{
     productionObj = snap.val();
@@ -138,6 +145,7 @@ function populateTables(){
 
     cb(start, end);
 	
+        tableHeadC.innerHTML = header1;
 		
 		
 		
@@ -158,8 +166,7 @@ function populateTables(){
             html += optionsList;
         }
 		
-        tableHeadC.innerHTML = header1;
-        dropdown.innerHTML = html;
+        dropdownC.innerHTML = html;
 }
 
     else if(type == "BSF"){
@@ -268,7 +275,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
 	
 
         tableHeadBSF.innerHTML = header2;
-        dropdown.innerHTML = html;
+        dropdownC.innerHTML = html;
     }
 
     else if(type == "BSFL"){
@@ -381,7 +388,7 @@ if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newendd
 	
 
         tableHeadBSFL.innerHTML = header3;
-        dropdown.innerHTML = html;
+        dropdownC.innerHTML = html;
     }
 }
 
@@ -560,6 +567,226 @@ $("#addBtnC").click(function(){
             },
         })
     }
+})
+
+$("#addAreaBtn").click(function(){
+    if(type == "Chicken"){
+		var newAreaNo = Object.keys(productionObj[type]).length + 1;
+        $.showModal({
+            title : "ADD CHICKEN AREA",
+            body: '<form><div class="form-group px-5">' +
+            '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
+            onCreate: function (modal2) {
+                // create event handler for form submit and handle values
+                $(modal2.element).on("click", "button[type='submit']", function (event) {
+                    event.preventDefault()
+                    var $form = $(modal2.element).find("form")
+					$.showModal({
+						title : "Chicken" + "-" + "Area" + newAreaNo,
+						body : '<form><div class="form-group px-5">' +
+						'<input type="number" step="any" min="0" class="form-control addCProduction" name="production" id="addAmountC" required>' + 
+						'<label for="addAmountC" class="CLabel" id="productionLabel">(Amount)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="avgWeight" id="addAvgC" required>' +
+						'<label for="addAvgC" class="CLabel" id="weightLabel">(Weight/KG)</label></div>' +
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="amountSick" id="addSickC" required>' + 
+						'<label for="addSickC" class="CLabel" id="sickLabel">(Sick)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="amountRunt" id="addRuntC" required>' + 
+						'<label for="addRuntC" class="CLabel" id="runtLabel">(Runt)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="amountMortality" id="addMortC" required>' +
+						'<label for="addMortC" class="CLabel" id="mortalityLabel">(Mortality)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="feedGiven" id="addfeedGiven" required>' +
+						'<label for="addfeedGiven" class="CLabel" id="givenLabel">(Feed Given)</label></div>' + 
+						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="feedLeftover" id="addfeedLeft" required>' + 
+						'<label for="addfeedLeft" class="CLabel" id="leftLabel">(Feed Leftover)</label></div>' + 
+						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
+						onCreate: function (modal) {
+							// create event handler for form submit and handle values
+							$(modal.element).on("click", "button[type='submit']", function (event) {
+								event.preventDefault()
+								var $form = $(modal.element).find("form")
+								$.showConfirm({
+									title: "Checking",
+									textTrue : "Yes",
+									textFalse : "No",
+									body:
+										"<b>Amount:</b> " + $form.find("#addAmountC").val() + "<br/>" +
+										"<b>Average Weight:</b> " + $form.find("#addAvgC").val() + "<br/>" +
+										"<b>Sick:</b> " + $form.find("#addSickC").val() + "<br/>" +
+										"<b>Runt:</b> " + $form.find("#addRuntC").val() + "<br/>" +
+										"<b>Mortality:</b> " + $form.find("#addMortC").val() + "<br/>" +
+										"<b>Feed Given (kg):</b> " + $form.find("#addfeedGiven").val() + "<br/>" +
+										"<b>Feed Leftover (kg):</b> " + $form.find("#addfeedLeft").val(),
+									onSubmit: function(result){
+										if(result){
+											var data = {
+												amount: parseInt($form.find("#addAmountC").val()),
+												average: parseInt($form.find("#addAvgC").val()),
+												sick: parseInt($form.find("#addSickC").val()),
+												runt: parseInt($form.find("#addRuntC").val()),
+												mortality: parseInt($form.find("#addMortC").val()),
+												give: parseInt($form.find("#addfeedGiven").val()),
+												left: parseInt($form.find("#addfeedLeft").val()),
+												timestamp: new Date().getTime()
+											}
+
+											if(!isNaN(data.amount) && !isNaN(data.average) && !isNaN(data.sick) && !isNaN(data.runt) && !isNaN(data.mortality) && !isNaN(data.give) && !isNaN(data.left)){
+												$.showAlert({
+													title: "Push Status",
+													body: "Data has been added successfully",
+												})
+												
+												modal.hide()
+												modal2.hide()
+												let myarearef = database.ref("Data/Production"+type);
+												let myref = database.ref("Data/Production/"+type+"/"+"Area"+newAreaNo);
+												myref.push(data);
+											}
+											
+											else{
+												$.showAlert({
+													title: "Push failed",
+													body: "Check if all the inputs are filled"
+												})
+											}
+										}
+									}
+								})
+							})
+						},
+					})
+				})
+			}
+		})
+	}
+				
+    else if(type == "BSF"){
+		var newAreaNo = Object.keys(productionObj[type]).length + 1;
+        $.showModal({
+            title : "ADD BSF AREA",
+            body: '<form><div class="form-group px-5">' +
+            '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
+            onCreate: function (modal2) {
+                // create event handler for form submit and handle values
+                $(modal2.element).on("click", "button[type='submit']", function (event) {
+                    event.preventDefault()
+                    var $form = $(modal2.element).find("form")
+					$.showModal({
+						title : "BSF" + "-" + "Area" + newAreaNo,
+						body : '<form><div class="form-group px-5">' +
+						'<input type="number" step="any" min="0" class="form-control addBSFProduction" name="production" id="addAmountBSF" required>' + 
+						'<label for="addAmountBSF" class="BSFLabel" id="productionLabel">(Egg Produced)</label></div>' + 
+						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
+						onCreate: function (modal) {
+							// create event handler for form submit and handle values
+							$(modal.element).on("click", "button[type='submit']", function (event) {
+								event.preventDefault()
+								var $form = $(modal.element).find("form")
+								$.showConfirm({
+									title: "Checking",
+									textTrue : "Yes",
+									textFalse : "No",
+									body:
+										"<b>Eggs Produced (Grams):</b> " + $form.find("#addAmountBSF").val(),
+									onSubmit: function(result){
+										if(result){
+											var data = {
+												eggs : parseInt($form.find("#addAmountBSF").val()),
+												timestamp: new Date().getTime()
+											}
+
+											if(!isNaN(data.eggs)){
+												$.showAlert({
+													title: "Push Status",
+													body: "Data has been added successfully",
+												})
+												
+												modal.hide()
+												modal2.hide()
+												let myarearef = database.ref("Data/Production"+type);
+												let myref = database.ref("Data/Production/"+type+"/"+"Area"+newAreaNo);
+												myref.push(data);
+											}
+											else{
+												$.showAlert({
+													title: "Push failed",
+													body: "Check if all the inputs are filled"
+												})
+											}
+										}
+									}
+								})
+							})
+						},
+					})
+				})
+			}
+		})
+	}
+
+    else if(type == "BSFL"){
+		var newAreaNo = Object.keys(productionObj[type]).length + 1;
+        $.showModal({
+            title : "ADD BSFL AREA",
+            body: '<form><div class="form-group px-5">' +
+            '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
+            onCreate: function (modal2) {
+                // create event handler for form submit and handle values
+                $(modal2.element).on("click", "button[type='submit']", function (event) {
+                    event.preventDefault()
+                    var $form = $(modal2.element).find("form")
+					$.showModal({
+						title : "BSFL" + "-" + "Area" + newAreaNo,
+						body : '<form><div class="form-group px-5">' +
+						'<input type="number" step="any" min="0" class="form-control addBSFLProduction" name="production" id="addAmountBSFL" required>' + 
+						'<label for="addAmountBSFL" class="BSFLLabel" id="productionLabel">(Larvae Produced)</label></div>' + 
+						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
+						onCreate: function (modal) {
+							// create event handler for form submit and handle values
+							$(modal.element).on("click", "button[type='submit']", function (event) {
+								event.preventDefault()
+								var $form = $(modal.element).find("form")
+								$.showConfirm({
+									title: "Checking",
+									textTrue : "Yes",
+									textFalse : "No",
+									body:
+										"<b>Larvae Produced (Grams):</b> " + $form.find("#addAmountBSFL").val(),
+									onSubmit: function(result){
+										if(result){
+											var data = {
+												eggs : parseInt($form.find("#addAmountBSFL").val()),
+												timestamp: new Date().getTime()
+											}
+
+											if(!isNaN(data.eggs)){
+												$.showAlert({
+													title: "Push Status",
+													body: "Data has been added successfully",
+												})
+											   
+												modal.hide()
+												modal2.hide()
+												let myarearef = database.ref("Data/Production"+type);
+												let myref = database.ref("Data/Production/"+type+"/"+"Area"+newAreaNo);
+												myref.push(data);
+											}
+
+											else{
+												$.showAlert({
+													title: "Push Status",
+													body: "Data has not been added successfully"
+												})
+											}
+										}
+									}
+								})
+							})
+						},
+					})
+				})
+			}
+		})
+	}
 })
 
 $("#productionPage li").click(function(){
