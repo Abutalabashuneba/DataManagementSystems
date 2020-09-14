@@ -71,25 +71,18 @@
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
                     <div class="row pt-md-5 mt-md-3 mb-2 pl-3">
-                        <div class="col-xl-5 pl-0">
+                        <div class="col-xl-5 col-lg-9 col-md-8 col-sm-9 pl-0">
                             <nav>
                                 <ul class="pagination paginationBtn" id="typePage">
                                     <li class="page-item active"><a href="#" class="page-link" id="chickenVisualization"><span class="badge">Chicken</span></a></li>
                                     <li class="page-item "><a href="#" class="page-link" id="bsfVisualization"><span class="badge">BSF</span></a></li>
                                     <li class="page-item "><a href="#" class="page-link" id="bsflVisualization"><span class="badge">BSF Larvae</span></a></li>
-                                    <li class="page-item "><a href="#" class="page-link" id="mix"><span class="badge">Mix</span></a></li>
+                                    <!-- <li class="page-item "><a href="#" class="page-link" id="mix"><span class="badge">Mix</span></a></li> -->
                                 </ul>
                             </nav>
                         </div>
-
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
-                            <select class="form-control" id="typeChart" onchange="onTypeChange()">
-                                <option value="line" selected="selected">Line</option>
-                                <option value="bar">Bar</option>
-                            </select>
-                        </div>
     
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
                             <select class="form-control areaDropdown" id="dropdown" onchange="onAreaChange()">
                             </select>
                         </div>
@@ -105,7 +98,7 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4 class="mb-0" id="headerCanvas1">Temperature</h4>
+                                                <h4 class="mb-0" id="headerCanvas1">Environment</h4>
                                             </div>
 
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
@@ -138,7 +131,7 @@
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-xl-4 col-lg-3 col-md-5 col-sm-4">
-                                                <h4 class="mb-0" id="headerCanvas2">Humidity</h4>
+                                                <h4 class="mb-0" id="headerCanvas2">Production</h4>
                                             </div>
 
                                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-3 ml-auto">
@@ -154,19 +147,19 @@
                                         <canvas id="myChart2" height="100" ></canvas>
                                     </div>
     
-                                    <div class="card-footer">
+                                    <!-- <div class="card-footer">
                                         <ul class="pagination justify-content-center mb-0 humPage paginationBtn" id="hum">
                                             <li class="page-item active"><a class="page-link" href="#temp" id="humToday"><span class="badge">Today</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#temp" id="humWeekly"><span class="badge">Weekly</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#temp" id="humMonthly"><span class="badge">Monthly</span></a></li>
                                             <li class="page-item"><a class="page-link" href="#temp" id="humAll"><span class="badge">Lifetime</span></a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
     
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <div class="card mb-5">
                                     <div class="card-header">
@@ -182,7 +175,6 @@
                                     </div>
     
                                     <div class="card-body">
-                                        <!---->
                                         <canvas id="myChart3" height="100" ></canvas>
                                     </div>
     
@@ -212,7 +204,6 @@
                                     </div>
     
                                     <div class="card-body">
-                                        <!---->
                                         <canvas id="myChart4" height="100" ></canvas>
                                     </div>
     
@@ -226,7 +217,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </section>
                     <!-- End of chicken visualization -->
                 </div>
