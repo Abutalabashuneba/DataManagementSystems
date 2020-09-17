@@ -364,7 +364,7 @@ AddForm Styling
 }
 
 /*Start Add data page*/
-#tempLabelAdd, #tempLabelBSFLAdd, #bsftempLabelAdd, #productionLabel, #userLabel{
+#tempLabelAdd, #tempLabelBSFLAdd, #bsftempLabelAdd, #productionLabel, #userLabel, #nameLabelAddArea, #bsfLabelAddArea, #areaLabelBSFLAdd, #areaNameLabel{
   top: 35px;
 }
 
@@ -396,6 +396,33 @@ AddForm Styling
   top:455px;
 }
 
+#tempLabelAddArea, #bsftempLabelAddArea, #tempLabelBSFLAddArea, #productionLabelArea{
+	top:125px;
+}
+
+#humidLabelAddArea, #bsfhumidLabelAddArea, #PhLabelBSFLAddArea, #weightLabelArea{
+	top:185px;
+}
+
+#phLabelAddArea, #bsflightLabelAddArea, #moistureLabelBSFLAddArea, #sickLabelArea{
+	top:245px;
+}
+
+#moistureLabelAddArea, #runtLabelArea {
+	top:305px;
+}
+
+#mortalityLabelArea{
+	top:365px;
+}
+
+#givenLabelArea{
+	top:425px;
+}
+
+#leftLabelArea{
+	top:485px;
+}
 /*End Add data page*/
 
 .addCProduction:focus + .CLabel,.addCProduction:valid + .CLabel,

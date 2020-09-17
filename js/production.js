@@ -571,7 +571,6 @@ $("#addBtnC").click(function(){
 
 $("#addAreaBtn").click(function(){
     if(type == "Chicken"){
-		var newAreaNo = Object.keys(productionObj[type]).length + 1;
         $.showModal({
             title : "ADD CHICKEN AREA",
             body: '<form><div class="form-group px-5">' +
@@ -582,22 +581,26 @@ $("#addAreaBtn").click(function(){
                     event.preventDefault()
                     var $form = $(modal2.element).find("form")
 					$.showModal({
-						title : "Chicken" + "-" + "Area" + newAreaNo,
+						title : "Chicken New Area",
 						body : '<form><div class="form-group px-5">' +
+						'<input type="text" step="any" min="0" class="form-control addCProduction" name="cAreaName" id="addAreaC" required>' + 
+						'<label for="addAreaC" class="CLabel" id="areaNameLabel">(New Area Name)</label></div>' +
+						'<h5>First Data</h5>' +
+						'<div class="form-group px-5">' +
 						'<input type="number" step="any" min="0" class="form-control addCProduction" name="production" id="addAmountC" required>' + 
-						'<label for="addAmountC" class="CLabel" id="productionLabel">(Amount)</label></div>' + 
+						'<label for="addAmountC" class="CLabel" id="productionLabelArea">(Amount)</label></div>' + 
 						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="avgWeight" id="addAvgC" required>' +
-						'<label for="addAvgC" class="CLabel" id="weightLabel">(Weight/KG)</label></div>' +
+						'<label for="addAvgC" class="CLabel" id="weightLabelArea">(Weight/KG)</label></div>' +
 						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="amountSick" id="addSickC" required>' + 
-						'<label for="addSickC" class="CLabel" id="sickLabel">(Sick)</label></div>' + 
+						'<label for="addSickC" class="CLabel" id="sickLabelArea">(Sick)</label></div>' + 
 						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="amountRunt" id="addRuntC" required>' + 
-						'<label for="addRuntC" class="CLabel" id="runtLabel">(Runt)</label></div>' + 
+						'<label for="addRuntC" class="CLabel" id="runtLabelArea">(Runt)</label></div>' + 
 						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="amountMortality" id="addMortC" required>' +
-						'<label for="addMortC" class="CLabel" id="mortalityLabel">(Mortality)</label></div>' + 
+						'<label for="addMortC" class="CLabel" id="mortalityLabelArea">(Mortality)</label></div>' + 
 						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="feedGiven" id="addfeedGiven" required>' +
-						'<label for="addfeedGiven" class="CLabel" id="givenLabel">(Feed Given)</label></div>' + 
+						'<label for="addfeedGiven" class="CLabel" id="givenLabelArea">(Feed Given)</label></div>' + 
 						'<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="feedLeftover" id="addfeedLeft" required>' + 
-						'<label for="addfeedLeft" class="CLabel" id="leftLabel">(Feed Leftover)</label></div>' + 
+						'<label for="addfeedLeft" class="CLabel" id="leftLabelArea">(Feed Leftover)</label></div>' + 
 						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
 						onCreate: function (modal) {
 							// create event handler for form submit and handle values
@@ -609,6 +612,7 @@ $("#addAreaBtn").click(function(){
 									textTrue : "Yes",
 									textFalse : "No",
 									body:
+										"<b>New Area Name:</b> " + $form.find("#addAreaC").val() + "<br/>" +
 										"<b>Amount:</b> " + $form.find("#addAmountC").val() + "<br/>" +
 										"<b>Average Weight:</b> " + $form.find("#addAvgC").val() + "<br/>" +
 										"<b>Sick:</b> " + $form.find("#addSickC").val() + "<br/>" +
@@ -629,7 +633,7 @@ $("#addAreaBtn").click(function(){
 												timestamp: new Date().getTime()
 											}
 
-											if(!isNaN(data.amount) && !isNaN(data.average) && !isNaN(data.sick) && !isNaN(data.runt) && !isNaN(data.mortality) && !isNaN(data.give) && !isNaN(data.left)){
+											if(!isNaN(data.amount) && !isNaN(data.average) && !isNaN(data.sick) && !isNaN(data.runt) && !isNaN(data.mortality) && !isNaN(data.give) && !isNaN(data.left) && $form.find("#addAreaC").val() != ""){
 												$.showAlert({
 													title: "Push Status",
 													body: "Data has been added successfully",
@@ -638,8 +642,16 @@ $("#addAreaBtn").click(function(){
 												modal.hide()
 												modal2.hide()
 												let myarearef = database.ref("Data/Production"+type);
-												let myref = database.ref("Data/Production/"+type+"/"+"Area"+newAreaNo);
+												let myref = database.ref("Data/Production/"+type+"/"+$form.find("#addAreaC").val());
 												myref.push(data);
+											}
+											
+											else if ($form.find("#addAreaC").val() == "")
+											{
+												$.showAlert({
+													title: "Push failed",
+													body: "Please Enter a New Area Name"
+												})
 											}
 											
 											else{
@@ -660,7 +672,6 @@ $("#addAreaBtn").click(function(){
 	}
 				
     else if(type == "BSF"){
-		var newAreaNo = Object.keys(productionObj[type]).length + 1;
         $.showModal({
             title : "ADD BSF AREA",
             body: '<form><div class="form-group px-5">' +
@@ -671,10 +682,14 @@ $("#addAreaBtn").click(function(){
                     event.preventDefault()
                     var $form = $(modal2.element).find("form")
 					$.showModal({
-						title : "BSF" + "-" + "Area" + newAreaNo,
+						title : "BSF New Area",
 						body : '<form><div class="form-group px-5">' +
+						'<input type="text" step="any" min="0" class="form-control addBSFProduction" name="bsfAreaName" id="addAreaBSF" required>' + 
+						'<label for="addAreaBSF" class="BSFLabel" id="areaNameLabel">(New Area Name)</label></div>' + 
+						'<h5>First Data</h5>' +
+						'<div class="form-group px-5">' +
 						'<input type="number" step="any" min="0" class="form-control addBSFProduction" name="production" id="addAmountBSF" required>' + 
-						'<label for="addAmountBSF" class="BSFLabel" id="productionLabel">(Egg Produced)</label></div>' + 
+						'<label for="addAmountBSF" class="BSFLabel" id="productionLabelArea">(Egg Produced)</label></div>' + 
 						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
 						onCreate: function (modal) {
 							// create event handler for form submit and handle values
@@ -686,6 +701,7 @@ $("#addAreaBtn").click(function(){
 									textTrue : "Yes",
 									textFalse : "No",
 									body:
+										"<b>New Area Name:</b> " + $form.find("#addAreaBSF").val() + "<br/>" +
 										"<b>Eggs Produced (Grams):</b> " + $form.find("#addAmountBSF").val(),
 									onSubmit: function(result){
 										if(result){
@@ -694,7 +710,7 @@ $("#addAreaBtn").click(function(){
 												timestamp: new Date().getTime()
 											}
 
-											if(!isNaN(data.eggs)){
+											if(!isNaN(data.eggs) && $form.find("#addAreaBSF").val() != ""){
 												$.showAlert({
 													title: "Push Status",
 													body: "Data has been added successfully",
@@ -703,9 +719,18 @@ $("#addAreaBtn").click(function(){
 												modal.hide()
 												modal2.hide()
 												let myarearef = database.ref("Data/Production"+type);
-												let myref = database.ref("Data/Production/"+type+"/"+"Area"+newAreaNo);
+												let myref = database.ref("Data/Production/"+type+"/"+$form.find("#addAreaBSF").val());
 												myref.push(data);
 											}
+											
+											else if ($form.find("#addAreaBSF").val() == "")
+											{
+												$.showAlert({
+													title: "Push failed",
+													body: "Please Enter a New Area Name"
+												})
+											}
+											
 											else{
 												$.showAlert({
 													title: "Push failed",
@@ -724,7 +749,6 @@ $("#addAreaBtn").click(function(){
 	}
 
     else if(type == "BSFL"){
-		var newAreaNo = Object.keys(productionObj[type]).length + 1;
         $.showModal({
             title : "ADD BSFL AREA",
             body: '<form><div class="form-group px-5">' +
@@ -735,10 +759,14 @@ $("#addAreaBtn").click(function(){
                     event.preventDefault()
                     var $form = $(modal2.element).find("form")
 					$.showModal({
-						title : "BSFL" + "-" + "Area" + newAreaNo,
+						title : "BSFL New Area",
 						body : '<form><div class="form-group px-5">' +
+						'<input type="text" step="any" min="0" class="form-control addBSFLProduction" name="bsflAreaName" id="addAreaBSFL" required>' + 
+						'<label for="addAreaBSFL" class="BSFLLabel" id="areaNameLabel">(New Area Name)</label></div>' +
+						'<h5>First Data</h5>' +
+						'<div class="form-group px-5">' +
 						'<input type="number" step="any" min="0" class="form-control addBSFLProduction" name="production" id="addAmountBSFL" required>' + 
-						'<label for="addAmountBSFL" class="BSFLLabel" id="productionLabel">(Larvae Produced)</label></div>' + 
+						'<label for="addAmountBSFL" class="BSFLLabel" id="productionLabelArea">(Larvae Produced)</label></div>' + 
 						'<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
 						onCreate: function (modal) {
 							// create event handler for form submit and handle values
@@ -750,6 +778,7 @@ $("#addAreaBtn").click(function(){
 									textTrue : "Yes",
 									textFalse : "No",
 									body:
+										"<b>New Area Name:</b> " + $form.find("#addAreaBSFL").val() + "<br/>" +
 										"<b>Larvae Produced (Grams):</b> " + $form.find("#addAmountBSFL").val(),
 									onSubmit: function(result){
 										if(result){
@@ -758,7 +787,7 @@ $("#addAreaBtn").click(function(){
 												timestamp: new Date().getTime()
 											}
 
-											if(!isNaN(data.eggs)){
+											if(!isNaN(data.eggs) && $form.find("#addAreaBSFL").val() != ""){
 												$.showAlert({
 													title: "Push Status",
 													body: "Data has been added successfully",
@@ -767,8 +796,16 @@ $("#addAreaBtn").click(function(){
 												modal.hide()
 												modal2.hide()
 												let myarearef = database.ref("Data/Production"+type);
-												let myref = database.ref("Data/Production/"+type+"/"+"Area"+newAreaNo);
+												let myref = database.ref("Data/Production/"+type+"/"+$form.find("#addAreaBSFL").val());
 												myref.push(data);
+											}
+											
+											else if ($form.find("#addAreaBSFL").val() == "")
+											{
+												$.showAlert({
+													title: "Push failed",
+													body: "Please Enter a New Area Name"
+												})
 											}
 
 											else{
