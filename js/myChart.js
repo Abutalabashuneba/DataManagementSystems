@@ -14,7 +14,13 @@ function newDateString(days){
 
 var type = "Chicken";
 var areaSelected = "Area1";
-// var chartType = "line";
+var table = document.getElementById("summaryTable");
+var rows = document.getElementsByTagName("tr");
+var tableRow = 0;
+for(var x = 0; x < rows.length; ++x){
+    tableRow++;
+}
+
 var chart1;
 var chart2;
 var config1 = {
@@ -124,16 +130,24 @@ var config1 = {
 }
 
 var config2 = {
-    type : "doughnut",
+    type : "bar",
     data:{
         datasets: [{
             
         }]
     },
     options:{
-        responsive: true,
-        legend: {
-            position: "top"
+        barValueSpacing : 20,
+        scales:{
+            xAxes:[{
+                type: "time",
+                distribution: "series",
+                offset : true,
+                time:{
+                    unit : "day",
+                },
+            }],
+           
         }
     }
 }
@@ -193,13 +207,14 @@ var pointpHBSFLWeekly = [];
 var pointpHBSFLMonthly = [];
 var pointpHBSFLAll = [];
 //
-var chickenAmt;
-var chickenAvg;
-var chickenSick;
-var chickenRunt;
-var chickenMort;
-var chickenFeed;
-var chickenLeft;
+var chickenProLabel = [];
+var chickenAmt = [];
+var chickenAvg = [];
+var chickenSick = [];
+var chickenRunt = [];
+var chickenMort = [];
+var chickenFeed = [];
+var chickenLeft = [];
 //
 var bsfEgg;
 var bsflLarvae;
@@ -362,9 +377,10 @@ function drawCharts(){
         pointHumidityAll.push(chickenObj[areaSelected][k].humidity);
         pointMoistureAll.push(chickenObj[areaSelected][k].moisture);
         pointpHAll.push(chickenObj[areaSelected][k].ph);
+
+        }
     }
-    }
-    //end of adding data into the array
+       
 
     //start of adding data into the array
     if(bsfObj[areaSelected] != null){
@@ -455,14 +471,17 @@ function drawCharts(){
         areaDrop.innerHTML = html;
 
         if(productionObj[type][areaSelected] != null){
-            var k = Object.keys(productionObj[type][areaSelected])[Object.keys(productionObj[type][areaSelected]).length - 1];
-            chickenAmt = productionObj[type][areaSelected][k].amount;
-            chickenAvg = productionObj[type][areaSelected][k].average;
-            chickenSick = productionObj[type][areaSelected][k].sick;
-            chickenRunt = productionObj[type][areaSelected][k].runt;
-            chickenMort = productionObj[type][areaSelected][k].mortality;
-            chickenFeed = productionObj[type][areaSelected][k].give;
-            chickenLeft = productionObj[type][areaSelected][k].left;
+            for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+                var k = Object.keys(productionObj[type][areaSelected])[x];
+                chickenProLabel.push(productionObj[type][areaSelected][k].timestamp);
+                chickenAmt.push(productionObj[type][areaSelected][k].amount);
+                chickenAvg.push(productionObj[type][areaSelected][k].average);
+                chickenSick.push(productionObj[type][areaSelected][k].sick);
+                chickenRunt.push(productionObj[type][areaSelected][k].runt);
+                chickenMort.push(productionObj[type][areaSelected][k].mortality);
+                chickenFeed.push(productionObj[type][areaSelected][k].give);
+                chickenLeft.push(productionObj[type][areaSelected][k].left);
+            }
         }
     }
 
@@ -582,31 +601,44 @@ function drawCharts(){
         chart1 = new Chart(context,config1);
         
         config2.data = {
-            labels: ["Production","Avg Weight (kg)","Sick","Runt","Mortality","Feed Given (kg)","Feed Leftover (kg)"],
-            datasets : [{
-                data : [
-                    chickenAmt,chickenAvg,chickenSick,chickenRunt,chickenMort,chickenFeed,chickenLeft
-                ],
-                backgroundColor: [
-                    "rgba(255,51,51,0.7)",
-                    "rgba(255,153,51,0.7)",
-                    "rgba(255,255,51,0.7)",
-                    "rgba(255,0,255,0.7)",
-                    "rgba(51,255,51,0.7)",
-                    "rgba(0,0,255,0.7)",
-                    "rgba(51,255,255,0.7)",
-                ],
-                borderColor:[
-                    "rgba(255,51,51,1.0)",
-                    "rgba(255,153,51,1.0)",
-                    "rgba(255,255,51,1.0)",
-                    "rgba(255,0,255,1.0)",
-                    "rgba(51,255,51,1.0)",
-                    "rgba(0,0,255,1.0)",
-                    "rgba(51,255,255,1.0)",
-                ],
-                borderWidth : 0.3
-            }]
+            labels: chickenProLabel,
+            datasets : [
+            {
+                label : "Amount (1000/k)",
+                backgroundColor: "rgba(255,0,0)",
+                data : chickenAmt
+            },
+            {
+                label : "Average (kg)",
+                backgroundColor: "rgba(255,128,0)",
+                data : chickenAvg
+            },    
+            {
+                label : "Sick (1000/k)",
+                backgroundColor: "rgba(255,255,0)",
+                data : chickenSick
+            },    
+            {
+                label : "Runt (1000/k)",
+                backgroundColor: "rgba(128,255,0)",
+                data : chickenRunt
+            },    
+            {
+                label : "Mortality (1000/k)",
+                backgroundColor: "rgba(255,0,255)",
+                data : chickenMort
+            },    
+            {
+                label : "Feed (kg)",
+                backgroundColor: "rgba(0,0,255)",
+                data : chickenFeed
+            },    
+            {
+                label : "Left (kg)",
+                backgroundColor: "rgba(0,255,255)",
+                data : chickenLeft
+            },    
+            ] 
         }
         chart2 = new Chart(context2,config2);
     }
