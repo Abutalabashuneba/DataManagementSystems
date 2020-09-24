@@ -80,166 +80,67 @@
                 </div>
             </div>        
 
+			<br/>
             <div class="row">
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row pt-md-5 mt-md-3 ml-3">
-                        <div class="toast toast-temp mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">Chicken Temperature</strong>
-                                <small id="date-temp"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-temp">
-                            </div>
-                        </div>
-        
+					<h5>Chicken Area Temperature</h5>
+                    <div class="row mt-2 ml-3" id="chickenT">
+                    </div>
+                </div>
+				
+                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+					<br/>
+					<h5>Chicken Area Humidity</h5>
+                    <div class="row mt-2 ml-3" id="chickenH">
                     </div>
                 </div>
 
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-humid mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">Chicken Humidity</strong>
-                                <small id="date-humid"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-humid">
-                            </div>
-                        </div>
-        
+					<br/>
+					<h5>Chicken Area Soil Moisture</h5>
+                    <div class="row mt-2 ml-3" id="chickenM">
                     </div>
                 </div>
 
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-mois mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">Chicken Soil Moisture</strong>
-                                <small id="date-mois"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-mois">
-                            </div>
-                        </div>
-        
+					<br/>
+					<h5>BSF Area Temperature</h5>
+                    <div class="row mt-2 ml-3" id="bsfT">
                     </div>
                 </div>
 
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-tempBSF mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">BSF Temperature</strong>
-                                <small id="date-tempBSF"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-tempBSF">
-                            </div>
-                        </div>
-        
+					<br/>
+					<h5>BSF Area Humidity</h5>
+                    <div class="row mt-2 ml-3" id="bsfH">
                     </div>
                 </div>
 
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-humidBSF mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">BSF Humidity</strong>
-                                <small id="date-humidBSF"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-humidBSF">
-                            </div>
-                        </div>
-        
+					<br/>
+					<h5>BSF Area Light Intensity</h5>
+                    <div class="row mt-2 ml-3" id="bsfM">
                     </div>
                 </div>
 
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-luxBSF mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">BSF Light Intensity</strong>
-                                <small id="date-luxBSF"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-luxBSF">
-                            </div>
-                        </div>
-        
+					<br/>
+					<h5>BSFL Temperature</h5>
+                    <div class="row mt-2 ml-3" id="bsflT">
                     </div>
                 </div>
 
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-tempBSFL mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">BSFL Temperature</strong>
-                                <small id="date-tempBSFL"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-tempBSFL">
-                            </div>
-                        </div>
-        
-                    </div>
-                </div>
-
-                <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-phBSFL mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" style="width:500px;">
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">BSFL Soil pH</strong>
-                                <small id="date-phBSFL"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-phBSFL">
-                            </div>
-                        </div>
-        
+					<br/>
+					<h5>BSFL Soil pH</h5>
+                    <div class="row mt-2 ml-3" id="bsflP">
                     </div>
                 </div>
 
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto mb-5">
-                    <div class="row mt-2 ml-3">
-                        <div class="toast toast-moisBSFL mx-auto" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" >
-                            <div class="toast-header text-warning">
-                                <strong class="mr-auto">BSFL Moisture</strong>
-                                <small id="date-moisBSFL"></small>
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="toast-body" id="msg-moisBSFL">
-                            </div>
-                        </div>
-        
+					<br/>
+					<h5>BSFL Moisture</h5>
+                    <div class="row mt-2 ml-3" id="bsflM">
                     </div>
                 </div>
             </div>      
