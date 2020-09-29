@@ -14,12 +14,6 @@ function newDateString(days){
 
 var type = "Chicken";
 var areaSelected = "Area1";
-var table = document.getElementById("summaryTable");
-var rows = document.getElementsByTagName("tr");
-var tableRow = 0;
-for(var x = 0; x < rows.length; ++x){
-    tableRow++;
-}
 
 var chart1;
 var chart2;
@@ -147,7 +141,12 @@ var config2 = {
                     unit : "day",
                 },
             }],
-           
+
+            yAxes:[{
+                ticks : {
+                    beginAtZero : true
+                }
+            }]
         }
     }
 }
@@ -216,8 +215,10 @@ var chickenMort = [];
 var chickenFeed = [];
 var chickenLeft = [];
 //
-var bsfEgg;
-var bsflLarvae;
+var bsfProLabel = [];
+var bsfEgg = [];
+var bsflProLabel = []
+var bsflLarvae = [];
 //
 var areaDrop = document.querySelector(".areaDropdown");
 var chickenDrop = document.querySelector("#mixChicken");
@@ -470,6 +471,15 @@ function drawCharts(){
         }
         areaDrop.innerHTML = html;
 
+        chickenProLabel = [];
+        chickenAmt = [];
+        chickenAvg = [];
+        chickenSick = [];
+        chickenRunt = [];
+        chickenMort = [];
+        chickenFeed = [];
+        chickenLeft = [];
+        
         if(productionObj[type][areaSelected] != null){
             for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
                 var k = Object.keys(productionObj[type][areaSelected])[x];
@@ -505,10 +515,17 @@ function drawCharts(){
 
         areaDrop.innerHTML = html;
 
+        bsfProLabel = [];
+        bsfEgg = [];
+        
         if(productionObj[type][areaSelected] != null){
-            var k = Object.keys(productionObj[type][areaSelected])[Object.keys(productionObj[type][areaSelected]).length - 1];
-            bsfEgg = productionObj[type][areaSelected][k].eggs;
+            for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+                var k = Object.keys(productionObj[type][areaSelected])[x];
+                bsfProLabel.push(productionObj[type][areaSelected][k].timestamp);
+                bsfEgg.push(productionObj[type][areaSelected][k].eggs);
+            }
         }
+
 
     }
 
@@ -531,11 +548,16 @@ function drawCharts(){
         }
 
         areaDrop.innerHTML = html;
-
+        bsflProLabel = [];
+        bsflLarvae = [];
         if(productionObj[type][areaSelected] != null){
-            var k = Object.keys(productionObj[type][areaSelected])[Object.keys(productionObj[type][areaSelected]).length - 1];
-            bsflLarvae = productionObj[type][areaSelected][k].eggs;
+            for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+                var k = Object.keys(productionObj[type][areaSelected])[x];
+                bsflProLabel.push(productionObj[type][areaSelected][k].timestamp);
+                bsflLarvae.push(productionObj[type][areaSelected][k].eggs);
+            }
         }
+
     }
 
     if(!chart1 && !chart2){
@@ -646,6 +668,7 @@ function drawCharts(){
     else{
         if(type == "Chicken"){
             config1.data.datasets.splice(0,config1.data.datasets.length);
+            config2.data.datasets.splice(0,config2.data.datasets.length);
            
             let newDataOne = {
                 label: "Chicken Temperature",
@@ -706,37 +729,50 @@ function drawCharts(){
             config1.options.scales.xAxes[0].time.unit = "minute";
 
             config2.data = {
-                labels: ["Production","Avg Weight (kg)","Sick","Runt","Mortality","Feed Given (kg)","Feed Leftover (kg)"],
-                datasets : [{
-                    data : [
-                        chickenAmt,chickenAvg,chickenSick,chickenRunt,chickenMort,chickenFeed,chickenLeft
-                    ],
-                    backgroundColor: [
-                        "rgba(255,51,51,0.7)",
-                        "rgba(255,153,51,0.7)",
-                        "rgba(255,255,51,0.7)",
-                        "rgba(255,0,255,0.7)",
-                        "rgba(51,255,51,0.7)",
-                        "rgba(0,0,255,0.7)",
-                        "rgba(51,255,255,0.7)",
-                    ],
-                    borderColor:[
-                        "rgba(255,51,51,1.0)",
-                        "rgba(255,153,51,1.0)",
-                        "rgba(255,255,51,1.0)",
-                        "rgba(255,0,255,1.0)",
-                        "rgba(51,255,51,1.0)",
-                        "rgba(0,0,255,1.0)",
-                        "rgba(51,255,255,1.0)",
-                    ],
-                    borderWidth : 0.3
-                }]
+                labels: chickenProLabel,
+                datasets : [
+                {
+                    label : "Amount (1000/k)",
+                    backgroundColor: "rgba(255,0,0)",
+                    data : chickenAmt
+                },
+                {
+                    label : "Average (kg)",
+                    backgroundColor: "rgba(255,128,0)",
+                    data : chickenAvg
+                },    
+                {
+                    label : "Sick (1000/k)",
+                    backgroundColor: "rgba(255,255,0)",
+                    data : chickenSick
+                },    
+                {
+                    label : "Runt (1000/k)",
+                    backgroundColor: "rgba(128,255,0)",
+                    data : chickenRunt
+                },    
+                {
+                    label : "Mortality (1000/k)",
+                    backgroundColor: "rgba(255,0,255)",
+                    data : chickenMort
+                },    
+                {
+                    label : "Feed (kg)",
+                    backgroundColor: "rgba(0,0,255)",
+                    data : chickenFeed
+                },    
+                {
+                    label : "Left (kg)",
+                    backgroundColor: "rgba(0,255,255)",
+                    data : chickenLeft
+                },    
+                ] 
             }
         }
 
         else if(type == "BSF"){
             config1.data.datasets.splice(0,config1.data.datasets.length);
-            config2.data.datasets.splice(1,config2.data.datasets.length);
+            config2.data.datasets.splice(0,config2.data.datasets.length);
     
             let newDataBSFOne = {
                 label: "BSF Temperature",
@@ -784,24 +820,22 @@ function drawCharts(){
             config1.options.scales.xAxes[0].time.unit = "minute";
 
             config2.data = {
-                labels: ["Eggs Produced"],
-                datasets : [{
-                    data : [
-                        bsfEgg
-                    ],
-                    backgroundColor: [
-                        "rgba(255,51,51,0.7)",
-                    ],
-                    borderColor:[
-                        "rgba(255,51,51,1.0)",
-                    ],
-                    borderWidth : 0.3
-                }]
+                labels: bsfProLabel,
+                datasets : [
+                {
+                    label : "Eggs (1000/k)",
+                    backgroundColor: "rgba(255,0,0)",
+                    data : bsfEgg
+                }
+                ] 
             }
         }
 
         else if(type == "BSFL"){
+            console.log(bsflLarvae);
             config1.data.datasets.splice(0,config1.data.datasets.length);
+            config2.data.labels.splice(0,config2.data.labels.length);
+            config2.data.datasets.splice(0,config2.data.datasets.length);
             
             let newDataBSFLOne = {
                 label: "BSFL Temperature",
@@ -847,22 +881,18 @@ function drawCharts(){
             config1.data.datasets.push(newDataBSFLTwo);
             config1.data.datasets.push(newDataBSFLThree);
             config1.options.scales.xAxes[0].time.unit = "minute";
-
             config2.data = {
-                labels: ["Larvae Produced"],
-                datasets : [{
-                    data : [
-                        bsflLarvae
-                    ],
-                    backgroundColor: [
-                        "rgba(255,51,51,0.7)",
-                    ],
-                    borderColor:[
-                        "rgba(255,51,51,1.0)",
-                    ],
-                    borderWidth : 0.3
-                }]
+                labels: bsflProLabel,
+                datasets : [
+                {
+                    label : "Larvae (1000/k)",
+                    backgroundColor: "rgba(0,255,0)",
+                    data : bsflLarvae
+                }
+                ] 
             }
+            // console.log(config2.data.labels.length);
+
 
         
         }
