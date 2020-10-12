@@ -74,6 +74,9 @@ function registerForm(){
                                                 }
                                                 refAcc.push(data);
                                             }
+                                            else{
+                                                errorMessage += "Password does not match";
+                                            }
                                         }
                                     }
                                     
