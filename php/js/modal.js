@@ -1,27 +1,27 @@
 var database = firebase.database();
 var refAcc = database.ref("account");
 
-var unamePatt = /\b[\w\d]{6,12}$/;
-var fullnamePatt = /\b[\w\d]{6,12}$/;
+var unamePatt = /^\w{6,18}$/;
+var fullnamePatt = /\b[\w\d]{6,18}$/;
 var emailPatt = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-var mobilePatt = /\b[\d]{9,10}$/;
-var passwordPatt = /\b[\w\d]{6,12}$/; 
+var mobilePatt = /^\d{9,10}$/;
+var passwordPatt = /\b[\w\d]{6,18}$/; 
 
 function registerForm(){
     $.showModal({
         title : "Register Account",
         body: 
             '<form><div class="form-group px-5">' +
-            '<input type="text" name="uname" id="uname" class="form-control registerInput" required/><label class="CLabel" id="userLabel">(Username)</label>' + '</div>' + '<div class="form-group px-5">' +
-            '<input type="text" name="fullname" id="fullname" class="form-control registerInput" required/><label class="CLabel" id="nameLabel">(Fullname)</label>' + 
+            '<input type="text" name="uname" id="uname" class="form-control registerInput" required/><label for="uname" class="CLabel" id="userLabel">(Username)</label>' + '</div>' + '<div class="form-group px-5">' +
+            '<input type="text" name="fullname" id="fullname" class="form-control registerInput" required/><label for="fullname" class="CLabel" id="nameLabel">(Fullname)</label>' + 
             '</div><div class="form-group px-5">' + 
-            '<input type="text" name="email" id="email" class="form-control registerInput" required/><label class="CLabel" id="emailLabel">(Email)</label></div>' + 
+            '<input type="text" name="email" id="email" class="form-control registerInput" required/><label for="email" class="CLabel" id="emailLabel">(Email)</label></div>' + 
             '<div class="form-group px-5">' + 
-            '<input type="number" name="mobile" id="mobile" class="form-control registerInput" required/><label class="CLabel" id="phoneLabel">(Mobile No)</label></div>' + 
+            '<input type="number" name="mobile" id="mobile" class="form-control registerInput" required/><label for="mobile" class="CLabel" id="phoneLabel">(Mobile No)</label></div>' + 
             '<div class="form-group px-5">' +
-            '<input type="password" name="pwd" id="pwd" class="form-control registerInput" required/><label class="CLabel" id="pwdLabel">(Password)</label>' +
+            '<input type="password" name="pwd" id="pwd" class="form-control registerInput" required/><label for="pwd" class="CLabel" id="pwdLabel">(Password)</label>' +
             '</div><div class="form-group px-5">' + 
-            '<input type="password" name="pwdCon" id="pwdCon" class="form-control registerInput" required/><label class="CLabel" id="pwdConLabel">(Confirm Password)</label></div>' +
+            '<input type="password" name="pwdCon" id="pwdCon" class="form-control registerInput" required/><label for="pwdCon" class="CLabel" id="pwdConLabel">(Confirm Password)</label></div>' +
             '<div class="form-group text-center"><span>For: </span><label>' + 
             '<input type="radio" name="accountType" id="admin" required value="Admin">Admin</label>' + 
             '<label class="ml-2"><input type="radio" name="accountType" id="user" required value="User">User</label></div>' + 
@@ -106,11 +106,11 @@ function registerForm(){
 
                                         if(validate){
                                             if(!usernameCheck){
-                                                errorMessage += "Username must be 6 to 12 characters<br/>";
+                                                errorMessage += "Username must be 6 to 18 characters<br/>";
                                             }
 
                                             if(!fullnameCheck){
-                                                errorMessage += "Fullname must be 6 to 12 characters<br/>";
+                                                errorMessage += "Fullname must be 6 to 18 characters<br/>";
                                             }
 
                                             if(!emailCheck){
@@ -122,7 +122,7 @@ function registerForm(){
                                             }
 
                                             if(!passwordCheck){
-                                                errorMessage += "Password must be 6 to 12 characters<br/>";
+                                                errorMessage += "Password must be 6 to 18 characters<br/>";
                                             }
 
                                             
@@ -180,8 +180,9 @@ function logoutModal(){
         onSubmit: function(result){
             if(result){
                 sessionStorage.clear();
-                window.location.replace("login.html");
+                window.location.replace("login.php");
             }
         }
     })
 }
+

@@ -206,24 +206,24 @@ function populateTables(){
 			var newstartdate = Date.parse(start.format('YYYY.MM.DD 00:00:00'));
 			
 			var newenddate = Date.parse(end.format('YYYY.MM.DD 23:59:59'));
-if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp)
-		{
-            var d = new Date(productionObj[type][areaSelected][keys].timestamp);
-            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            var datetime = d.toLocaleString('en-us', options); 
-            var tr2 = "";
-            if(sessionStorage.getItem("type") == "Admin"){
-                tr2 = `
-                <tr>
-                    <td class="id">${x + 1}</td>
-                    <td>${datetime}</td>
-                    <td>${productionObj[type][areaSelected][keys].eggs}</td>
-                    <td>
-                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                    <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                    </td>
-                </tr>
-            `;
+            if (newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp)
+		    {
+                var d = new Date(productionObj[type][areaSelected][keys].timestamp);
+                var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                var datetime = d.toLocaleString('en-us', options); 
+                var tr2 = "";
+                if(sessionStorage.getItem("type") == "Admin"){
+                    tr2 = `
+                    <tr>
+                        <td class="id">${x + 1}</td>
+                        <td>${datetime}</td>
+                        <td>${productionObj[type][areaSelected][keys].eggs}</td>
+                        <td>
+                        <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                        <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                        </td>
+                    </tr>
+                `;
             }
 
             else{
