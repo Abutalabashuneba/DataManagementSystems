@@ -22,7 +22,7 @@
                                 <div class="col-xl-8 col-lg-8 col-md-8 pagination-col">
                                     <nav>
                                         <ul class="pagination paginationBtn" id="productionPage">
-                                            <li class="page-item active"><a     class="page-link" id="btnChicken"><span class="badge">Chicken</span></a></li>
+                                            <li class="page-item active"><a class="page-link" id="btnChicken"><span class="badge">Chicken</span></a></li>
                                             <li><a href="#" class="page-link" id="btnBsf"><span class="badge">BSF Adult</span></a></li>
                                             <li><a href="#" class="page-link" id="btnBsfl"><span class="badge">BSF Larvae</span></a></li>
                                         </ul>

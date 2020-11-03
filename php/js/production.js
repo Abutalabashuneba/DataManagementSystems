@@ -510,9 +510,11 @@ var add = function(e){
     // dd/mm/yyyy
     var d = new Date();
     var day = d.getDate().toString().padStart(2, "0");
-    var month = d.getMonth() + 1;
+    var month = (d.getMonth() + 1).toString().padStart(2,"0");
     var year = d.getFullYear();
-    var date = year + "-" + month + "-" + day;
+    var hour = d.getHours().toString().padStart(2, "0");
+    var minute = d.getMinutes().toString().padStart(2, "0");
+    var date = year + "-" + month + "-" + day + "T" + hour + ":" + minute;
 
     if(type == "Chicken"){
         $.showModal({
@@ -528,7 +530,7 @@ var add = function(e){
             '<label for="wleftover" class="CLabel" id="wleftoverlabel">(Water Leftover in KG)</label></div>' +
             '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaC" id="areaC" required value='+ areaSelected +'>' + 
             '<label for="areaC" class="CLabel" id="sickLabel">(Area)</label></div>' + 
-            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
             '<label for="date" class="CLabel" id="givenLabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
