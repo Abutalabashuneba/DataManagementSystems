@@ -282,17 +282,17 @@ SearchBar Styling
 /*---------------------------------------------------------------------
 Add Button Styling
 ---------------------------------------------------------------------*/
-#addBtn, #addBtnC, #addBtnC2, #addBtnBSF, #addBtnBSFL{
+#addBtn, #addBtnC, #addBtnC2, #addBtnC3, #addBtnBSF, #addBtnBSFL{
   background: transparent;
 }
 
-#addBtn:hover, #addBtnC:hover,#addBtnC2:hover, #addBtnBSF:hover, #addBtnBSFL:hover{
+#addBtn:hover, #addBtnC:hover,#addBtnC2:hover, #addBtnC3:hover, #addBtnBSF:hover, #addBtnBSFL:hover{
   animation-name: rotate;
   animation-duration: .5s;
   animation-fill-mode: forwards;
 }
 
-#addBtn:focus, #addBtnC:focus,#addBtnC2:focus, #addBtnBSF:focus, #addBtnBSFL:focus{
+#addBtn:focus, #addBtnC:focus,#addBtnC2:focus, #addBtnC3:focus, #addBtnBSF:focus, #addBtnBSFL:focus{
   box-shadow: none;
 }
 

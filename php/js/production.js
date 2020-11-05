@@ -1,6 +1,7 @@
 if(sessionStorage.getItem("type") == "Admin") {
     document.getElementById("addBtnC").style.display = "block";
     document.getElementById("addBtnC2").style.display = "block"; 
+    document.getElementById("addBtnC3").style.display = "block";
 }
 
 //Chicken table 1
@@ -9,6 +10,9 @@ var datalistC = document.querySelector(".productionBodyDataC");
 //Chicken table 2
 var tableHeadC2 = document.querySelector(".productionHeaderC2");
 var datalistC2 = document.querySelector(".productionBodyDataC2");
+//Chicken table 3
+var tableHeadC3 = document.querySelector(".productionHeaderC3");
+var datalistC3 = document.querySelector(".productionBodyDataC3");
 
 var tableHeadBSF = document.querySelector(".productionHeaderBSF");
 var datalistBSF = document.querySelector(".productionBodyDataBSF");
@@ -22,6 +26,7 @@ var productionRef = database.ref("Production");
 
 var datatype1 = "feed";
 var datatype2 = "health";
+var datatype3 = "weight";
 
 var type = document.getElementById("tableTitle").textContent;
 var areaSelected = "";
@@ -43,7 +48,7 @@ function populateProductionTable(){
     let optionsList = "";
     let start = moment().subtract(31, 'days');
     let end = moment();
-    
+
     if(type == "Chicken"){
         if(productionKeys != undefined){
             document.getElementById("prod").style.display = "block";
@@ -110,12 +115,31 @@ function populateProductionTable(){
                     `;
                 }
 
+                //---Table 3----//
+                header3 = `
+                <tr class="text-muted">
+                    <th>Week</th>
+                    <th>Timestamp</th>
+                    <th>Avg. cummulative feed intake per chicken (KG)</th>
+                    <th>Avg. cummulative weight gain per chicken (KG) </th>
+                    <th>Cummulative FCR</th>
+                `;
+
+                if(sessionStorage.getItem("type") == "Admin"){
+                    header3 += `
+                        <th>Options</th>
+                    </tr>
+                    `;
+                }
+
                 tableHeadC.innerHTML = header;
                 tableHeadC2.innerHTML = header2;
+                tableHeadC3.innerHTML = header3;
 
                 function dp(start,end){
                     let rowData = "";
                     let rowData2 = "";
+                    let rowData3 = "";
 
                     $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
 
@@ -214,6 +238,53 @@ function populateProductionTable(){
                        
                     }
                     datalistC2.innerHTML = rowData2;
+
+                    //Chicken Table 3
+                    var cumulativeFCR = 0;
+                    var first = Object.keys(productionObj[type][areaSelected][datatype3])[0];
+                    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype3]).length; ++x){
+                        var keys = Object.keys(productionObj[type][areaSelected][datatype3])[x];
+
+                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+
+                        if(newstartdate <= productionObj[type][areaSelected][datatype3][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype3][keys].timestamp){
+                            var d = new Date(productionObj[type][areaSelected][datatype3][keys].timestamp);
+                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                            var datetime = d.toLocaleString("en-us", options);
+                            let tr3 = "";
+
+                            cumulativeFCR = (productionObj[type][areaSelected][datatype3][keys].avgFeedChix) / (productionObj[type][areaSelected][datatype3][keys].avgWeightChix);
+
+                            tr3 = `
+                            <tr>
+                                <td class="id">${x + 1}</td>
+                                <td>${datetime}</td>
+                                <td>${productionObj[type][areaSelected][datatype3][keys].avgFeedChix}</td>
+                                <td>${productionObj[type][areaSelected][datatype3][keys].avgWeightChix}</td>
+                                <td>${cumulativeFCR.toFixed(3)}</td>
+                            `;
+
+                            if(sessionStorage.getItem("type") == "Admin"){
+                                tr3 += `
+                                    <td>
+                                    <span class="table-remove-table3"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                    <span class="table-edit-table3"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                    </td>
+                                </tr>
+                                `;
+                            }
+
+                            else{
+                                tr3 += `
+                                    </tr>;
+                                `;
+                            }
+                            rowData3 += tr3;
+                        }
+                       
+                    }
+                    datalistC3.innerHTML = rowData3;
                    
 
                 }
@@ -233,6 +304,8 @@ function populateProductionTable(){
 
                 dp(start, end);
                 $('#chickenTable-Area1').DataTable();
+                $('#chickenTable2-Area1').DataTable();
+                $('#chickenTable3-Area1').DataTable();
             }
         }
 
@@ -501,6 +574,8 @@ function productionAreaChange(){
 
     if(type == "Chicken"){
         $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+        $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
+        $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
     }
 
     populateProductionTable();
@@ -785,8 +860,6 @@ var remove = function(e){
         })
     }
 }
-
-
 
 var update = function(e){
     e.preventDefault();
@@ -1204,6 +1277,196 @@ var update2 = function(e){
  
 }
 
+var add3 = function(e){
+    var d = new Date();
+    var day = d.getDate().toString().padStart(2, "0");
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+    var date = year + "-" + month + "-" + day;
+    
+    if(type == "Chicken"){
+        $.showModal({
+            title : "Chicken" + "-" + areaSelected,
+            body : '<form><div class="form-group px-5">' +
+            '<input type="number" step="any" min="0" class="form-control addCProduction" name="avgFeed" id="avgFeed" required>' + 
+            '<label for="avgFeed" class="CLabel" id="productionLabel">(Avg Feed intake per Chix (KG))</label></div>' + 
+
+            '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="avgWeight" id="avgWeight" required>' +
+            '<label for="avgWeight" class="CLabel" id="weightLabel">(Avg Weight gain per Chix (KG))</label></div>' +
+
+            '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaC" id="areaC" required value='+ areaSelected +'>' + 
+            '<label for="areaC" class="CLabel" id="givenLabel">(Area)</label></div>' + 
+            
+            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<label for="date" class="CLabel" id="updategivenLabel">(Date)</label></div>' + 
+            '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
+            onCreate: function (modal) {
+                // create event handler for form submit and handle values
+                $(modal.element).on("click", "button[type='submit']", function (event) {
+                    event.preventDefault()
+                    var $form = $(modal.element).find("form")
+                    $.showConfirm({
+                        title: "Checking",
+                        textTrue : "Yes",
+                        textFalse : "No",
+                        body:
+                            "<b>Date:</b> " + $form.find("#date").val() + "<br/>" +
+                            "<b>Avg. Feed Intake Per Chix:</b> " + $form.find("#avgFeed").val() + "<br/>" +
+                            "<b>Avg. Weight Gain Per Chix:</b> " + $form.find("#avgWeight").val() + "<br/>" +
+                            "<b>Area:</b> " + $form.find("#areaC").val(),
+                        onSubmit: function(result){
+                            if(result){
+                                date = $form.find("#date").val();
+                                areaSelected = $form.find("#areaC").val();
+                                var data = {
+                                    avgFeedChix: parseFloat($form.find("#avgFeed").val()),
+                                    avgWeightChix:  parseFloat($form.find("#avgWeight").val()),
+                                    timestamp: new Date(date).getTime()
+                                }
+
+                                if(!isNaN(data.avgFeedChix) && !isNaN(data.avgWeightChix)  && !isNaN(data.timestamp)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been added successfully",
+                                    })
+                                    
+                                    modal.hide()
+                                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype3);
+                                    myref.push(data);
+                               }
+                                
+                                else{
+                                    $.showAlert({
+                                        title: "Push failed",
+                                        body: "Check if all the inputs are filled"
+                                    })
+                                }
+                            }
+                        }
+                    })
+                })
+            },
+        })
+    }
+}
+
+var remove3 = function(e){
+    e.preventDefault();
+
+    var index = $(this).parents("tr").find("td.id").text();
+    var deleteIndex;
+
+    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype3]).length; ++x){
+        if(index - 1 == x){
+            deleteIndex = Object.keys(productionObj[type][areaSelected][datatype3])[x];
+        }
+    }
+
+    if(type == "Chicken"){
+        $.showConfirm({
+            title: "Are you sure",
+            textTrue : "Yes",
+            textFalse : "No",
+            body: 
+                "<b>Avg. Feed Intake Chicken:</b>" + productionObj[type][areaSelected][datatype3][deleteIndex].avgFeedChix + "<br/>" + 
+                "<b>Avg. Weight Gain Chicken:</b>" + productionObj[type][areaSelected][datatype3][deleteIndex].avgWeightChix,
+            onSubmit: function(result){
+                if(result){
+                    $.showAlert({
+                        title: "Delete Status",
+                        body: "Data has been deleted successfully",
+                    })
+                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype3);
+                    myref.child(deleteIndex).remove();
+					if (x == 1)
+					{
+					    datalistC3.innerHTML = "";
+					}
+                }
+            }
+        })
+    }
+}
+
+var update3 = function(e){
+    e.preventDefault();
+
+    var index = $(this).parents("tr").find("td.id").text();
+   
+    var tableID = index;
+    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype3]).length; ++x){
+        if(tableID - 1 == x){
+            keys = Object.keys(productionObj[type][areaSelected][datatype3])[x];
+            var d = new Date(productionObj[type][areaSelected][datatype3][keys].timestamp);
+            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+            var datetime = d.toLocaleString('en-us', options); 
+        }
+    }
+
+    if(type == "Chicken"){
+        $.showModal({
+            title : "Chicken" + "-" + areaSelected,
+            body : '<form><div class="form-group px-5">' +
+            '<input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDate" disabled value=' + datetime + '>' +
+            '<label for="updateDate" class="CLabel" id="update"></label></div>' +
+
+            '<div class="form-group px-5"><input type="number" step="any" min="0" name="avgFeed" class="form-control updateCProduction" id="avgFeed" value=' +
+            productionObj[type][areaSelected][datatype3][keys].avgFeedChix + '>' +  
+            '<label for="avgFeed" class="CLabel" id="updateproductionLabel">(Avg. Feed Intake Chicken)</label></div>' + 
+
+            '<div class="form-group px-5"><input type="number" step="any" min="0" name="avgWeight" class="form-control updateCProduction" id="avgWeight" value=' +
+            productionObj[type][areaSelected][datatype3][keys].avgWeightChix + '>' +
+            '<label for="avgWeight" class="CLabel" id="updateweightLabel">(Weight Gain Chicken)</label></div>' +  
+
+            '<button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">Update</button></form>',
+            onCreate: function (modal) {
+                // create event handler for form submit and handle values
+                $(modal.element).on("click", "button[type='submit']", function (event) {
+                    var $form = $(modal.element).find("form");
+                    event.preventDefault()
+                    $.showConfirm({
+                        title: "Checking",
+                        textTrue : "Yes",
+                        textFalse : "No",
+                        body:
+                            "<b>Date:</b> " + $form.find("#date").val() + "<br/>" +
+                            "<b>No. Of Healthy Chicken:</b> " + $form.find("#avgFeed").val() + "<br/>" +
+                            "<b>No. Of Sick Chicken:</b> " + $form.find("#avgWeight").val(),
+                            
+                        onSubmit: function(result){
+                            if(result){
+                                var data = {
+                                    avgFeedChix: parseFloat($form.find("#avgFeed").val()),
+                                    avgWeightChix: parseFloat($form.find("#avgWeight").val()),
+                                }
+                                
+                               if(!isNaN(data.avgFeedChix) && !isNaN(data.avgWeightChix)){
+                                    $.showAlert({
+                                        title: "Push Status",
+                                        body: "Data has been updated successfully",
+                                    })
+                                    
+                                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype3);
+                                    myref.child(keys).update(data); 
+                               }
+
+                               else{
+                                    $.showAlert({
+                                        title: "Push failed",
+                                        body: "Check if all the inputs are filled"
+                                    })
+                               }
+                            }
+                        }
+                    })
+                    modal.hide()
+                })
+            },
+        })
+    }
+ 
+}
+
 $(document).on("click", "#addBtnC", add);
 $(document).on('click', '.table-edit', update);
 $(document).on('click', '.table-remove', remove);
@@ -1211,3 +1474,7 @@ $(document).on('click', '.table-remove', remove);
 $(document).on("click", "#addBtnC2", add2);
 $(document).on('click', '.table-edit-table2', update2);
 $(document).on('click', '.table-remove-table2', remove2);
+
+$(document).on("click", "#addBtnC3", add3);
+$(document).on('click', '.table-edit-table3', update3);
+$(document).on('click', '.table-remove-table3', remove3);
