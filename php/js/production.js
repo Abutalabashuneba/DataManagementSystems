@@ -50,9 +50,92 @@ function populateProductionTable(){
     let end = moment();
 
     if(type == "Chicken"){
-        if(productionKeys != undefined){
-            document.getElementById("prod").style.display = "block";
-            document.getElementById("noprod").style.display = "none";
+        //---Table 1----//
+        header = `
+        <tr class="text-muted">
+            <th>#</th>
+            <th>Timestamp</th>
+            <th>Feed Given (KG)</th>
+            <th>Feed Leftover (KG)</th>
+            <th>Feed Actual Consumption (KG)</th>
+            <th>Water Given (KG)</th>
+            <th>Water Leftover (KG)</th>
+            <th>Water Actual Consumption (KG)</th>
+        `;
+
+        if(sessionStorage.getItem("type") == "Admin"){
+            header += `
+                <th>Options</th>
+            </tr>
+            `;
+        }
+
+        //---Table 2----//
+        header2 = `
+        <tr class="text-muted">
+            <th>#</th>
+            <th>Timestamp</th>
+            <th>Healthy Chicken</th>
+            <th>Sick Chicken </th>
+            <th>Injured</th>
+            <th>Cull </th>
+            <th>Dead </th>
+            <th>Cummulative No. of Dead Chickens</th>
+            <th>Running Mortality (%)</th>
+        `;
+
+        if(sessionStorage.getItem("type") == "Admin"){
+            header2 += `
+                <th>Options</th>
+            </tr>
+            `;
+        }
+
+        //---Table 3----//
+        header3 = `
+        <tr class="text-muted">
+            <th>Week</th>
+            <th>Timestamp</th>
+            <th>Avg. cummulative feed intake per chicken (KG)</th>
+            <th>Avg. cummulative weight gain per chicken (KG) </th>
+            <th>Cummulative FCR</th>
+        `;
+
+        if(sessionStorage.getItem("type") == "Admin"){
+            header3 += `
+                <th>Options</th>
+            </tr>
+            `;
+        }
+
+        tableHeadC.innerHTML = header;
+        tableHeadC2.innerHTML = header2;
+        tableHeadC3.innerHTML = header3;
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable();
+        }
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+            $('#chickenTable2-Area1').DataTable();
+        }
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+            $('#chickenTable3-Area1').DataTable();
+        }
+
+        if(productionObj[type] != undefined){
+           if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+            }
+    
+            if($.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+                $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
+            }
+    
+            if($.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+                $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
+            }
 
             if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
 
@@ -74,68 +157,6 @@ function populateProductionTable(){
                 
                 dropdownC.innerHTML = html;
 
-                //---Table 1----//
-                header = `
-                <tr class="text-muted">
-                    <th>#</th>
-                    <th>Timestamp</th>
-                    <th>Feed Given (KG)</th>
-                    <th>Feed Leftover (KG)</th>
-                    <th>Feed Actual Consumption (KG)</th>
-                    <th>Water Given (KG)</th>
-                    <th>Water Leftover (KG)</th>
-                    <th>Water Actual Consumption (KG)</th>
-                `;
-
-                if(sessionStorage.getItem("type") == "Admin"){
-                    header += `
-                        <th>Options</th>
-                    </tr>
-                    `;
-                }
-
-                //---Table 2----//
-                header2 = `
-                <tr class="text-muted">
-                    <th>#</th>
-                    <th>Timestamp</th>
-                    <th>Healthy Chicken</th>
-                    <th>Sick Chicken </th>
-                    <th>Injured</th>
-                    <th>Cull </th>
-                    <th>Dead </th>
-                    <th>Cummulative No. of Dead Chickens</th>
-                    <th>Running Mortality (%)</th>
-                `;
-
-                if(sessionStorage.getItem("type") == "Admin"){
-                    header2 += `
-                        <th>Options</th>
-                    </tr>
-                    `;
-                }
-
-                //---Table 3----//
-                header3 = `
-                <tr class="text-muted">
-                    <th>Week</th>
-                    <th>Timestamp</th>
-                    <th>Avg. cummulative feed intake per chicken (KG)</th>
-                    <th>Avg. cummulative weight gain per chicken (KG) </th>
-                    <th>Cummulative FCR</th>
-                `;
-
-                if(sessionStorage.getItem("type") == "Admin"){
-                    header3 += `
-                        <th>Options</th>
-                    </tr>
-                    `;
-                }
-
-                tableHeadC.innerHTML = header;
-                tableHeadC2.innerHTML = header2;
-                tableHeadC3.innerHTML = header3;
-
                 function dp(start,end){
                     let rowData = "";
                     let rowData2 = "";
@@ -144,149 +165,154 @@ function populateProductionTable(){
                     $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
 
                     //Chicken Table 1
-                    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
-                        var keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
-
-                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                        if(newstartdate <= productionObj[type][areaSelected][datatype1][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype1][keys].timestamp){
-                            var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
-                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                            var datetime = d.toLocaleString("en-us", options);
-                            let tr = "";
-
-                            tr = `
-                            <tr>
-                                <td class="id">${x + 1}</td>
-                                <td>${datetime}</td>
-                                <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven}</td>
-                                <td>${productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
-                                <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven - productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
-                                <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven}</td>
-                                <td>${productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
-                                <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven - productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
-                            `;
-
-                            if(sessionStorage.getItem("type") == "Admin"){
-                                tr += `
-                                    <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                    <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                    </td>
-                                </tr>
+                    if(productionObj[type][areaSelected][datatype1] != undefined){
+                        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
+                            var keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
+    
+                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+    
+                            if(newstartdate <= productionObj[type][areaSelected][datatype1][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype1][keys].timestamp){
+                                var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
+                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                                var datetime = d.toLocaleString("en-us", options);
+                                let tr = "";
+    
+                                tr = `
+                                <tr>
+                                    <td class="id">${x + 1}</td>
+                                    <td>${datetime}</td>
+                                    <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven}</td>
+                                    <td>${productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
+                                    <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven - productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
+                                    <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven}</td>
+                                    <td>${productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
+                                    <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven - productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
                                 `;
+    
+                                if(sessionStorage.getItem("type") == "Admin"){
+                                    tr += `
+                                        <td>
+                                        <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                        <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                        </td>
+                                    </tr>
+                                    `;
+                                }
+    
+                                else{
+                                    tr += `
+                                        </tr>;
+                                    `;
+                                }
+                                rowData += tr;
                             }
-
-                            else{
-                                tr += `
-                                    </tr>;
-                                `;
-                            }
-                            rowData += tr;
                         }
+                        datalistC.innerHTML = rowData;
                     }
-                    datalistC.innerHTML = rowData;
 
                     //Chicken Table 2
-                    var cumulativeDeath = 0;
-                    var first = Object.keys(productionObj[type][areaSelected][datatype2])[0];
-                    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype2]).length; ++x){
-                        var keys = Object.keys(productionObj[type][areaSelected][datatype2])[x];
+                    if(productionObj[type][areaSelected][datatype2] != undefined){
+                        var cumulativeDeath = 0;
+                        var first = Object.keys(productionObj[type][areaSelected][datatype2])[0];
+                        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype2]).length; ++x){
+                            var keys = Object.keys(productionObj[type][areaSelected][datatype2])[x];
 
-                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
 
-                        if(newstartdate <= productionObj[type][areaSelected][datatype2][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype2][keys].timestamp){
-                            var d = new Date(productionObj[type][areaSelected][datatype2][keys].timestamp);
-                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                            var datetime = d.toLocaleString("en-us", options);
-                            let tr2 = "";
+                            if(newstartdate <= productionObj[type][areaSelected][datatype2][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype2][keys].timestamp){
+                                var d = new Date(productionObj[type][areaSelected][datatype2][keys].timestamp);
+                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                                var datetime = d.toLocaleString("en-us", options);
+                                let tr2 = "";
 
-                            cumulativeDeath += productionObj[type][areaSelected][datatype2][keys].dead;
+                                cumulativeDeath += productionObj[type][areaSelected][datatype2][keys].dead;
 
-                            tr2 = `
-                            <tr>
-                                <td class="id">${x + 1}</td>
-                                <td>${datetime}</td>
-                                <td>${productionObj[type][areaSelected][datatype2][keys].healthy}</td>
-                                <td>${productionObj[type][areaSelected][datatype2][keys].sick}</td>
-                                <td>${productionObj[type][areaSelected][datatype2][keys].injured}</td>
-                                <td>${productionObj[type][areaSelected][datatype2][keys].cull}</td>
-                                <td>${productionObj[type][areaSelected][datatype2][keys].dead}</td>
-                                <td>${cumulativeDeath}</td>
-                                <td>${((cumulativeDeath / productionObj[type][areaSelected][datatype2][first].healthy)*100).toFixed(2)}</td>
-                            `;
-
-                            if(sessionStorage.getItem("type") == "Admin"){
-                                tr2 += `
-                                    <td>
-                                    <span class="table-remove-table2"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                    <span class="table-edit-table2"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                    </td>
-                                </tr>
+                                tr2 = `
+                                <tr>
+                                    <td class="id">${x + 1}</td>
+                                    <td>${datetime}</td>
+                                    <td>${productionObj[type][areaSelected][datatype2][keys].healthy}</td>
+                                    <td>${productionObj[type][areaSelected][datatype2][keys].sick}</td>
+                                    <td>${productionObj[type][areaSelected][datatype2][keys].injured}</td>
+                                    <td>${productionObj[type][areaSelected][datatype2][keys].cull}</td>
+                                    <td>${productionObj[type][areaSelected][datatype2][keys].dead}</td>
+                                    <td>${cumulativeDeath}</td>
+                                    <td>${((cumulativeDeath / productionObj[type][areaSelected][datatype2][first].healthy)*100).toFixed(2)}</td>
                                 `;
-                            }
 
-                            else{
-                                tr2 += `
-                                    </tr>;
-                                `;
+                                if(sessionStorage.getItem("type") == "Admin"){
+                                    tr2 += `
+                                        <td>
+                                        <span class="table-remove-table2"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                        <span class="table-edit-table2"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                        </td>
+                                    </tr>
+                                    `;
+                                }
+
+                                else{
+                                    tr2 += `
+                                        </tr>;
+                                    `;
+                                }
+                                rowData2 += tr2;
                             }
-                            rowData2 += tr2;
+                        
                         }
-                       
+                        datalistC2.innerHTML = rowData2;
                     }
-                    datalistC2.innerHTML = rowData2;
-
+                    
                     //Chicken Table 3
-                    var cumulativeFCR = 0;
-                    var first = Object.keys(productionObj[type][areaSelected][datatype3])[0];
-                    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype3]).length; ++x){
-                        var keys = Object.keys(productionObj[type][areaSelected][datatype3])[x];
+                    if(productionObj[type][areaSelected][datatype3] != undefined){
+                        var cumulativeFCR = 0;
+                        var first = Object.keys(productionObj[type][areaSelected][datatype3])[0];
+                        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype3]).length; ++x){
+                            var keys = Object.keys(productionObj[type][areaSelected][datatype3])[x];
 
-                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
 
-                        if(newstartdate <= productionObj[type][areaSelected][datatype3][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype3][keys].timestamp){
-                            var d = new Date(productionObj[type][areaSelected][datatype3][keys].timestamp);
-                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                            var datetime = d.toLocaleString("en-us", options);
-                            let tr3 = "";
+                            if(newstartdate <= productionObj[type][areaSelected][datatype3][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype3][keys].timestamp){
+                                var d = new Date(productionObj[type][areaSelected][datatype3][keys].timestamp);
+                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                                var datetime = d.toLocaleString("en-us", options);
+                                let tr3 = "";
 
-                            cumulativeFCR = (productionObj[type][areaSelected][datatype3][keys].avgFeedChix) / (productionObj[type][areaSelected][datatype3][keys].avgWeightChix);
+                                cumulativeFCR = (productionObj[type][areaSelected][datatype3][keys].avgFeedChix) / (productionObj[type][areaSelected][datatype3][keys].avgWeightChix);
 
-                            tr3 = `
-                            <tr>
-                                <td class="id">${x + 1}</td>
-                                <td>${datetime}</td>
-                                <td>${productionObj[type][areaSelected][datatype3][keys].avgFeedChix}</td>
-                                <td>${productionObj[type][areaSelected][datatype3][keys].avgWeightChix}</td>
-                                <td>${cumulativeFCR.toFixed(3)}</td>
-                            `;
-
-                            if(sessionStorage.getItem("type") == "Admin"){
-                                tr3 += `
-                                    <td>
-                                    <span class="table-remove-table3"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                    <span class="table-edit-table3"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                    </td>
-                                </tr>
+                                tr3 = `
+                                <tr>
+                                    <td class="id">${x + 1}</td>
+                                    <td>${datetime}</td>
+                                    <td>${productionObj[type][areaSelected][datatype3][keys].avgFeedChix}</td>
+                                    <td>${productionObj[type][areaSelected][datatype3][keys].avgWeightChix}</td>
+                                    <td>${cumulativeFCR.toFixed(3)}</td>
                                 `;
-                            }
 
-                            else{
-                                tr3 += `
-                                    </tr>;
-                                `;
+                                if(sessionStorage.getItem("type") == "Admin"){
+                                    tr3 += `
+                                        <td>
+                                        <span class="table-remove-table3"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                        <span class="table-edit-table3"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                        </td>
+                                    </tr>
+                                    `;
+                                }
+
+                                else{
+                                    tr3 += `
+                                        </tr>;
+                                    `;
+                                }
+                                rowData3 += tr3;
                             }
-                            rowData3 += tr3;
+                        
                         }
-                       
+                        datalistC3.innerHTML = rowData3;
                     }
-                    datalistC3.innerHTML = rowData3;
-                   
-
+                    
                 }
                 $("#reportrange").daterangepicker({
                     startDate : start,
@@ -303,43 +329,27 @@ function populateProductionTable(){
                 }, dp)
 
                 dp(start, end);
-                $('#chickenTable-Area1').DataTable();
-                $('#chickenTable2-Area1').DataTable();
-                $('#chickenTable3-Area1').DataTable();
+                if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                    $('#chickenTable-Area1').DataTable();
+                }
+        
+                if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+                    $('#chickenTable2-Area1').DataTable();
+                }
+        
+                if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+                    $('#chickenTable3-Area1').DataTable();
+                }
             }
-        }
 
-        else{
-            document.getElementById("prod").style.display = "none";
-            document.getElementById("noprod").style.display = "block";
+            else{
+                dropdownC.innerHTML = html;
+            }
         }
     }
 
     else if(type == "BSF"){
-        if(productionKeys != undefined){
-            document.getElementById("prod").style.display = "block";
-            document.getElementById("noprod").style.display = "none";
-
-            if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
-
-            for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-                if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-
-                else{
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-                html += optionsList;
-            }
-            
-            dropdownC.innerHTML = html;
-
-            header = `
+        header = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -359,7 +369,34 @@ function populateProductionTable(){
                 `;
             }
 
-            tableHeadBSF.innerHTML = header;
+        tableHeadBSF.innerHTML = header;
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable();
+        }
+        if(productionObj[type] != undefined){
+            if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+            }
+
+            if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
+
+            for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
+                if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
+                    optionsList = `
+                        <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
+                    `;
+                }
+
+                else{
+                    optionsList = `
+                        <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
+                    `;
+                }
+                html += optionsList;
+            }
+            
+            dropdownC.innerHTML = html;
 
             function dp(start,end){
                 let rowData = "";
@@ -420,39 +457,14 @@ function populateProductionTable(){
             }, dp)
 
             dp(start, end);
-        }
-
-        else{
-            document.getElementById("prod").style.display = "none";
-            document.getElementById("noprod").style.display = "block";
+            if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                $('#chickenTable-Area1').DataTable();
+            }
         }
     }
 
     else if(type == "BSFL"){
-        if(productionKeys != undefined){
-            document.getElementById("prod").style.display = "block";
-            document.getElementById("noprod").style.display = "none";
-
-            if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
-
-            for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-                if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-
-                else{
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-                html += optionsList;
-            }
-            
-            dropdownC.innerHTML = html;
-
-            header = `
+        header = `
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
@@ -472,7 +484,35 @@ function populateProductionTable(){
                 `;
             }
 
-            tableHeadBSFL.innerHTML = header;
+        tableHeadBSFL.innerHTML = header;
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable();
+        }
+
+        if(productionKeys != undefined){
+            if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+            }
+
+            if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
+
+            for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
+                if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
+                    optionsList = `
+                        <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
+                    `;
+                }
+
+                else{
+                    optionsList = `
+                        <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
+                    `;
+                }
+                html += optionsList;
+            }
+            
+            dropdownC.innerHTML = html;
 
             function dp(start,end){
                 let rowData = "";
@@ -533,11 +573,9 @@ function populateProductionTable(){
             }, dp)
 
             dp(start, end);
-        }
-
-        else{
-            document.getElementById("prod").style.display = "none";
-            document.getElementById("noprod").style.display = "block";
+            if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                $('#chickenTable-Area1').DataTable();
+            }
         }
     }
 }
@@ -571,13 +609,7 @@ $("#productionPage li").click(function(){
 
 function productionAreaChange(){
     areaSelected = document.getElementById("productionArea").value;
-
-    if(type == "Chicken"){
-        $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-        $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
-        $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
-    }
-
+    
     populateProductionTable();
 }
 

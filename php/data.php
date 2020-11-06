@@ -106,10 +106,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div id="nodataTab" style="display:none;">
-                            <p>No record found</p>
-                        </div>
                     </div>
                 </div>
             </div>

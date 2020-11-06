@@ -144,7 +144,6 @@
                                     </div>
                                 </div>
 
-                                
                                 <div class="row" id="bsftab" style="display:none">
                                     <div class="col-xl-12 table-responsive">
                                         <!--Start of chicken table-->
@@ -181,18 +180,12 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div id="noprod" style="display:block;">
-                                 <p>No records found</p>
-                            </div>
                         </div>
                     </div>
                 </div>
             </section>
             <!--End table section-->
         </div>
-
-       
     </div>
 
     <?php

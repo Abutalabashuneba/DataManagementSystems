@@ -15,6 +15,7 @@ var dataHeaderBSF = document.querySelector(".bodyHeaderBSF");
 var datalistBSFL = document.querySelector(".bodyDataBSFL");
 var dataHeaderBSFL = document.querySelector(".bodyHeaderBSFL");
 
+var dataObj;
 var bsfObj;
 var bsfkeys;
 var bsflObj;
@@ -28,7 +29,7 @@ var moistPatt = /(^100$)|^[0-9]\d?$/;
 var lightPatt = /^([1-9][0-9]{0,5}|100000)$/;
 
 ref.on("value", snap=>{
-    var dataObj = snap.val();
+    dataObj = snap.val();
     var keys = Object.keys(dataObj);
 
     for(var x = 0; x < keys.length; ++x){
@@ -61,16 +62,35 @@ function populateTables(){
     let header = "";
 
     if(type == "Chicken"){
-        if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
-            $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+        header = `
+                    <tr class="text-muted">
+                        <th>#</th>
+                        <th>Timestamp</th>
+                        <th>Temperature (°C)</th>
+                        <th>Humidity (%)</th>
+                        <th>Light</th>
+                `;
+        
+                if(sessionStorage.getItem("type") == "Admin"){
+                    header += `
+                        <th>Option</th>
+                    </tr>
+                    `;
+                }
+        
+        dataheaderC.innerHTML = header;
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable();
         }
 
         if(chickenkeys != undefined){
-            document.getElementById("dataTab").style.display = "block";
-            document.getElementById("nodataTab").style.display = "none";
-
             if(chickenObj[areaSelected] == undefined){
                 areaSelected = chickenkeys[0];
+            }
+
+            if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
             }
     
             for(var x = 0; x < chickenkeys.length; ++x){
@@ -90,24 +110,6 @@ function populateTables(){
             }
         
             if(dropdown) { dropdown.innerHTML = html; }
-    
-            header = `
-                <tr class="text-muted">
-                    <th>#</th>
-                    <th>Timestamp</th>
-                    <th>Temperature (°C)</th>
-                    <th>Humidity (%)</th>
-                    <th>Light</th>
-            `;
-    
-            if(sessionStorage.getItem("type") == "Admin"){
-                header += `
-                    <th>Option</th>
-                </tr>
-                `;
-            }
-    
-            dataheaderC.innerHTML = header;
     
             var start = moment().subtract(31,"days");
             var end = moment();
@@ -174,41 +176,11 @@ function populateTables(){
 
         else{
             if(dropdown) { dropdown.innerHTML = html; }
-            document.getElementById("dataTab").style.display = "none";
-            document.getElementById("nodataTab").style.display = "block";
         }
     }
 
     else if(type == "BSF"){
-        if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
-            $('#bsfTable-Area1').DataTable().clear().draw().destroy();
-        }
-
-        if(bsfkeys != undefined){
-            document.getElementById("dataTab").style.display = "block";
-            document.getElementById("nodataTab").style.display = "none";
-
-            if(bsfObj[areaSelected] == undefined) { areaSelected = bsfkeys[0]; }
-
-            for(var x = 0; x < bsfkeys.length; ++x){
-                if(areaSelected == `${bsfkeys[x]}`){
-                    optionslist = `
-                        <option value="${bsfkeys[x]}" selected>${bsfkeys[x]}</option> 
-                    `;
-                }
-        
-                else{
-                    optionslist = `
-                        <option value="${bsfkeys[x]}">${bsfkeys[x]}</option>
-                    `;
-                }
-        
-                html = html + optionslist;
-            }
-        
-            if(dropdown) { dropdown.innerHTML = html; }
-
-            header = `
+        header = `
                 <tr class="text-muted">
                     <th>#</th>
                     <th>Timestamp</th>
@@ -223,88 +195,140 @@ function populateTables(){
                 </tr>
                 `;
             }
-            dataHeaderBSF.innerHTML = header;
+        dataHeaderBSF.innerHTML = header;
 
-            var start = moment().subtract(31,"days");
-            var end = moment();
-
-            function dp(start, end){
-                let rowData = "";
-
-                $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-
-                for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
-                    var keys = Object.keys(bsfObj[areaSelected])[x];
-                    var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                    var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                    if(newstartdate <= bsfObj[areaSelected][keys].timestamp && newenddate >= bsfObj[areaSelected][keys].timestamp){
-                        var d = new Date(bsfObj[areaSelected][keys].timestamp);
-                        var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"};
-                        var datetime = d.toLocaleString("en-us", options);
-                        let tr = "";
-
-                        tr = `
-                            <tr>
-                                <td class="id">${x + 1}</td>
-                                <td class="searchVar">${datetime}</td>
-                                <td>${bsfObj[areaSelected][keys].temperature}</td>
-                                <td>${bsfObj[areaSelected][keys].humidity}</td>
-                                <td>${bsfObj[areaSelected][keys].light}</td>
-                        `;
-
-                        if(sessionStorage.getItem("type") == "Admin"){
-                            tr += `
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                    <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                    </td>
-                                </tr>
-                            `;
-                        }
-
-                        rowData += tr;
-                    }
-                    datalistBSF.innerHTML = rowData;
-                }
-            }
-            $("#reportrange").daterangepicker({
-                startDate : start,
-                endDate : end,
-                ranges : {
-                    "Today" : [moment(), moment()],
-                    "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                    "Last 7 days" : [moment().subtract(6, "days"), moment()],
-                    "Last 30 Days" : [moment().subtract(29, "days"), moment()],
-                    "This Month" : [moment().startOf("month"),moment().endOf("month")],
-                    "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
-                    "Lifetime" : [moment().subtract(50,"year"), moment()]
-                }
-            }, dp)
-
-            dp(start, end);
-            if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
-                $('#bsfTable-Area1').DataTable();
-            }
+        if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+            $('#bsfTable-Area1').DataTable();
         }
 
-        else{
-            if(dropdown) { dropdown.innerHTML = html; }
-            document.getElementById("dataTab").style.display = "none";
-            document.getElementById("nodataTab").style.display = "block";
+        if(dataObj[type] != undefined){
+            if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                $('#bsfTable-Area1').DataTable().clear().destroy();
+            }
+            
+            if(bsfObj[areaSelected] == undefined) { 
+                areaSelected = bsfkeys[0]; 
+            }
+
+            if(dataObj[type] != undefined){
+                for(var x = 0; x < bsfkeys.length; ++x){
+                    if(areaSelected == `${bsfkeys[x]}`){
+                        optionslist = `
+                            <option value="${bsfkeys[x]}" selected>${bsfkeys[x]}</option> 
+                        `;
+                    }
+            
+                    else{
+                        optionslist = `
+                            <option value="${bsfkeys[x]}">${bsfkeys[x]}</option>
+                        `;
+                    }
+            
+                    html = html + optionslist;
+                }
+            
+                if(dropdown) { dropdown.innerHTML = html; }
+    
+                var start = moment().subtract(31,"days");
+                var end = moment();
+    
+                function dp(start, end){
+                    let rowData = "";
+    
+                    $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+                    if(bsfObj[areaSelected] != undefined){
+                        for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
+                            var keys = Object.keys(bsfObj[areaSelected])[x];
+                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+        
+                            if(newstartdate <= bsfObj[areaSelected][keys].timestamp && newenddate >= bsfObj[areaSelected][keys].timestamp){
+                                var d = new Date(bsfObj[areaSelected][keys].timestamp);
+                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"};
+                                var datetime = d.toLocaleString("en-us", options);
+                                let tr = "";
+        
+                                tr = `
+                                    <tr>
+                                        <td class="id">${x + 1}</td>
+                                        <td class="searchVar">${datetime}</td>
+                                        <td>${bsfObj[areaSelected][keys].temperature}</td>
+                                        <td>${bsfObj[areaSelected][keys].humidity}</td>
+                                        <td>${bsfObj[areaSelected][keys].light}</td>
+                                `;
+        
+                                if(sessionStorage.getItem("type") == "Admin"){
+                                    tr += `
+                                        <td>
+                                            <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                            <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }
+        
+                                rowData += tr;
+                            }
+                            datalistBSF.innerHTML = rowData;
+                        }
+                    }
+                }
+
+                $("#reportrange").daterangepicker({
+                    startDate : start,
+                    endDate : end,
+                    ranges : {
+                        "Today" : [moment(), moment()],
+                        "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                        "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                        "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                        "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                        "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                        "Lifetime" : [moment().subtract(50,"year"), moment()]
+                    }
+                }, dp)
+    
+                dp(start, end);
+                if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                    $('#bsfTable-Area1').DataTable();
+                }
+            }
+
+            else{
+                if(dropdown) { dropdown.innerHTML = html; }
+            }
         }
     }
 
     else if(type == "BSFL"){
-        if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
-            $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+        header = `
+                <tr class="text-muted">
+                    <th>#</th>
+                    <th>Timestamp</th>
+                    <th>Temperature (°C)</th>
+                    <th>Humidity</th>
+                    <th>Moisture</th>
+                    <th>Soil Temperature</th>
+            `;
+
+            if(sessionStorage.getItem("type") == "Admin"){
+                header += `
+                    <th>Option</th>
+                </tr>
+                `;
+            }
+        dataHeaderBSFL.innerHTML = header;
+
+        if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
+            $('#bsflTable-Area1').DataTable();
         }
 
         if(bsflkeys != undefined){
-            document.getElementById("dataTab").style.display = "block";
-            document.getElementById("nodataTab").style.display = "none";
-
             if(bsflObj[areaSelected] == undefined) { areaSelected = bsflkeys[0]; }
+
+            if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+            }
 
             for(var x = 0; x < bsflkeys.length; ++x){
                 if(areaSelected == `${bsflkeys[x]}`){
@@ -323,24 +347,6 @@ function populateTables(){
             }
         
             if(dropdown) { dropdown.innerHTML = html; }
-
-            header = `
-                <tr class="text-muted">
-                    <th>#</th>
-                    <th>Timestamp</th>
-                    <th>Temperature (°C)</th>
-                    <th>Humidity</th>
-                    <th>Moisture</th>
-                    <th>Soil Temperature</th>
-            `;
-
-            if(sessionStorage.getItem("type") == "Admin"){
-                header += `
-                    <th>Option</th>
-                </tr>
-                `;
-            }
-            dataHeaderBSFL.innerHTML = header;
 
             var start = moment().subtract(31,"days");
             var end = moment();
@@ -408,8 +414,6 @@ function populateTables(){
 
         else{
             if(dropdown) { dropdown.innerHTML = html; }
-            document.getElementById("dataTab").style.display = "none";
-            document.getElementById("nodataTab").style.display = "block";
         }
     }
 
@@ -425,9 +429,6 @@ function populateTables(){
 $("#dataPage li").click(function(){
     if($(this).children().attr("id") == "dataChickenBtn"){ 
         document.getElementById("dataTitle").innerHTML = "Chicken"; 
-        if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
-            $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-        }
         $("#chickentab").show();
 		$("#bsftab").hide();
 		$("#bsfltab").hide();
@@ -435,9 +436,6 @@ $("#dataPage li").click(function(){
 
     else if($(this).children().attr("id") == "dataBSFBtn"){
         document.getElementById("dataTitle").innerHTML = "BSF";
-        if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
-            $('#bsfTable-Area1').DataTable().clear().draw().destroy();
-        }
         $("#chickentab").hide();
 		$("#bsftab").show();
 		$("#bsfltab").hide();
@@ -445,9 +443,6 @@ $("#dataPage li").click(function(){
 
     else if($(this).children().attr("id") == "dataBSFLBtn"){
         document.getElementById("dataTitle").innerHTML = "BSFL";
-        if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
-            $('#bsflTable-Area1').DataTable().clear().draw().destroy();
-        }
         $("#chickentab").hide();
 		$("#bsftab").hide();
 		$("#bsfltab").show();
@@ -459,17 +454,7 @@ $("#dataPage li").click(function(){
 
 function dataAreaChange(){
     areaSelected = document.getElementById("chickenAreaData").value;
-    if(type == "Chicken"){
-        $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-    }
-
-    else if(type == "BSF"){
-        $('#bsfTable-Area1').DataTable().clear().draw().destroy();
-    }
-
-    else{
-        $('#bsflTable-Area1').DataTable().clear().draw().destroy();
-    }
+    
     populateTables();
 }
 
