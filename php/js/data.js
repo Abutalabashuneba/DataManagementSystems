@@ -857,6 +857,14 @@ var update = function(e){
 } 
 
 var add = function(e){
+    var d = new Date();
+    var day = d.getDate().toString().padStart(2, "0");
+    var month = (d.getMonth() + 1).toString().padStart(2,"0");
+    var year = d.getFullYear();
+    var hour = d.getHours().toString().padStart(2, "0");
+    var minute = d.getMinutes().toString().padStart(2, "0");
+    var date = year + "-" + month + "-" + day + "T" + hour + ":" + minute;
+
     if(type == "Chicken"){
         $.showModal({
             title : "Chicken" + "-" + areaSelected,
@@ -870,6 +878,8 @@ var add = function(e){
             '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addChickenData" name="area" id="cArea" value=' +
             areaSelected + '>' +
             '<label for="cArea" class="CLabel" id="moistureLabelAdd">(Area)</label></div>' +
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<label for="date" class="CLabel" id="sickLabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form></div>',
             onCreate: function (modal) {
                 // create event handler for form submit and handle values
@@ -896,7 +906,7 @@ var add = function(e){
                                     humidity: parseInt($form.find("#cHum").val()),
                                     light: parseInt($form.find("#cLight").val()),
                                     temperature: parseInt($form.find("#cTemp").val()),
-                                    timestamp: new Date().getTime()
+                                    timestamp: new Date(date).getTime()
                                 }
 
                                 if(!isNaN(data.humidity) && !isNaN(data.light) && !isNaN(data.temperature)){
@@ -955,6 +965,11 @@ var add = function(e){
             '<label for="bsfHum" class="CLabel" id="bsfhumidLabelAdd">(Humidity)</label></div>' +
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addChickenData" name="LUX" id="bsfLux" required>' +
             '<label for="bsfPh" class="CLabel" id="bsflightLabelAdd">(LUX value)</label></div>' + 
+            '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addChickenData" name="area" id="cArea" value=' +
+            areaSelected + '>' +
+            '<label for="cArea" class="CLabel" id="moistureLabelAdd">(Area)</label></div>' +
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<label for="date" class="CLabel" id="sickLabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
                 // create event handler for form submit and handle values
@@ -968,7 +983,8 @@ var add = function(e){
                         body:
                             "<b>Temperature:</b> " + $form.find("#bsfTemp").val() + "<br/>" +
                             "<b>Humidity:</b> " + $form.find("#bsfHum").val() + "<br/>" +
-                            "<b>Lux:</b> " + $form.find("#bsfLux").val(),
+                            "<b>Lux:</b> " + $form.find("#bsfLux").val() + "<br/>" +
+                            "<b>Area:</b>" + $form.find("#cArea").val(),
                         onSubmit: function(result){
                             var errorBSFMSG = "";
                             if(result){
@@ -980,7 +996,7 @@ var add = function(e){
                                     humidity: parseInt($form.find("#bsfHum").val()),
                                     light: parseInt($form.find("#bsfLux").val()),
                                     temperature: parseInt($form.find("#bsfTemp").val()),
-                                    timestamp: new Date().getTime()
+                                    timestamp: new Date(date).getTime()
                                 }
 
                                 if(!isNaN(data.humidity) && !isNaN(data.light) && !isNaN(data.temperature)){
@@ -1042,6 +1058,8 @@ var add = function(e){
             '<label for="soilTemp" class="CLabel" id="soilTempLabelBSFLAdd">(Soil Temperature)</label></div>' +
             '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addChickenData" name="bArea" id="bArea" required value='+ areaSelected + '>' +
             '<label for="bArea" class="CLabel" id="areaLabelBSFLAdd">(Area)</label></div>' +
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<label for="date" class="CLabel" id="givenLabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
                 // create event handler for form submit and handle values
