@@ -41,7 +41,13 @@
                                     <i class="fa fa-calendar"></i>&nbsp;<span></span> <i class="fa fa-caret-down"></i>
                                 </div>
                             
-                                
+                                <div class='col-xl-5 col-lg-5 col-md-5 ml-auto'>
+                                    <div id="btnChicken">
+                                        <div id="chickenAddBtn1">
+                                            <button class="btn mb-3 float-right" id="addBtnC" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!--  -->
 
@@ -52,13 +58,7 @@
                                         <h2>Feeds</h2>
                                     </div>
 
-                                    <div class='col-xl-5 col-lg-5 col-md-5 ml-auto'>
-                                        <div id="btnChicken">
-                                            <div id="chickenAddBtn1">
-                                                <button class="btn mb-3 float-right" id="addBtnC" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 
                                     <div class="col-xl-12 table-responsive">
                                         <!--Start of chicken table-->
@@ -122,7 +122,7 @@
                                     <div class='col-xl-5 col-lg-5 col-md-5 ml-auto mt-5'>
                                         <div id="btnChicken">
                                             <div id="chickenAddBtn1">
-                                                <button class="btn mb-3 float-right" id="addBtnC3" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                                                <button class="btn mb-3 float-right" id="addBtnC3" style="display:block;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -146,10 +146,10 @@
 
                                 <div class="row" id="bsftab" style="display:none">
                                     <div class="col-xl-12 table-responsive">
-                                        <!--Start of chicken table-->
+                                        <!--Start of bsf table-->
                                         <div id="chickenTable">
-                                            <!--Start of chicken table area-1-->
-                                            <table class="table table-striped table-hover table-md bg-light text-center" id="chickenTable-Area1">
+                                            <!--Start of bsf table area-1-->
+                                            <table class="table table-striped table-hover table-md bg-light text-center" id="bsfTable-Area1">
                                                 <!--Start of table head-->
                                                 <thead class="productionHeaderBSF"></thead>
                                                 <!--End of table head-->
@@ -164,9 +164,9 @@
                                 
                                 <div class="row" id="bsfltab" style="display:none">
                                     <div class="col-xl-12 table-responsive">
-                                        <!--Start of chicken table-->
+                                        <!--Start of bsfl table-->
                                         <div id="chickenTable">
-                                            <!--Start of chicken table area-1-->
+                                            <!--Start of bsfl table area-1-->
                                             <table class="table table-striped table-hover table-md bg-light text-center" id="chickenTable-Area1">
                                                 <!--Start of table head-->
                                                 <thead class="productionHeaderBSFL"></thead>
