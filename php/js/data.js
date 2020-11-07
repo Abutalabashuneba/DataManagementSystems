@@ -62,6 +62,10 @@ function populateTables(){
     let header = "";
 
     if(type == "Chicken"){
+        if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+        }
+
         header = `
                     <tr class="text-muted">
                         <th>#</th>
@@ -80,19 +84,11 @@ function populateTables(){
         
         dataheaderC.innerHTML = header;
 
-        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-            $('#chickenTable-Area1').DataTable();
-        }
-
         if(chickenkeys != undefined){
             if(chickenObj[areaSelected] == undefined){
                 areaSelected = chickenkeys[0];
             }
 
-            if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-            }
-    
             for(var x = 0; x < chickenkeys.length; ++x){
                 if(areaSelected == `${chickenkeys[x]}`){
                     optionslist = `
@@ -169,17 +165,22 @@ function populateTables(){
             }, dp)
     
             dp(start, end); 
-            if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                $('#chickenTable-Area1').DataTable();
-            }
         }
 
         else{
             if(dropdown) { dropdown.innerHTML = html; }
         }
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable();
+        }
     }
 
     else if(type == "BSF"){
+        if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
+            $('#bsfTable-Area1').DataTable().clear().destroy();
+        }
+
         header = `
                 <tr class="text-muted">
                     <th>#</th>
@@ -197,15 +198,7 @@ function populateTables(){
             }
         dataHeaderBSF.innerHTML = header;
 
-        if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
-            $('#bsfTable-Area1').DataTable();
-        }
-
         if(dataObj[type] != undefined){
-            if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
-                $('#bsfTable-Area1').DataTable().clear().destroy();
-            }
-            
             if(bsfObj[areaSelected] == undefined) { 
                 areaSelected = bsfkeys[0]; 
             }
@@ -289,18 +282,23 @@ function populateTables(){
                 }, dp)
     
                 dp(start, end);
-                if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
-                    $('#bsfTable-Area1').DataTable();
-                }
             }
 
             else{
                 if(dropdown) { dropdown.innerHTML = html; }
             }
         }
+
+        if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+            $('#bsfTable-Area1').DataTable();
+        }
     }
 
     else if(type == "BSFL"){
+        if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
+            $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+        }
+
         header = `
                 <tr class="text-muted">
                     <th>#</th>
@@ -319,16 +317,8 @@ function populateTables(){
             }
         dataHeaderBSFL.innerHTML = header;
 
-        if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
-            $('#bsflTable-Area1').DataTable();
-        }
-
         if(bsflkeys != undefined){
             if(bsflObj[areaSelected] == undefined) { areaSelected = bsflkeys[0]; }
-
-            if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
-                $('#bsflTable-Area1').DataTable().clear().draw().destroy();
-            }
 
             for(var x = 0; x < bsflkeys.length; ++x){
                 if(areaSelected == `${bsflkeys[x]}`){
@@ -407,13 +397,14 @@ function populateTables(){
             }, dp)
 
             dp(start, end);
-            if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
-                $('#bsflTable-Area1').DataTable();
-            }
         }
 
         else{
             if(dropdown) { dropdown.innerHTML = html; }
+        }
+
+        if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
+            $('#bsflTable-Area1').DataTable();
         }
     }
 
