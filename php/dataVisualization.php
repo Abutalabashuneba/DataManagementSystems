@@ -32,6 +32,13 @@
                         <!-- Start of Chicken Visualization -->
                         <section id="chickenChart">
                             <div class="row">
+                                <div id="reportrange" class="datepicker" style="text-align: center; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span> <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-12">
                                     <div class="card mb-5">
                                         <div class="card-header">
@@ -51,14 +58,14 @@
                                             <canvas id="myChart1" height="100"></canvas>
                                         </div>
         
-                                        <div class="card-footer">
+                                        <!-- <div class="card-footer">
                                             <ul class="pagination paginationBtn justify-content-center mb-0 tempPage" id="temp">
                                                 <li class="page-item active"><a class="page-link" href="#" id="tempToday"><span class="badge">Today</span></a></li>
                                                 <li class="page-item"><a class="page-link" href="#" id="tempWeekly"><span class="badge">Weekly</span></a></li>
                                                 <li class="page-item"><a class="page-link" href="#" id="tempMonthly"><span class="badge">Monthly</span></a></li>
                                                 <li class="page-item"><a class="page-link" href="#" id="tempAll"><span class="badge">Lifetime</span></a></li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

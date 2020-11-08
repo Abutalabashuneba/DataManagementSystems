@@ -12,7 +12,7 @@ function newDateString(days){
     return moment().add(days,"d").format(timeFormat);
 }
 
-var type = "Chicken";
+var type = document.getElementById("headerCanvas1").textContent;
 var areaSelected;
 
 var chart1;
@@ -32,7 +32,6 @@ var config1 = {
         }],
     },
     options:{
-        
         tooltips:{
             intersect: false,
             mode: "index"
@@ -48,6 +47,11 @@ var config1 = {
                 },
                 time:{
                     unit : "minute",
+                    displayFormats : {
+                        minute: 'MMM D',
+                        day: 'MMM D',
+                        month: 'MMM D YYYY'
+                    }
                 },
             }],
             yAxes:[{
@@ -122,6 +126,11 @@ var config2 = {
                 offset : true,
                 time:{
                     unit : "day",
+                    displayFormats : {
+                        minute: 'h:mm a',
+                        day: 'MMM D',
+                        month: 'MMM D YYYY'
+                    }
                 },
             }],
 
@@ -203,7 +212,7 @@ var bsfEgg = [];
 var bsflProLabel = []
 var bsflLarvae = [];
 //
-var areaDrop = document.querySelector(".areaDropdown");
+var areaDrop = document.querySelector("#dropdown");
 var chickenDrop = document.querySelector("#mixChicken");
 var bsfDrop = document.querySelector("#mixBSF");
 var bsflDrop = document.querySelector("#mixBSFL");
@@ -328,116 +337,463 @@ function drawCharts(){
     pointSoilBSFLMonthly = [];
 
     //start of adding data into the array
-    if(chickenKeys != undefined){
+    if(type == "Chicken"){
         if(chickenObj[areaSelected] == undefined){
             areaSelected = chickenKeys[0];
         }
 
-        for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
-            var k = Object.keys(chickenObj[areaSelected])[x];
+        var start = moment().subtract(31,"days");
+        var end = moment();
 
-            if(chickenObj[areaSelected][k].timestamp > dayStart && chickenObj[areaSelected][k].timestamp < dayEnd){
-                labelDaily.push(chickenObj[areaSelected][k].timestamp);
-                pointTempDaily.push(chickenObj[areaSelected][k].temperature);
-                pointHumidityDaily.push(chickenObj[areaSelected][k].humidity);
-                pointLightDaily.push(chickenObj[areaSelected][k].light);
-            }
-
-            if(chickenObj[areaSelected][k].timestamp > weekStart && chickenObj[areaSelected][k].timestamp < weekEnd){
-                labelWeekly.push(chickenObj[areaSelected][k].timestamp);
-                pointTempWeekly.push(chickenObj[areaSelected][k].temperature);
-                pointHumidityWeekly.push(chickenObj[areaSelected][k].humidity);
-                pointLightWeekly.push(chickenObj[areaSelected][k].light);
-            }
-
-            if(chickenObj[areaSelected][k].timestamp > monthStart && chickenObj[areaSelected][k].timestamp < monthEnd){
-                labelMonthly.push(chickenObj[areaSelected][k].timestamp);
-                pointTempMonthly.push(chickenObj[areaSelected][k].temperature);
-                pointHumidityMonthly.push(chickenObj[areaSelected][k].humidity);
-                pointLightMonthly.push(chickenObj[areaSelected][k].light);
-            }
+        function dp(start, end){
+            labelDaily = [];
+            pointTempDaily = [];
+            pointHumidityDaily = [];
+            pointLightDaily = [];
+            $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
             
-            labelAll.push(chickenObj[areaSelected][k].timestamp);
-            pointTempAll.push(chickenObj[areaSelected][k].temperature);
-            pointHumidityAll.push(chickenObj[areaSelected][k].humidity);
-            pointLightAll.push(chickenObj[areaSelected][k].light);
-        }
+            for(var x = 0; x < Object.keys(chickenObj[areaSelected]).length; ++x){
+                var k = Object.keys(chickenObj[areaSelected])[x];
+                var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+                
+                if(newstartdate <= chickenObj[areaSelected][k].timestamp && newenddate >= chickenObj[areaSelected][k].timestamp){
+                    labelDaily.push(chickenObj[areaSelected][k].timestamp);
+                    pointTempDaily.push(chickenObj[areaSelected][k].temperature);
+                    pointHumidityDaily.push(chickenObj[areaSelected][k].humidity);
+                    pointLightDaily.push(chickenObj[areaSelected][k].light);
+                }
+            }
+
+            if(!chart1 && !chart2){
+                config1.data.datasets.splice(0,config1.data.datasets.length);
         
+                let newDataOne = {
+                    label: "Chicken Temperature",
+                    yAxisID: "yAxis-Temp",
+                    data: pointTempDaily,
+                    pointRadius: 0,
+                    fill: false,
+                    lineTension: 0.5,
+                    borderWidth: 2,
+                    borderColor: "rgba(201,134,212,0.7)",
+                    backgroundColor: "rgba(201,134,212,0.7)",
+                    pointHoverBorderColor : "rgba(142,77,185,0.9)",
+                }
+        
+                let newDataTwo = {
+                    label: "Chicken Humidity",
+                    yAxisID: "yAxis-Humidity",
+                    data: pointHumidityDaily,
+                    pointRadius: 0,
+                    fill: false,
+                    lineTension: 0.5,
+                    borderWidth: 2,
+                    borderColor: "rgba(160, 227, 226, 0.7)",
+                    backgroundColor: "rgba(160, 227, 226, 0.7)",
+                    pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+                }
+        
+                let newDataThree = {
+                    label: "Chicken Light",
+                    yAxisID: "yAxis-Light",
+                    data: pointLightDaily,
+                    pointRadius: 0,
+                    fill: false,
+                    lineTension: 0.5,
+                    borderWidth: 2,
+                    borderColor: "rgba(207, 89, 89, 0.7)",
+                    backgroundColor: "rgba(207, 89, 89, 0.7)",
+                    pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+                }
+        
+                config1.data.labels = labelDaily;
+                config1.data.datasets.push(newDataOne);
+                config1.data.datasets.push(newDataTwo);
+                config1.data.datasets.push(newDataThree);
+                config1.options.scales.xAxes[0].time.unit = "minute";
+                chart1 = new Chart(context,config1);
+                
+                // config2.data = {
+                //     labels: chickenProLabel,
+                //     datasets : [
+                //     {
+                //         label : "Amount (1000/k)",
+                //         backgroundColor: "rgba(255,0,0)",
+                //         data : chickenAmt
+                //     },
+                //     {
+                //         label : "Average (kg)",
+                //         backgroundColor: "rgba(255,128,0)",
+                //         data : chickenAvg
+                //     },    
+                //     {
+                //         label : "Sick (1000/k)",
+                //         backgroundColor: "rgba(255,255,0)",
+                //         data : chickenSick
+                //     },    
+                //     {
+                //         label : "Runt (1000/k)",
+                //         backgroundColor: "rgba(128,255,0)",
+                //         data : chickenRunt
+                //     },    
+                //     {
+                //         label : "Mortality (1000/k)",
+                //         backgroundColor: "rgba(255,0,255)",
+                //         data : chickenMort
+                //     },    
+                //     {
+                //         label : "Feed (kg)",
+                //         backgroundColor: "rgba(0,0,255)",
+                //         data : chickenFeed
+                //     },    
+                //     {
+                //         label : "Left (kg)",
+                //         backgroundColor: "rgba(0,255,255)",
+                //         data : chickenLeft
+                //     },    
+                //     ] 
+                // }
+                // chart2 = new Chart(context2,config2);
+            }
+
+            else{
+                config1.data.datasets.splice(0,config1.data.datasets.length);
+
+                let newDataOne = {
+                    label: "Chicken Temperature",
+                    yAxisID: "yAxis-Temp",
+                    data: pointTempDaily,
+                    pointRadius: 0,
+                    fill: false,
+                    lineTension: 0.5,
+                    borderWidth: 2,
+                    borderColor: "rgba(201,134,212,0.7)",
+                    backgroundColor: "rgba(201,134,212,0.7)",
+                    pointHoverBorderColor : "rgba(142,77,185,0.9)",
+                }
+        
+                let newDataTwo = {
+                    label: "Chicken Humidity",
+                    yAxisID: "yAxis-Humidity",
+                    data: pointHumidityDaily,
+                    pointRadius: 0,
+                    fill: false,
+                    lineTension: 0.5,
+                    borderWidth: 2,
+                    borderColor: "rgba(160, 227, 226, 0.7)",
+                    backgroundColor: "rgba(160, 227, 226, 0.7)",
+                    pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+                }
+        
+                let newDataThree = {
+                    label: "Chicken Light",
+                    yAxisID: "yAxis-Light",
+                    data: pointLightDaily,
+                    pointRadius: 0,
+                    fill: false,
+                    lineTension: 0.5,
+                    borderWidth: 2,
+                    borderColor: "rgba(207, 89, 89, 0.7)",
+                    backgroundColor: "rgba(207, 89, 89, 0.7)",
+                    pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+                }
+        
+                config1.data.labels = labelDaily;
+                config1.data.datasets.push(newDataOne);
+                config1.data.datasets.push(newDataTwo);
+                config1.data.datasets.push(newDataThree);
+                config1.options.scales.xAxes[0].time.unit = "minute";
+                chart1.update();
+            }
+        }
+
+        $("#reportrange").daterangepicker({
+            startDate : start,
+            endDate : end,
+            ranges : {
+                "Today" : [moment(), moment()],
+                "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                "Lifetime" : [moment().subtract(50,"year"), moment()]
+            }
+        }, dp)
+        
+        dp(start,end);
     }
 
     //start of adding data into the array
-    // if(bsfObj[areaSelected] != null){
-    //     for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
-    //         var k = Object.keys(bsfObj[areaSelected])[x];
+    else if(type == "BSF"){
+        if(bsfObj[areaSelected] == undefined){
+            areaSelected = bsfKeys[0];
+        }
+
+        var start = moment().subtract(31,"days");
+        var end = moment();
+
+        function dp(start,end){
+            labelBSFDaily = [];
+            pointTempBSFDaily = [];
+            pointHumidityBSFDaily = [];
+            pointLightBSFDaily = [];
+
+            for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
+                var k = Object.keys(bsfObj[areaSelected])[x];
+                var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+
+                if(newstartdate <= bsf[areaSelected][k].timestamp && newenddate >= bsf[areaSelected][k].timestamp){
+                    labelBSFDaily.push(bsfObj[areaSelected][k].timestamp);
+                    pointTempBSFDaily.push(bsfObj[areaSelected][k].temperature);
+                    pointHumidityBSFDaily.push(bsfObj[areaSelected][k].humidity);
+                    pointLightBSFDaily.push(bsfObj[areaSelected][k].light);
+                }
+            }
+
+            config1.data.datasets.splice(0,config1.data.datasets.length);
+            // config2.data.datasets.splice(0,config2.data.datasets.length);
+
+            let newDataBSFOne = {
+                label: "BSF Temperature",
+                yAxisID: "yAxis-Temp",
+                data: pointTempBSFDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(201,134,212,0.7)",
+                backgroundColor: "rgba(201,134,212,0.7)",
+                pointHoverBorderColor : "rgba(142,77,185,0.9)",
+            }
+
+            let newDataBSFTwo = {
+                label: "BSF Humidity",
+                yAxisID: "yAxis-Humidity",
+                data: pointHumidityBSFDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(160, 227, 226, 0.7)",
+                backgroundColor: "rgba(160, 227, 226, 0.7)",
+                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+            }
+
+            let newDataBSFThree = {
+                label: "BSF Light",
+                yAxisID: "yAxis-Light",
+                data: pointLightBSFDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(207, 89, 89, 0.7)",
+                backgroundColor: "rgba(207, 89, 89, 0.7)",
+                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+            }
+
+            config1.data.labels = labelBSFDaily;
+            config1.data.datasets.push(newDataBSFOne);
+            config1.data.datasets.push(newDataBSFTwo);
+            config1.data.datasets.push(newDataBSFThree);
+            config1.options.scales.xAxes[0].time.unit = "minute";
+            chart1.update();
+        }
+
+        $("#reportrange").daterangepicker({
+            startDate : start,
+            endDate : end,
+            ranges : {
+                "Today" : [moment(), moment()],
+                "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                "Lifetime" : [moment().subtract(50,"year"), moment()]
+            }
+        }, dp)
+        
+        dp(start,end);
+        // for(var x = 0; x < Object.keys(bsfObj[areaSelected]).length; ++x){
+        //     var k = Object.keys(bsfObj[areaSelected])[x];
     
-    //         if(bsfObj[areaSelected][k].timestamp > dayStart && bsfObj[areaSelected][k].timestamp < dayEnd){
-    //             labelBSFDaily.push(bsfObj[areaSelected][k].timestamp);
-    //             pointTempBSFDaily.push(bsfObj[areaSelected][k].temperature);
-    //             pointHumidityBSFDaily.push(bsfObj[areaSelected][k].humidity);
-    //             pointLightBSFDaily.push(bsfObj[areaSelected][k].light);
-    //         }
+        //     if(bsfObj[areaSelected][k].timestamp > dayStart && bsfObj[areaSelected][k].timestamp < dayEnd){
+        //         labelBSFDaily.push(bsfObj[areaSelected][k].timestamp);
+        //         pointTempBSFDaily.push(bsfObj[areaSelected][k].temperature);
+        //         pointHumidityBSFDaily.push(bsfObj[areaSelected][k].humidity);
+        //         pointLightBSFDaily.push(bsfObj[areaSelected][k].light);
+        //     }
     
-    //         if(bsfObj[areaSelected][k].timestamp > weekStart && bsfObj[areaSelected][k].timestamp < weekEnd){
-    //             labelBSFWeekly.push(bsfObj[areaSelected][k].timestamp);
-    //             pointTempBSFWeekly.push(bsfObj[areaSelected][k].temperature);
-    //             pointHumidityBSFWeekly.push(bsfObj[areaSelected][k].humidity);
-    //             pointLightBSFWeekly.push(bsfObj[areaSelected][k].light);
-    //         }
+        //     if(bsfObj[areaSelected][k].timestamp > weekStart && bsfObj[areaSelected][k].timestamp < weekEnd){
+        //         labelBSFWeekly.push(bsfObj[areaSelected][k].timestamp);
+        //         pointTempBSFWeekly.push(bsfObj[areaSelected][k].temperature);
+        //         pointHumidityBSFWeekly.push(bsfObj[areaSelected][k].humidity);
+        //         pointLightBSFWeekly.push(bsfObj[areaSelected][k].light);
+        //     }
     
-    //         if(bsfObj[areaSelected][k].timestamp > monthStart && bsfObj[areaSelected][k].timestamp < monthEnd){
-    //             labelBSFMonthly.push(bsfObj[areaSelected][k].timestamp);
-    //             pointTempBSFMonthly.push(bsfObj[areaSelected][k].temperature);
-    //             pointHumidityBSFMonthly.push(bsfObj[areaSelected][k].humidity);
-    //             pointLightBSFMonthly.push(bsfObj[areaSelected][k].light);
-    //         }
+        //     if(bsfObj[areaSelected][k].timestamp > monthStart && bsfObj[areaSelected][k].timestamp < monthEnd){
+        //         labelBSFMonthly.push(bsfObj[areaSelected][k].timestamp);
+        //         pointTempBSFMonthly.push(bsfObj[areaSelected][k].temperature);
+        //         pointHumidityBSFMonthly.push(bsfObj[areaSelected][k].humidity);
+        //         pointLightBSFMonthly.push(bsfObj[areaSelected][k].light);
+        //     }
     
-    //         labelBSFAll.push(bsfObj[areaSelected][k].timestamp);
-    //         pointTempBSFAll.push(bsfObj[areaSelected][k].temperature);
-    //         pointHumidityBSFAll.push(bsfObj[areaSelected][k].humidity);
-    //         pointLightBSFAll.push(bsfObj[areaSelected][k].light);
-    //     }
-    // }
+        //     labelBSFAll.push(bsfObj[areaSelected][k].timestamp);
+        //     pointTempBSFAll.push(bsfObj[areaSelected][k].temperature);
+        //     pointHumidityBSFAll.push(bsfObj[areaSelected][k].humidity);
+        //     pointLightBSFAll.push(bsfObj[areaSelected][k].light);
+        // }
+    }
     //end of adding data into the array
 
     //start of adding data into the array
-    if(bsflKeys != undefined){
+    else if(type == "BSFL"){
         if(bsflObj[areaSelected] == undefined){
             areaSelected = bsflKeys[0];
         }
 
-        for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
-            var k = Object.keys(bsflObj[areaSelected])[x];
-    
-            if(bsflObj[areaSelected][k].timestamp > dayStart && bsflObj[areaSelected][k].timestamp < dayEnd){
-                labelBSFLDaily.push(bsflObj[areaSelected][k].timestamp);
-                pointTempBSFLDaily.push(bsflObj[areaSelected][k].temperature);
-                pointMoistureBSFLDaily.push(bsflObj[areaSelected][k].moisture);
-                pointHumidBSFLDaily.push(bsflObj[areaSelected][k].humidity);
-                pointSoilBSFLDaily.push(bsflObj[areaSelected][k].soilTemp);
+        var start = moment().subtract(31,"days");
+        var end = moment();
+
+        function dp(start,end){
+            labelBSFLDaily = [];
+            pointTempBSFLDaily = [];
+            pointMoistureBSFLDaily = [];
+            pointHumidBSFLDaily = [];
+            pointSoilBSFLDaily = [];
+            $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+            
+            for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
+                var k = Object.keys(bsflObj[areaSelected])[x]; 
+                var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+
+                if(newstartdate <= bsflObj[areaSelected][k].timestamp && newenddate >= bsflObj[areaSelected][k].timestamp){
+                    labelBSFLDaily.push(bsflObj[areaSelected][k].timestamp);
+                    pointTempBSFLDaily.push(bsflObj[areaSelected][k].temperature);
+                    pointMoistureBSFLDaily.push(bsflObj[areaSelected][k].moisture);
+                    pointHumidBSFLDaily.push(bsflObj[areaSelected][k].humidity);
+                    pointSoilBSFLDaily.push(bsflObj[areaSelected][k].soilTemp);
+                }
             }
-    
-            if(bsflObj[areaSelected][k].timestamp > weekStart && bsflObj[areaSelected][k].timestamp < weekEnd){
-                labelBSFLWeekly.push(bsflObj[areaSelected][k].timestamp);
-                pointTempBSFLWeekly.push(bsflObj[areaSelected][k].temperature);
-                pointMoistureBSFLWeekly.push(bsflObj[areaSelected][k].moisture);
-                pointHumidBSFLWeekly.push(bsflObj[areaSelected][k].humidity);
-                pointSoilBSFLWeekly.push(bsflObj[areaSelected][k].soilTemp);
+
+            config1.data.datasets.splice(0,config1.data.datasets.length);
+
+            let newDataBSFLOne = {
+                label: "BSFL Temperature",
+                yAxisID: "yAxis-Temp",
+                data: pointTempBSFLDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(201,134,212,0.7)",
+                backgroundColor: "rgba(201,134,212,0.7)",
+                pointHoverBorderColor : "rgba(142,77,185,0.9)",
             }
-    
-            if(bsflObj[areaSelected][k].timestamp > monthStart && bsflObj[areaSelected][k].timestamp < monthEnd){
-                labelBSFLMonthly.push(bsflObj[areaSelected][k].timestamp);
-                pointTempBSFLMonthly.push(bsflObj[areaSelected][k].temperature);
-                pointMoistureBSFLMonthly.push(bsflObj[areaSelected][k].moisture);
-                pointHumidBSFLMonthly.push(bsflObj[areaSelected][k].humidity);
-                pointSoilBSFLMonthly.push(bsflObj[areaSelected][k].soilTemp);
+
+            let newDataBSFLTwo = {
+                label: "BSFL Moisture",
+                yAxisID: "yAxis-Moisture",
+                data: pointMoistureBSFLDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(160, 227, 226, 0.7)",
+                backgroundColor: "rgba(160, 227, 226, 0.7)",
+                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
             }
-    
-            labelBSFLAll.push(bsflObj[areaSelected][k].timestamp);
-            pointTempBSFLAll.push(bsflObj[areaSelected][k].temperature);
-            pointMoistureBSFLAll.push(bsflObj[areaSelected][k].moisture);
-            pointHumidBSFLAll.push(bsflObj[areaSelected][k].humidity);
-            pointSoilBSFLAll.push(bsflObj[areaSelected][k].soilTemp);
+
+            let newDataBSFLThree = {
+                label: "BSFL Humidity",
+                yAxisID: "yAxis-Humidity",
+                data: pointHumidBSFLDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(207, 89, 89, 0.7)",
+                backgroundColor: "rgba(207, 89, 89, 0.7)",
+                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+            }
+
+            let newDataBSFLFour = {
+                label: "BSFL Soil Temperature",
+                yAxisID: "yAxis-Soil",
+                data: pointSoilBSFLDaily,
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0.5,
+                borderWidth: 2,
+                borderColor: "rgba(207, 207, 89, 0.7)",
+                backgroundColor: "rgba(207, 207, 89, 0.7)",
+                pointHoverBorderColor : "rgba(207, 207, 89, 0.9)",
+            }
+
+            config1.data.labels = labelBSFLDaily;
+            config1.data.datasets.push(newDataBSFLOne);
+            config1.data.datasets.push(newDataBSFLTwo);
+            config1.data.datasets.push(newDataBSFLThree);
+            config1.data.datasets.push(newDataBSFLFour);
+            config1.options.scales.xAxes[0].time.unit = "minute";
+            
+            chart1.update();
         }
+
+        $("#reportrange").daterangepicker({
+            startDate : start,
+            endDate : end,
+            ranges : {
+                "Today" : [moment(), moment()],
+                "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                "Lifetime" : [moment().subtract(50,"year"), moment()]
+            }
+        }, dp)
+        
+        dp(start,end);
+
+        // for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
+        //     var k = Object.keys(bsflObj[areaSelected])[x];
+    
+        //     if(bsflObj[areaSelected][k].timestamp > dayStart && bsflObj[areaSelected][k].timestamp < dayEnd){
+        //         labelBSFLDaily.push(bsflObj[areaSelected][k].timestamp);
+        //         pointTempBSFLDaily.push(bsflObj[areaSelected][k].temperature);
+        //         pointMoistureBSFLDaily.push(bsflObj[areaSelected][k].moisture);
+        //         pointHumidBSFLDaily.push(bsflObj[areaSelected][k].humidity);
+        //         pointSoilBSFLDaily.push(bsflObj[areaSelected][k].soilTemp);
+        //     }
+    
+        //     if(bsflObj[areaSelected][k].timestamp > weekStart && bsflObj[areaSelected][k].timestamp < weekEnd){
+        //         labelBSFLWeekly.push(bsflObj[areaSelected][k].timestamp);
+        //         pointTempBSFLWeekly.push(bsflObj[areaSelected][k].temperature);
+        //         pointMoistureBSFLWeekly.push(bsflObj[areaSelected][k].moisture);
+        //         pointHumidBSFLWeekly.push(bsflObj[areaSelected][k].humidity);
+        //         pointSoilBSFLWeekly.push(bsflObj[areaSelected][k].soilTemp);
+        //     }
+    
+        //     if(bsflObj[areaSelected][k].timestamp > monthStart && bsflObj[areaSelected][k].timestamp < monthEnd){
+        //         labelBSFLMonthly.push(bsflObj[areaSelected][k].timestamp);
+        //         pointTempBSFLMonthly.push(bsflObj[areaSelected][k].temperature);
+        //         pointMoistureBSFLMonthly.push(bsflObj[areaSelected][k].moisture);
+        //         pointHumidBSFLMonthly.push(bsflObj[areaSelected][k].humidity);
+        //         pointSoilBSFLMonthly.push(bsflObj[areaSelected][k].soilTemp);
+        //     }
+    
+        //     labelBSFLAll.push(bsflObj[areaSelected][k].timestamp);
+        //     pointTempBSFLAll.push(bsflObj[areaSelected][k].temperature);
+        //     pointMoistureBSFLAll.push(bsflObj[areaSelected][k].moisture);
+        //     pointHumidBSFLAll.push(bsflObj[areaSelected][k].humidity);
+        //     pointSoilBSFLAll.push(bsflObj[areaSelected][k].soilTemp);
+        // }
     }
     //end of adding data into the array
 
@@ -550,445 +906,242 @@ function drawCharts(){
 
     }
 
-    if(!chart1 && !chart2){
-        config1.data.datasets.splice(0,config1.data.datasets.length);
-
-        let newDataOne = {
-            label: "Chicken Temperature",
-            yAxisID: "yAxis-Temp",
-            data: pointTempDaily,
-            pointRadius: 0,
-            fill: false,
-            lineTension: 0.5,
-            borderWidth: 2,
-            borderColor: "rgba(201,134,212,0.7)",
-            backgroundColor: "rgba(201,134,212,0.7)",
-            pointHoverBorderColor : "rgba(142,77,185,0.9)",
-        }
-
-        let newDataTwo = {
-            label: "Chicken Humidity",
-            yAxisID: "yAxis-Humidity",
-            data: pointHumidityDaily,
-            pointRadius: 0,
-            fill: false,
-            lineTension: 0.5,
-            borderWidth: 2,
-            borderColor: "rgba(160, 227, 226, 0.7)",
-            backgroundColor: "rgba(160, 227, 226, 0.7)",
-            pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
-        }
-
-        let newDataThree = {
-            label: "Chicken Light",
-            yAxisID: "yAxis-Light",
-            data: pointLightDaily,
-            pointRadius: 0,
-            fill: false,
-            lineTension: 0.5,
-            borderWidth: 2,
-            borderColor: "rgba(207, 89, 89, 0.7)",
-            backgroundColor: "rgba(207, 89, 89, 0.7)",
-            pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
-        }
-
-        config1.data.labels = labelDaily;
-        config1.data.datasets.push(newDataOne);
-        config1.data.datasets.push(newDataTwo);
-        config1.data.datasets.push(newDataThree);
-        config1.options.scales.xAxes[0].time.unit = "minute";
-        chart1 = new Chart(context,config1);
-        
-        // config2.data = {
-        //     labels: chickenProLabel,
-        //     datasets : [
-        //     {
-        //         label : "Amount (1000/k)",
-        //         backgroundColor: "rgba(255,0,0)",
-        //         data : chickenAmt
-        //     },
-        //     {
-        //         label : "Average (kg)",
-        //         backgroundColor: "rgba(255,128,0)",
-        //         data : chickenAvg
-        //     },    
-        //     {
-        //         label : "Sick (1000/k)",
-        //         backgroundColor: "rgba(255,255,0)",
-        //         data : chickenSick
-        //     },    
-        //     {
-        //         label : "Runt (1000/k)",
-        //         backgroundColor: "rgba(128,255,0)",
-        //         data : chickenRunt
-        //     },    
-        //     {
-        //         label : "Mortality (1000/k)",
-        //         backgroundColor: "rgba(255,0,255)",
-        //         data : chickenMort
-        //     },    
-        //     {
-        //         label : "Feed (kg)",
-        //         backgroundColor: "rgba(0,0,255)",
-        //         data : chickenFeed
-        //     },    
-        //     {
-        //         label : "Left (kg)",
-        //         backgroundColor: "rgba(0,255,255)",
-        //         data : chickenLeft
-        //     },    
-        //     ] 
-        // }
-        // chart2 = new Chart(context2,config2);
-    }
-
-    else{
-        if(type == "Chicken"){
-            config1.data.datasets.splice(0,config1.data.datasets.length);
-            config2.data.datasets.splice(0,config2.data.datasets.length);
+    // Previous else for chart
+    // else{
+    //     if(type == "Chicken"){
+    //         console.log("Update");
+    //         config1.data.datasets.splice(0,config1.data.datasets.length);
+    //         config2.data.datasets.splice(0,config2.data.datasets.length);
            
-            let newDataOne = {
-                label: "Chicken Temperature",
-                yAxisID: "yAxis-Temp",
-                data: pointTempDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }
+    //         let newDataOne = {
+    //             label: "Chicken Temperature",
+    //             yAxisID: "yAxis-Temp",
+    //             data: pointTempDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(201,134,212,0.7)",
+    //             backgroundColor: "rgba(201,134,212,0.7)",
+    //             pointHoverBorderColor : "rgba(142,77,185,0.9)",
+    //         }
     
-            let newDataTwo = {
-                label: "Chicken Humidity",
-                yAxisID: "yAxis-Humidity",
-                data: pointHumidityDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(160, 227, 226, 0.7)",
-                backgroundColor: "rgba(160, 227, 226, 0.7)",
-                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
-            }
+    //         let newDataTwo = {
+    //             label: "Chicken Humidity",
+    //             yAxisID: "yAxis-Humidity",
+    //             data: pointHumidityDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(160, 227, 226, 0.7)",
+    //             backgroundColor: "rgba(160, 227, 226, 0.7)",
+    //             pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+    //         }
     
-            let newDataThree = {
-                label: "Chicken Light",
-                yAxisID: "yAxis-Light",
-                data: pointLightDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(207, 89, 89, 0.7)",
-                backgroundColor: "rgba(207, 89, 89, 0.7)",
-                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
-            }
+    //         let newDataThree = {
+    //             label: "Chicken Light",
+    //             yAxisID: "yAxis-Light",
+    //             data: pointLightDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(207, 89, 89, 0.7)",
+    //             backgroundColor: "rgba(207, 89, 89, 0.7)",
+    //             pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+    //         }
     
-            config1.data.labels = labelDaily;
-            config1.data.datasets.push(newDataOne);
-            config1.data.datasets.push(newDataTwo);
-            config1.data.datasets.push(newDataThree);
-            config1.options.scales.xAxes[0].time.unit = "minute";
+    //         config1.data.labels = labelDaily;
+    //         config1.data.datasets.push(newDataOne);
+    //         config1.data.datasets.push(newDataTwo);
+    //         config1.data.datasets.push(newDataThree);
+    //         config1.options.scales.xAxes[0].time.unit = "minute";
 
-            // config2.data = {
-            //     labels: chickenProLabel,
-            //     datasets : [
-            //     {
-            //         label : "Amount (1000/k)",
-            //         backgroundColor: "rgba(255,0,0)",
-            //         data : chickenAmt
-            //     },
-            //     {
-            //         label : "Average (kg)",
-            //         backgroundColor: "rgba(255,128,0)",
-            //         data : chickenAvg
-            //     },    
-            //     {
-            //         label : "Sick (1000/k)",
-            //         backgroundColor: "rgba(255,255,0)",
-            //         data : chickenSick
-            //     },    
-            //     {
-            //         label : "Runt (1000/k)",
-            //         backgroundColor: "rgba(128,255,0)",
-            //         data : chickenRunt
-            //     },    
-            //     {
-            //         label : "Mortality (1000/k)",
-            //         backgroundColor: "rgba(255,0,255)",
-            //         data : chickenMort
-            //     },    
-            //     {
-            //         label : "Feed (kg)",
-            //         backgroundColor: "rgba(0,0,255)",
-            //         data : chickenFeed
-            //     },    
-            //     {
-            //         label : "Left (kg)",
-            //         backgroundColor: "rgba(0,255,255)",
-            //         data : chickenLeft
-            //     },    
-            //     ] 
-            // }
-        }
+    //         // config2.data = {
+    //         //     labels: chickenProLabel,
+    //         //     datasets : [
+    //         //     {
+    //         //         label : "Amount (1000/k)",
+    //         //         backgroundColor: "rgba(255,0,0)",
+    //         //         data : chickenAmt
+    //         //     },
+    //         //     {
+    //         //         label : "Average (kg)",
+    //         //         backgroundColor: "rgba(255,128,0)",
+    //         //         data : chickenAvg
+    //         //     },    
+    //         //     {
+    //         //         label : "Sick (1000/k)",
+    //         //         backgroundColor: "rgba(255,255,0)",
+    //         //         data : chickenSick
+    //         //     },    
+    //         //     {
+    //         //         label : "Runt (1000/k)",
+    //         //         backgroundColor: "rgba(128,255,0)",
+    //         //         data : chickenRunt
+    //         //     },    
+    //         //     {
+    //         //         label : "Mortality (1000/k)",
+    //         //         backgroundColor: "rgba(255,0,255)",
+    //         //         data : chickenMort
+    //         //     },    
+    //         //     {
+    //         //         label : "Feed (kg)",
+    //         //         backgroundColor: "rgba(0,0,255)",
+    //         //         data : chickenFeed
+    //         //     },    
+    //         //     {
+    //         //         label : "Left (kg)",
+    //         //         backgroundColor: "rgba(0,255,255)",
+    //         //         data : chickenLeft
+    //         //     },    
+    //         //     ] 
+    //         // }
+    //     }
 
-        else if(type == "BSF"){
-            config1.data.datasets.splice(0,config1.data.datasets.length);
-            config2.data.datasets.splice(0,config2.data.datasets.length);
+    //     else if(type == "BSF"){
+    //         config1.data.datasets.splice(0,config1.data.datasets.length);
+    //         config2.data.datasets.splice(0,config2.data.datasets.length);
     
-            let newDataBSFOne = {
-                label: "BSF Temperature",
-                yAxisID: "yAxis-Temp",
-                data: pointTempBSFDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }
+    //         let newDataBSFOne = {
+    //             label: "BSF Temperature",
+    //             yAxisID: "yAxis-Temp",
+    //             data: pointTempBSFDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(201,134,212,0.7)",
+    //             backgroundColor: "rgba(201,134,212,0.7)",
+    //             pointHoverBorderColor : "rgba(142,77,185,0.9)",
+    //         }
 
-            let newDataBSFTwo = {
-                label: "BSF Humidity",
-                yAxisID: "yAxis-Humidity",
-                data: pointHumidityBSFDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(160, 227, 226, 0.7)",
-                backgroundColor: "rgba(160, 227, 226, 0.7)",
-                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
-            }
+    //         let newDataBSFTwo = {
+    //             label: "BSF Humidity",
+    //             yAxisID: "yAxis-Humidity",
+    //             data: pointHumidityBSFDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(160, 227, 226, 0.7)",
+    //             backgroundColor: "rgba(160, 227, 226, 0.7)",
+    //             pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+    //         }
 
-            let newDataBSFThree = {
-                label: "BSF Light",
-                yAxisID: "yAxis-Light",
-                data: pointLightBSFDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(207, 89, 89, 0.7)",
-                backgroundColor: "rgba(207, 89, 89, 0.7)",
-                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
-            }
+    //         let newDataBSFThree = {
+    //             label: "BSF Light",
+    //             yAxisID: "yAxis-Light",
+    //             data: pointLightBSFDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(207, 89, 89, 0.7)",
+    //             backgroundColor: "rgba(207, 89, 89, 0.7)",
+    //             pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+    //         }
 
-            config1.data.labels = labelBSFDaily;
-            config1.data.datasets.push(newDataBSFOne);
-            config1.data.datasets.push(newDataBSFTwo);
-            config1.data.datasets.push(newDataBSFThree);
-            config1.options.scales.xAxes[0].time.unit = "minute";
+    //         config1.data.labels = labelBSFDaily;
+    //         config1.data.datasets.push(newDataBSFOne);
+    //         config1.data.datasets.push(newDataBSFTwo);
+    //         config1.data.datasets.push(newDataBSFThree);
+    //         config1.options.scales.xAxes[0].time.unit = "minute";
 
-            config2.data = {
-                labels: bsfProLabel,
-                datasets : [
-                {
-                    label : "Eggs (1000/k)",
-                    backgroundColor: "rgba(255,0,0)",
-                    data : bsfEgg
-                }
-                ] 
-            }
-        }
+    //         config2.data = {
+    //             labels: bsfProLabel,
+    //             datasets : [
+    //             {
+    //                 label : "Eggs (1000/k)",
+    //                 backgroundColor: "rgba(255,0,0)",
+    //                 data : bsfEgg
+    //             }
+    //             ] 
+    //         }
+    //     }
 
-        else if(type == "BSFL"){
-            config1.data.datasets.splice(0,config1.data.datasets.length);
-            // config2.data.labels.splice(0,config2.data.labels.length);
-            // config2.data.datasets.splice(0,config2.data.datasets.length);
+    //     else if(type == "BSFL"){
+    //         config1.data.datasets.splice(0,config1.data.datasets.length);
+    //         // config2.data.labels.splice(0,config2.data.labels.length);
+    //         // config2.data.datasets.splice(0,config2.data.datasets.length);
             
-            let newDataBSFLOne = {
-                label: "BSFL Temperature",
-                yAxisID: "yAxis-Temp",
-                data: pointTempBSFLDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(201,134,212,0.7)",
-                backgroundColor: "rgba(201,134,212,0.7)",
-                pointHoverBorderColor : "rgba(142,77,185,0.9)",
-            }
+    //         let newDataBSFLOne = {
+    //             label: "BSFL Temperature",
+    //             yAxisID: "yAxis-Temp",
+    //             data: pointTempBSFLDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(201,134,212,0.7)",
+    //             backgroundColor: "rgba(201,134,212,0.7)",
+    //             pointHoverBorderColor : "rgba(142,77,185,0.9)",
+    //         }
 
-            let newDataBSFLTwo = {
-                label: "BSFL Moisture",
-                yAxisID: "yAxis-Moisture",
-                data: pointMoistureBSFLDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(160, 227, 226, 0.7)",
-                backgroundColor: "rgba(160, 227, 226, 0.7)",
-                pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
-            }
+    //         let newDataBSFLTwo = {
+    //             label: "BSFL Moisture",
+    //             yAxisID: "yAxis-Moisture",
+    //             data: pointMoistureBSFLDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(160, 227, 226, 0.7)",
+    //             backgroundColor: "rgba(160, 227, 226, 0.7)",
+    //             pointHoverBorderColor : "rgba(160, 227, 226, 0.9)",
+    //         }
 
-            let newDataBSFLThree = {
-                label: "BSFL Humidity",
-                yAxisID: "yAxis-Humidity",
-                data: pointHumidBSFLDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(207, 89, 89, 0.7)",
-                backgroundColor: "rgba(207, 89, 89, 0.7)",
-                pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
-            }
+    //         let newDataBSFLThree = {
+    //             label: "BSFL Humidity",
+    //             yAxisID: "yAxis-Humidity",
+    //             data: pointHumidBSFLDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(207, 89, 89, 0.7)",
+    //             backgroundColor: "rgba(207, 89, 89, 0.7)",
+    //             pointHoverBorderColor : "rgba(207, 89, 89, 0.9)",
+    //         }
 
-            let newDataBSFLFour = {
-                label: "BSFL Soil Temperature",
-                yAxisID: "yAxis-Soil",
-                data: pointSoilBSFLDaily,
-                pointRadius: 0,
-                fill: false,
-                lineTension: 0.5,
-                borderWidth: 2,
-                borderColor: "rgba(207, 207, 89, 0.7)",
-                backgroundColor: "rgba(207, 207, 89, 0.7)",
-                pointHoverBorderColor : "rgba(207, 207, 89, 0.9)",
-            }
+    //         let newDataBSFLFour = {
+    //             label: "BSFL Soil Temperature",
+    //             yAxisID: "yAxis-Soil",
+    //             data: pointSoilBSFLDaily,
+    //             pointRadius: 0,
+    //             fill: false,
+    //             lineTension: 0.5,
+    //             borderWidth: 2,
+    //             borderColor: "rgba(207, 207, 89, 0.7)",
+    //             backgroundColor: "rgba(207, 207, 89, 0.7)",
+    //             pointHoverBorderColor : "rgba(207, 207, 89, 0.9)",
+    //         }
 
-            config1.data.labels = labelDaily;
-            config1.data.datasets.push(newDataBSFLOne);
-            config1.data.datasets.push(newDataBSFLTwo);
-            config1.data.datasets.push(newDataBSFLThree);
-            config1.data.datasets.push(newDataBSFLFour);
-            config1.options.scales.xAxes[0].time.unit = "minute";
-            // config2.data = {
-            //     labels: bsflProLabel,
-            //     datasets : [
-            //     {
-            //         label : "Larvae (1000/k)",
-            //         backgroundColor: "rgba(0,255,0)",
-            //         data : bsflLarvae
-            //     }
-            //     ] 
-            // }
-        }
-        chart1.update();
-        // chart2.update();
-    }
-}
-
-function drawDaily(context){
-    if(type == "Chicken"){
-        config1.data.labels = labelDaily;
-        config1.data.datasets[0].data = pointTempDaily;
-        config1.data.datasets[1].data = pointHumidityDaily;
-        config1.data.datasets[2].data = pointLightDaily;
-        config1.options.scales.xAxes[0].time.unit = "minute";
-    }
-
-    else if(type == "BSF"){
-        config1.data.labels = labelBSFDaily;
-        config1.data.datasets[0].data = pointTempBSFDaily;
-        config1.data.datasets[1].data = pointHumidityBSFDaily;
-        config1.data.datasets[2].data = pointLightBSFDaily;
-        config1.options.scales.xAxes[0].time.unit = "minute";
-    }
-
-    else if(type == "BSFL"){
-        config1.data.labels = labelBSFLDaily;
-        config1.data.datasets[0].data = pointTempBSFLDaily;
-        config1.data.datasets[1].data = pointMoistureBSFLDaily;
-        config1.data.datasets[2].data = pointHumidBSFLDaily;
-        config1.data.datasets[3].data = pointSoilBSFLDaily;
-        config1.options.scales.xAxes[0].time.unit = "minute";
-    }
-    context.update();
-}
-
-function drawWeekly(context){
-    if(type == "Chicken"){
-        config1.data.labels = labelWeekly;
-        config1.data.datasets[0].data = pointTempWeekly;
-        config1.data.datasets[1].data = pointHumidityWeekly;
-        config1.data.datasets[2].data = pointLightWeekly;
-        config1.options.scales.xAxes[0].time.unit = "day";
-    }
-
-    else if(type == "BSF"){
-        config1.data.labels = labelBSFWeekly;
-        config1.data.datasets[0].data = pointTempBSFWeekly;
-        config1.data.datasets[1].data = pointHumidityBSFWeekly;
-        config1.data.datasets[2].data = pointLightBSFWeekly;
-        config1.options.scales.xAxes[0].time.unit = "day";
-    }
-
-    else if(type == "BSFL"){
-        config1.data.labels = labelBSFLWeekly;
-        config1.data.datasets[0].data = pointTempBSFLWeekly;
-        config1.data.datasets[1].data = pointMoistureBSFLWeekly;
-        config1.data.datasets[2].data = pointHumidBSFLWeekly;
-        config1.data.datasets[3].data = pointSoilBSFLWeekly;
-        config1.options.scales.xAxes[0].time.unit = "day";
-    }
-    context.update();
-}
-
-function drawMonthly(context){
-    if(type == "Chicken"){
-        config1.data.labels = labelMonthly;
-        config1.data.datasets[0].data = pointTempMonthly;
-        config1.data.datasets[1].data = pointHumidityMonthly;
-        config1.data.datasets[2].data = pointLightMonthly;
-        config1.options.scales.xAxes[0].time.unit = "day";
-    }
-
-    else if(type == "BSF"){
-        config1.data.labels = labelBSFMonthly;
-        config1.data.datasets[0].data = pointTempBSFMonthly;
-        config1.data.datasets[1].data = pointHumidityBSFMonthly;
-        config1.data.datasets[2].data = pointLightBSFMonthly;
-        config1.options.scales.xAxes[0].time.unit = "day";
-    }
-
-    else if(type == "BSFL"){
-        config1.data.labels = labelBSFLMonthly;
-        config1.data.datasets[0].data = pointTempBSFLMonthly;
-        config1.data.datasets[1].data = pointMoistureBSFLMonthly;
-        config1.data.datasets[2].data = pointHumidBSFLMonthly;
-        config1.data.datasets[3].data = pointSoilBSFLMonthly;
-        config1.options.scales.xAxes[0].time.unit = "day";
-    }
-    context.update();
-}
-
-function drawLifetime(context){
-    if(type == "Chicken"){
-        config1.data.labels = labelAll;
-        config1.data.datasets[0].data = pointTempAll;
-        config1.data.datasets[1].data = pointHumidityAll;
-        config1.data.datasets[2].data = pointLightAll;
-        config1.options.scales.xAxes[0].time.unit = "month";
-    }
-
-    else if(type == "BSF"){
-        config1.data.labels = labelBSFAll;
-        config1.data.datasets[0].data = pointTempBSFAll;
-        config1.data.datasets[1].data = pointHumidityBSFAll;
-        config1.data.datasets[2].data = pointLightBSFAll;
-        config1.options.scales.xAxes[0].time.unit = "month";
-    }
-
-    else if(type == "BSFL"){
-        config1.data.labels = labelBSFLAll;
-        config1.data.datasets[0].data = pointTempBSFLAll;
-        config1.data.datasets[1].data = pointMoistureBSFLAll;
-        config1.data.datasets[2].data = pointHumidBSFLAll;
-        config1.data.datasets[3].data = pointSoilBSFLAll;
-        config1.options.scales.xAxes[0].time.unit = "month";
-    }
-    context.update();
+    //         config1.data.labels = labelBSFLDaily;
+    //         config1.data.datasets.push(newDataBSFLOne);
+    //         config1.data.datasets.push(newDataBSFLTwo);
+    //         config1.data.datasets.push(newDataBSFLThree);
+    //         config1.data.datasets.push(newDataBSFLFour);
+    //         config1.options.scales.xAxes[0].time.unit = "minute";
+    //         // config2.data = {
+    //         //     labels: bsflProLabel,
+    //         //     datasets : [
+    //         //     {
+    //         //         label : "Larvae (1000/k)",
+    //         //         backgroundColor: "rgba(0,255,0)",
+    //         //         data : bsflLarvae
+    //         //     }
+    //         //     ] 
+    //         // }
+    //     }
+    //     chart1.update();
+    //     // chart2.update();
+    // }
 }
 
 $("#typePage li").click(function(){
     if($(this).children().attr("id") == "chickenVisualization"){
-        // areaSelected = "Area1";
         type = "Chicken";
         document.getElementById("dropdown").style.display = "block";
         document.getElementById("headerCanvas1").innerHTML = "Chicken";
@@ -1049,7 +1202,6 @@ $("#typePage li").click(function(){
     }
 
     else if($(this).children().attr("id") == "bsfVisualization"){
-        // areaSelected = "Area1";
         type = "BSF";
         document.getElementById("dropdown").style.display = "block";
     
@@ -1110,7 +1262,6 @@ $("#typePage li").click(function(){
 
     else if($(this).children().attr("id") == "bsflVisualization"){
         document.getElementById("headerCanvas1").innerHTML = "BSFL";
-        // areaSelected = "Area1";
         type = "BSFL";
         document.getElementById("dropdown").style.display = "block";
 

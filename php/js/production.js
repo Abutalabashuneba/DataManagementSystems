@@ -5,7 +5,6 @@ if(sessionStorage.getItem("type") == "Admin") {
     //document.getElementById("addBtnBSF").style.display = "block";
     
 }
-
 //Chicken table 1
 var tableHeadC = document.querySelector(".productionHeaderC");
 var datalistC = document.querySelector(".productionBodyDataC");
@@ -52,6 +51,18 @@ function populateProductionTable(){
     let end = moment();
 
     if(type == "Chicken"){
+        if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+        }
+
+        if($.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+            $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
+        }
+
+        if($.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+            $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
+        }
+
         //---Table 1----//
         header = `
         <tr class="text-muted">
@@ -114,31 +125,7 @@ function populateProductionTable(){
         tableHeadC2.innerHTML = header2;
         tableHeadC3.innerHTML = header3;
 
-        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-            $('#chickenTable-Area1').DataTable();
-        }
-
-        if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
-            $('#chickenTable2-Area1').DataTable();
-        }
-
-        if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
-            $('#chickenTable3-Area1').DataTable();
-        }
-
         if(productionObj[type] != undefined){
-           if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-            }
-    
-            if($.fn.DataTable.isDataTable('#chickenTable2-Area1')){
-                $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
-            }
-    
-            if($.fn.DataTable.isDataTable('#chickenTable3-Area1')){
-                $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
-            }
-
             if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
 
             if(productionObj[type][areaSelected] != undefined){
@@ -160,6 +147,17 @@ function populateProductionTable(){
                 dropdownC.innerHTML = html;
 
                 function dp(start,end){
+                    if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                        $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+                    }
+            
+                    if($.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+                        $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
+                    }
+            
+                    if($.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+                        $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
+                    }
                     let rowData = "";
                     let rowData2 = "";
                     let rowData3 = "";
@@ -204,7 +202,7 @@ function populateProductionTable(){
     
                                 else{
                                     tr += `
-                                        </tr>;
+                                        </tr>
                                     `;
                                 }
                                 rowData += tr;
@@ -256,7 +254,7 @@ function populateProductionTable(){
 
                                 else{
                                     tr2 += `
-                                        </tr>;
+                                        </tr>
                                     `;
                                 }
                                 rowData2 += tr2;
@@ -305,16 +303,25 @@ function populateProductionTable(){
 
                                 else{
                                     tr3 += `
-                                        </tr>;
+                                        </tr>
                                     `;
                                 }
                                 rowData3 += tr3;
                             }
-                        
                         }
                         datalistC3.innerHTML = rowData3;
                     }
-                    
+                    if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                        $('#chickenTable-Area1').DataTable();
+                    }
+            
+                    if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+                        $('#chickenTable2-Area1').DataTable();
+                    }
+            
+                    if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+                        $('#chickenTable3-Area1').DataTable();
+                    }
                 }
                 $("#reportrange").daterangepicker({
                     startDate : start,
@@ -331,26 +338,30 @@ function populateProductionTable(){
                 }, dp)
 
                 dp(start, end);
-                if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                    $('#chickenTable-Area1').DataTable();
-                }
-        
-                if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
-                    $('#chickenTable2-Area1').DataTable();
-                }
-        
-                if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
-                    $('#chickenTable3-Area1').DataTable();
-                }
             }
 
             else{
                 dropdownC.innerHTML = html;
             }
         }
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+            $('#chickenTable-Area1').DataTable();
+        }
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+            $('#chickenTable2-Area1').DataTable();
+        }
+
+        if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+            $('#chickenTable3-Area1').DataTable();
+        }
     }
 
     else if(type == "BSF"){
+        if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
+            $('#bsfTable-Area1').DataTable().clear().destroy();
+        }
        
         header = `
             <tr class="text-muted">
@@ -374,14 +385,7 @@ function populateProductionTable(){
 
         tableHeadBSF.innerHTML = header;
 
-        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-            $('#chickenTable-Area1').DataTable();
-        }
         if(productionObj[type] != undefined){
-            if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-            }
-
             if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
 
             for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
@@ -402,6 +406,10 @@ function populateProductionTable(){
             dropdownC.innerHTML = html;
 
             function dp(start,end){
+                if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                    $('#bsfTable-Area1').DataTable().clear().destroy();
+                }
+
                 let rowData = "";
 
                 $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
@@ -444,6 +452,10 @@ function populateProductionTable(){
                     }
                 }
                 datalistBSF.innerHTML = rowData;
+
+                if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                    $('#bsfTable-Area1').DataTable();
+                }
             }
             $("#reportrange").daterangepicker({
                 startDate : start,
@@ -460,13 +472,22 @@ function populateProductionTable(){
             }, dp)
 
             dp(start, end);
-            if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                $('#chickenTable-Area1').DataTable();
-            }
+        }
+
+        else{
+            dropdownC.innerHTML = html;
+        }
+
+        if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+            $('#bsfTable-Area1').DataTable();
         }
     }
 
     else if(type == "BSFL"){
+        if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
+            $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+        }
+        
         header = `
             <tr class="text-muted">
                 <th>#</th>
@@ -489,15 +510,7 @@ function populateProductionTable(){
 
         tableHeadBSFL.innerHTML = header;
 
-        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-            $('#chickenTable-Area1').DataTable();
-        }
-
-        if(productionKeys != undefined){
-            if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-            }
-
+        if(productionObj[type] != undefined){
             if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
 
             for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
@@ -518,6 +531,10 @@ function populateProductionTable(){
             dropdownC.innerHTML = html;
 
             function dp(start,end){
+                if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                    $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+                }
+
                 let rowData = "";
 
                 $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
@@ -560,6 +577,10 @@ function populateProductionTable(){
                     }
                 }
                 datalistBSFL.innerHTML = rowData;
+
+                if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                    $('#bsflTable-Area1').DataTable();
+                }
             }
             $("#reportrange").daterangepicker({
                 startDate : start,
@@ -576,9 +597,14 @@ function populateProductionTable(){
             }, dp)
 
             dp(start, end);
-            if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                $('#chickenTable-Area1').DataTable();
-            }
+        }
+
+        else{
+            dropdownC.innerHTML = html;
+        }
+
+        if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
+            $('#bsflTable-Area1').DataTable();
         }
     }
 }
@@ -706,11 +732,6 @@ var add = function(e){
     }
 
     else if(type == "BSF"){
-        var d = new Date();
-        var day = d.getDate().toString().padStart(2, "0");
-        var month = d.getMonth() + 1;
-        var year = d.getFullYear();
-        var date = year + "-" + month + "-" + day;
         if(areaSelected == undefined) areaSelected = "Area1";
         $.showModal({
             title : "BSF" + "-" + areaSelected,
@@ -721,7 +742,7 @@ var add = function(e){
             '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaBSF" id="areaBSF" required value='+ areaSelected +'>' + 
             '<label for="areaBSF" class="CLabel" id="tempLabelUpdate">(Area)</label></div>' + 
             
-            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
             '<label for="date" class="CLabel" id="wgivenlabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
@@ -746,7 +767,7 @@ var add = function(e){
                                     timestamp: new Date(date).getTime()
                                 }
 
-                                if(!isNaN(data.eggProduce) && !isNaN(date)){
+                                if(!isNaN(data.eggProduce)){
                                     $.showAlert({
                                         title: "Push Status",
                                         body: "Data has been added successfully",
@@ -772,11 +793,6 @@ var add = function(e){
     }
 
     else if(type == "BSFL"){
-        var d = new Date();
-        var day = d.getDate().toString().padStart(2, "0");
-        var month = d.getMonth() + 1;
-        var year = d.getFullYear();
-        var date = year + "-" + month + "-" + day;
         if(areaSelected == undefined) areaSelected = "Area1";
         $.showModal({
             title : "BSFL" + "-" + areaSelected,
@@ -787,7 +803,7 @@ var add = function(e){
             '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaBSF" id="areaBSF" required value='+ areaSelected +'>' + 
             '<label for="areaBSF" class="CLabel" id="tempLabelUpdate">(Area)</label></div>' + 
             
-            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
             '<label for="date" class="CLabel" id="wgivenlabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
@@ -843,12 +859,6 @@ var remove = function(e){
 
     var index = $(this).parents("tr").find("td.id").text();
     var deleteIndex;
-
-    // for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
-    //     if(index - 1 == x){
-    //         deleteIndex = Object.keys(productionObj[type][areaSelected][datatype1])[x];
-    //     }
-    // }
 
     if(type == "Chicken"){
         for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
@@ -960,17 +970,6 @@ var remove = function(e){
 
 var update = function(e){
     e.preventDefault();
-    // var index = $(this).parents("tr").find("td.id").text();
-   
-    // var tableID = index;
-    // for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
-    //     if(tableID - 1 == x){
-    //         keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
-    //         var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
-    //         var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-    //         var datetime = d.toLocaleString('en-us', options); 
-    //     }
-    // }
 
     if(type == "Chicken"){
         var index = $(this).parents("tr").find("td.id").text();
@@ -1185,33 +1184,28 @@ var update = function(e){
 var add2 = function(e){
     var d = new Date();
     var day = d.getDate().toString().padStart(2, "0");
-    var month = d.getMonth() + 1;
+    var month = (d.getMonth() + 1).toString().padStart(2,"0");
     var year = d.getFullYear();
-    var date = year + "-" + month + "-" + day;
-    console.log(date);
+    var hour = d.getHours().toString().padStart(2, "0");
+    var minute = d.getMinutes().toString().padStart(2, "0");
+    var date = year + "-" + month + "-" + day + "T" + hour + ":" + minute;
     if(type == "Chicken"){
         $.showModal({
             title : "Chicken" + "-" + areaSelected,
             body : '<form><div class="form-group px-5">' +
             '<input type="number" step="any" min="0" class="form-control addCProduction" name="healthy" id="healthy" required>' + 
             '<label for="healthy" class="CLabel" id="productionLabel">(Number of Healthy Chicken)</label></div>' + 
-
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="sick" id="sick" required>' +
             '<label for="sick" class="CLabel" id="weightLabel">(Number of Sick Chicken)</label></div>' +
-
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="injured" id="injured" required>' +
             '<label for="injured" class="CLabel" id="wgivenlabel">(Number of Injured Chicken)</label></div>' +
-
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="cull" id="cull" required>' +
             '<label for="cull" class="CLabel" id="wleftoverlabel">(Number of Cull Chicken)</label></div>' +
-
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="dead" id="dead" required>' +
             '<label for="dead" class="CLabel" id="sickLabel">(Number of dead Chicken)</label></div>' +
-
             '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaC" id="areaC" required value='+ areaSelected +'>' + 
             '<label for="areaC" class="CLabel" id="givenLabel">(Area)</label></div>' + 
-            
-            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
             '<label for="date" class="CLabel" id="updategivenLabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
@@ -1417,9 +1411,11 @@ var update2 = function(e){
 var add3 = function(e){
     var d = new Date();
     var day = d.getDate().toString().padStart(2, "0");
-    var month = d.getMonth() + 1;
+    var month = (d.getMonth() + 1).toString().padStart(2,"0");
     var year = d.getFullYear();
-    var date = year + "-" + month + "-" + day;
+    var hour = d.getHours().toString().padStart(2, "0");
+    var minute = d.getMinutes().toString().padStart(2, "0");
+    var date = year + "-" + month + "-" + day + "T" + hour + ":" + minute;
     
     if(type == "Chicken"){
         $.showModal({
@@ -1427,14 +1423,11 @@ var add3 = function(e){
             body : '<form><div class="form-group px-5">' +
             '<input type="number" step="any" min="0" class="form-control addCProduction" name="avgFeed" id="avgFeed" required>' + 
             '<label for="avgFeed" class="CLabel" id="productionLabel">(Avg Feed intake per Chix (KG))</label></div>' + 
-
             '<div class="form-group px-5"><input type="number" step="any" min="0" class="form-control addCProduction" name="avgWeight" id="avgWeight" required>' +
             '<label for="avgWeight" class="CLabel" id="weightLabel">(Avg Weight gain per Chix (KG))</label></div>' +
-
             '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaC" id="areaC" required value='+ areaSelected +'>' + 
             '<label for="areaC" class="CLabel" id="givenLabel">(Area)</label></div>' + 
-            
-            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<div class="form-group px-5"><input type="datetime-local" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
             '<label for="date" class="CLabel" id="updategivenLabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
@@ -1608,8 +1601,6 @@ var update3 = function(e){
     }
  
 }
-
-
 
 $(document).on("click", "#addBtnC", add);
 $(document).on('click', '.table-edit', update);

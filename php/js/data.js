@@ -111,6 +111,9 @@ function populateTables(){
             var end = moment();
     
             function dp(start, end){
+                if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                    $('#chickenTable-Area1').DataTable().clear().draw().destroy();
+                }
                 let rowData = "";
     
                 $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
@@ -119,7 +122,7 @@ function populateTables(){
                     var keys = Object.keys(chickenObj[areaSelected])[x];
                     var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
                     var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-    
+                    
                     if(newstartdate <= chickenObj[areaSelected][keys].timestamp && newenddate >= chickenObj[areaSelected][keys].timestamp){
                         var d = new Date(chickenObj[areaSelected][keys].timestamp);
                         var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"};
@@ -148,6 +151,9 @@ function populateTables(){
                         rowData += tr;
                     }
                     datalistC.innerHTML = rowData;
+                }
+                if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                    $('#chickenTable-Area1').DataTable();
                 }
             }
             $("#reportrange").daterangepicker({
@@ -196,6 +202,12 @@ function populateTables(){
                 </tr>
                 `;
             }
+            
+            else{
+                header += `
+                    </tr>
+                `;
+            }
         dataHeaderBSF.innerHTML = header;
 
         if(dataObj[type] != undefined){
@@ -226,6 +238,10 @@ function populateTables(){
                 var end = moment();
     
                 function dp(start, end){
+                    if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                        $('#bsfTable-Area1').DataTable().clear().destroy();
+                    }
+
                     let rowData = "";
     
                     $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
@@ -259,10 +275,19 @@ function populateTables(){
                                         </tr>
                                     `;
                                 }
+
+                                else{
+                                    tr += `
+                                        </tr>;
+                                    `
+                                }
         
                                 rowData += tr;
                             }
                             datalistBSF.innerHTML = rowData;
+                        }
+                        if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                            $('#bsfTable-Area1').DataTable();
                         }
                     }
                 }
@@ -283,10 +308,9 @@ function populateTables(){
     
                 dp(start, end);
             }
-
-            else{
-                if(dropdown) { dropdown.innerHTML = html; }
-            }
+        }
+        else{
+            if(dropdown) { dropdown.innerHTML = html; }
         }
 
         if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
@@ -342,6 +366,10 @@ function populateTables(){
             var end = moment();
 
             function dp(start, end){
+                if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                    $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+                }
+
                 let rowData = "";
 
                 $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
@@ -380,6 +408,9 @@ function populateTables(){
                         rowData += tr;
                     }
                     datalistBSFL.innerHTML = rowData;
+                }
+                if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                    $('#bsflTable-Area1').DataTable();
                 }
             }
             $("#reportrange").daterangepicker({
@@ -616,7 +647,7 @@ var update = function(e){
                                     if(tempCheck && humidCheck && lightCheck){
                                         $.showAlert({
                                             title: "Push Status",
-                                            body: "Data has been added successfully",
+                                            body: "Data has been updated successfully",
                                         })
                                         modal.hide();
                                         let myref = database.ref("Data/"+type+"/"+areaSelected);
@@ -712,7 +743,7 @@ var update = function(e){
                                     if(humidBSFCheck && tempBSFCheck && lightBSFCheck){
                                         $.showAlert({
                                             title: "Push Status",
-                                            body: "Successfully update the data",
+                                            body: "Data has been updated successfully",
                                         })
                                         modal.hide();
                                         let myref = database.ref("Data/"+type+"/"+areaSelected);
@@ -818,7 +849,7 @@ var update = function(e){
                                     if(tempBSFLCheck && humidCheck && moistBSFLCheck && soilBSFLCheck){
                                         $.showAlert({
                                             title: "Push Status",
-                                            body: "Data has been added successfully",
+                                            body: "Data has been updated successfully",
                                         })
                                         modal.hide();
                                         let myref = database.ref("Data/"+type+"/"+areaSelected);

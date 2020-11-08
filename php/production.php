@@ -22,7 +22,7 @@
                                 <div class="col-xl-8 col-lg-8 col-md-8 pagination-col">
                                     <nav>
                                         <ul class="pagination paginationBtn" id="productionPage">
-                                            <li class="page-item active"><a class="page-link" id="btnChicken"><span class="badge">Chicken</span></a></li>
+                                            <li class="page-item active"><a href="#" class="page-link" id="btnChicken"><span class="badge">Chicken</span></a></li>
                                             <li><a href="#" class="page-link" id="btnBsf"><span class="badge">BSF Adult</span></a></li>
                                             <li><a href="#" class="page-link" id="btnBsfl"><span class="badge">BSF Larvae</span></a></li>
                                         </ul>
@@ -54,7 +54,7 @@
                             <div id="prod">
                                 <!--Table 1-->
                                 <div class="row mt-2" id="chickentab">
-                                    <div class="col-xl-7 col-lg-7 col-md-7 ml-auto">
+                                    <div class="col-xl-7 col-lg-7 col-md-7">
                                         <h2>Feeds</h2>
                                     </div>
 
@@ -167,7 +167,7 @@
                                         <!--Start of bsfl table-->
                                         <div id="chickenTable">
                                             <!--Start of bsfl table area-1-->
-                                            <table class="table table-striped table-hover table-md bg-light text-center" id="chickenTable-Area1">
+                                            <table class="table table-striped table-hover table-md bg-light text-center" id="bsflTable-Area1">
                                                 <!--Start of table head-->
                                                 <thead class="productionHeaderBSFL"></thead>
                                                 <!--End of table head-->

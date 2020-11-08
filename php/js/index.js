@@ -108,7 +108,6 @@ function populateDashboard(){
         
             $(function(){
                 $(".progress").each(function(){
-                    // console.log($(this).attr("id"));
                     var value = $(this).attr("data-value");
                     var left = $(this).find(".progress-left .progress-bar");
                     var right = $(this).find(".progress-right .progress-bar");
@@ -125,7 +124,7 @@ function populateDashboard(){
                                 left.css("transform","rotate(" + percentageToDegrees((value-50000)/1000) + "deg)")
                             }
     
-                            else if(value > 100){
+                            else if(value > 50){
                                 right.css("transform", "rotate(" + percentageToDegrees(value/1000) + "deg)")
                                 left.css("transform","rotate(" + percentageToDegrees(0) + "deg)")
                             }
