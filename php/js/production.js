@@ -2,6 +2,8 @@ if(sessionStorage.getItem("type") == "Admin") {
     document.getElementById("addBtnC").style.display = "block";
     document.getElementById("addBtnC2").style.display = "block"; 
     document.getElementById("addBtnC3").style.display = "block";
+    //document.getElementById("addBtnBSF").style.display = "block";
+    
 }
 
 //Chicken table 1
@@ -349,6 +351,7 @@ function populateProductionTable(){
     }
 
     else if(type == "BSF"){
+       
         header = `
             <tr class="text-muted">
                 <th>#</th>
@@ -419,7 +422,7 @@ function populateProductionTable(){
                         <tr>
                             <td class="id">${x + 1}</td>
                             <td>${datetime}</td>
-                            <td>${productionObj[type][areaSelected][keys].eggs}</td>
+                            <td>${productionObj[type][areaSelected][keys].eggProduce}</td>
                         `;
 
                         if(sessionStorage.getItem("type") == "Admin"){
@@ -468,7 +471,7 @@ function populateProductionTable(){
             <tr class="text-muted">
                 <th>#</th>
                 <th>Timestamp</th>
-                <th>Eggs Produced (Grams)</th>
+                <th>Larvae Harvested (kg)</th>
             `;
 
             if(sessionStorage.getItem("type") == "Admin"){
@@ -535,7 +538,7 @@ function populateProductionTable(){
                         <tr>
                             <td class="id">${x + 1}</td>
                             <td>${datetime}</td>
-                            <td>${productionObj[type][areaSelected][keys].eggs}</td>
+                            <td>${productionObj[type][areaSelected][keys].larvaHarvest}</td>
                         `;
 
                         if(sessionStorage.getItem("type") == "Admin"){
@@ -703,12 +706,23 @@ var add = function(e){
     }
 
     else if(type == "BSF"){
+        var d = new Date();
+        var day = d.getDate().toString().padStart(2, "0");
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var date = year + "-" + month + "-" + day;
         if(areaSelected == undefined) areaSelected = "Area1";
         $.showModal({
             title : "BSF" + "-" + areaSelected,
             body : '<form><div class="form-group px-5">' +
-            '<input type="number" step="any" min="0" class="form-control addBSFProduction" name="production" id="addAmountBSF" required>' + 
-            '<label for="addAmountBSF" class="BSFLabel" id="productionLabel">(Egg Produced)</label></div>' + 
+            '<input type="number" step="any" min="0" class="form-control addCProduction" name="eggProduced" id="eggProduced" required>' + 
+            '<label for="eggProduced" class="CLabel" id="productionLabel">(Egg Produced (gram))</label></div>' + 
+
+            '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaBSF" id="areaBSF" required value='+ areaSelected +'>' + 
+            '<label for="areaBSF" class="CLabel" id="tempLabelUpdate">(Area)</label></div>' + 
+            
+            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<label for="date" class="CLabel" id="wgivenlabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
                 // create event handler for form submit and handle values
@@ -720,23 +734,29 @@ var add = function(e){
                         textTrue : "Yes",
                         textFalse : "No",
                         body:
-                            "<b>Eggs Produced (Grams):</b> " + $form.find("#addAmountBSF").val(),
+                            "<b>Date:</b> " + $form.find("#date").val() + "<br/>" +
+                            "<b>Egg Produced (gram):</b> " + $form.find("#eggProduced").val() + "<br/>" +
+                            "<b>Area:</b> " + $form.find("#areaBSF").val(),
                         onSubmit: function(result){
                             if(result){
+                                date = $form.find("#date").val();
+                                areaSelected = $form.find("#areaBSF").val();
                                 var data = {
-                                    eggs : parseInt($form.find("#addAmountBSF").val()),
-                                    timestamp: new Date().getTime()
+                                    eggProduce: parseInt($form.find("#eggProduced").val()),
+                                    timestamp: new Date(date).getTime()
                                 }
 
-                                if(!isNaN(data.eggs)){
+                                if(!isNaN(data.eggProduce) && !isNaN(date)){
                                     $.showAlert({
                                         title: "Push Status",
                                         body: "Data has been added successfully",
                                     })
+                                    
                                     modal.hide()
                                     var myref = database.ref("Production/"+type+"/"+areaSelected);
                                     myref.push(data);
-                                }
+                               }
+                                
                                 else{
                                     $.showAlert({
                                         title: "Push failed",
@@ -752,11 +772,23 @@ var add = function(e){
     }
 
     else if(type == "BSFL"){
+        var d = new Date();
+        var day = d.getDate().toString().padStart(2, "0");
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var date = year + "-" + month + "-" + day;
+        if(areaSelected == undefined) areaSelected = "Area1";
         $.showModal({
             title : "BSFL" + "-" + areaSelected,
             body : '<form><div class="form-group px-5">' +
-            '<input type="number" step="any" min="0" class="form-control addBSFLProduction" name="production" id="addAmountBSFL" required>' + 
-            '<label for="addAmountBSFL" class="BSFLLabel" id="productionLabel">(Larvae Produced)</label></div>' + 
+            '<input type="number" step="any" min="0" class="form-control addCProduction" name="larvaeHarvest" id="larvaeHarvest" required>' + 
+            '<label for="larvaeHarvest" class="CLabel" id="productionLabel">(Larvae Harvested (kg))</label></div>' + 
+
+            '<div class="form-group px-5"><input type="text" step="any" min="0" class="form-control addCProduction" name="areaBSF" id="areaBSF" required value='+ areaSelected +'>' + 
+            '<label for="areaBSF" class="CLabel" id="tempLabelUpdate">(Area)</label></div>' + 
+            
+            '<div class="form-group px-5"><input type="date" step="any" min="0" class="form-control addCProduction" name="date" id="date" required value='+ date + '>' + 
+            '<label for="date" class="CLabel" id="wgivenlabel">(Date)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block addDataBtn text-white">Add</button></form>',
             onCreate: function (modal) {
                 // create event handler for form submit and handle values
@@ -768,33 +800,36 @@ var add = function(e){
                         textTrue : "Yes",
                         textFalse : "No",
                         body:
-                            "<b>Larvae Produced (Grams):</b> " + $form.find("#addAmountBSFL").val(),
+                            "<b>Date:</b> " + $form.find("#date").val() + "<br/>" +
+                            "<b>Egg Produced (gram):</b> " + $form.find("#larvaeHarvest").val() + "<br/>" +
+                            "<b>Area:</b> " + $form.find("#areaBSF").val(),
                         onSubmit: function(result){
                             if(result){
+                                date = $form.find("#date").val();
+                                areaSelected = $form.find("#areaBSF").val();
                                 var data = {
-                                    eggs : parseInt($form.find("#addAmountBSFL").val()),
-                                    timestamp: new Date().getTime()
+                                    larvaHarvest: parseInt($form.find("#larvaeHarvest").val()),
+                                    timestamp: new Date(date).getTime()
                                 }
 
-                                if(!isNaN(data.eggs)){
+                                if(!isNaN(data.larvaHarvest)){
                                     $.showAlert({
                                         title: "Push Status",
                                         body: "Data has been added successfully",
                                     })
-                                   
+                                    
                                     modal.hide()
                                     var myref = database.ref("Production/"+type+"/"+areaSelected);
                                     myref.push(data);
-                                }
-
+                               }
+                                
                                 else{
                                     $.showAlert({
-                                        title: "Push Status",
-                                        body: "Data has not been added successfully"
+                                        title: "Push failed",
+                                        body: "Check if all the inputs are filled"
                                     })
                                 }
                             }
-                            
                         }
                     })
                 })
@@ -809,18 +844,29 @@ var remove = function(e){
     var index = $(this).parents("tr").find("td.id").text();
     var deleteIndex;
 
-    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
-        if(index - 1 == x){
-            deleteIndex = Object.keys(productionObj[type][areaSelected][datatype1])[x];
-        }
-    }
+    // for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
+    //     if(index - 1 == x){
+    //         deleteIndex = Object.keys(productionObj[type][areaSelected][datatype1])[x];
+    //     }
+    // }
 
     if(type == "Chicken"){
+        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
+            if(index - 1 == x){
+                deleteIndex = Object.keys(productionObj[type][areaSelected][datatype1])[x];
+            }
+        }
+
+        var d = new Date(productionObj[type][areaSelected][datatype1][deleteIndex].timestamp);
+        var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+        var datetime = d.toLocaleString("en-us", options);
+
         $.showConfirm({
             title: "Are you sure",
             textTrue : "Yes",
             textFalse : "No",
             body: 
+                "<b>Date:</b>" + datetime + "<br/>" + 
                 "<b>Feed Given:</b>" + productionObj[type][areaSelected][datatype1][deleteIndex].feedGiven + "<br/>" + 
                 "<b>Feed Leftover:</b>" + productionObj[type][areaSelected][datatype1][deleteIndex].feedLeft + "<br/>"+
                 "<b>Feed Given:</b>" + productionObj[type][areaSelected][datatype1][deleteIndex].waterGiven + "<br/>" + 
@@ -843,19 +889,29 @@ var remove = function(e){
     }
 
     else if(type == "BSF"){
+        for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+            if(index - 1 == x){
+                deleteIndex = Object.keys(productionObj[type][areaSelected])[x];
+            }
+        }
+        var d = new Date(productionObj[type][areaSelected][deleteIndex].timestamp);
+        var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+        var datetime = d.toLocaleString("en-us", options);
         $.showConfirm({
+            
             title: "Are you sure",
             textTrue : "Yes",
             textFalse : "No",
             body: 
-                "<b>Eggs produced:</b>" + productionObj[type][areaSelected][deleteIndex].eggs,
+                "<b>Date:</b>" + datetime + "<br/>" + 
+                "<b>Eggs produced:</b>" + productionObj[type][areaSelected][deleteIndex].eggProduce,
             onSubmit: function(result){
                 if(result){
                     $.showAlert({
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                    var myref = database.ref("Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -868,19 +924,28 @@ var remove = function(e){
     }
 
     else if(type == "BSFL"){
+        for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+            if(index - 1 == x){
+                deleteIndex = Object.keys(productionObj[type][areaSelected])[x];
+            }
+        }
+        var d = new Date(productionObj[type][areaSelected][deleteIndex].timestamp);
+        var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+        var datetime = d.toLocaleString("en-us", options);
         $.showConfirm({
             title: "Are you sure",
             textTrue : "Yes",
             textFalse : "No",
             body: 
-                "<b>Larvae produced:</b>" + productionObj[type][areaSelected][deleteIndex].eggs,
+                "<b>Date:</b>" + datetime + "<br/>" + 
+                "<b>Larvae produced:</b>" + productionObj[type][areaSelected][deleteIndex].larvaHarvest,
             onSubmit: function(result){
                 if(result){
                     $.showAlert({
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                    var myref = database.ref("Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -895,20 +960,31 @@ var remove = function(e){
 
 var update = function(e){
     e.preventDefault();
-
-    var index = $(this).parents("tr").find("td.id").text();
+    // var index = $(this).parents("tr").find("td.id").text();
    
-    var tableID = index;
-    for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
-        if(tableID - 1 == x){
-            keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
-            var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
-            var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
-            var datetime = d.toLocaleString('en-us', options); 
-        }
-    }
+    // var tableID = index;
+    // for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
+    //     if(tableID - 1 == x){
+    //         keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
+    //         var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
+    //         var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+    //         var datetime = d.toLocaleString('en-us', options); 
+    //     }
+    // }
 
     if(type == "Chicken"){
+        var index = $(this).parents("tr").find("td.id").text();
+   
+        var tableID = index;
+        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
+            if(tableID - 1 == x){
+                keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
+                var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
+                var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                var datetime = d.toLocaleString('en-us', options); 
+            }
+        }
+    
         $.showModal({
             title : "Chicken" + "-" + areaSelected,
             body : '<form><div class="form-group px-5">' +
@@ -986,13 +1062,25 @@ var update = function(e){
     }
     
     else if(type == "BSF"){
+        var index = $(this).parents("tr").find("td.id").text();
+   
+        var tableID = index;
+        for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+            if(tableID - 1 == x){
+                keys = Object.keys(productionObj[type][areaSelected])[x];
+                var d = new Date(productionObj[type][areaSelected][keys].timestamp);
+                var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                var datetime = d.toLocaleString('en-us', options); 
+            }
+        }
+    
         $.showModal({
             title : "BSF" + "-" + areaSelected,
             body : '<form><div class="form-group px-5">' +
             '<input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDate" disabled value=' + datetime + '>' +
             '<div class="form-group px-5"><label for="updateDate" class="CLabel" id="update"></label></div>' +
             '<input type="number" step="any" min="0" name="amountEgg" class="form-control updateBSFProduction" id="updateAmountBSF" value=' +
-            productionObj[type][areaSelected][keys].eggs + '>' +
+            productionObj[type][areaSelected][keys].eggProduce + '>' +
             '<label for="updateAmountBSF" class="BSFLabel" id="updateproductionLabel">(Egg Produced)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">Update</button></form>',
             onCreate: function (modal) {
@@ -1014,9 +1102,9 @@ var update = function(e){
                                     body: "Data has been updated successfully",
                                 })
                                 var data = {
-                                    eggs: parseInt($form.find("#updateAmountBSF").val()),
+                                    eggProduce: parseInt($form.find("#updateAmountBSF").val()),
                                 }
-                                var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                var myref = database.ref("Production/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
                             }
                             else{
@@ -1034,13 +1122,25 @@ var update = function(e){
     }
 
     else if(type == "BSFL"){
+        var index = $(this).parents("tr").find("td.id").text();
+   
+        var tableID = index;
+        for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+            if(tableID - 1 == x){
+                keys = Object.keys(productionObj[type][areaSelected])[x];
+                var d = new Date(productionObj[type][areaSelected][keys].timestamp);
+                var options = { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                var datetime = d.toLocaleString('en-us', options); 
+            }
+        }
+
         $.showModal({
             title : "BSFL" + "-" + areaSelected,
             body : '<form><div class="form-group px-5">' +
             '<input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDate" disabled value=' + datetime + '>' +
             '<div class="form-group px-5"><label for="updateDate" class="CLabel" id="update"></label></div>' +
             '<input type="number" step="any" min="0" name="amountEgg" class="form-control updateBSFProduction" id="updateAmountBSF" value=' +
-            productionObj[type][areaSelected][keys].eggs + '>' +
+            productionObj[type][areaSelected][keys].larvaHarvest + '>' +
             '<label for="updateAmountBSF" class="BSFLabel" id="updateproductionLabel">(Larvae Produced)</label></div>' + 
             '<button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">Update</button></form>',
             onCreate: function (modal) {
@@ -1054,7 +1154,7 @@ var update = function(e){
                         textFalse : "No",
                         body:
                             "<b>Date:</b> " + $form.find("#updateDate").val() + "<br/>" +
-                            "<b>Eggs Produced (grams):</b> " + $form.find("#updateAmountBSF").val(),
+                            "<b>Larvae Harvested (grams):</b> " + $form.find("#updateAmountBSF").val(),
                         onSubmit: function(result){
                             if(result){
                                 $.showAlert({
@@ -1062,9 +1162,9 @@ var update = function(e){
                                     body: "Data has been updated successfully",
                                 })
                                 var data = {
-                                    eggs: parseInt($form.find("#updateAmountBSF").val()),
+                                    larvaHarvest: parseInt($form.find("#updateAmountBSF").val()),
                                 }
-                                var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
+                                var myref = database.ref("Production/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
                             }
                             else{
@@ -1183,12 +1283,17 @@ var remove2 = function(e){
         }
     }
 
+    var d = new Date(productionObj[type][areaSelected][datatype2][deleteIndex].timestamp);
+    var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+    var datetime = d.toLocaleString("en-us", options);
+
     if(type == "Chicken"){
         $.showConfirm({
             title: "Are you sure",
             textTrue : "Yes",
             textFalse : "No",
             body: 
+                "<b>Date:</b>" + datetime + "<br/>" + 
                 "<b>Healthy Chicken:</b>" + productionObj[type][areaSelected][datatype2][deleteIndex].healthy + "<br/>" + 
                 "<b>Injured Chicken:</b>" + productionObj[type][areaSelected][datatype2][deleteIndex].injured + "<br/>"+
                 "<b>Sick Chicken:</b>" + productionObj[type][areaSelected][datatype2][deleteIndex].sick + "<br/>" + 
@@ -1394,12 +1499,17 @@ var remove3 = function(e){
         }
     }
 
+    var d = new Date(productionObj[type][areaSelected][datatype3][deleteIndex].timestamp);
+    var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+    var datetime = d.toLocaleString("en-us", options);
+
     if(type == "Chicken"){
         $.showConfirm({
             title: "Are you sure",
             textTrue : "Yes",
             textFalse : "No",
             body: 
+                "<b>Avg. Feed Intake Chicken:</b>" + datetime + "<br/>" + 
                 "<b>Avg. Feed Intake Chicken:</b>" + productionObj[type][areaSelected][datatype3][deleteIndex].avgFeedChix + "<br/>" + 
                 "<b>Avg. Weight Gain Chicken:</b>" + productionObj[type][areaSelected][datatype3][deleteIndex].avgWeightChix,
             onSubmit: function(result){
@@ -1499,6 +1609,8 @@ var update3 = function(e){
  
 }
 
+
+
 $(document).on("click", "#addBtnC", add);
 $(document).on('click', '.table-edit', update);
 $(document).on('click', '.table-remove', remove);
@@ -1510,3 +1622,8 @@ $(document).on('click', '.table-remove-table2', remove2);
 $(document).on("click", "#addBtnC3", add3);
 $(document).on('click', '.table-edit-table3', update3);
 $(document).on('click', '.table-remove-table3', remove3);
+
+
+//$(document).on("click", "#addBtnBSF", addBSF);
+//$(document).on('click', '.table-edit-bsf', update3);
+//$(document).on('click', '.table-remove-table3', remove3);
