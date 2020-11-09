@@ -37,21 +37,6 @@ Login page
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-/*---------------------------------------------------------------------
-Register page
----------------------------------------------------------------------*/
-/* .register_container{
-    border: 1px solid black;
-    padding: 50px 60px;
-    box-shadow: 3px 5px 8px 2px #414443;
-    border-radius: 5px;
-    background-color: white;
-} */
-
-
-/*---------------------------------------------------------------------
-Side Nav Styling
----------------------------------------------------------------------*/
 body{
     background-color: #eee;
     font-family: 'Montserrat', sans-serif;

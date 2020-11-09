@@ -10,11 +10,5 @@
     curl_close($ch);
 
     echo "<pre>{$output}</pre>";
-    //$decodeJSON = json_decode($output, true);
-    //$test = "hi";
-    // echo "<pre>";
-    // echo sizeof($decodeJSON["data"]);
-    // print_r ($decodeJSON["data"]);
-    // echo "</pre>";
 
 

@@ -17,7 +17,7 @@
                                 <nav>
                                     <ul class="pagination paginationBtn" id="typePage">
                                         <li class="page-item active"><a href="#" class="page-link" id="chickenVisualization"><span class="badge">Chicken</span></a></li>
-                                        <!-- <li class="page-item "><a href="#" class="page-link" id="bsfVisualization"><span class="badge">BSF</span></a></li> -->
+                                        <li class="page-item "><a href="#" class="page-link" id="bsfVisualization"><span class="badge">BSF</span></a></li>
                                         <li class="page-item "><a href="#" class="page-link" id="bsflVisualization"><span class="badge">BSF Larvae</span></a></li>
                                     </ul>
                                 </nav>

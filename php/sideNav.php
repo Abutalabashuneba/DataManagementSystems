@@ -6,7 +6,7 @@
 
     <div class="collapse navbar-collapse" id="myNav">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row w-100 mx-auto">
                 <!--Start of side nav-->
                 <div class="col-xl-2 col-lg-3 col-md-4 sideNav fixed-top">
                     <a href="#" class="navbar-brand d-block text-white mx-auto text-center bottomBorder py-3 mb-4">DMS</a>
@@ -23,7 +23,7 @@
                         <li class="nav-item"><a href="dataVisualization.php" class="nav-link p-3 mb-2 text-white"><i class="fas fa-chart-bar fa-lg mr-3"></i>&nbsp;Visualization</a></li>
                         <li class="nav-item"><a href="notification.php" class="nav-link p-3 mb-2 text-white"><i class="fas fa-bell fa-lg mr-3"></i></i>&nbsp;Notification</a></li>
                         <!--Allow user to register if user type is Admin-->
-                        <li class="nav-item" style="display:none;" id="register" onclick="registerForm()"><a href="#" class="nav-link p-3 mb-2 text-white"><i class="fas fa-user fa-lg mr-3"></i>&nbsp;Register</a></li>
+                        <li class="nav-item" style="display:none;" id="register" onclick="registerForm()"><a href="#" class="nav-link p-3 mb-2 text-white sideNavLink"><i class="fas fa-user fa-lg mr-3"></i>&nbsp;Register</a></li>
                     </ul>
                 </div>
                 <!--End of side nav-->
@@ -32,7 +32,7 @@
                 <div class="col-xl-10 col-lg-9 col-md-8 ml-auto fixed-top bg-dark py-2 topNav">
                     <div class="row align-items-center">
                         <div class="col-xl-4 col-lg-4 col-md-4">
-                            <h4 class="text-white text-uppercase mb-0">Dashboard</h4>
+                            <h4 class="text-white text-uppercase mb-0" id="text"></h4>
                         </div>
 
                         <div class="col-xl-3 col-lg-3 col-md-2 ml-auto">

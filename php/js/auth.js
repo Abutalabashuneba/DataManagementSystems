@@ -19,6 +19,7 @@ $(document).ready(function(){
         $("#myNavUl").children().eq(3).addClass("sideNavLink");
         $("#myNavUl").children().eq(4).addClass("sideNavLink");
         $("#myNavUl").children().eq(5).addClass("sideNavLink");
+        $("#text").html("Dashboard");
     }
 
     else if(window.location.href.search("data.php") > 0){
@@ -28,6 +29,7 @@ $(document).ready(function(){
         $("#myNavUl").children().eq(3).addClass("sideNavLink");
         $("#myNavUl").children().eq(4).addClass("sideNavLink");
         $("#myNavUl").children().eq(5).addClass("sideNavLink");
+        $("#text").html("Data");
     }
 
     else if(window.location.href.search("production.php") > 0){
@@ -37,6 +39,7 @@ $(document).ready(function(){
         $("#myNavUl").children().eq(3).addClass("sideNavLink");
         $("#myNavUl").children().eq(4).addClass("sideNavLink");
         $("#myNavUl").children().eq(5).addClass("sideNavLink");
+        $("#text").html("Production");
     }
 
     else if(window.location.href.search("sensor.php") > 0){
@@ -46,6 +49,7 @@ $(document).ready(function(){
         $("#myNavUl").children().eq(2).addClass("sideNavLink");
         $("#myNavUl").children().eq(4).addClass("sideNavLink");
         $("#myNavUl").children().eq(5).addClass("sideNavLink");
+        $("#text").html("Sensor");
     }
 
     else if(window.location.href.search("dataVisualization.php") > 0){
@@ -55,6 +59,7 @@ $(document).ready(function(){
         $("#myNavUl").children().eq(2).addClass("sideNavLink");
         $("#myNavUl").children().eq(3).addClass("sideNavLink");
         $("#myNavUl").children().eq(5).addClass("sideNavLink");
+        $("#text").html("Visualization");
     }
 
     else if(window.location.href.search("notification.php") > 0){
@@ -64,5 +69,6 @@ $(document).ready(function(){
         $("#myNavUl").children().eq(2).addClass("sideNavLink");
         $("#myNavUl").children().eq(3).addClass("sideNavLink");
         $("#myNavUl").children().eq(4).addClass("sideNavLink");
+        $("#text").html("Notification");
     }
 })

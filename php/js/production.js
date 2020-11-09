@@ -125,223 +125,225 @@ function populateProductionTable(){
         tableHeadC2.innerHTML = header2;
         tableHeadC3.innerHTML = header3;
 
-        if(productionObj[type] != undefined){
-            if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
-
-            if(productionObj[type][areaSelected] != undefined){
-                for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-                    if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
-                        optionsList = `
-                            <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
-                        `;
-                    }
-
-                    else{
-                        optionsList = `
-                            <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
-                        `;
-                    }
-                    html += optionsList;
-                }
-                
-                dropdownC.innerHTML = html;
-
-                function dp(start,end){
-                    if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                        $('#chickenTable-Area1').DataTable().clear().draw().destroy();
-                    }
-            
-                    if($.fn.DataTable.isDataTable('#chickenTable2-Area1')){
-                        $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
-                    }
-            
-                    if($.fn.DataTable.isDataTable('#chickenTable3-Area1')){
-                        $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
-                    }
-                    let rowData = "";
-                    let rowData2 = "";
-                    let rowData3 = "";
-
-                    $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-
-                    //Chicken Table 1
-                    if(productionObj[type][areaSelected][datatype1] != undefined){
-                        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
-                            var keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
+        if(productionObj != undefined){
+            if(productionObj[type] != undefined){
+                if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
     
-                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-    
-                            if(newstartdate <= productionObj[type][areaSelected][datatype1][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype1][keys].timestamp){
-                                var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
-                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                                var datetime = d.toLocaleString("en-us", options);
-                                let tr = "";
-    
-                                tr = `
-                                <tr>
-                                    <td class="id">${x + 1}</td>
-                                    <td>${datetime}</td>
-                                    <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven}</td>
-                                    <td>${productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
-                                    <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven - productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
-                                    <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven}</td>
-                                    <td>${productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
-                                    <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven - productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
-                                `;
-    
-                                if(sessionStorage.getItem("type") == "Admin"){
-                                    tr += `
-                                        <td>
-                                        <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                        <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                        </td>
-                                    </tr>
-                                    `;
-                                }
-    
-                                else{
-                                    tr += `
-                                        </tr>
-                                    `;
-                                }
-                                rowData += tr;
-                            }
+                if(productionObj[type][areaSelected] != undefined){
+                    for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
+                        if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
+                            optionsList = `
+                                <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
+                            `;
                         }
-                        datalistC.innerHTML = rowData;
-                    }
-
-                    //Chicken Table 2
-                    if(productionObj[type][areaSelected][datatype2] != undefined){
-                        var cumulativeDeath = 0;
-                        var first = Object.keys(productionObj[type][areaSelected][datatype2])[0];
-                        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype2]).length; ++x){
-                            var keys = Object.keys(productionObj[type][areaSelected][datatype2])[x];
-
-                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                            if(newstartdate <= productionObj[type][areaSelected][datatype2][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype2][keys].timestamp){
-                                var d = new Date(productionObj[type][areaSelected][datatype2][keys].timestamp);
-                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                                var datetime = d.toLocaleString("en-us", options);
-                                let tr2 = "";
-
-                                cumulativeDeath += productionObj[type][areaSelected][datatype2][keys].dead;
-
-                                tr2 = `
-                                <tr>
-                                    <td class="id">${x + 1}</td>
-                                    <td>${datetime}</td>
-                                    <td>${productionObj[type][areaSelected][datatype2][keys].healthy}</td>
-                                    <td>${productionObj[type][areaSelected][datatype2][keys].sick}</td>
-                                    <td>${productionObj[type][areaSelected][datatype2][keys].injured}</td>
-                                    <td>${productionObj[type][areaSelected][datatype2][keys].cull}</td>
-                                    <td>${productionObj[type][areaSelected][datatype2][keys].dead}</td>
-                                    <td>${cumulativeDeath}</td>
-                                    <td>${((cumulativeDeath / productionObj[type][areaSelected][datatype2][first].healthy)*100).toFixed(2)}</td>
-                                `;
-
-                                if(sessionStorage.getItem("type") == "Admin"){
-                                    tr2 += `
-                                        <td>
-                                        <span class="table-remove-table2"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                        <span class="table-edit-table2"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                        </td>
-                                    </tr>
-                                    `;
-                                }
-
-                                else{
-                                    tr2 += `
-                                        </tr>
-                                    `;
-                                }
-                                rowData2 += tr2;
-                            }
-                        
+    
+                        else{
+                            optionsList = `
+                                <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
+                            `;
                         }
-                        datalistC2.innerHTML = rowData2;
+                        html += optionsList;
                     }
                     
-                    //Chicken Table 3
-                    if(productionObj[type][areaSelected][datatype3] != undefined){
-                        var cumulativeFCR = 0;
-                        var first = Object.keys(productionObj[type][areaSelected][datatype3])[0];
-                        for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype3]).length; ++x){
-                            var keys = Object.keys(productionObj[type][areaSelected][datatype3])[x];
-
-                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                            if(newstartdate <= productionObj[type][areaSelected][datatype3][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype3][keys].timestamp){
-                                var d = new Date(productionObj[type][areaSelected][datatype3][keys].timestamp);
-                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                                var datetime = d.toLocaleString("en-us", options);
-                                let tr3 = "";
-
-                                cumulativeFCR = (productionObj[type][areaSelected][datatype3][keys].avgFeedChix) / (productionObj[type][areaSelected][datatype3][keys].avgWeightChix);
-
-                                tr3 = `
-                                <tr>
-                                    <td class="id">${x + 1}</td>
-                                    <td>${datetime}</td>
-                                    <td>${productionObj[type][areaSelected][datatype3][keys].avgFeedChix}</td>
-                                    <td>${productionObj[type][areaSelected][datatype3][keys].avgWeightChix}</td>
-                                    <td>${cumulativeFCR.toFixed(3)}</td>
-                                `;
-
-                                if(sessionStorage.getItem("type") == "Admin"){
-                                    tr3 += `
-                                        <td>
-                                        <span class="table-remove-table3"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                        <span class="table-edit-table3"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                        </td>
-                                    </tr>
-                                    `;
-                                }
-
-                                else{
-                                    tr3 += `
-                                        </tr>
-                                    `;
-                                }
-                                rowData3 += tr3;
-                            }
+                    dropdownC.innerHTML = html;
+    
+                    function dp(start,end){
+                        if($.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                            $('#chickenTable-Area1').DataTable().clear().draw().destroy();
                         }
-                        datalistC3.innerHTML = rowData3;
+                
+                        if($.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+                            $('#chickenTable2-Area1').DataTable().clear().draw().destroy();
+                        }
+                
+                        if($.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+                            $('#chickenTable3-Area1').DataTable().clear().draw().destroy();
+                        }
+                        let rowData = "";
+                        let rowData2 = "";
+                        let rowData3 = "";
+    
+                        $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+    
+                        //Chicken Table 1
+                        if(productionObj[type][areaSelected][datatype1] != undefined){
+                            for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype1]).length; ++x){
+                                var keys = Object.keys(productionObj[type][areaSelected][datatype1])[x];
+        
+                                var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                                var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+        
+                                if(newstartdate <= productionObj[type][areaSelected][datatype1][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype1][keys].timestamp){
+                                    var d = new Date(productionObj[type][areaSelected][datatype1][keys].timestamp);
+                                    var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                                    var datetime = d.toLocaleString("en-us", options);
+                                    let tr = "";
+        
+                                    tr = `
+                                    <tr>
+                                        <td class="id">${x + 1}</td>
+                                        <td>${datetime}</td>
+                                        <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven}</td>
+                                        <td>${productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
+                                        <td>${productionObj[type][areaSelected][datatype1][keys].feedGiven - productionObj[type][areaSelected][datatype1][keys].feedLeft}</td>
+                                        <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven}</td>
+                                        <td>${productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
+                                        <td>${productionObj[type][areaSelected][datatype1][keys].waterGiven - productionObj[type][areaSelected][datatype1][keys].waterLeft}</td>
+                                    `;
+        
+                                    if(sessionStorage.getItem("type") == "Admin"){
+                                        tr += `
+                                            <td>
+                                            <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                            <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                            </td>
+                                        </tr>
+                                        `;
+                                    }
+        
+                                    else{
+                                        tr += `
+                                            </tr>
+                                        `;
+                                    }
+                                    rowData += tr;
+                                }
+                            }
+                            datalistC.innerHTML = rowData;
+                        }
+    
+                        //Chicken Table 2
+                        if(productionObj[type][areaSelected][datatype2] != undefined){
+                            var cumulativeDeath = 0;
+                            var first = Object.keys(productionObj[type][areaSelected][datatype2])[0];
+                            for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype2]).length; ++x){
+                                var keys = Object.keys(productionObj[type][areaSelected][datatype2])[x];
+    
+                                var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                                var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+    
+                                if(newstartdate <= productionObj[type][areaSelected][datatype2][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype2][keys].timestamp){
+                                    var d = new Date(productionObj[type][areaSelected][datatype2][keys].timestamp);
+                                    var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                                    var datetime = d.toLocaleString("en-us", options);
+                                    let tr2 = "";
+    
+                                    cumulativeDeath += productionObj[type][areaSelected][datatype2][keys].dead;
+    
+                                    tr2 = `
+                                    <tr>
+                                        <td class="id">${x + 1}</td>
+                                        <td>${datetime}</td>
+                                        <td>${productionObj[type][areaSelected][datatype2][keys].healthy}</td>
+                                        <td>${productionObj[type][areaSelected][datatype2][keys].sick}</td>
+                                        <td>${productionObj[type][areaSelected][datatype2][keys].injured}</td>
+                                        <td>${productionObj[type][areaSelected][datatype2][keys].cull}</td>
+                                        <td>${productionObj[type][areaSelected][datatype2][keys].dead}</td>
+                                        <td>${cumulativeDeath}</td>
+                                        <td>${((cumulativeDeath / productionObj[type][areaSelected][datatype2][first].healthy)*100).toFixed(2)}</td>
+                                    `;
+    
+                                    if(sessionStorage.getItem("type") == "Admin"){
+                                        tr2 += `
+                                            <td>
+                                            <span class="table-remove-table2"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                            <span class="table-edit-table2"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                            </td>
+                                        </tr>
+                                        `;
+                                    }
+    
+                                    else{
+                                        tr2 += `
+                                            </tr>
+                                        `;
+                                    }
+                                    rowData2 += tr2;
+                                }
+                            
+                            }
+                            datalistC2.innerHTML = rowData2;
+                        }
+                        
+                        //Chicken Table 3
+                        if(productionObj[type][areaSelected][datatype3] != undefined){
+                            var cumulativeFCR = 0;
+                            var first = Object.keys(productionObj[type][areaSelected][datatype3])[0];
+                            for(var x = 0; x < Object.keys(productionObj[type][areaSelected][datatype3]).length; ++x){
+                                var keys = Object.keys(productionObj[type][areaSelected][datatype3])[x];
+    
+                                var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                                var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+    
+                                if(newstartdate <= productionObj[type][areaSelected][datatype3][keys].timestamp && newenddate >= productionObj[type][areaSelected][datatype3][keys].timestamp){
+                                    var d = new Date(productionObj[type][areaSelected][datatype3][keys].timestamp);
+                                    var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                                    var datetime = d.toLocaleString("en-us", options);
+                                    let tr3 = "";
+    
+                                    cumulativeFCR = (productionObj[type][areaSelected][datatype3][keys].avgFeedChix) / (productionObj[type][areaSelected][datatype3][keys].avgWeightChix);
+    
+                                    tr3 = `
+                                    <tr>
+                                        <td class="id">${x + 1}</td>
+                                        <td>${datetime}</td>
+                                        <td>${productionObj[type][areaSelected][datatype3][keys].avgFeedChix}</td>
+                                        <td>${productionObj[type][areaSelected][datatype3][keys].avgWeightChix}</td>
+                                        <td>${cumulativeFCR.toFixed(3)}</td>
+                                    `;
+    
+                                    if(sessionStorage.getItem("type") == "Admin"){
+                                        tr3 += `
+                                            <td>
+                                            <span class="table-remove-table3"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                            <span class="table-edit-table3"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                            </td>
+                                        </tr>
+                                        `;
+                                    }
+    
+                                    else{
+                                        tr3 += `
+                                            </tr>
+                                        `;
+                                    }
+                                    rowData3 += tr3;
+                                }
+                            }
+                            datalistC3.innerHTML = rowData3;
+                        }
+                        if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
+                            $('#chickenTable-Area1').DataTable();
+                        }
+                
+                        if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
+                            $('#chickenTable2-Area1').DataTable();
+                        }
+                
+                        if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
+                            $('#chickenTable3-Area1').DataTable();
+                        }
                     }
-                    if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                        $('#chickenTable-Area1').DataTable();
-                    }
-            
-                    if(!$.fn.DataTable.isDataTable('#chickenTable2-Area1')){
-                        $('#chickenTable2-Area1').DataTable();
-                    }
-            
-                    if(!$.fn.DataTable.isDataTable('#chickenTable3-Area1')){
-                        $('#chickenTable3-Area1').DataTable();
-                    }
+                    $("#reportrange").daterangepicker({
+                        startDate : start,
+                        endDate : end,
+                        ranges : {
+                            "Today" : [moment(), moment()],
+                            "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                            "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                            "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                            "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                            "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                            "Lifetime" : [moment().subtract(50,"year"), moment()]
+                        }
+                    }, dp)
+    
+                    dp(start, end);
                 }
-                $("#reportrange").daterangepicker({
-                    startDate : start,
-                    endDate : end,
-                    ranges : {
-                        "Today" : [moment(), moment()],
-                        "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                        "Last 7 days" : [moment().subtract(6, "days"), moment()],
-                        "Last 30 Days" : [moment().subtract(29, "days"), moment()],
-                        "This Month" : [moment().startOf("month"),moment().endOf("month")],
-                        "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
-                        "Lifetime" : [moment().subtract(50,"year"), moment()]
-                    }
-                }, dp)
-
-                dp(start, end);
-            }
-
-            else{
-                dropdownC.innerHTML = html;
+    
+                else{
+                    dropdownC.innerHTML = html;
+                }
             }
         }
 
@@ -385,97 +387,99 @@ function populateProductionTable(){
 
         tableHeadBSF.innerHTML = header;
 
-        if(productionObj[type] != undefined){
-            if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
+        if(productionObj != undefined){
+            if(productionObj[type] != undefined){
+                if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
 
-            for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-                if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-
-                else{
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-                html += optionsList;
-            }
-            
-            dropdownC.innerHTML = html;
-
-            function dp(start,end){
-                if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
-                    $('#bsfTable-Area1').DataTable().clear().destroy();
-                }
-
-                let rowData = "";
-
-                $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-
-                for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
-                    var keys = Object.keys(productionObj[type][areaSelected])[x];
-
-                    var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                    var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                    if(newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp){
-                        var d = new Date(productionObj[type][areaSelected][keys].timestamp);
-                        var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                        var datetime = d.toLocaleString("en-us", options);
-                        let tr = "";
-
-                        tr = `
-                        <tr>
-                            <td class="id">${x + 1}</td>
-                            <td>${datetime}</td>
-                            <td>${productionObj[type][areaSelected][keys].eggProduce}</td>
+                for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
+                    if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
+                        optionsList = `
+                            <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
                         `;
+                    }
 
-                        if(sessionStorage.getItem("type") == "Admin"){
-                            tr += `
-                                <td>
-                                <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                </td>
-                            </tr>
-                            `;
-                        }
+                    else{
+                        optionsList = `
+                            <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
+                        `;
+                    }
+                    html += optionsList;
+                }
+                
+                dropdownC.innerHTML = html;
 
-                        else{
-                            tr += `
-                                </tr>;
+                function dp(start,end){
+                    if($.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                        $('#bsfTable-Area1').DataTable().clear().destroy();
+                    }
+
+                    let rowData = "";
+
+                    $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+
+                    for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+                        var keys = Object.keys(productionObj[type][areaSelected])[x];
+
+                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+
+                        if(newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp){
+                            var d = new Date(productionObj[type][areaSelected][keys].timestamp);
+                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                            var datetime = d.toLocaleString("en-us", options);
+                            let tr = "";
+
+                            tr = `
+                            <tr>
+                                <td class="id">${x + 1}</td>
+                                <td>${datetime}</td>
+                                <td>${productionObj[type][areaSelected][keys].eggProduce}</td>
                             `;
+
+                            if(sessionStorage.getItem("type") == "Admin"){
+                                tr += `
+                                    <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                    <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                    </td>
+                                </tr>
+                                `;
+                            }
+
+                            else{
+                                tr += `
+                                    </tr>;
+                                `;
+                            }
+                            rowData += tr;
                         }
-                        rowData += tr;
+                    }
+                    datalistBSF.innerHTML = rowData;
+
+                    if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                        $('#bsfTable-Area1').DataTable();
                     }
                 }
-                datalistBSF.innerHTML = rowData;
+                $("#reportrange").daterangepicker({
+                    startDate : start,
+                    endDate : end,
+                    ranges : {
+                        "Today" : [moment(), moment()],
+                        "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                        "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                        "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                        "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                        "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                        "Lifetime" : [moment().subtract(50,"year"), moment()]
+                    }
+                }, dp)
 
-                if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
-                    $('#bsfTable-Area1').DataTable();
-                }
+                dp(start, end);
             }
-            $("#reportrange").daterangepicker({
-                startDate : start,
-                endDate : end,
-                ranges : {
-                    "Today" : [moment(), moment()],
-                    "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                    "Last 7 days" : [moment().subtract(6, "days"), moment()],
-                    "Last 30 Days" : [moment().subtract(29, "days"), moment()],
-                    "This Month" : [moment().startOf("month"),moment().endOf("month")],
-                    "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
-                    "Lifetime" : [moment().subtract(50,"year"), moment()]
-                }
-            }, dp)
 
-            dp(start, end);
-        }
-
-        else{
-            dropdownC.innerHTML = html;
+            else{
+                dropdownC.innerHTML = html;
+            }
         }
 
         if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
@@ -510,93 +514,95 @@ function populateProductionTable(){
 
         tableHeadBSFL.innerHTML = header;
 
-        if(productionObj[type] != undefined){
-            if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
+        if(productionObj != undefined){
+            if(productionObj[type] != undefined){
+                if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
 
-            for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
-                if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-
-                else{
-                    optionsList = `
-                        <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
-                    `;
-                }
-                html += optionsList;
-            }
-            
-            dropdownC.innerHTML = html;
-
-            function dp(start,end){
-                if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
-                    $('#bsflTable-Area1').DataTable().clear().draw().destroy();
-                }
-
-                let rowData = "";
-
-                $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-
-                for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
-                    var keys = Object.keys(productionObj[type][areaSelected])[x];
-
-                    var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                    var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                    if(newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp){
-                        var d = new Date(productionObj[type][areaSelected][keys].timestamp);
-                        var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                        var datetime = d.toLocaleString("en-us", options);
-                        let tr = "";
-
-                        tr = `
-                        <tr>
-                            <td class="id">${x + 1}</td>
-                            <td>${datetime}</td>
-                            <td>${productionObj[type][areaSelected][keys].larvaHarvest}</td>
+                for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
+                    if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
+                        optionsList = `
+                            <option value="${Object.keys(productionObj[type])[x]}" selected>${Object.keys(productionObj[type])[x]}</option>
                         `;
+                    }
 
-                        if(sessionStorage.getItem("type") == "Admin"){
-                            tr += `
-                                <td>
-                                <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                </td>
-                            </tr>
-                            `;
-                        }
+                    else{
+                        optionsList = `
+                            <option value="${Object.keys(productionObj[type])[x]}">${Object.keys(productionObj[type])[x]}</option>
+                        `;
+                    }
+                    html += optionsList;
+                }
+                
+                dropdownC.innerHTML = html;
 
-                        else{
-                            tr += `
-                                </tr>;
+                function dp(start,end){
+                    if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                        $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+                    }
+
+                    let rowData = "";
+
+                    $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+
+                    for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+                        var keys = Object.keys(productionObj[type][areaSelected])[x];
+
+                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+
+                        if(newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp){
+                            var d = new Date(productionObj[type][areaSelected][keys].timestamp);
+                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                            var datetime = d.toLocaleString("en-us", options);
+                            let tr = "";
+
+                            tr = `
+                            <tr>
+                                <td class="id">${x + 1}</td>
+                                <td>${datetime}</td>
+                                <td>${productionObj[type][areaSelected][keys].larvaHarvest}</td>
                             `;
+
+                            if(sessionStorage.getItem("type") == "Admin"){
+                                tr += `
+                                    <td>
+                                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                    <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                    </td>
+                                </tr>
+                                `;
+                            }
+
+                            else{
+                                tr += `
+                                    </tr>;
+                                `;
+                            }
+                            rowData += tr;
                         }
-                        rowData += tr;
+                    }
+                    datalistBSFL.innerHTML = rowData;
+
+                    if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                        $('#bsflTable-Area1').DataTable();
                     }
                 }
-                datalistBSFL.innerHTML = rowData;
+                $("#reportrange").daterangepicker({
+                    startDate : start,
+                    endDate : end,
+                    ranges : {
+                        "Today" : [moment(), moment()],
+                        "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                        "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                        "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                        "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                        "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                        "Lifetime" : [moment().subtract(50,"year"), moment()]
+                    }
+                }, dp)
 
-                if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
-                    $('#bsflTable-Area1').DataTable();
-                }
+                dp(start, end);
             }
-            $("#reportrange").daterangepicker({
-                startDate : start,
-                endDate : end,
-                ranges : {
-                    "Today" : [moment(), moment()],
-                    "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                    "Last 7 days" : [moment().subtract(6, "days"), moment()],
-                    "Last 30 Days" : [moment().subtract(29, "days"), moment()],
-                    "This Month" : [moment().startOf("month"),moment().endOf("month")],
-                    "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
-                    "Lifetime" : [moment().subtract(50,"year"), moment()]
-                }
-            }, dp)
-
-            dp(start, end);
         }
 
         else{
