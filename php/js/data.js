@@ -333,101 +333,112 @@ function populateTables(){
                     <th>Soil Temperature</th>
             `;
 
-            if(sessionStorage.getItem("type") == "Admin"){
-                header += `
-                    <th>Option</th>
+        if(sessionStorage.getItem("type") == "Admin"){
+            header += `
+                <th>Option</th>
+            </tr>
+            `;
+        }
+
+        else{
+            header += `
                 </tr>
-                `;
-            }
+            `;
+        }
+
         dataHeaderBSFL.innerHTML = header;
 
-        if(bsflkeys != undefined){
-            if(bsflObj[areaSelected] == undefined) { areaSelected = bsflkeys[0]; }
-
-            for(var x = 0; x < bsflkeys.length; ++x){
-                if(areaSelected == `${bsflkeys[x]}`){
-                    optionslist = `
-                        <option value="${bsflkeys[x]}" selected>${bsflkeys[x]}</option> 
-                    `;
-                }
-        
-                else{
-                    optionslist = `
-                        <option value="${bsflkeys[x]}">${bsflkeys[x]}</option>
-                    `;
-                }
-        
-                html = html + optionslist;
+        if(dataObj[type] != undefined){
+            if(bsflObj[areaSelected] == undefined) { 
+                areaSelected = bsflkeys[0]; 
             }
-        
-            if(dropdown) { dropdown.innerHTML = html; }
 
-            var start = moment().subtract(31,"days");
-            var end = moment();
-
-            function dp(start, end){
-                if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
-                    $('#bsflTable-Area1').DataTable().clear().draw().destroy();
-                }
-
-                let rowData = "";
-
-                $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-
-                for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
-                    var keys = Object.keys(bsflObj[areaSelected])[x];
-                    var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                    var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                    if(newstartdate <= bsflObj[areaSelected][keys].timestamp && newenddate >= bsflObj[areaSelected][keys].timestamp){
-                        var d = new Date(bsflObj[areaSelected][keys].timestamp);
-                        var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"};
-                        var datetime = d.toLocaleString("en-us", options);
-                        let tr = "";
-
-                        tr = `
-                            <tr>
-                                <td class="id">${x + 1}</td>
-                                <td class="searchVar">${datetime}</td>
-                                <td>${bsflObj[areaSelected][keys].temperature}</td>
-                                <td>${bsflObj[areaSelected][keys].humidity}</td>
-                                <td>${bsflObj[areaSelected][keys].moisture}</td>
-                                <td>${bsflObj[areaSelected][keys].soilTemp}</td>
+            if(dataObj[type]){
+                for(var x = 0; x < bsflkeys.length; ++x){
+                    if(areaSelected == `${bsflkeys[x]}`){
+                        optionslist = `
+                            <option value="${bsflkeys[x]}" selected>${bsflkeys[x]}</option> 
                         `;
-
-                        if(sessionStorage.getItem("type") == "Admin"){
-                            tr += `
-                                <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                    <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                    </td>
-                                </tr>
-                            `;
-                        }
-
-                        rowData += tr;
                     }
-                    datalistBSFL.innerHTML = rowData;
+            
+                    else{
+                        optionslist = `
+                            <option value="${bsflkeys[x]}">${bsflkeys[x]}</option>
+                        `;
+                    }
+            
+                    html = html + optionslist;
                 }
-                if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
-                    $('#bsflTable-Area1').DataTable();
+            
+                if(dropdown) { dropdown.innerHTML = html; }
+    
+                var start = moment().subtract(31,"days");
+                var end = moment();
+    
+                function dp(start, end){
+                    if($.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                        $('#bsflTable-Area1').DataTable().clear().draw().destroy();
+                    }
+    
+                    let rowData = "";
+    
+                    $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
+    
+                    for(var x = 0; x < Object.keys(bsflObj[areaSelected]).length; ++x){
+                        var keys = Object.keys(bsflObj[areaSelected])[x];
+                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+    
+                        if(newstartdate <= bsflObj[areaSelected][keys].timestamp && newenddate >= bsflObj[areaSelected][keys].timestamp){
+                            var d = new Date(bsflObj[areaSelected][keys].timestamp);
+                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"};
+                            var datetime = d.toLocaleString("en-us", options);
+                            let tr = "";
+    
+                            tr = `
+                                <tr>
+                                    <td class="id">${x + 1}</td>
+                                    <td class="searchVar">${datetime}</td>
+                                    <td>${bsflObj[areaSelected][keys].temperature}</td>
+                                    <td>${bsflObj[areaSelected][keys].humidity}</td>
+                                    <td>${bsflObj[areaSelected][keys].moisture}</td>
+                                    <td>${bsflObj[areaSelected][keys].soilTemp}</td>
+                            `;
+    
+                            if(sessionStorage.getItem("type") == "Admin"){
+                                tr += `
+                                    <td>
+                                        <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                        <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                        </td>
+                                    </tr>
+                                `;
+                            }
+    
+                            rowData += tr;
+                        }
+                        datalistBSFL.innerHTML = rowData;
+                    }
+                    if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
+                        $('#bsflTable-Area1').DataTable();
+                    }
                 }
+                $("#reportrange").daterangepicker({
+                    startDate : start,
+                    endDate : end,
+                    ranges : {
+                        "Today" : [moment(), moment()],
+                        "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                        "Last 7 days" : [moment().subtract(6, "days"), moment()],
+                        "Last 30 Days" : [moment().subtract(29, "days"), moment()],
+                        "This Month" : [moment().startOf("month"),moment().endOf("month")],
+                        "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
+                        "Lifetime" : [moment().subtract(50,"year"), moment()]
+                    }
+                }, dp)
+    
+                dp(start, end);
             }
-            $("#reportrange").daterangepicker({
-                startDate : start,
-                endDate : end,
-                ranges : {
-                    "Today" : [moment(), moment()],
-                    "Yesterday" : [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                    "Last 7 days" : [moment().subtract(6, "days"), moment()],
-                    "Last 30 Days" : [moment().subtract(29, "days"), moment()],
-                    "This Month" : [moment().startOf("month"),moment().endOf("month")],
-                    "Last Month" : [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
-                    "Lifetime" : [moment().subtract(50,"year"), moment()]
-                }
-            }, dp)
-
-            dp(start, end);
         }
 
         else{

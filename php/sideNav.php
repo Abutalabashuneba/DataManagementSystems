@@ -5,12 +5,12 @@
     </button>
 
     <div class="collapse navbar-collapse" id="myNav">
-        <div class="container-fluid">
+        <div class="container-fluid p-0">
             <div class="row w-100 mx-auto">
                 <!--Start of side nav-->
                 <div class="col-xl-2 col-lg-3 col-md-4 sideNav fixed-top">
                     <a href="#" class="navbar-brand d-block text-white mx-auto text-center bottomBorder py-3 mb-4">
-                        <img src="images/logo2.png" alt="logo">
+                        <img class="img-logo w-50 h-50" src="images/logo2.png" alt="logo">
                     </a>
 
                     <div class="bottomBorder text-white text-center pb-3">

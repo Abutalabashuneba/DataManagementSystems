@@ -57,8 +57,6 @@
                                     <div class="col-xl-7 col-lg-7 col-md-7">
                                         <h2>Feeds</h2>
                                     </div>
-
-                                    
                                 
                                     <div class="col-xl-12 table-responsive">
                                         <!--Start of chicken table-->
@@ -80,7 +78,6 @@
                                         <hr>
                                     </div>
                                   
-
                                     <!--Table 2-->
                                     <div class="col-xl-7 col-lg-7 col-md-7 ml-auto mt-5">
                                         <h2>Healths</h2>
@@ -122,7 +119,7 @@
                                     <div class='col-xl-5 col-lg-5 col-md-5 ml-auto mt-5'>
                                         <div id="btnChicken">
                                             <div id="chickenAddBtn1">
-                                                <button class="btn mb-3 float-right" id="addBtnC3" style="display:block;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                                                <button class="btn mb-3 float-right" id="addBtnC3" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
                                             </div>
                                         </div>
                                     </div>

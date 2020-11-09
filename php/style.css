@@ -74,7 +74,7 @@ body{
     border-radius: 8px;
 }
 
-@media (max-width:768px){
+@media (max-width:767px){
     .sideNav{
         position:static;
         height:auto;
@@ -242,28 +242,6 @@ Index page Progress bar
     top: 0;
     left: 0;
   }
-  
-/*---------------------------------------------------------------------
-SearchBar Styling
----------------------------------------------------------------------*/
-#searchInput{
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  border-bottom: 2px solid #eee;
-  transition: ease-in .3s;
-}
-
-#searchInput:focus{
-  background: transparent;
-  box-shadow: none;
-  border-bottom: 2px solid #f44336;
-}
-
-#searchInput::placeholder{
-  color:white !important;
-}
-
 /*---------------------------------------------------------------------
 Add Button Styling
 ---------------------------------------------------------------------*/
@@ -409,6 +387,10 @@ AddForm Styling
 	top:485px;
 }
 /*End Add data page*/
+
+.CLabel:hover{
+  cursor: text;
+}
 
 .addCProduction:focus + .CLabel,.addCProduction:valid + .CLabel,
 .updateCProduction:focus + .CLabel, .updateCProduction:valid + .CLabel,

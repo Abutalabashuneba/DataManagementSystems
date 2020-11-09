@@ -36,16 +36,16 @@
                         </div>
                         <!--  -->
                         <div class="row">
-                                <div id="reportrange" class="datepicker" style="text-align: center; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%">
-                                    <i class="fa fa-calendar"></i>&nbsp;
-                                    <span></span> <i class="fa fa-caret-down"></i>
-                                </div>
+                            <div id="reportrange" class="datepicker" style="text-align: center; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%">
+                                <i class="fa fa-calendar"></i>&nbsp;
+                                <span></span> <i class="fa fa-caret-down"></i>
+                            </div>
 
-                            <div class='col-xl-5 col-lg-5 col-md-5 ml-auto'>
+                            <div class='col-xl-5 col-lg-5 col-md-5 col-sm-2 ml-auto'>
                                 <div id="btnChicken">
-                                <div id="chickenAddBtn1">
-                                    <button class="btn mb-3 float-right" id="addBtn" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
-                                </div>
+                                    <div id="chickenAddBtn1">
+                                        <button class="btn mb-3 float-right" id="addBtn" style="display:none;"><i class="fas fa-plus" data-toggle="tooltip" title="add data"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

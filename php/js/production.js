@@ -2,8 +2,6 @@ if(sessionStorage.getItem("type") == "Admin") {
     document.getElementById("addBtnC").style.display = "block";
     document.getElementById("addBtnC2").style.display = "block"; 
     document.getElementById("addBtnC3").style.display = "block";
-    //document.getElementById("addBtnBSF").style.display = "block";
-    
 }
 //Chicken table 1
 var tableHeadC = document.querySelector(".productionHeaderC");
@@ -23,7 +21,7 @@ var datalistBSFL = document.querySelector(".productionBodyDataBSFL");
 var dropdownC = document.querySelector("#productionArea");
 
 var database = firebase.database();
-var productionRef = database.ref("Production");
+var productionRef = database.ref("Data/Production");
 
 var datatype1 = "feed";
 var datatype2 = "health";
@@ -312,6 +310,7 @@ function populateProductionTable(){
                             }
                             datalistC3.innerHTML = rowData3;
                         }
+
                         if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
                             $('#chickenTable-Area1').DataTable();
                         }
@@ -386,11 +385,11 @@ function populateProductionTable(){
             }
 
         tableHeadBSF.innerHTML = header;
-
+        
         if(productionObj != undefined){
             if(productionObj[type] != undefined){
                 if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
-
+                
                 for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
                     if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
                         optionsList = `
@@ -417,47 +416,47 @@ function populateProductionTable(){
 
                     $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
 
-                    for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
-                        var keys = Object.keys(productionObj[type][areaSelected])[x];
-
-                        var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
-                        var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
-
-                        if(newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp){
-                            var d = new Date(productionObj[type][areaSelected][keys].timestamp);
-                            var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
-                            var datetime = d.toLocaleString("en-us", options);
-                            let tr = "";
-
-                            tr = `
-                            <tr>
-                                <td class="id">${x + 1}</td>
-                                <td>${datetime}</td>
-                                <td>${productionObj[type][areaSelected][keys].eggProduce}</td>
-                            `;
-
-                            if(sessionStorage.getItem("type") == "Admin"){
-                                tr += `
-                                    <td>
-                                    <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
-                                    <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
-                                    </td>
-                                </tr>
+                    if(productionObj[type][areaSelected] != undefined){
+                        for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
+                            var keys = Object.keys(productionObj[type][areaSelected])[x];
+                            var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
+                            var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
+    
+                            if(newstartdate <= productionObj[type][areaSelected][keys].timestamp && newenddate >= productionObj[type][areaSelected][keys].timestamp){
+                                var d = new Date(productionObj[type][areaSelected][keys].timestamp);
+                                var options = { month: "2-digit", day: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" };
+                                var datetime = d.toLocaleString("en-us", options);
+                                let tr = "";
+    
+                                tr = `
+                                <tr>
+                                    <td class="id">${x + 1}</td>
+                                    <td>${datetime}</td>
+                                    <td>${productionObj[type][areaSelected][keys].eggProduce}</td>
                                 `;
+    
+                                if(sessionStorage.getItem("type") == "Admin"){
+                                    tr += `
+                                        <td>
+                                        <span class="table-remove"><button type="button" class="btn btn-outline-danger btn-sm" id="deleteBtn" data-toggle="tooltip" title="delete">&#10005;</button></span>
+                                        <span class="table-edit"><button type="button" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="edit">&#9998;</button></span>
+                                        </td>
+                                    </tr>
+                                    `;
+                                }
+    
+                                else{
+                                    tr += `
+                                        </tr>;
+                                    `;
+                                }
+                                rowData += tr;
                             }
-
-                            else{
-                                tr += `
-                                    </tr>;
-                                `;
-                            }
-                            rowData += tr;
+                            datalistBSF.innerHTML = rowData;
                         }
-                    }
-                    datalistBSF.innerHTML = rowData;
-
-                    if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
-                        $('#bsfTable-Area1').DataTable();
+                        if(!$.fn.DataTable.isDataTable('#bsfTable-Area1')){
+                            $('#bsfTable-Area1').DataTable();
+                        }
                     }
                 }
                 $("#reportrange").daterangepicker({
@@ -516,7 +515,9 @@ function populateProductionTable(){
 
         if(productionObj != undefined){
             if(productionObj[type] != undefined){
-                if(productionObj[type][areaSelected] == undefined) { areaSelected = Object.keys(productionObj[type])[0]; }
+                if(productionObj[type][areaSelected] == undefined) { 
+                    areaSelected = Object.keys(productionObj[type])[0]; 
+                }
 
                 for(var x = 0; x < Object.keys(productionObj[type]).length; ++x){
                     if(areaSelected == `${Object.keys(productionObj[type])[x]}`){
@@ -603,10 +604,10 @@ function populateProductionTable(){
 
                 dp(start, end);
             }
-        }
 
-        else{
-            dropdownC.innerHTML = html;
+            else{
+                dropdownC.innerHTML = html;
+            }
         }
 
         if(!$.fn.DataTable.isDataTable('#bsflTable-Area1')){
@@ -711,7 +712,7 @@ var add = function(e){
                                         })
                                         
                                         modal.hide()
-                                        var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype1);
+                                        var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype1);
                                         myref.push(data);
                                     }
 
@@ -780,7 +781,7 @@ var add = function(e){
                                     })
                                     
                                     modal.hide()
-                                    var myref = database.ref("Production/"+type+"/"+areaSelected);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                     myref.push(data);
                                }
                                 
@@ -841,7 +842,7 @@ var add = function(e){
                                     })
                                     
                                     modal.hide()
-                                    var myref = database.ref("Production/"+type+"/"+areaSelected);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                     myref.push(data);
                                }
                                 
@@ -893,7 +894,7 @@ var remove = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype1);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype1);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -927,7 +928,7 @@ var remove = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    var myref = database.ref("Production/"+type+"/"+areaSelected);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -961,12 +962,11 @@ var remove = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    var myref = database.ref("Production/"+type+"/"+areaSelected);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
-						
-					datalistBSFL.innerHTML = "";
+					    datalistBSFL.innerHTML = "";
 					}
                 }
             }
@@ -1039,7 +1039,7 @@ var update = function(e){
                                             body: "Data has been updated successfully",
                                         })
                                         
-                                        var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype1);
+                                        var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype1);
                                         myref.child(keys).update(data); 
                                     }
 
@@ -1109,7 +1109,7 @@ var update = function(e){
                                 var data = {
                                     eggProduce: parseInt($form.find("#updateAmountBSF").val()),
                                 }
-                                var myref = database.ref("Production/"+type+"/"+areaSelected);
+                                var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
                             }
                             else{
@@ -1169,7 +1169,7 @@ var update = function(e){
                                 var data = {
                                     larvaHarvest: parseInt($form.find("#updateAmountBSF").val()),
                                 }
-                                var myref = database.ref("Production/"+type+"/"+areaSelected);
+                                var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                                 myref.child(keys).update(data);
                             }
                             else{
@@ -1241,7 +1241,6 @@ var add2 = function(e){
                                     injured: parseInt($form.find("#injured").val()),
                                     cull:  parseInt($form.find("#cull").val()),
                                     dead:  parseInt($form.find("#dead").val()),
-                                    // mortality:  parseInt($form.find("#mortality").val()),
                                     timestamp: new Date(date).getTime()
                                 }
 
@@ -1252,7 +1251,7 @@ var add2 = function(e){
                                     })
                                     
                                     modal.hide()
-                                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype2);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype2);
                                     myref.push(data);
                                }
                                 
@@ -1305,7 +1304,7 @@ var remove2 = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype2);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype2);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -1393,7 +1392,7 @@ var update2 = function(e){
                                         body: "Data has been updated successfully",
                                     })
                                     
-                                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype2);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype2);
                                     myref.child(keys).update(data); 
                                }
 
@@ -1467,7 +1466,7 @@ var add3 = function(e){
                                     })
                                     
                                     modal.hide()
-                                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype3);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype3);
                                     myref.push(data);
                                }
                                 
@@ -1517,7 +1516,7 @@ var remove3 = function(e){
                         title: "Delete Status",
                         body: "Data has been deleted successfully",
                     })
-                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype3);
+                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype3);
                     myref.child(deleteIndex).remove();
 					if (x == 1)
 					{
@@ -1550,15 +1549,12 @@ var update3 = function(e){
             body : '<form><div class="form-group px-5">' +
             '<input type="text" step="any" min="0" name="Date" class="form-control updateDateData" id="updateDate" disabled value=' + datetime + '>' +
             '<label for="updateDate" class="CLabel" id="update"></label></div>' +
-
             '<div class="form-group px-5"><input type="number" step="any" min="0" name="avgFeed" class="form-control updateCProduction" id="avgFeed" value=' +
             productionObj[type][areaSelected][datatype3][keys].avgFeedChix + '>' +  
             '<label for="avgFeed" class="CLabel" id="updateproductionLabel">(Avg. Feed Intake Chicken)</label></div>' + 
-
             '<div class="form-group px-5"><input type="number" step="any" min="0" name="avgWeight" class="form-control updateCProduction" id="avgWeight" value=' +
             productionObj[type][areaSelected][datatype3][keys].avgWeightChix + '>' +
             '<label for="avgWeight" class="CLabel" id="updateweightLabel">(Weight Gain Chicken)</label></div>' +  
-
             '<button type="submit" name="add" class="btn  btn-block updateDataBtn text-white">Update</button></form>',
             onCreate: function (modal) {
                 // create event handler for form submit and handle values
@@ -1587,7 +1583,7 @@ var update3 = function(e){
                                         body: "Data has been updated successfully",
                                     })
                                     
-                                    var myref = database.ref("Production/"+type+"/"+areaSelected+"/"+datatype3);
+                                    var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype3);
                                     myref.child(keys).update(data); 
                                }
 
@@ -1620,7 +1616,3 @@ $(document).on("click", "#addBtnC3", add3);
 $(document).on('click', '.table-edit-table3', update3);
 $(document).on('click', '.table-remove-table3', remove3);
 
-
-//$(document).on("click", "#addBtnBSF", addBSF);
-//$(document).on('click', '.table-edit-bsf', update3);
-//$(document).on('click', '.table-remove-table3', remove3);
