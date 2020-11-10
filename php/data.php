@@ -122,7 +122,8 @@
     <script src="js/data.js"></script>
     <script src="js/bootstrap-show-modal.js"></script>
     <script src="js/script.js"></script>
-
+    <script src="js/push.js"></script>
+    <script src="js/notification.js"></script>
     <!-- table plug in-->
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap4.min.js"></script>

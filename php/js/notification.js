@@ -33,25 +33,31 @@ function checkThreshold(){
     var bsfArea = Object.keys(bsfObj);
     var bsflArea = Object.keys(bsflObj);
     var chickenLast = [];
+    var chickenLastKeys = [];
     var bsfLast = [];
+    var bsfLastKeys = [];
     var bsflLast = [];
+    var bsflLastKeys = [];
 
     for(var x = 0; x < chickenArea.length; ++x){
         var k = chickenArea[x];
         
         chickenLast.push(chickenObj[k][Object.keys(chickenObj[k])[Object.keys(chickenObj[k]).length - 1]]);
+        chickenLastKeys.push(Object.keys(chickenObj[k])[Object.keys(chickenObj[k]).length - 1]);
     }
 
     for(var x = 0; x < bsfArea.length; ++x){
         var k = bsfArea[x];
 
         bsfLast.push(bsfObj[k][Object.keys(bsfObj[k])[Object.keys(bsfObj[k]).length - 1]]);
+        bsfLastKeys.push(Object.keys(bsfObj[k])[Object.keys(bsfObj[k]).length - 1]);
     }
 
     for(var x = 0; x < bsflArea.length; ++x){
         var k = bsflArea[x];
 
         bsflLast.push(bsflObj[k][Object.keys(bsflObj[k])[Object.keys(bsflObj[k]).length - 1]]);
+        bsflLastKeys.push(Object.keys(bsflObj[k])[Object.keys(bsflObj[k]).length - 1]);
     }
     
     for(var x = 0; x < chickenLast.length; ++x){
@@ -70,7 +76,7 @@ function checkThreshold(){
         }
 
         if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + "Chicken " + chickenkeys[x], {
+            Push.create("Threshold Warning for : " + "Chicken " + chickenArea[x], {
                 body : bodyMsg,
                 icon : "images/warning.png",
                 timeout : 5000,
@@ -79,6 +85,10 @@ function checkThreshold(){
                     this.close();
                 }
             });
+            let myref = database.ref("Data/Chicken/" + chickenArea[x]);
+            if(chickenObj[chickenArea[x]][chickenLastKeys[x]].Threshold != 0 && chickenObj[chickenArea[x]][chickenLastKeys[x]].timestamp - 50000 <= new Date().getTime() && chickenObj[chickenArea[x]][chickenLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
+                myref.child(chickenLastKeys[x]).update(data = {Threshold : 1} );
+            }
         }
     }
 
@@ -89,7 +99,7 @@ function checkThreshold(){
             bodyMsg += "Temperature Warning (25 - 35) : " + bsfLast[x].temperature + "\n";
         }
 
-        if(bsflLast[x].humidity >= 60){
+        if(bsfLast[x].humidity >= 60){
             bodyMsg += "Humidity Warning (< 60) : " + bsfLast[x].humidity + "\n";
         }
 
@@ -98,7 +108,7 @@ function checkThreshold(){
         }
 
         if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + "BSF " + bsfkeys[x], {
+            Push.create("Threshold Warning for : " + "BSF " + bsfArea[x], {
                 body : bodyMsg,
                 icon : "images/warning.png",
                 timeout : 5000,
@@ -107,6 +117,10 @@ function checkThreshold(){
                     this.close();
                 }
             })
+            let myref = database.ref("Data/BSF/" + bsfArea[x]);
+            if(bsfObj[bsfArea[x]][bsfLastKeys[x]].Threshold != 0 && bsfObj[bsfArea[x]][bsfLastKeys[x]].timestamp - 50000 <= new Date().getTime() && bsfObj[bsfArea[x]][bsfLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
+                myref.child(bsfLastKeys[x]).update(data = {Threshold : 1} );
+            }
         }
     }
 
@@ -130,7 +144,7 @@ function checkThreshold(){
         }
 
         if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + "BSFL " + bsflkeys[x],{
+            Push.create("Threshold Warning for : " + "BSFL " + bsflArea[x],{
                 body : bodyMsg,
                 icon : "images/warning.png",
                 timeout : 5000,
@@ -139,6 +153,10 @@ function checkThreshold(){
                     this.close();
                 }
             })
+            let myref = database.ref("Data/BSFL/" + bsflArea[x]);
+            if(bsflObj[bsflArea[x]][bsflLastKeys[x]].Threshold != 0 && bsflObj[bsflArea[x]][bsflLastKeys[x]].timestamp - 50000 <= new Date().getTime() && bsflObj[bsflArea[x]][bsflLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
+                myref.child(bsflLastKeys[x]).update(data = {Threshold : 1} );
+            }
         }
     }
 }

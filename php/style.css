@@ -448,4 +448,12 @@ Registration form
   transform: translateY(-1px);
 }
 
+.myMedia{
+  border: 2px groove black;
+  box-shadow: 8px 8px 5px gray;
+  transition: all .4s;
+}
 
+.myMedia:hover{
+  transform: translateY(-1px);
+}

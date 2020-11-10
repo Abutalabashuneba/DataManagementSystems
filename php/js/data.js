@@ -931,6 +931,7 @@ var add = function(e){
                         onSubmit: function(result){
                             var errorMSG = "";
                             if(result){
+                                date = $form.find("#date").val();
                                 var tempCheck = tempPatt.test($form.find("#cTemp").val());
                                 var humidCheck = humidPatt.test($form.find("#cHum").val());
                                 var lightCheck = lightPatt.test($form.find("#cLight").val());
@@ -1022,6 +1023,7 @@ var add = function(e){
                             var errorBSFMSG = "";
                             areaSelected = $form.find("#cArea").val();
                             if(result){
+                                date = $form.find("#date").val();
                                 var tempBSFCheck = tempPatt.test($form.find("#bsfTemp").val());
                                 var humidBSFCheck = humidPatt.test($form.find("#bsfHum").val());
                                 var lightBSFCheck = lightPatt.test($form.find("#bsfLux").val());
@@ -1053,7 +1055,6 @@ var add = function(e){
                                         })
 
                                         modal.hide()
-                                        console.log(areaSelected);
                                         let myref = database.ref("Data/"+type+"/"+areaSelected);
                                         myref.push(data);
                                     }
@@ -1115,6 +1116,7 @@ var add = function(e){
                             var errorBSFLMSG = "";
                             areaSelected = $form.find("#bArea").val();
                             if(result){
+                                date = $form.find("#date").val();
                                 var tempBSFLCheck = tempPatt.test($form.find("#bsflTemp").val());
                                 var humidCheck = humidPatt.test($form.find("#bsflHum").val());
                                 var moistBSFLCheck = moistPatt.test($form.find("#bsflMois").val());

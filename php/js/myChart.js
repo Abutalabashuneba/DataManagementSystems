@@ -765,7 +765,7 @@ function drawCharts(){
                 labels : eggLabel,
                 datasets : [
                     {
-                        label : "Eggs Produced",
+                        label : "Eggs Produced (Grams)",
                         backgroundColor : '#3366cc',
                         data : egg
                     }
@@ -807,6 +807,8 @@ function drawCharts(){
             pointMoistureBSFLAll = [];
             pointHumidBSFLDaily = [];
             pointSoilBSFLAll = [];
+            larvaeLabel = [];
+            larvae = [];
             $("#reportrange span").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
             
             if(bsflObj != undefined){
@@ -906,7 +908,7 @@ function drawCharts(){
                 labels : larvaeLabel,
                 datasets : [
                     {
-                        label : "Larvae Harvested",
+                        label : "Larvae Harvested (KG)",
                         backgroundColor : '#22aa99',
                         data : larvae
                     }

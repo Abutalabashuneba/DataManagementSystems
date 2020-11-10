@@ -547,7 +547,6 @@ function populateProductionTable(){
 
                     for(var x = 0; x < Object.keys(productionObj[type][areaSelected]).length; ++x){
                         var keys = Object.keys(productionObj[type][areaSelected])[x];
-
                         var newstartdate = Date.parse(start.format("YYYY.MM.DD 00:00:00"));
                         var newenddate = Date.parse(end.format("YYYY.MM.DD 23:59:59"));
 

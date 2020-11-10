@@ -194,6 +194,8 @@
     <script src="js/modal.js"></script>
     <script src="js/production.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/push.js"></script>
+    <script src="js/notification.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap4.min.js"></script>
 </body>
