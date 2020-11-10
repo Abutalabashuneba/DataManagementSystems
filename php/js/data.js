@@ -1020,6 +1020,7 @@ var add = function(e){
                             "<b>Area:</b>" + $form.find("#cArea").val(),
                         onSubmit: function(result){
                             var errorBSFMSG = "";
+                            areaSelected = $form.find("#cArea").val();
                             if(result){
                                 var tempBSFCheck = tempPatt.test($form.find("#bsfTemp").val());
                                 var humidBSFCheck = humidPatt.test($form.find("#bsfHum").val());
@@ -1052,6 +1053,7 @@ var add = function(e){
                                         })
 
                                         modal.hide()
+                                        console.log(areaSelected);
                                         let myref = database.ref("Data/"+type+"/"+areaSelected);
                                         myref.push(data);
                                     }

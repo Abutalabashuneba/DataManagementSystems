@@ -156,5 +156,8 @@
     <script src="js/script.js"></script>
     <script src="js/bootstrap-show-modal.js"></script>
     <script src="js/modal.js"></script>
+    <!-- <script src="js/serviceWorker.js"></script> -->
+    <script src="js/push.js"></script>
+    <script src="js/notification.js"></script>
 </body>
 </html>
