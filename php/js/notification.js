@@ -25,7 +25,6 @@ ref.on("value", snap=>{
             chickenObj = dataObj[k];
         }
     }
-
     checkThreshold();
 })
 
@@ -71,7 +70,7 @@ function checkThreshold(){
         }
 
         if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + chickenkeys[x], {
+            Push.create("Threshold Warning for : " + "Chicken " + chickenkeys[x], {
                 body : bodyMsg,
                 icon : "images/warning.png",
                 timeout : 5000,
@@ -99,7 +98,7 @@ function checkThreshold(){
         }
 
         if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + bsfkeys[x], {
+            Push.create("Threshold Warning for : " + "BSF " + bsfkeys[x], {
                 body : bodyMsg,
                 icon : "images/warning.png",
                 timeout : 5000,
@@ -131,7 +130,7 @@ function checkThreshold(){
         }
 
         if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + bsflkeys[x],{
+            Push.create("Threshold Warning for : " + "BSFL " + bsflkeys[x],{
                 body : bodyMsg,
                 icon : "images/warning.png",
                 timeout : 5000,
