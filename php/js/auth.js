@@ -43,7 +43,7 @@ $(document).ready(function(){
         $("#text").html("Production");
     }
 
-    else if(window.location.href.search("sensor.php") > 0){
+    else if(window.location.href.search("sensors.php") > 0){
         $("#myNavUl").children().eq(3).addClass("current");
         $("#myNavUl").children().eq(0).addClass("sideNavLink");
         $("#myNavUl").children().eq(1).addClass("sideNavLink");

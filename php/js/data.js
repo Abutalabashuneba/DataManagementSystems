@@ -107,7 +107,7 @@ function populateTables(){
         
             if(dropdown) { dropdown.innerHTML = html; }
     
-            var start = moment().subtract(31,"days");
+            var start = moment();
             var end = moment();
     
             function dp(start, end){
@@ -234,7 +234,7 @@ function populateTables(){
             
                 if(dropdown) { dropdown.innerHTML = html; }
     
-                var start = moment().subtract(31,"days");
+                var start = moment();
                 var end = moment();
     
                 function dp(start, end){
@@ -372,7 +372,7 @@ function populateTables(){
             
                 if(dropdown) { dropdown.innerHTML = html; }
     
-                var start = moment().subtract(31,"days");
+                var start = moment();
                 var end = moment();
     
                 function dp(start, end){
