@@ -896,10 +896,6 @@ var remove = function(e){
                     })
                     var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype1);
                     myref.child(deleteIndex).remove();
-					if (x == 1)
-					{
-					    datalistC.innerHTML = "";
-					}
                 }
             }
         })
@@ -930,11 +926,6 @@ var remove = function(e){
                     })
                     var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
-					if (x == 1)
-					{
-						
-					datalistBSF.innerHTML = "";
-					}
                 }
             }
         })
@@ -964,10 +955,6 @@ var remove = function(e){
                     })
                     var myref = database.ref("Data/Production/"+type+"/"+areaSelected);
                     myref.child(deleteIndex).remove();
-					if (x == 1)
-					{
-					    datalistBSFL.innerHTML = "";
-					}
                 }
             }
         })
@@ -1306,10 +1293,6 @@ var remove2 = function(e){
                     })
                     var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype2);
                     myref.child(deleteIndex).remove();
-					if (x == 1)
-					{
-					    datalistC2.innerHTML = "";
-					}
                 }
             }
         })
@@ -1518,10 +1501,6 @@ var remove3 = function(e){
                     })
                     var myref = database.ref("Data/Production/"+type+"/"+areaSelected+"/"+datatype3);
                     myref.child(deleteIndex).remove();
-					if (x == 1)
-					{
-					    datalistC3.innerHTML = "";
-					}
                 }
             }
         })
