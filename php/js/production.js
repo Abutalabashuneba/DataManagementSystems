@@ -447,7 +447,7 @@ function populateProductionTable(){
     
                                 else{
                                     tr += `
-                                        </tr>;
+                                        </tr>
                                     `;
                                 }
                                 rowData += tr;
@@ -575,7 +575,7 @@ function populateProductionTable(){
 
                             else{
                                 tr += `
-                                    </tr>;
+                                    </tr>
                                 `;
                             }
                             rowData += tr;

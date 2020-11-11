@@ -278,8 +278,8 @@ function populateTables(){
 
                                 else{
                                     tr += `
-                                        </tr>;
-                                    `
+                                        </tr>
+                                    `;
                                 }
         
                                 rowData += tr;

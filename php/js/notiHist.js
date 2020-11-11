@@ -88,7 +88,7 @@ function populateNotification(){
                 card = `
                     <div class="card mt-2">
                         <div class="card-header">
-                            <h4>
+                            <h4 class="m-0">
                                 Warning #<span class="index">${count++}</span><b style="color:green;">(New)</b>
                                 <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
                                 <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
@@ -117,7 +117,7 @@ function populateNotification(){
                 card = `
                     <div class="card mt-2">
                         <div class="card-header">
-                            <h4>
+                            <h4 class="m-0">
                                 Warning #<span class="index">${count++}</span>
                                 <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
                                 <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
