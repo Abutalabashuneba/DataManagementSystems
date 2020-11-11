@@ -8,7 +8,7 @@ else{
 
     if(sessionStorage.getItem("type") == "Admin"){
         document.getElementById("register").style.display = "block";
-        document.getElementById("sensor").style.display = "block";
+        // document.getElementById("sensor").style.display = "block";
     }
 }
 
