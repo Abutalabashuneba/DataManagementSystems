@@ -89,8 +89,9 @@ function populateNotification(){
                     <div class="card mt-2">
                         <div class="card-header">
                             <h4>
-                                Warning #<span class="index">${count++}</span>
+                                Warning #<span class="index">${count++}</span><b style="color:green;">(New)</b>
                                 <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
+                                <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
                             </h4>
                         </div>
 
@@ -105,9 +106,37 @@ function populateNotification(){
                             ">${chickenObj[areaSelected][keys].light}</span></p>
                         </div>
                     </div>
-            `;
+                    `;
 
-            cardData += card;  
+                cardData += card;  
+            }
+
+            else if(chickenObj[areaSelected][keys].Threshold == 2){
+                notikeys.push(keys);
+
+                card = `
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            <h4>
+                                Warning #<span class="index">${count++}</span>
+                                <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
+                                <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
+                            </h4>
+                        </div>
+
+                        <div class="card-body">
+                            <p>Date and Time : <span style="font-weight:bold;
+                            ">${datetime}</span></p>
+                            <p>Temperature : <span style="font-weight:bold;
+                            ">${chickenObj[areaSelected][keys].temperature}</span></p>
+                            <p>Humidity : <span style="font-weight:bold;
+                            ">${chickenObj[areaSelected][keys].humidity}</span></p>
+                            <p>Light : <span style="font-weight:bold;
+                            ">${chickenObj[areaSelected][keys].light}</span></p>
+                        </div>
+                    </div>
+                `;
+                cardData += card;  
             }
         }
 
@@ -154,9 +183,10 @@ function populateNotification(){
                 card = `
                 <div class="card mt-2">
                     <div class="card-header">
-                        <h4>
-                            Warning #<span class="index">${count++}</span>
+                        <h4 class="m-0">
+                            Warning #<span class="index">${count++}</span><b style="color:green;">(New)</b>
                             <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
+                            <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
                         </h4>
                     </div>
 
@@ -171,9 +201,36 @@ function populateNotification(){
                             ">${bsfObj[areaSelected][keys].light}</span></p>
                         </div>
                 </div>
-            `;
+                `;
+                cardData += card;  
+            }
 
-            cardData += card;  
+            else if(bsfObj[areaSelected][keys].Threshold == 1){
+                notikeys.push(keys);
+
+                card = `
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h4 class="m-0">
+                            Warning #<span class="index">${count++}</span>
+                            <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
+                            <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
+                        </h4>
+                    </div>
+
+                    <div class="card-body">
+                            <p>Date and Time : <span style="font-weight:bold;
+                            ">${datetime}</span></p>
+                            <p>Temperature : <span style="font-weight:bold;
+                            ">${bsfObj[areaSelected][keys].temperature}</span></p>
+                            <p>Humidity : <span style="font-weight:bold;
+                            ">${bsfObj[areaSelected][keys].humidity}</span></p>
+                            <p>Light : <span style="font-weight:bold;
+                            ">${bsfObj[areaSelected][keys].light}</span></p>
+                        </div>
+                </div>
+                `;
+                cardData += card;  
             }
         }
 
@@ -220,9 +277,10 @@ function populateNotification(){
                 card = `
                     <div class="card mt-2">
                         <div class="card-header">
-                            <h4>
-                                Warning #<span class="index">${count++}</span>
+                            <h4 class="m-0">
+                                Warning #<span class="index">${count++}</span><b style="color:green;">(New)</b>
                                 <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
+                                <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
                             </h4>
                         </div>
 
@@ -239,10 +297,41 @@ function populateNotification(){
                             ">${bsflObj[areaSelected][keys].soilTemp}</span></p>
                         </div>
                     </div>
-            `;
+                `;
 
-            cardData += card;  
+                cardData += card;  
             }
+
+            else if(bsflObj[areaSelected][keys].Threshold == 2){
+                notikeys.push(keys);
+
+                card = `
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            <h4 class="m-0">
+                                Warning#<span class="index">${count++}</span>
+                                <button type="button" class="close" id="closeNoti"><span>&times;</span></button>
+                                <button type="button" class="close" id="checkNoti"><span>&check;</span></button>
+                            </h4>
+                        </div>
+
+                        <div class="card-body">
+                            <p>Date and Time : <span style="font-weight:bold;
+                            ">${datetime}</span></p>
+                            <p>Temperature : <span style="font-weight:bold;
+                            ">${bsflObj[areaSelected][keys].temperature}</span></p>
+                            <p>Humidity : <span style="font-weight:bold;
+                            ">${bsflObj[areaSelected][keys].humidity}</span></p>
+                            <p>Moisture : <span style="font-weight:bold;
+                            ">${bsflObj[areaSelected][keys].moisture}</span></p>
+                            <p>Soil Temperature : <span style="font-weight:bold;
+                            ">${bsflObj[areaSelected][keys].soilTemp}</span></p>
+                        </div>
+                    </div>
+                `;
+
+                cardData += card;  
+            }   
         }
         cardArea.innerHTML = cardData;
     }
@@ -340,4 +429,75 @@ var remove = function(e){
     }
 }
 
+var update = function(e){
+    e.preventDefault();
+
+    var toberemove = $(this).parents("h4").children(".index").text() - 1;
+
+    if(type == "Chicken"){
+        $.showConfirm({
+            title : "Are you sure",
+            textTrue : "Yes",
+            textFalse : "No",
+            body : "Check Notification",
+    
+            onSubmit : function(result){
+                if(result){
+                    $.showAlert({
+                        title : "Check status",
+                        body : "Notification has been checked"
+                    })
+    
+                    let myref = database.ref("Data/Chicken/"+areaSelected);
+                    myref.child(notikeys[toberemove]).update({Threshold : 2});
+                }
+            }
+        })
+    }
+
+    else if(type == "BSF"){
+        $.showConfirm({
+            title : "Are you sure",
+            textTrue : "Yes",
+            textFalse : "No",
+            body : "Check Notification",
+    
+            onSubmit : function(result){
+                if(result){
+                    $.showAlert({
+                        title : "Check status",
+                        body : "Notification has been checked"
+                    })
+    
+                    let myref = database.ref("Data/BSF/"+areaSelected);
+                    myref.child(notikeys[toberemove]).update({Threshold : 2});
+                }
+            }
+        })
+    }
+
+    else if(type == "BSFL"){
+        $.showConfirm({
+            title : "Are you sure",
+            textTrue : "Yes",
+            textFalse : "No",
+            body : "Check Notification",
+    
+            onSubmit : function(result){
+                if(result){
+                    $.showAlert({
+                        title : "Check status",
+                        body : "Notification has been checked"
+                    })
+    
+                    let myref = database.ref("Data/BSFL/"+areaSelected);
+                    myref.child(notikeys[toberemove]).update({Threshold : 2});
+                }
+            }
+        })
+    }
+}
+
 $(document).on("click", "#closeNoti", remove);
+$(document).on("click", "#checkNoti", update);
+

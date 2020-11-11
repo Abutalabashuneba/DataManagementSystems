@@ -93,8 +93,6 @@ function checkThreshold(){
     }
 
     for(var x = 0; x < bsfLast.length; ++x){
-        var bodyMsg = "";
-
         if(bsfLast[x].temperature < 25 || bsfLast[x].temperature > 35){
             bodyMsg += "Temperature Warning (25 - 35) : " + bsfLast[x].temperature + "\n";
         }
@@ -125,8 +123,6 @@ function checkThreshold(){
     }
 
     for(var x = 0; x < bsflLast.length; ++x){
-        var bodyMsg = "";
-        
         if(bsflLast[x].temperature < 30 || bsflLast[x].temperature > 36){
             bodyMsg += "Temperature Warning (30 - 36) : " + bsflLast[x].temperature + "\n";
         }
