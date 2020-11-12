@@ -205,7 +205,7 @@ function populateNotification(){
                 cardData += card;  
             }
 
-            else if(bsfObj[areaSelected][keys].Threshold == 1){
+            else if(bsfObj[areaSelected][keys].Threshold == 2){
                 notikeys.push(keys);
 
                 card = `
@@ -500,4 +500,5 @@ var update = function(e){
 
 $(document).on("click", "#closeNoti", remove);
 $(document).on("click", "#checkNoti", update);
+
 

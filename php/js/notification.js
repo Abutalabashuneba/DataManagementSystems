@@ -63,95 +63,105 @@ function checkThreshold(){
     for(var x = 0; x < chickenLast.length; ++x){
         var bodyMsg = "";
         
-        if(chickenLast[x].temperature < 20 || chickenLast[x].temperature > 30){
-            bodyMsg += "Tempearature Warning (20 - 30) : " + chickenLast[x].temperature + "\n";
-        }
-
-        if(chickenLast[x].humidity < 60 || chickenLast[x].humidity > 80){
-            bodyMsg += "Humidity Warning (60 - 80) : " + chickenLast[x].humidity + "\n";
-        }
-
-        if(chickenLast[x].light >= 1000){
-            bodyMsg += "Light Warning (< 1000) : " + chickenLast[x].light + "\n";
-        }
-
-        if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + "Chicken " + chickenArea[x], {
-                body : bodyMsg,
-                icon : "images/warning.png",
-                timeout : 5000,
-                onClick : function() {
-                    window.focus();
-                    this.close();
+        if(chickenObj[chickenArea[x]][chickenLastKeys[x]].Threshold != 2){
+            if(chickenLast[x].temperature < 20 || chickenLast[x].temperature > 30){
+                bodyMsg += "Tempearature Warning (20 - 30) : " + chickenLast[x].temperature + "\n";
+            }
+    
+            if(chickenLast[x].humidity < 60 || chickenLast[x].humidity > 80){
+                bodyMsg += "Humidity Warning (60 - 80) : " + chickenLast[x].humidity + "\n";
+            }
+    
+            if(chickenLast[x].light >= 1000){
+                bodyMsg += "Light Warning (< 1000) : " + chickenLast[x].light + "\n";
+            }
+    
+            if(bodyMsg != ""){
+                Push.create("Threshold Warning for : " + "Chicken " + chickenArea[x], {
+                    body : bodyMsg,
+                    icon : "images/warning.png",
+                    timeout : 5000,
+                    onClick : function() {
+                        window.focus();
+                        this.close();
+                    }
+                });
+                let myref = database.ref("Data/Chicken/" + chickenArea[x]);
+                if(chickenObj[chickenArea[x]][chickenLastKeys[x]].Threshold != 0 && chickenObj[chickenArea[x]][chickenLastKeys[x]].timestamp - 50000 <= new Date().getTime() && chickenObj[chickenArea[x]][chickenLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
+                    myref.child(chickenLastKeys[x]).update(data = {Threshold : 1} );
                 }
-            });
-            let myref = database.ref("Data/Chicken/" + chickenArea[x]);
-            if(chickenObj[chickenArea[x]][chickenLastKeys[x]].Threshold != 0 && chickenObj[chickenArea[x]][chickenLastKeys[x]].timestamp - 50000 <= new Date().getTime() && chickenObj[chickenArea[x]][chickenLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
-                myref.child(chickenLastKeys[x]).update(data = {Threshold : 1} );
             }
         }
     }
 
     for(var x = 0; x < bsfLast.length; ++x){
-        if(bsfLast[x].temperature < 25 || bsfLast[x].temperature > 35){
-            bodyMsg += "Temperature Warning (25 - 35) : " + bsfLast[x].temperature + "\n";
-        }
+        var bodyMsg = "";
 
-        if(bsfLast[x].humidity >= 60){
-            bodyMsg += "Humidity Warning (< 60) : " + bsfLast[x].humidity + "\n";
-        }
-
-        if(bsfLast[x].light >= 1000){
-            bodyMsg += "Light Warning (< 1000) : " + bsfLast[x].light + "\n";
-        }
-
-        if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + "BSF " + bsfArea[x], {
-                body : bodyMsg,
-                icon : "images/warning.png",
-                timeout : 5000,
-                onClick : function() {
-                    window.focus();
-                    this.close();
+        if(bsfObj[bsfArea[x]][bsfLastKeys[x]].Threshold != 2){
+            if(bsfLast[x].temperature < 25 || bsfLast[x].temperature > 35){
+                bodyMsg += "Temperature Warning (25 - 35) : " + bsfLast[x].temperature + "\n";
+            }
+    
+            if(bsfLast[x].humidity >= 60){
+                bodyMsg += "Humidity Warning (< 60) : " + bsfLast[x].humidity + "\n";
+            }
+    
+            if(bsfLast[x].light >= 1000){
+                bodyMsg += "Light Warning (< 1000) : " + bsfLast[x].light + "\n";
+            }
+    
+            if(bodyMsg != ""){
+                Push.create("Threshold Warning for : " + "BSF " + bsfArea[x], {
+                    body : bodyMsg,
+                    icon : "images/warning.png",
+                    timeout : 5000,
+                    onClick : function() {
+                        window.focus();
+                        this.close();
+                    }
+                })
+                let myref = database.ref("Data/BSF/" + bsfArea[x]);
+                if(bsfObj[bsfArea[x]][bsfLastKeys[x]].Threshold != 0 && bsfObj[bsfArea[x]][bsfLastKeys[x]].timestamp - 50000 <= new Date().getTime() && bsfObj[bsfArea[x]][bsfLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
+                    myref.child(bsfLastKeys[x]).update(data = {Threshold : 1} );
                 }
-            })
-            let myref = database.ref("Data/BSF/" + bsfArea[x]);
-            if(bsfObj[bsfArea[x]][bsfLastKeys[x]].Threshold != 0 && bsfObj[bsfArea[x]][bsfLastKeys[x]].timestamp - 50000 <= new Date().getTime() && bsfObj[bsfArea[x]][bsfLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
-                myref.child(bsfLastKeys[x]).update(data = {Threshold : 1} );
             }
         }
     }
 
     for(var x = 0; x < bsflLast.length; ++x){
-        if(bsflLast[x].temperature < 30 || bsflLast[x].temperature > 36){
-            bodyMsg += "Temperature Warning (30 - 36) : " + bsflLast[x].temperature + "\n";
-        }
+        var bodyMsg = "";
 
-        if(bsflLast[x].humidity < 60 || bsflLast[x].humidity > 80){
-            bodyMsg += "Humidity Warning (60 - 80) : " + bsflLast[x].humidity + "\n";
-        }
-
-        if(bsflLast[x].moisture < 60 || bsflLast[x].moisture > 80){
-            bodyMsg += "Moisture Warning (60 - 80) : " + bsflLast[x].moisture + "\n";
-        }
-
-        if(bsflLast[x].soilTemp < 20 || bsfLast[x].soilTemp > 30){
-            bodyMsg += "Soil Temperature Warning (20 - 30) : " + bsflLast[x].soilTemp + "\n";
-        }
-
-        if(bodyMsg != ""){
-            Push.create("Threshold Warning for : " + "BSFL " + bsflArea[x],{
-                body : bodyMsg,
-                icon : "images/warning.png",
-                timeout : 5000,
-                onClick : function(){
-                    window.focus();
-                    this.close();
+        if(bsflObj[bsflArea[x]][bsflLastKeys[x]].Threshold != 2){
+            if(bsflLast[x].temperature < 30 || bsflLast[x].temperature > 36){
+                bodyMsg += "Temperature Warning (30 - 36) : " + bsflLast[x].temperature + "\n";
+            }
+    
+            if(bsflLast[x].humidity < 60 || bsflLast[x].humidity > 80){
+                bodyMsg += "Humidity Warning (60 - 80) : " + bsflLast[x].humidity + "\n";
+            }
+    
+            if(bsflLast[x].moisture < 60 || bsflLast[x].moisture > 80){
+                bodyMsg += "Moisture Warning (60 - 80) : " + bsflLast[x].moisture + "\n";
+            }
+    
+            if(bsflLast[x].soilTemp < 20 || bsfLast[x].soilTemp > 30){
+                bodyMsg += "Soil Temperature Warning (20 - 30) : " + bsflLast[x].soilTemp + "\n";
+            }
+    
+            if(bodyMsg != ""){
+                Push.create("Threshold Warning for : " + "BSFL " + bsflArea[x],{
+                    body : bodyMsg,
+                    icon : "images/warning.png",
+                    timeout : 5000,
+                    onClick : function(){
+                        window.focus();
+                        this.close();
+                    }
+                })
+                let myref = database.ref("Data/BSFL/" + bsflArea[x]);
+                if(bsflObj[bsflArea[x]][bsflLastKeys[x]].Threshold != 0 && bsflObj[bsflArea[x]][bsflLastKeys[x]].timestamp - 50000 <= new Date().getTime() && bsflObj[bsflArea[x]][bsflLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
+                    myref.child(bsflLastKeys[x]).update(data = {Threshold : 1} );
                 }
-            })
-            let myref = database.ref("Data/BSFL/" + bsflArea[x]);
-            if(bsflObj[bsflArea[x]][bsflLastKeys[x]].Threshold != 0 && bsflObj[bsflArea[x]][bsflLastKeys[x]].timestamp - 50000 <= new Date().getTime() && bsflObj[bsflArea[x]][bsflLastKeys[x]].timestamp + 50000 >= new Date().getTime()){
-                myref.child(bsflLastKeys[x]).update(data = {Threshold : 1} );
             }
         }
     }
