@@ -153,7 +153,9 @@ function populateTables(){
                     datalistC.innerHTML = rowData;
                 }
                 if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-                    $('#chickenTable-Area1').DataTable();
+                    $('#chickenTable-Area1').DataTable({
+                        "deferRender" : true,
+                    });
                 }
             }
             $("#reportrange").daterangepicker({
@@ -178,7 +180,9 @@ function populateTables(){
         }
 
         if(!$.fn.DataTable.isDataTable('#chickenTable-Area1')){
-            $('#chickenTable-Area1').DataTable();
+            $('#chickenTable-Area1').DataTable({
+                "deferRender" : true
+            });
         }
     }
 

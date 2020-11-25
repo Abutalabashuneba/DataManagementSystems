@@ -154,6 +154,13 @@ function registerForm(){
                                                     })
                                                 }
                                             }
+
+                                            else{
+                                                $.showAlert({
+                                                    title : "Account creation failed",
+                                                    body : "Password does not match"
+                                                })
+                                            }
                                             
                                         }else{
                                             $.showAlert({
